@@ -14,4 +14,9 @@ if [ "$DBUSER" = "" ]; then
 fi
 
 FILES="pgproc/sql/*.sql pgproc/plpgsql/*.sql pgproc/tests/tests.sql"
+FILES="$FILES core/sql/*.sql core/plpgsql/*.sql"
+echo 'Installing SQL from files:'
+for i in $FILES; do 
+    echo " - $i";
+done
 (echo 'BEGIN TRANSACTION; ' && cat $FILES && echo 'COMMIT; ' ) |  PGPASSWORD=$DBPASS PGOPTIONS="--client-min-messages=warning" psql -q -h localhost -U $DBUSER $DBNAME
