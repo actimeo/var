@@ -1,0 +1,8 @@
+Function volatility:
+
+- VOLATILE (default): anything, including modifying database
+
+- STABLE: cannot modify database, returns same result in a single statement (SELECT calls qualify)
+
+- IMMUTABLE: pure function, returns same result forever
+

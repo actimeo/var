@@ -13,7 +13,7 @@ if [ "$DBUSER" = "" ]; then
     exit;
 fi
 
-FILES="pgproc/sql/*.sql pgproc/plpgsql/*.sql pgproc/tests/tests.sql"
+FILES="pgproc/sql/*.sql pgdoc/sql/*.sql pgproc/plpgsql/*.sql pgproc/tests/tests.sql"
 FILES="$FILES core/sql/*.sql core/plpgsql/*.sql"
 echo 'Installing SQL from files:'
 for i in $FILES; do 
