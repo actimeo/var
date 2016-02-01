@@ -25,13 +25,13 @@
   - list of functions
 */
 
-CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_prefix_ignore varchar)
+CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_ignore varchar[])
 RETURNS SETOF name
 LANGUAGE PLPGSQL
 STABLE
 AS $$
 BEGIN
-   RETURN QUERY SELECT nspname FROM pg_namespace WHERE nspname NOT like $1 || '%';
+   RETURN QUERY SELECT nspname FROM pg_namespace WHERE nspname NOT like all(prm_ignore);
 END;
 $$;
 

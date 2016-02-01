@@ -32,10 +32,13 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
    *********/
 
   public function testReturnsListOfSchemas() {
-    $res = self::$base->pgdoc->list_schemas('pg');    
+    $res = self::$base->pgdoc->list_schemas(array('public', 'information_schema', 'pg%'));    
+    print_r($res);
     $this->assertGreaterThan(0, count($res));
     foreach ($res as $re) {
       $this->assertNotEquals('pg_schema', $re);
+      $this->assertNotEquals('public', $re);
+      $this->assertNotEquals('information_schema', $re);
     }
   }
 
