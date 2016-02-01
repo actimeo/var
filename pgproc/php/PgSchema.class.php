@@ -191,7 +191,7 @@ class PgSchema {
 	if ($row['ret_nspname'] == 'pg_catalog' && ($row['ret_typtype'] == 'b' || $row['ret_typtype'] == 'p')) { // System scalar type
 	  $rettypename = $row['ret_typname'];
 	  
-	} else if ($row['ret_nspname'] != 'pg_catalog' && $row['ret_typtype'] == 'c') { // User-defined composite type
+	} else if ($row['ret_typtype'] == 'c') { // composite type
 	  $query3 = "select attname, typname FROM pg_attribute INNER JOIN pg_type ON pg_attribute.atttypid = pg_type.oid WHERE pg_attribute.attrelid = (select oid FROM pg_class where relname = '".$row['ret_typname']."') AND attnum > 0 ORDER BY attnum";
 	  if ($res3 = $this->pgproc_query ($query3)) {
 	    $rettypename = array();
@@ -220,15 +220,20 @@ class PgSchema {
     }
     
     switch ($rettype) {
+    case 'oid':
+    case 'xid':
     case 'int2':
     case 'int4':
     case 'int8':
       return intval($value);
       break;	  
 
+    case 'name':
     case 'text':
     case 'varchar':
     case 'bpchar':
+    case 'char':
+    case 'aclitem':
       return $value;
       break;	  
 
@@ -322,6 +327,7 @@ class PgSchema {
 	$sqlvalue = floatval ($value);
       break;
       
+    case 'name':
     case 'text':
     case 'varchar':
     case 'bpchar':
