@@ -13,7 +13,7 @@ PgProcError.prototype = Object.create(Error.prototype);
 PgProcError.prototype.constructor = PgProcError;
 
 
-function PgProc($schema, $procedure, $args) {
+function PgProc($root, $schema, $procedure, $args) {
 
     /* Fetch utilities */
     function statusOk(response) {  
@@ -34,7 +34,7 @@ function PgProc($schema, $procedure, $args) {
     
     return new Promise(
 	function(resolve, reject) {
-	    fetch("/pgproc/"+$schema+"@"+$procedure+".php", {
+	    fetch($root+$schema+"@"+$procedure+".php", {
 		method: 'post',
 		body: JSON.stringify($args)
 	    })

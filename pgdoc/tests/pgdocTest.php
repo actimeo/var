@@ -48,14 +48,12 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
   public function testReturnsSchemaTables() {
     $schema = 'login';
     $res = self::$base->pgdoc->schema_list_tables($schema);
-    print_r($res);
     $this->assertGreaterThan(0, count($res));
   }
 
   public function testReturnsSchemaTypes() {
     $schema = 'login';
     $res = self::$base->pgdoc->schema_list_types($schema);
-    print_r($res);
     $this->assertGreaterThan(0, count($res));
   }
 

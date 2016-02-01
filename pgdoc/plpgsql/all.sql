@@ -25,55 +25,68 @@
   - list of functions
 */
 
-CREATE OR REPLACE FUNCTION pgdoc.list_schemas(varchar)
+CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_prefix_ignore varchar)
 RETURNS SETOF name
-LANGUAGE SQL
+LANGUAGE PLPGSQL
 STABLE
 AS $$
-   SELECT nspname FROM pg_namespace WHERE nspname NOT like $1 || '%';
+BEGIN
+   RETURN QUERY SELECT nspname FROM pg_namespace WHERE nspname NOT like $1 || '%';
+END;
 $$;
 
-CREATE OR REPLACE FUNCTION pgdoc.schema_description(varchar)
+CREATE OR REPLACE FUNCTION pgdoc.schema_description(prm_schema varchar)
 RETURNS text
-LANGUAGE SQL
+LANGUAGE PLPGSQL
 STABLE
 AS $$
-  SELECT pg_description.description                                                                                   
+DECLARE
+  ret text;
+BEGIN
+  SELECT pg_description.description INTO ret
     FROM pg_namespace
     LEFT JOIN pg_description ON pg_namespace.oid = pg_description.objoid AND pg_description.objsubid = 0
   WHERE
     nspname = $1;
+  RETURN ret;
+END;
 $$;
 
-CREATE OR REPLACE FUNCTION pgdoc.schema_list_tables(varchar)
+CREATE OR REPLACE FUNCTION pgdoc.schema_list_tables(prm_schema varchar)
 RETURNS SETOF name
-LANGUAGE SQL
+LANGUAGE PLPGSQL
 STABLE
 AS $$
-  SELECT pg_class.relname 
+BEGIN
+  RETURN QUERY SELECT pg_class.relname 
     FROM pg_class
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
     WHERE pg_class.relkind = 'r' AND pg_namespace.nspname = $1;
+END;
 $$;
 
-CREATE OR REPLACE FUNCTION pgdoc.schema_list_types(varchar)
+CREATE OR REPLACE FUNCTION pgdoc.schema_list_types(prm_schema varchar)
 RETURNS SETOF name
-LANGUAGE SQL
+LANGUAGE PLPGSQL
 STABLE
 AS $$
-  SELECT pg_class.relname
+BEGIN
+  RETURN QUERY SELECT pg_class.relname
     FROM pg_class
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
     WHERE pg_class.relkind = 'c' AND pg_namespace.nspname = $1;
+END;
 $$;
 
-CREATE OR REPLACE FUNCTION pgdoc.schema_list_functions(varchar)
+CREATE OR REPLACE FUNCTION pgdoc.schema_list_functions(prm_schema varchar)
 RETURNS SETOF name
-LANGUAGE SQL
+LANGUAGE PLPGSQL
 STABLE
 AS $$
-  SELECT pg_proc.proname
+BEGIN
+  RETURN QUERY SELECT pg_proc.proname
     FROM pg_proc
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
     WHERE pg_namespace.nspname = $1;
+END;
 $$;

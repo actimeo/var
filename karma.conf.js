@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'htdocs/pgproc/pgajax.js', '**/spec/*.spec.js'
+      'htdocs/pgproc/ajax/pgajax.js', '**/spec/*.spec.js'
     ],
 
 
