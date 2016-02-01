@@ -1,10 +1,10 @@
-import {Component} from 'angular2/core';
+import {Component, Output, EventEmitter} from 'angular2/core';
 import {PgdocService} from './../../services/pgdoc_service';
 
 @Component({
     selector: 'schemas-list-cmp',
     template: `
-	<select>
+	<select (change)="onSelectChange($event)">
 	<option value="">(select a schema)</option>
 	<option *ngFor="#schema of schemas" value="{{schema}}">{{schema}}</option>
 	</select>
@@ -17,6 +17,8 @@ export class SchemasListCmp {
     schemas: any;
     _pgdocService: PgdocService;
     
+    @Output() onselected: EventEmitter<string> = new EventEmitter();
+
     constructor(_pgdocService: PgdocService) {
 	this._pgdocService = _pgdocService;
     }
@@ -28,4 +30,8 @@ export class SchemasListCmp {
 	});
     }
 
+    onSelectChange(event) {
+	console.log("selected "+event.target.value);
+	this.onselected.emit(event.target.value);
+    }
 }

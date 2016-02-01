@@ -12,4 +12,26 @@ export class PgdocService {
 		.then(resolve);
 	});
     }
+
+    schemaListTables(schema) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'schema_list_tables', { 'prm_schema': schema })
+		.then(resolve);
+	});
+    }
+
+    schemaListTypes(schema) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'schema_list_types', { 'prm_schema': schema })
+		.then(resolve);
+	});
+    }
+
+    schemaListFunctions(schema) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'schema_list_functions', { 'prm_schema': schema })
+		.then(resolve);
+	});
+    }
+
 }
