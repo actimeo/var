@@ -269,7 +269,7 @@ DECLARE
 BEGIN
   SELECT 
     description,
-    prosrc,
+    regexp_replace(prosrc, '^\s+', ''),
     retschema.nspname,
     rettype.typname,
     proretset,
