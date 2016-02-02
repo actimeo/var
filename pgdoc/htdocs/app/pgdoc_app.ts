@@ -21,7 +21,7 @@ import {FunctionDetailsCmp} from './components/function_details/function_details
 	     }
 	     main {
 		 margin-left: 210px;
-		 background-color: #eee;
+		 background-color: #fff;
 		 padding: 0px 16px;
 	     }
 	     `],

@@ -31,6 +31,14 @@
  - description
  - list of columns
  - functions returning type
+- detail of functions
+ - description
+ - sources
+ - return type (schema + name)
+ - returns set?
+ - language
+ - volatility ([i]mmutable, [s]table, [v]olatile)
+ - arguments
 */
 
 CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_ignore varchar[])
@@ -236,5 +244,67 @@ BEGIN
     WHERE pg_namespace.nspname = prm_schema
     AND pg_type.typname = prm_type
     ORDER BY pg_proc.proname; --|| '(' || array_to_string(pg_proc.proargnames, ', ') || ')';
+END;
+$$;
+
+DROP FUNCTION IF EXISTS pgdoc.function_details(prm_schema name, prm_function name);
+DROP TYPE IF EXISTS pgdoc.function_details;
+CREATE TYPE pgdoc.function_details AS (
+  description text,
+  src text,
+  rettype_schema name,
+  rettype_name name,
+  retset boolean,
+  lang name,
+  volatility "char"
+);
+
+CREATE FUNCTION pgdoc.function_details(prm_schema name, prm_function name) 
+RETURNS pgdoc.function_details
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+DECLARE
+  ret pgdoc.function_details;
+BEGIN
+  SELECT 
+    description,
+    prosrc,
+    retschema.nspname,
+    rettype.typname,
+    proretset,
+    pg_language.lanname,
+    pg_proc.provolatile
+  INTO ret
+  FROM pg_proc
+    INNER JOIN pg_description ON pg_description.objoid = pg_proc.oid
+    INNER JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
+    INNER JOIN pg_type rettype ON rettype.oid = prorettype
+    INNER JOIN pg_namespace retschema ON retschema.oid = rettype.typnamespace
+    INNER JOIN pg_language ON pg_language.oid = pg_proc.prolang
+  WHERE pg_namespace.nspname = prm_schema AND proname = prm_function;
+  RETURN ret;
+END;
+$$;
+
+DROP FUNCTION IF EXISTS pgdoc.function_arguments(prm_schema name, prm_function name);
+DROP TYPE IF EXISTS pgdoc.function_arguments;
+CREATE TYPE pgdoc.function_arguments AS (
+  argtype text,
+  argname text
+);
+
+CREATE FUNCTION pgdoc.function_arguments(prm_schema name, prm_function name)
+RETURNS SETOF pgdoc.function_arguments
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+BEGIN
+  RETURN QUERY SELECT 
+    format_type(unnest(proargtypes), null) , 
+    unnest(proargnames) 
+    FROM pg_proc
+    INNER JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
+    WHERE proname = prm_function AND nspname = prm_schema;
 END;
 $$;

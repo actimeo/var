@@ -4,6 +4,12 @@ import {PgdocService} from './../../services/pgdoc_service';
 
 @Component({
     selector: 'schema-details-cmp',
+    styles: [`
+	     ul { list-style-type: none; padding: 0; }
+	     li.tq { font-weight: bold; }
+	     li.tq:not(:first-child) { margin-top: 16px; }
+	     li:not(.tq) { margin-top: 8px; }
+	     `],
     template: `
 	<ul>
 	<li [hidden]="noTables()" class="tq">Tables</li>

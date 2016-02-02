@@ -98,6 +98,20 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
     $schema = 'login';
     $type = 'user_login';
     $res = self::$base->pgdoc->functions_returning_type($schema, $type);
+    $this->assertGreaterThan(0, count($res));
+  }
+
+  public function testFunctionDetails() {
+    $schema = 'login';
+    $function = 'user_login';
+    $res = self::$base->pgdoc->function_details($schema, $function);
+    $this->assertGreaterThan(0, count($res));
+  }
+
+  public function testFunctionArguments() {
+    $schema = 'login';
+    $function = 'user_login';
+    $res = self::$base->pgdoc->function_arguments($schema, $function);
     print_r($res);
     $this->assertGreaterThan(0, count($res));
   }

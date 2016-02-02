@@ -69,4 +69,19 @@ export class PgdocService {
 		.then(resolve);
 	});
     }
+
+
+    functionDetails(schema, fct) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'function_details', { 'prm_schema': schema, 'prm_function': fct })
+		.then(resolve);
+	});
+    }
+
+    functionArguments(schema, fct) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'function_arguments', { 'prm_schema': schema, 'prm_function': fct })
+		.then(resolve);
+	});
+    }
 }
