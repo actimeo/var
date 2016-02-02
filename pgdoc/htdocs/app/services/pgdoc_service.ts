@@ -14,6 +14,13 @@ export class PgdocService {
 	});
     }
 
+    schemaDescription(schema) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'schema_description', { 'prm_schema': schema })
+		.then(resolve);
+	});
+    }
+
     schemaListTables(schema) {
 	return new Promise(function(resolve, reject) {
 	    PgProc('/pgdoc/ajax/', 'pgdoc', 'schema_list_tables', { 'prm_schema': schema })

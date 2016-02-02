@@ -112,7 +112,6 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
     $schema = 'login';
     $function = 'user_login';
     $res = self::$base->pgdoc->function_arguments($schema, $function);
-    print_r($res);
     $this->assertGreaterThan(0, count($res));
   }
 }

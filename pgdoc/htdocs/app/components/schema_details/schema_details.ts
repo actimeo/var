@@ -11,7 +11,8 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     li:not(.tq) { margin-top: 8px; }
 	     `],
     template: `
-	<ul>
+	<ul [hidden]="!schema">
+	<li><a href="" [routerLink]="['SchemaDesc', { id: schema }]">Descripion</a></li>
 	<li [hidden]="noTables()" class="tq">Tables</li>
 	<li *ngFor="#table of tables"><a href="" [routerLink]="['TableDetails', {schema: schema, id: table}]">{{table}}</a></li>
 	<li [hidden]="noTypes()" class="tq">Types</li>

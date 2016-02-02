@@ -12,7 +12,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     `],
     template: `
 	<h2>Function {{schema}}.{{id}}</h2>
-	<div style="white-space: pre">{{details?.description}}</div>
+	<div style="white-space: pre-wrap">{{details?.description}}</div>
 
 	<div *ngIf="details">
 	  <h3>Synopsis</h3>

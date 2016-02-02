@@ -2,11 +2,13 @@ import {Component, ViewChild} from 'angular2/core';
 import {RouteConfig, Route, ROUTER_DIRECTIVES} from 'angular2/router';
 import {SchemasListCmp} from './components/schemas_list/schemas_list';
 import {SchemaDetailsCmp} from './components/schema_details/schema_details';
+import {SchemaDescriptionCmp} from './components/schema_description/schema_description';
 import {TableDetailsCmp} from './components/table_details/table_details';
 import {TypeDetailsCmp} from './components/type_details/type_details';
 import {FunctionDetailsCmp} from './components/function_details/function_details';
 
 @RouteConfig([
+  new Route({path: '/schema/:id', component: SchemaDescriptionCmp, name: 'SchemaDesc'}),
   new Route({path: '/table/:schema/:id', component: TableDetailsCmp, name: 'TableDetails'}),
   new Route({path: '/type/:schema/:id', component: TypeDetailsCmp, name: 'TypeDetails'}),
   new Route({path: '/function/:schema/:id', component: FunctionDetailsCmp, name: 'FunctionDetails'}),
