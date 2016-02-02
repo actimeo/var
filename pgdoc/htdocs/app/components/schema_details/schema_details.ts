@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {RouterLink} from 'angular2/router';
 import {PgdocService} from './../../services/pgdoc_service';
 
 @Component({
@@ -6,14 +7,15 @@ import {PgdocService} from './../../services/pgdoc_service';
     template: `
 	<ul>
 	<li [hidden]="noTables()" class="tq">Tables</li>
-	<li *ngFor="#table of tables">{{table}}</li>
+	<li *ngFor="#table of tables"><a href="" [routerLink]="['TableDetails', {id: table}]">{{table}}</a></li>
 	<li [hidden]="noTypes()" class="tq">Types</li>
-	<li *ngFor="#type of types">{{type}}</li>
+	<li *ngFor="#type of types"><a href="" [routerLink]="['TypeDetails', {id: type}]">{{type}}</a></li>
 	<li [hidden]="noFunctions()" class="tq">Functions</li>
-	<li *ngFor="#function of functions">{{function}}</li>
+	<li *ngFor="#function of functions"><a href="" [routerLink]="['FunctionDetails', {id: function}]">{{function}}</a></li>
 	</ul>
 	`,
-    providers: [PgdocService]
+    providers: [PgdocService],
+    directives: [RouterLink]
 
 })
 export class SchemaDetailsCmp {

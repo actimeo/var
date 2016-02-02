@@ -8,7 +8,7 @@ export class PgdocService {
 
     listSchemas() {
 	return new Promise(function(resolve, reject) {
-	    PgProc('/pgdoc/ajax/', 'pgdoc', 'list_schemas', { 'prm_prefix_ignore': 'pg' })
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'list_schemas', { 'prm_ignore': ['pg%', 'public', 'information_schema'] })
 		.then(resolve);
 	});
     }
