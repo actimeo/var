@@ -33,7 +33,6 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
 
   public function testReturnsListOfSchemas() {
     $res = self::$base->pgdoc->list_schemas(array('public', 'information_schema', 'pg%'));    
-    print_r($res);
     $this->assertGreaterThan(0, count($res));
     foreach ($res as $re) {
       $this->assertNotEquals('pg_schema', $re);
@@ -63,6 +62,20 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
   public function testReturnsSchemaFunctions() {
     $schema = 'login';
     $res = self::$base->pgdoc->schema_list_functions($schema);
+    $this->assertGreaterThan(0, count($res));
+  }
+
+  public function testReturnsTableDescription() {
+    $schema = 'login';
+    $table = 'user';
+    $res = self::$base->pgdoc->table_description($schema, $table);
+    $this->assertGreaterThan(0, strlen($res));
+  }
+
+  public function testReturnsTableColumns() {
+    $schema = 'login';
+    $table = 'user';
+    $res = self::$base->pgdoc->table_columns($schema, $table);
     $this->assertGreaterThan(0, count($res));
   }
 

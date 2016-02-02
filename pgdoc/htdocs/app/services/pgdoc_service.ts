@@ -34,4 +34,17 @@ export class PgdocService {
 	});
     }
 
+    tableDescription(schema, table) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'table_description', { 'prm_schema': schema, 'prm_table': table })
+		.then(resolve);
+	});
+    }
+
+    tableColumns(schema, table) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'table_columns', { 'prm_schema': schema, 'prm_table': table })
+		.then(resolve);
+	});
+    }
 }
