@@ -10,6 +10,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     `],
     template: `<h2>Table {{schema}}.{{id}}</h2>
 	<div class="description">{{description}}</div>
+	<h3>Columns</h3>
 	<table><tr><th>#<th>Type<th>Name<th>not null<th>default<th>description</tr>
 	<tr *ngFor="#column of columns">
 	<td>{{column.col}}</td>

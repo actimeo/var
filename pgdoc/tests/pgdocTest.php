@@ -91,6 +91,13 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
     $schema = 'login';
     $type = 'user_login';
     $res = self::$base->pgdoc->type_columns($schema, $type);
+    $this->assertGreaterThan(0, count($res));
+  }
+
+  public function testFunctionsReturningType() {
+    $schema = 'login';
+    $type = 'user_login';
+    $res = self::$base->pgdoc->functions_returning_type($schema, $type);
     print_r($res);
     $this->assertGreaterThan(0, count($res));
   }

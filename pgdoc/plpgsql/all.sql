@@ -30,6 +30,7 @@
 - detail of types
  - description
  - list of columns
+ - functions returning type
 */
 
 CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_ignore varchar[])
@@ -218,5 +219,22 @@ BEGIN
     AND pg_namespace.nspname = prm_schema
     AND attnum > 0
   ORDER BY attnum;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgdoc.functions_returning_type(prm_schema name, prm_type name)
+RETURNS SETOF name
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+BEGIN
+  RETURN QUERY SELECT 
+    pg_proc.proname --|| '(' || array_to_string(pg_proc.proargnames, ', ') || ')' 
+    FROM pg_proc
+    INNER JOIN pg_namespace on pg_proc.pronamespace = pg_namespace.oid
+    INNER JOIN pg_type ON pg_proc.prorettype = pg_type.oid
+    WHERE pg_namespace.nspname = prm_schema
+    AND pg_type.typname = prm_type
+    ORDER BY pg_proc.proname; --|| '(' || array_to_string(pg_proc.proargnames, ', ') || ')';
 END;
 $$;

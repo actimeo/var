@@ -10,6 +10,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     `],
     template: `<h2>Type {{schema}}.{{id}}</h2>
 	<div class="description">{{description}}</div>
+	<h3>Columns</h3>
 	<table><tr><th>#<th>Type<th>Name<th>description</tr>
 	<tr *ngFor="#column of columns">
 	<td>{{column.col}}</td>
@@ -18,6 +19,12 @@ import {PgdocService} from './../../services/pgdoc_service';
 	<td>{{column.description}}</td>
 	</tr>
 	</table>
+	<div *ngIf="functionsReturningType">
+	<h3>Functions returning this type</h3>
+	<ul>
+	<li *ngFor="#function of functionsReturningType">{{function}}</li>
+	</ul>
+	</div>
 	`,
     providers: [PgdocService]
 })
@@ -28,7 +35,8 @@ export class TypeDetailsCmp {
 
     description: any;
     columns: any;
-    
+    functionsReturningType: any;
+
     constructor(params: RouteParams, _pgdocService: PgdocService) {
 	this._pgdocService = _pgdocService;
 	this.schema = params.get('schema');
@@ -48,6 +56,11 @@ export class TypeDetailsCmp {
 	this._pgdocService.typeColumns(this.schema, this.id).then(data => {
 	    this.columns = data;
 	    console.log(this.columns);
+	});
+
+	this._pgdocService.functionsReturningType(this.schema, this.id).then(data => {
+	    this.functionsReturningType = data;
+	    console.log(this.functionsReturningType);
 	});
     }
 

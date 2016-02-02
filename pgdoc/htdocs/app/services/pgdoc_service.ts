@@ -7,8 +7,9 @@ export class PgdocService {
     constructor(private _http: Http) {}
 
     listSchemas() {
+	// TODO Add public to ignore
 	return new Promise(function(resolve, reject) {
-	    PgProc('/pgdoc/ajax/', 'pgdoc', 'list_schemas', { 'prm_ignore': ['pg%', 'public', 'information_schema'] })
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'list_schemas', { 'prm_ignore': ['pg%', 'information_schema'] })
 		.then(resolve);
 	});
     }
@@ -58,6 +59,13 @@ export class PgdocService {
     typeColumns(schema, type) {
 	return new Promise(function(resolve, reject) {
 	    PgProc('/pgdoc/ajax/', 'pgdoc', 'type_columns', { 'prm_schema': schema, 'prm_type': type })
+		.then(resolve);
+	});
+    }
+
+    functionsReturningType(schema, type) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'functions_returning_type', { 'prm_schema': schema, 'prm_type': type })
 		.then(resolve);
 	});
     }
