@@ -7,9 +7,9 @@ import {TypeDetailsCmp} from './components/type_details/type_details';
 import {FunctionDetailsCmp} from './components/function_details/function_details';
 
 @RouteConfig([
-  new Route({path: '/table/:id', component: TableDetailsCmp, name: 'TableDetails'}),
-  new Route({path: '/type/:id', component: TypeDetailsCmp, name: 'TypeDetails'}),
-  new Route({path: '/function/:id', component: FunctionDetailsCmp, name: 'FunctionDetails'}),
+  new Route({path: '/table/:schema/:id', component: TableDetailsCmp, name: 'TableDetails'}),
+  new Route({path: '/type/:schema/:id', component: TypeDetailsCmp, name: 'TypeDetails'}),
+  new Route({path: '/function/:schema/:id', component: FunctionDetailsCmp, name: 'FunctionDetails'}),
 ])
 
 @Component({
@@ -22,6 +22,7 @@ import {FunctionDetailsCmp} from './components/function_details/function_details
 	     main {
 		 margin-left: 210px;
 		 background-color: #eee;
+		 padding: 0px 16px;
 	     }
 	     `],
     template: `

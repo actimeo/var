@@ -7,11 +7,11 @@ import {PgdocService} from './../../services/pgdoc_service';
     template: `
 	<ul>
 	<li [hidden]="noTables()" class="tq">Tables</li>
-	<li *ngFor="#table of tables"><a href="" [routerLink]="['TableDetails', {id: table}]">{{table}}</a></li>
+	<li *ngFor="#table of tables"><a href="" [routerLink]="['TableDetails', {schema: schema, id: table}]">{{table}}</a></li>
 	<li [hidden]="noTypes()" class="tq">Types</li>
-	<li *ngFor="#type of types"><a href="" [routerLink]="['TypeDetails', {id: type}]">{{type}}</a></li>
+	<li *ngFor="#type of types"><a href="" [routerLink]="['TypeDetails', {schema: schema, id: type}]">{{type}}</a></li>
 	<li [hidden]="noFunctions()" class="tq">Functions</li>
-	<li *ngFor="#function of functions"><a href="" [routerLink]="['FunctionDetails', {id: function}]">{{function}}</a></li>
+	<li *ngFor="#function of functions"><a href="" [routerLink]="['FunctionDetails', {schema: schema, id: function}]">{{function}}</a></li>
 	</ul>
 	`,
     providers: [PgdocService],
