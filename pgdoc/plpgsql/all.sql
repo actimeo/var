@@ -27,6 +27,9 @@
 - details of table
  - description
  - list of columns
+- detail of types
+ - description
+ - list of columns
 */
 
 CREATE OR REPLACE FUNCTION pgdoc.list_schemas(prm_ignore varchar[])
@@ -108,7 +111,7 @@ BEGIN
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
     LEFT JOIN pg_description ON pg_class.oid = pg_description.objoid AND pg_description.objsubid = 0
   WHERE
-    relname = prm_table AND nspname = prm_schema;
+    pg_class.relkind='r' AND relname = prm_table AND nspname = prm_schema;
   RETURN ret;
 END;
 $$;
@@ -153,6 +156,65 @@ BEGIN
     INNER JOIN pg_type ON pg_type.oid = pg_attribute.atttypid
   WHERE
     pg_class.relname = prm_table 
+    AND pg_class.relkind = 'r'
+    AND pg_namespace.nspname = prm_schema
+    AND attnum > 0
+  ORDER BY attnum;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgdoc.type_description(prm_schema name, prm_type name)
+RETURNS text
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+DECLARE
+  ret text;
+BEGIN
+  SELECT pg_description.description INTO ret
+    FROM pg_type
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_type.typnamespace
+    LEFT JOIN pg_description ON pg_type.oid = pg_description.objoid AND pg_description.objsubid = 0
+  WHERE
+    typname = prm_type AND nspname = prm_schema;
+  RETURN ret;
+END;
+$$;
+
+DROP FUNCTION IF EXISTS pgdoc.type_columns(prm_schema name, prm_type name);
+DROP TYPE IF EXISTS pgdoc.type_columns;
+CREATE TYPE pgdoc.type_columns AS (
+  col smallint,
+  colname name,
+  description text,
+  typname name,
+  typlen integer
+);
+
+CREATE FUNCTION pgdoc.type_columns(prm_schema name, prm_type name)
+RETURNS SETOF pgdoc.type_columns
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+BEGIN
+  RETURN QUERY SELECT 
+    attnum,
+    attname,
+    description,
+    pg_type.typname,
+    CASE WHEN pg_attribute.atttypmod > 4 
+      THEN pg_attribute.atttypmod - 4 
+      ELSE atttypmod END
+  FROM pg_attribute  
+    INNER JOIN pg_class ON pg_class.oid = pg_attribute.attrelid
+    INNER JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+    LEFT JOIN pg_description
+      ON pg_description.objoid = pg_attribute.attrelid
+      AND pg_description.objsubid = pg_attribute.attnum
+    INNER JOIN pg_type ON pg_type.oid = pg_attribute.atttypid
+  WHERE
+    pg_class.relname = prm_type
+    AND pg_class.relkind = 'c'
     AND pg_namespace.nspname = prm_schema
     AND attnum > 0
   ORDER BY attnum;

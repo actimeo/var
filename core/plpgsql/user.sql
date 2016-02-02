@@ -32,6 +32,11 @@ CREATE TYPE user_login AS (
   usr_right_structure boolean,
   usr_right_config boolean
 );
+COMMENT ON TYPE user_login IS 'Type returned by user_login function';
+COMMENT ON COLUMN user_login.usr_token IS 'Token to use for other functions';
+COMMENT ON COLUMN user_login.usr_temp_pwd IS 'True if the password is temporary';
+COMMENT ON COLUMN user_login.usr_right_structure IS 'True if the user gets rights to edit structure';
+COMMENT ON COLUMN user_login.usr_right_config IS 'True if the user gets rights to edit configuration';
 
 CREATE OR REPLACE FUNCTION user_login(prm_login character varying, prm_pwd character varying) RETURNS user_login
   LANGUAGE plpgsql

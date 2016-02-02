@@ -47,4 +47,18 @@ export class PgdocService {
 		.then(resolve);
 	});
     }
+
+    typeDescription(schema, type) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'type_description', { 'prm_schema': schema, 'prm_type': type })
+		.then(resolve);
+	});
+    }
+
+    typeColumns(schema, type) {
+	return new Promise(function(resolve, reject) {
+	    PgProc('/pgdoc/ajax/', 'pgdoc', 'type_columns', { 'prm_schema': schema, 'prm_type': type })
+		.then(resolve);
+	});
+    }
 }
