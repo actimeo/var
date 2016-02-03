@@ -1,0 +1,10 @@
+Start a new angular2 projet:
+
+$ tsc --init --target es5 --sourceMap --experimentalDecorators --emitDecoratorMetadata
+
+$ npm init
+
+$ npm install --save angular2
+
+$ npm install --save systemjs
+
