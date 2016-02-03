@@ -47,7 +47,7 @@ LANGUAGE PLPGSQL
 STABLE
 AS $$
 BEGIN
-   RETURN QUERY SELECT nspname FROM pg_namespace WHERE nspname NOT like all(prm_ignore);
+   RETURN QUERY SELECT nspname FROM pg_namespace WHERE nspname NOT like all(prm_ignore) ORDER BY nspname;
 END;
 $$;
 
@@ -77,7 +77,8 @@ BEGIN
   RETURN QUERY SELECT pg_class.relname 
     FROM pg_class
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
-    WHERE pg_class.relkind = 'r' AND pg_namespace.nspname = $1;
+    WHERE pg_class.relkind = 'r' AND pg_namespace.nspname = $1
+    ORDER BY pg_class.relname;
 END;
 $$;
 
@@ -90,7 +91,8 @@ BEGIN
   RETURN QUERY SELECT pg_class.relname
     FROM pg_class
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
-    WHERE pg_class.relkind = 'c' AND pg_namespace.nspname = $1;
+    WHERE pg_class.relkind = 'c' AND pg_namespace.nspname = $1
+    ORDER BY pg_class.relname;
 END;
 $$;
 
@@ -103,7 +105,8 @@ BEGIN
   RETURN QUERY SELECT pg_proc.proname
     FROM pg_proc
     LEFT JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
-    WHERE pg_namespace.nspname = $1;
+    WHERE pg_namespace.nspname = $1
+    ORDER BY pg_proc.proname;
 END;
 $$;
 
