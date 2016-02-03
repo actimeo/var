@@ -43,3 +43,5 @@ COMMENT ON COLUMN "user".usr_right_structure IS 'Rights to edit structure';
 COMMENT ON COLUMN "user".usr_right_config IS 'Rights to edit configuration';
 COMMENT ON COLUMN "user".usr_token IS 'Token id returned after authentication';
 COMMENT ON COLUMN "user".usr_token_creation_date IS 'Token creation date for validity';
+
+INSERT INTO login.user(usr_login, usr_salt, usr_right_structure, usr_right_config) values ('variation', pgcrypto.crypt('variation', pgcrypto.gen_salt('bf', 8)), true, false);
