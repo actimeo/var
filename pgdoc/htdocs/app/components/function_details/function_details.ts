@@ -17,19 +17,17 @@ import {PgdocService} from './../../services/pgdoc_service';
 	</h2>
 	</md-toolbar>
 	<md-content layout-padding>
+
+	<div *ngIf="details?.description">
+	<h3>Description</h3>
 	<div style="white-space: pre-wrap">{{details?.description}}</div>
+	</div>
 
 	<div *ngIf="details">
 	  <h3>Synopsis</h3>
-	  <span class="argtype"><span *ngIf="details.retset">setof </span>{{details.rettype_name}}</span> {{id}} (
-  	  <div *ngIf="args">
-	    <div *ngFor="#arg of args; #last=last" class="arg">
-	      <span class="argtype">{{arg.argtype}}</span> {{arg.argname}}<span *ngIf="!last">,</span>
-	    </div>
-	  </div>
-	)
+	  <pre><span class="argtype"><span *ngIf="details.retset">setof </span>{{details.rettype_name}}</span> {{id}} (<div *ngIf="args"><div *ngFor="#arg of args; #last=last" class="arg"><span class="argtype">{{arg.argtype}}</span> {{arg.argname}}<span *ngIf="!last">,</span></div></div>)</pre>
         </div>
-
+	
 	<div *ngIf="retColumns && retColumns.length">
 	  <h3>Return value</h3>
   	  <table><tr><th>#<th>Type<th>Name<th>description</tr>
@@ -44,7 +42,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 
 	<div *ngIf="details?.src">
 	  <h3>Sources ({{details.lang}})</h3>
-	  <code style="white-space: pre">{{details.src}}</code>
+	<pre style="white-space: pre-wrap; background-color: #222; color: #fff; border-radius: 8px;" layout-padding>{{details.src}}</pre>
         </div>
 	</md-content>
 	`,

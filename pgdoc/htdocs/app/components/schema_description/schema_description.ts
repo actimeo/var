@@ -12,7 +12,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	<span>Schema {{schema}}</span>
 	</h2>
 	</md-toolbar>
-	<md-content layout-padding><div style="white-space: pre-wrap">{{description}}</div></md-content>
+	<md-content layout-padding><h3>Description</h3><div style="white-space: pre-wrap">{{description}}</div></md-content>
 	`,
     providers: [PgdocService]
 

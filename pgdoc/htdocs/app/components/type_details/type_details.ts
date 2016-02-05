@@ -15,7 +15,12 @@ import {PgdocService} from './../../services/pgdoc_service';
 	</h2>
 	</md-toolbar>
 	<md-content layout-padding>
+
+	<div *ngIf="description">
+	<h3>Description</h3>
 	<div class="description">{{description}}</div>
+	</div>
+
 	<h3>Columns</h3>
 	<table><tr><th>#<th>Type<th>Name<th>description</tr>
 	<tr *ngFor="#column of columns">
