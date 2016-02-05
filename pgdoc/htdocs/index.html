@@ -1,9 +1,18 @@
 <html>
 
 <head>
-  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
   <script src="node_modules/systemjs/dist/system.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.dev.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+
   <script src="ajax/pgajax.js"></script>
+
+  <link rel="stylesheet" href="node_modules/ng2-material/dist/ng2-material.css">
+  <link rel="stylesheet" href="node_modules/ng2-material/dist/font.css">
+
   <script>
   System.config({
     // we want to import modules without writing .js at the end
@@ -11,13 +20,14 @@
     // the app will need the following dependencies
     map: {
       'angular2': 'node_modules/angular2',
-      'rxjs': 'node_modules/rxjs'
+      'rxjs': 'node_modules/rxjs',
+      'ng2-material': 'node_modules/ng2-material'
     }
   });
   // and to finish, let's boot the app!
   System.import('built/bootstrap');
   </script>
-  <base href="/pgdoc"></base>
+  <!--base href="/pgdoc"></base-->
   <style>
     body { color: #222;  }
     h2, h3 { color: #2196F3; }
@@ -28,6 +38,7 @@
   <pgdoc-app>
     .
   </pgdoc-app>
+
 </body>
 
 </html>
