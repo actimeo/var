@@ -8,7 +8,13 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     table { border-collapse: collapse; border: 1px solid black; }
 	     th, td { padding: 4px; border: 1px solid black; }
 	     `],
-    template: `<h2>Table {{schema}}.{{id}}</h2>
+    template: `
+	<md-toolbar>
+	<h2 class="md-toolbar-tools">
+	<span>Table {{schema}}.{{id}}</span>
+	</h2>
+	</md-toolbar>
+	<md-content layout-padding>
 	<div class="description">{{description}}</div>
 	<h3>Columns</h3>
 	<table><tr><th>#<th>Type<th>Name<th>not null<th>default<th>description</tr>
@@ -21,6 +27,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	<td>{{column.description}}</td>
 	</tr>
 	</table>
+	</md-content>
 	`,
     providers: [PgdocService]
 })

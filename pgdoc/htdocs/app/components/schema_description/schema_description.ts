@@ -7,8 +7,12 @@ import {PgdocService} from './../../services/pgdoc_service';
     styles: [`
 	     `],
     template: `
-        <h2>Schema {{schema}}</h2>
-	<div style="white-space: pre-wrap">{{description}}</div>
+	<md-toolbar>
+	<h2 class="md-toolbar-tools">
+	<span>Schema {{schema}}</span>
+	</h2>
+	</md-toolbar>
+	<md-content layout-padding><div style="white-space: pre-wrap">{{description}}</div></md-content>
 	`,
     providers: [PgdocService]
 

@@ -11,7 +11,12 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     th, td { padding: 4px; border: 1px solid black; }
 	     `],
     template: `
-	<h2>Function {{schema}}.{{id}}</h2>
+	<md-toolbar>
+	<h2 class="md-toolbar-tools">
+	<span>Function {{schema}}.{{id}}</span>
+	</h2>
+	</md-toolbar>
+	<md-content layout-padding>
 	<div style="white-space: pre-wrap">{{details?.description}}</div>
 
 	<div *ngIf="details">
@@ -41,6 +46,7 @@ import {PgdocService} from './../../services/pgdoc_service';
 	  <h3>Sources ({{details.lang}})</h3>
 	  <code style="white-space: pre">{{details.src}}</code>
         </div>
+	</md-content>
 	`,
     providers: [PgdocService]
 })
