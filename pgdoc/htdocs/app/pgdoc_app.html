@@ -1,0 +1,40 @@
+<!--
+<h1>Pgdoc</h1>
+<nav>
+  <schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
+  <schema-details-cmp #schemaDetails></schema-details-cmp>
+</nav>
+<main><router-outlet></router-outlet></main>
+-->
+<div layout="column" style="height:100%;">
+
+  <md-sidenav-container layout="row" flex>
+
+    <md-sidenav name="left" [style]="hasMedia('gt-sm') ? 'side' : 'over'">
+
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">PgDoc</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <button md-raised-button (click)="close('left')" class="md-primary" hide-gt-md>
+          Close Sidenav Left
+        </button>
+	<schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
+	<schema-details-cmp #schemaDetails></schema-details-cmp>	
+      </md-content>
+
+    </md-sidenav>
+
+    <md-content flex layout-padding>
+
+      <div layout="column" layout-fill layout-align="top center">
+	<main><router-outlet></router-outlet></main>
+      </div>
+
+      <div flex></div>
+
+    </md-content>
+
+  </md-sidenav-container>
+
+</div>
