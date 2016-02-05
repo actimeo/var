@@ -5,21 +5,36 @@ import {PgdocService} from './../../services/pgdoc_service';
 @Component({
     selector: 'schema-details-cmp',
     styles: [`
-	     ul { list-style-type: none; padding: 0; }
-	     li.tq { font-weight: bold; }
-	     li.tq:not(:first-child) { margin-top: 16px; }
-	     li:not(.tq) { margin-top: 8px; }
+	     md-list-item { cursor: pointer; }
 	     `],
     template: `
-	<ul [hidden]="!schema">
-	<li><a href="" [routerLink]="['SchemaDesc', { id: schema }]">Descripion</a></li>
-	<li [hidden]="noTables()" class="tq">Tables</li>
-	<li *ngFor="#table of tables"><a href="" [routerLink]="['TableDetails', {schema: schema, id: table}]">{{table}}</a></li>
-	<li [hidden]="noTypes()" class="tq">Types</li>
-	<li *ngFor="#type of types"><a href="" [routerLink]="['TypeDetails', {schema: schema, id: type}]">{{type}}</a></li>
-	<li [hidden]="noFunctions()" class="tq">Functions</li>
-	<li *ngFor="#function of functions"><a href="" [routerLink]="['FunctionDetails', {schema: schema, id: function}]">{{function}}</a></li>
-	</ul>
+	<div [hidden]="!schema">
+	<md-list>
+
+	<md-list-item class="md-1-line" [routerLink]="['SchemaDesc', { id: schema }]">
+	  <i md-icon class="material-icons">description</i>
+	  <div class="md-list-item-text">Description</div>
+	</md-list-item>
+
+	<div [hidden]="noTables()"><md-subheader class="md-subheader">Tables</md-subheader></div>
+	<md-list-item class="md-1-line" *ngFor="#table of tables" md-ink [routerLink]="['TableDetails', { schema: schema, id: table }]">
+	  <i md-icon class="material-icons">storage</i>
+	  <div class="md-list-item-text">{{table}}</div>
+	</md-list-item>
+
+	<div [hidden]="noTypes()"><md-subheader class="md-subheader">Types</md-subheader></div>
+	<md-list-item class="md-1-line" *ngFor="#type of types" md-ink [routerLink]="['TypeDetails', { schema: schema, id: type }]">
+	  <i md-icon class="material-icons">list</i>
+	  <div class="md-list-item-text">{{type}}</div>
+	</md-list-item>
+
+	<div [hidden]="noFunctions()"><md-subheader class="md-subheader">Functions</md-subheader></div>
+	<md-list-item class="md-1-line" *ngFor="#function of functions" [routerLink]="['FunctionDetails', { schema: schema, id: function }]">
+	  <i md-icon class="material-icons">functions</i>
+	  <div class="md-list-item-text">{{function}}</div>
+	</md-list-item>
+	</md-list>
+	</div>
 	`,
     providers: [PgdocService],
     directives: [RouterLink]

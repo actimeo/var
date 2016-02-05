@@ -16,9 +16,6 @@
         <h1 class="md-toolbar-tools">PgDoc</h1>
       </md-toolbar>
       <md-content layout-padding>
-        <button md-raised-button (click)="close('left')" class="md-primary" hide-gt-md>
-          Close Sidenav Left
-        </button>
 	<schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
 	<schema-details-cmp #schemaDetails></schema-details-cmp>	
       </md-content>
