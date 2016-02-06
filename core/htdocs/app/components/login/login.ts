@@ -8,15 +8,28 @@ declare var PgProc: any;
 
 @Component({
   selector: 'login-cmp',
+    styles: [`
+	     .body { padding-top: 50px; height: 100%; background-color: #009688; }
+	     .loginform { margin: 0 auto; width: 300px; box-shadow: 0 0 15px #627d92; border-radius: 4px; }
+	     `],
   template: `
+	<div class="body">
+	<div class="panel panel-default loginform">
+	<div class="panel-heading"><h3 class="panel-title">{{i18n.t('core.connect_title')}}</h3></div>
+	<div class="panel-body">
 	<form (submit)="login($event, username.value, password.value)">
+	<div class="form-group">
 	<label for="username">{{i18n.t('core.username')}}</label>
 	<input type="text" #username class="form-control" id="username" placeholder="{{i18n.t('core.username')}}">
+	</div>
+	<div class="form-group">
 	<label for="password">{{i18n.t('core.password')}}</label>
 	<input type="password" #password class="form-control" id="password" placeholder="{{i18n.t('core.password')}}">
-	<button type="submit">{{i18n.t('core.submit')}}</button>
+	</div>
+	<button type="submit" class="btn btn-primary">{{i18n.t('core.submit')}}</button>
 	</form>
-	<div [hidden]="!errormsg">{{errormsg}}</div>
+	<div [hidden]="!errormsg"><p class="text-danger">{{errormsg}}</p></div>
+	</div></div></div>
 	`,
     providers: [UserService]
 })
