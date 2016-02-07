@@ -114,6 +114,23 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
     $this->assertSame(array (array('a'=> 1, 'b'=> 'hello'), array('a'=> 2, 'b'=> 'bye')), $res);
   }
 
+
+  public function testReturnsEnum() {
+    $res = self::$base->pgtests->test_returns_enum();
+    $this->assertSame('val1', $res);
+  }
+
+  public function testReturnsEnumArray() {
+    $res = self::$base->pgtests->test_returns_enum_array();
+    $this->assertSame(array('val1', 'val2'), $res);
+  }
+
+  public function testReturnsEnumArrayAsNull() {
+    $res = self::$base->pgtests->test_returns_null_enum_array();
+    print_r($res);
+    $this->assertSame(null, $res);
+  }
+
   /**
    * Not found function
    * @expectedException PgProcFunctionNotAvailableException

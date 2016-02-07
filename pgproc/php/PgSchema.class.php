@@ -89,7 +89,6 @@ class PgSchema {
 	}
 
       } else if (is_array ($rettype)) { // Composite type
-
 	if ($res = $this->pgproc_query ($query)) { 
 
 	  if ($retset) { // SETOF
@@ -120,7 +119,7 @@ class PgSchema {
       } else { // Scalar type
 
 	if ($res = $this->pgproc_query ($query)) { 
-
+	  
 	  if ($retset) { // SETOF
 	    $retsetvalue = array ();
 	    while ($row = pg_fetch_array ($res)) {
@@ -188,7 +187,7 @@ class PgSchema {
 	  $argtypenames[] = $this->get_pgtype ($argtype);	 
 	}
 
-	if ($row['ret_nspname'] == 'pg_catalog' && ($row['ret_typtype'] == 'b' || $row['ret_typtype'] == 'p')) { // System scalar type
+	if (/*$row['ret_nspname'] == 'pg_catalog' &&*/ (in_array($row['ret_typtype'], array('b', 'p', 'e')))) { // scalar type
 	  $rettypename = $row['ret_typname'];
 	  
 	} else if ($row['ret_typtype'] == 'c') { // composite type
@@ -211,6 +210,8 @@ class PgSchema {
 
   public function cast_value ($rettype, $value) {
     if (substr ($rettype, 0, 1) == '_') {
+      if ($value === null)
+	return null;
       $v = substr ($value, 1, -1);
       $ret = explode (',', $v);
       foreach ($ret as &$r) {
@@ -292,6 +293,10 @@ class PgSchema {
       else 
 	return;
 
+    case 'enumtype': // user-defined enum types
+    case 'user_right': // user-defined enum types
+      return $value;
+      
     default: 
       echo "Unknown type $rettype\n";
     }

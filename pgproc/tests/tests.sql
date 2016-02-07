@@ -1,5 +1,8 @@
 CREATE SCHEMA IF NOT EXISTS pgtests;
 
+DROP TYPE IF EXISTS pgtests.enumtype CASCADE;
+CREATE TYPE pgtests.enumtype AS ENUM ('val1', 'val2', 'val3');
+
 CREATE OR REPLACE FUNCTION pgtests.test_returns_integer()
 RETURNS integer
 LANGUAGE SQL
@@ -103,6 +106,30 @@ IMMUTABLE
 AS $$
   SELECT (1, 'hello')::pgtests.composite1
   UNION SELECT (2, 'bye')::pgtests.composite1;
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_enum() 
+RETURNS pgtests.enumtype 
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT 'val1'::pgtests.enumtype;
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_enum_array() 
+RETURNS pgtests.enumtype[] 
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT ARRAY['val1', 'val2']::pgtests.enumtype[];
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_null_enum_array() 
+RETURNS pgtests.enumtype[] 
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT NULL::pgtests.enumtype[];
 $$;
 
 CREATE OR REPLACE FUNCTION pgtests._hidden_function()
