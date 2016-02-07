@@ -53,7 +53,7 @@ export class TypeDetailsCmp {
 	this._pgdocService = _pgdocService;
 	this.schema = params.get('schema');
 	this.id = params.get('id');
-	this.nav.currentTitle = 'Type '+this.schema+' '+this.id;
+	this.nav.currentTitle = 'Type '+this.schema+'.'+this.id;
     }
 
     ngOnInit() {	    
