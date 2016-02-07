@@ -35,7 +35,7 @@ class PgSchema {
 	array_pop ($args);
 
       // Search the argument and return types for this function
-      list ($schema, $argtypes, $rettype, $retset) = $this->search_pg_proc ($method, $args);
+      list ($schema, $argtypeSchemas, $argtypes, $rettype, $retset) = $this->search_pg_proc ($method, $args);
       if (!is_array ($argtypes) || !strlen ($schema)) {
 	// Function not found
 	throw new PgProcFunctionNotAvailableException ('Function '.$this->name.'.'.$method.' not available');
@@ -54,7 +54,7 @@ class PgSchema {
 	if ($value === NULL)
 	  $sqlvalue = 'null';
 	else {
-	  $sqlvalue = $this->escape_value ($argtype, $value);
+	  $sqlvalue = $this->escape_value ($argtypeSchemas[$i], $argtype, $value);
 	}
 	$query .= $sqlvalue.", ";
       }
@@ -166,6 +166,7 @@ class PgSchema {
    */
   private function search_pg_proc ($method, $args) {
     $argtypenames = array ();
+    $argtypeschemas = array ();
     $nargs = count ($args);
 
     $query = "SELECT * FROM pgprocedures.search_function ('".$this->name."', '$method', $nargs)";
@@ -184,7 +185,7 @@ class PgSchema {
 	  if (!strlen (trim ($argtype)))
 	    continue;
 
-	  $argtypenames[] = $this->get_pgtype ($argtype);	 
+	  list($argtypeschemas[], $argtypenames[]) = $this->get_pgtype_and_schema ($argtype);
 	}
 
 	if (/*$row['ret_nspname'] == 'pg_catalog' &&*/ (in_array($row['ret_typtype'], array('b', 'p', 'e')))) { // scalar type
@@ -203,7 +204,7 @@ class PgSchema {
       }
     }
     if (count ($argtypenames) == $nargs)
-      return array ($schema, $argtypenames, $rettypename, ($row['proretset'] == 't'));
+      return array ($schema, $argtypeschemas, $argtypenames, $rettypename, ($row['proretset'] == 't'));
     else
       return NULL;
   }
@@ -302,15 +303,15 @@ class PgSchema {
     }
   }
 
-  private function escape_value ($type, $value) {
+  private function escape_value ($typeSchema, $type, $value) {
     if (substr ($type, 0, 1) == '_' && is_array ($value)) {
       $sqlvalue = 'ARRAY[';
       foreach ($value as $subvalue) {
-	$sqlvalue .= $this->escape_value (substr ($type, 1), $subvalue) . '::' . substr($type, 1) . ", "; // TODO replace , by pg_type.typdelim
+	$sqlvalue .= $this->escape_value ($typeSchema, substr ($type, 1), $subvalue) . ", "; // TODO replace , by pg_type.typdelim
       }      
       if (count ($value) > 0)     
 	$sqlvalue = substr ($sqlvalue, 0, -2);
-      $sqlvalue .= ']';
+      $sqlvalue .= ']' . '::' . $typeSchema . '.' . substr($type, 1).'[]';
       return $sqlvalue;
     }
     switch ($type) {
@@ -393,11 +394,27 @@ class PgSchema {
     if (isset ($this->pgtypes[$oid]))
       return $this->pgtypes[$oid];
     else {
-      $query2 = "SELECT typname FROM pg_type WHERE oid=".$oid;
+      $query2 = "SELECT nspname, typname FROM pg_type INNER JOIN pg_namespace on pg_type.typnamespace = pg_namespace.oid WHERE pg_type.oid=".$oid;
       if ($res2 = $this->pgproc_query ($query2)) {
 	if ($row2 = pg_fetch_array ($res2)) {
-	  $this->pgtypes[$oid] = $row2['typname'];
-	  return $row2['typname'];
+	  $ret = $row2['nspname'] . '.' . $row2['typname'];
+	  $this->pgtypes[$oid] = $ret;
+	  return $ret;
+	}
+      }
+    }
+  }
+
+  public function get_pgtype_and_schema ($oid) {
+    if (isset ($this->pgtypesWithSchema[$oid]))
+      return $this->pgtypesWithSchema[$oid];
+    else {
+      $query2 = "SELECT nspname, typname FROM pg_type INNER JOIN pg_namespace on pg_type.typnamespace = pg_namespace.oid WHERE pg_type.oid=".$oid;
+      if ($res2 = $this->pgproc_query ($query2)) {
+	if ($row2 = pg_fetch_array ($res2)) {
+	  $ret = array($row2['nspname'], $row2['typname']);
+	  $this->pgtypesWithSchema[$oid] = $ret;
+	  return $ret;
 	}
       }
     }

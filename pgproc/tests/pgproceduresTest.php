@@ -326,4 +326,20 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
     self::$base->set_client_encoding($enc);
     $this->assertEquals($isoString, utf8_decode('héllo')); // Takes care this current file is utf-8 encoded
   }
+
+  public function testEnumArg() {
+    $val = self::$base->pgtests->test_enum_arg('val1');
+    print_r($val);
+    $this->assertEquals('val1', $val); // Takes care this current file is utf-8 encoded
+  }
+
+  public function testEnumArrayArg() {
+    $val = self::$base->pgtests->test_enum_array_arg(array('val1', 'val2'));
+    $this->assertEquals($val, array('val1', 'val2')); // Takes care this current file is utf-8 encoded
+  }
+
+  public function testEnumEmptyArrayArg() {
+    $val = self::$base->pgtests->test_enum_array_arg(array());
+    $this->assertEquals($val, null); // Takes care this current file is utf-8 encoded
+  }
 }

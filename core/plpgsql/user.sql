@@ -4,38 +4,25 @@
 
 SET search_path = login;
 
-CREATE OR REPLACE FUNCTION _token_assert (prm_token integer, prm_structure boolean, prm_config boolean) 
+CREATE OR REPLACE FUNCTION _token_assert (prm_token integer, prm_rights login.user_right[]) 
 RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 DECLARE
   usr login."user";
 BEGIN
-  SELECT * INTO usr FROM login."user" WHERE usr_token = prm_token;
+  SELECT * INTO usr FROM login."user" WHERE 
+    usr_token = prm_token AND
+    (prm_rights ISNULL OR prm_rights <@ usr_rights); -- <@ 'is contained by'
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'insufficient_privilege';
   END IF;
-  IF prm_structure AND prm_config THEN
-    -- if prm_structure AND prm_config, the user needs at least one
-    IF usr.usr_right_structure IS DISTINCT FROM TRUE AND usr.usr_right_config IS DISTINCT FROM TRUE THEN
-      RAISE EXCEPTION USING ERRCODE = 'insufficient_privilege';
-    END IF;
-  ELSIF prm_structure THEN
-    IF usr.usr_right_structure IS DISTINCT FROM TRUE THEN
-      RAISE EXCEPTION USING ERRCODE = 'insufficient_privilege';
-    END IF;
-  ELSIF prm_config THEN
-    IF usr.usr_right_config IS DISTINCT FROM TRUE THEN
-      RAISE EXCEPTION USING ERRCODE = 'insufficient_privilege';
-    END IF;
-  END IF;
 END;
 $$;
-COMMENT ON FUNCTION _token_assert (prm_token integer, prm_structure boolean, prm_config boolean)  IS 
-'[INTERNAL] Assert that a token is valid. 
-If prm_structure XOR prm_config is true, also assert that the user get the corresponding right.
-If BOTH prm_structure and prm_config are true, assert that the user get at least one right.
-If assertion fails, an ''insufficient_privilege'' exception is raised.';
+COMMENT ON FUNCTION _token_assert (prm_token integer, prm_rights login.user_right[])  IS 
+'[INTERNAL] Assert that a token is valid.
+Also assert that the user owns all the rights given in parameter.
+If some assertion fails, an ''insufficient_privilege'' exception is raised.';
 
 CREATE OR REPLACE FUNCTION login._token_assert_other_login(prm_token integer, prm_login varchar)
 RETURNS VOID
@@ -77,21 +64,19 @@ COMMENT ON FUNCTION login._user_token_create (prm_login varchar) IS
 '[INTERNAL] Create a new token for the given user';
 
 
-DROP FUNCTION IF EXISTS user_login(prm_login character varying, prm_pwd character varying);
+DROP FUNCTION IF EXISTS user_login(prm_login character varying, prm_pwd character varying, prm_rights login.user_right[]);
 DROP TYPE IF EXISTS user_login;
 CREATE TYPE user_login AS (
   usr_token integer,
   usr_temp_pwd boolean,
-  usr_right_structure boolean,
-  usr_right_config boolean
+  usr_rights login.user_right[]
 );
 COMMENT ON TYPE user_login IS 'Type returned by user_login function';
 COMMENT ON COLUMN user_login.usr_token IS 'Token to use for other functions';
 COMMENT ON COLUMN user_login.usr_temp_pwd IS 'True if the password is temporary';
-COMMENT ON COLUMN user_login.usr_right_structure IS 'True if the user gets rights to edit structure';
-COMMENT ON COLUMN user_login.usr_right_config IS 'True if the user gets rights to edit configuration';
+COMMENT ON COLUMN user_login.usr_rights IS 'List of rights owned by the user.';
 
-CREATE OR REPLACE FUNCTION user_login(prm_login character varying, prm_pwd character varying) RETURNS user_login
+CREATE OR REPLACE FUNCTION user_login(prm_login character varying, prm_pwd character varying, prm_rights login.user_right[]) RETURNS user_login
   LANGUAGE plpgsql
   AS $$
 DECLARE
@@ -100,23 +85,25 @@ DECLARE
   tok integer DEFAULT NULL;
 BEGIN
   SELECT usr_login INTO usr FROM login."user"
-    WHERE usr_login = prm_login AND pgcrypto.crypt (prm_pwd, usr_salt) = usr_salt;
+    WHERE usr_login = prm_login AND 
+    pgcrypto.crypt (prm_pwd, usr_salt) = usr_salt AND
+    (prm_rights ISNULL OR prm_rights <@ usr_rights); -- <@: 'is contained by'
   IF NOT FOUND THEN 
     RAISE EXCEPTION USING ERRCODE = 'invalid_authorization_specification';
   END IF;
   SELECT * INTO tok FROM login._user_token_create (usr);
-  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_right_structure, usr_right_config INTO row FROM login."user"
+  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights INTO row FROM login."user"
     WHERE usr_login = usr;
   RETURN row;
 END;
 $$;
-COMMENT ON FUNCTION login.user_login(character varying, character varying) IS 
+COMMENT ON FUNCTION login.user_login(character varying, character varying, prm_rights login.user_right[]) IS 
 'Authenticate a user from its login and password.
+If prm_rights is not null, also verify that user owns all the specified rights.
 If authorization is ok, returns:
  - usr_token: a new token to be used for the following operations
  - usr_temp_pwd: true if the user is using a temporary password
- - usr_right_structure: true if the user has privileges to edit structure
- - usr_tight_config: true if the user has privileges to edit config
+ - usr_rights: the list of rights owned by the user.
 If authorization fails, an exception is raised with code invalid_authorization_specification
 ';
 
@@ -125,7 +112,7 @@ RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 BEGIN
-  PERFORM login._token_assert(prm_token, false, false);
+  PERFORM login._token_assert(prm_token, NULL);
   UPDATE login."user" SET usr_token = NULL, usr_token_creation_date = NULL
     WHERE "user".usr_token = prm_token;
 END;
@@ -138,7 +125,7 @@ RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 BEGIN
-  PERFORM login._token_assert(prm_token, false, false);
+  PERFORM login._token_assert(prm_token, NULL);
   UPDATE login."user" SET usr_pwd = NULL, usr_salt = pgcrypto.crypt (prm_password, pgcrypto.gen_salt('bf', 8)) WHERE usr_token = prm_token;
 END;
 $$;
@@ -152,7 +139,7 @@ AS $$
 DECLARE
   newpwd varchar;
 BEGIN
-  PERFORM login._token_assert(prm_token, false, true);
+  PERFORM login._token_assert(prm_token, '{users}');
   PERFORM login._token_assert_other_login(prm_token, prm_login);
   newpwd = LPAD((random()*1000000)::int::varchar, 6, '0');
   UPDATE login."user" SET 

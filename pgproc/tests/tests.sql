@@ -252,6 +252,30 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION pgtests.test_enum_arg(enumval pgtests.enumtype) 
+RETURNS pgtests.enumtype
+LANGUAGE plpgsql
+IMMUTABLE
+AS $$
+BEGIN
+  RETURN enumval;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_enum_array_arg(list pgtests.enumtype[]) 
+RETURNS SETOF pgtests.enumtype
+LANGUAGE plpgsql
+IMMUTABLE
+AS $$
+DECLARE 
+  i varchar;
+BEGIN
+  FOREACH i IN ARRAY list LOOP
+    RETURN NEXT i;
+  END LOOP;
+END;
+$$;
+
 CREATE OR REPLACE FUNCTION pgtests.test_returns_accented_string()
 RETURNS character varying
 LANGUAGE SQL

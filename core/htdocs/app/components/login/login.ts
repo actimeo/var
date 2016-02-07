@@ -45,7 +45,7 @@ export class LoginCmp {
 	// This will be called when the user clicks on the Login button
 	event.preventDefault();
 	
-	PgProc('/core/ajax/', 'login', 'user_login', { 'prm_login': username, 'prm_pwd': password })
+	PgProc('/core/ajax/', 'login', 'user_login', { 'prm_login': username, 'prm_pwd': password, prm_rights: [] })
 	    .then((data) => {
 		this._userService.connect(data.usr_token, username);
 		this.errormsg = null;

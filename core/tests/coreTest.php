@@ -45,27 +45,50 @@ class coreTest extends PHPUnit_Framework_TestCase {
   public function testUserLoginOk() {
     $login = 'testdejfhcqcsdfkhn';
     $pwd = 'ksfdjgsfdyubg';    
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), true, false);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $res = self::$base->login->user_login($login, $pwd);
+    $res = self::$base->login->user_login($login, $pwd, null);
     $this->assertGreaterThan(0, $res['usr_token']);
     $this->assertFalse($res['usr_temp_pwd']);
-    $this->assertTrue($res['usr_right_structure']);
-    $this->assertFalse($res['usr_right_config']);
+    print_r($res);
+    $this->assertNull($res['usr_rights']);
   }
   
   /**
-   * Login exception
+   * Login exception with wrong password
    * @expectedException PgProcException
    */
-  public function testUserLoginException() {
+  public function testUserLoginExceptionWrongPwd() {
     $login = 'testdejfhcqcsdfkhn';
     $pwd = 'ksfdjgsfdyubg';    
-    self::$base->execute_sql("insert into login.user(usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), true, false);");
+    self::$base->execute_sql("insert into login.user(usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $res = self::$base->login->user_login($login, $pwd."X");
+    $res = self::$base->login->user_login($login, $pwd."X", null);
   }
 
+  /**
+   * Login exception with insufficient/no rights
+   * @expectedException PgProcException
+   */
+  public function testUserLoginExceptionNoRight() {
+    $login = 'testdejfhcqcsdfkhn';
+    $pwd = 'ksfdjgsfdyubg';    
+    self::$base->execute_sql("insert into login.user(usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), null);");
+
+    $res = self::$base->login->user_login($login, $pwd, '{structure}');
+  }
+
+  /**
+   * Login exception with insufficient/wrong rights
+   * @expectedException PgProcException
+   */
+  public function testUserLoginExceptionWrongRight() {
+    $login = 'testdejfhcqcsdfkhn';
+    $pwd = 'ksfdjgsfdyubg';    
+    self::$base->execute_sql("insert into login.user(usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), '{users}');");
+
+    $res = self::$base->login->user_login($login, $pwd, '{structure}');
+  }
 
   /**
    * Test user logout
@@ -73,9 +96,9 @@ class coreTest extends PHPUnit_Framework_TestCase {
   public function testUserLogoutOk() {
     $login = 'testdejfhcqcsdfkhn';
     $pwd = 'ksfdjgsfdyubg';    
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), true, false);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $res = self::$base->login->user_login($login, $pwd);
+    $res = self::$base->login->user_login($login, $pwd, null);
     $this->assertGreaterThan(0, $res['usr_token']);
 
     self::$base->login->user_logout($res['usr_token']);
@@ -92,21 +115,21 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $login = 'testdejfhcqcsdfkhn';
     $pwd = 'ksfdjgsfdyubg';    
     $newpwd = 'sdfjkgh';    
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), true, false);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $res = self::$base->login->user_login($login, $pwd);
+    $res = self::$base->login->user_login($login, $pwd, null);
     $this->assertGreaterThan(0, $res['usr_token']);
 
     self::$base->login->user_change_password($res['usr_token'], $newpwd);
     self::$base->login->user_logout($res['usr_token']);
 
-    $res = self::$base->login->user_login($login, $newpwd);
+    $res = self::$base->login->user_login($login, $newpwd, null);
     $this->assertGreaterThan(0, $res['usr_token']);
     $this->assertFalse($res['usr_temp_pwd']);
     
     self::$base->login->user_logout($res['usr_token']);
     $this->setExpectedException('PgProcException');
-    $res = self::$base->login->user_login($login, 'wrong_pwd');
+    $res = self::$base->login->user_login($login, 'wrong_pwd', null);
   }
 
   /**
@@ -119,20 +142,20 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $loginLost = 'toto';
     $pwdLost = 'tata';
 
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), false, true);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), '{users}');");
 
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$loginLost."', pgcrypto.crypt('".$pwdLost."', pgcrypto.gen_salt('bf', 8)), true, false);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginLost."', pgcrypto.crypt('".$pwdLost."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin);
+    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, null);
     $this->assertGreaterThan(0, $admin['usr_token']);
 
-    $toto = self::$base->login->user_login($loginLost, $pwdLost);
+    $toto = self::$base->login->user_login($loginLost, $pwdLost, null);
     $this->assertGreaterThan(0, $toto['usr_token']);
     self::$base->login->user_logout($toto['usr_token']);
     
     $tmppwd = self::$base->login->user_regenerate_password($admin['usr_token'], $loginLost);
 
-    $toto2 = self::$base->login->user_login($loginLost, $tmppwd);
+    $toto2 = self::$base->login->user_login($loginLost, $tmppwd, null);
     $this->assertGreaterThan(0, $toto2['usr_token']);
     $this->assertTrue($toto2['usr_temp_pwd']);
     self::$base->login->user_logout($toto2['usr_token']);
@@ -146,9 +169,9 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $loginAdmin = 'admin';
     $pwdAdmin = 'ksfdjgsfdyubg';    
     
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_right_structure, usr_right_config) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), false, true);");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), NULL);");
 
-    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin);
+    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, null);
     $this->assertGreaterThan(0, $admin['usr_token']);
     
     $this->setExpectedException('PgProcException');
