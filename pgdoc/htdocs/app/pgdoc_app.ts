@@ -1,7 +1,7 @@
-import {Component, ViewChild} from 'angular2/core';
+import {Component, ViewChild, Input, ApplicationRef} from 'angular2/core';
 import {RouteConfig, Route, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {MATERIAL_DIRECTIVES, Media, SidenavService} from 'ng2-material/all';
+import {MATERIAL_PROVIDERS, MATERIAL_DIRECTIVES, Media, SidenavService} from 'ng2-material/all';
 
 import {SchemasListCmp} from './components/schemas_list/schemas_list';
 import {SchemaDetailsCmp} from './components/schema_details/schema_details';
@@ -19,6 +19,9 @@ import {FunctionDetailsCmp} from './components/function_details/function_details
 
 @Component({
     selector: 'pgdoc-app',
+    host: {
+	'[class.push-menu]': 'fullPage'
+    },
     styles: [`
 	     nav {
 		 width: 200px;
@@ -29,12 +32,28 @@ import {FunctionDetailsCmp} from './components/function_details/function_details
 	     `],
     templateUrl: './app/pgdoc_app.html',
     directives: [SchemasListCmp, SchemaDetailsCmp, ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES],
-    providers: [SidenavService]
+    providers: [SidenavService, MATERIAL_PROVIDERS]
 })
 export class PgdocApp {
     @ViewChild('schemaDetails') schemaDetails;
 
-    constructor(public sidenav:SidenavService) {
+    static SIDE_MENU_BREAKPOINT: string = 'gt-md';
+
+    @Input()
+    fullPage: boolean = Media.hasMedia(PgdocApp.SIDE_MENU_BREAKPOINT);
+
+    private _subscription = null;
+
+    constructor(
+	public sidenav:SidenavService,
+        public media: Media,
+        public appRef: ApplicationRef
+    ) {
+	let query = Media.getQuery(PgdocApp.SIDE_MENU_BREAKPOINT);
+	this._subscription = media.listen(query).onMatched.subscribe((mql: MediaQueryList) => {
+	    this.fullPage = mql.matches;
+	    this.appRef.tick();
+	});
 	
     }
 
