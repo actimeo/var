@@ -1,17 +1,13 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgdocService} from './../../services/pgdoc_service';
+import {NavigationService} from './../../services/navigation';
 
 @Component({
     selector: 'schema-description-cmp',
     styles: [`
 	     `],
     template: `
-	<md-toolbar>
-	<h2 class="md-toolbar-tools">
-	<span>Schema {{schema}}</span>
-	</h2>
-	</md-toolbar>
 	<md-content layout-padding><h3>Description</h3><div style="white-space: pre-wrap">{{description}}</div></md-content>
 	`,
     providers: [PgdocService]
@@ -24,9 +20,14 @@ export class SchemaDescriptionCmp {
 
     description: any;
     
-    constructor(params: RouteParams, _pgdocService: PgdocService) {
+    constructor(
+	params: RouteParams, 
+	_pgdocService: PgdocService,
+	private nav: NavigationService
+    ) {
 	this._pgdocService = _pgdocService;
 	this.schema = params.get('id');
+	this.nav.currentTitle = 'Schema '+this.schema;
     }
 
     ngOnInit() {	    

@@ -3,6 +3,8 @@ import {RouteConfig, Route, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {MATERIAL_PROVIDERS, MATERIAL_DIRECTIVES, Media, SidenavService} from 'ng2-material/all';
 
+import {NavigationService} from './services/navigation';
+
 import {SchemasListCmp} from './components/schemas_list/schemas_list';
 import {SchemaDetailsCmp} from './components/schema_details/schema_details';
 import {SchemaDescriptionCmp} from './components/schema_description/schema_description';
@@ -45,7 +47,7 @@ export class PgdocApp {
     private _subscription = null;
 
     constructor(
-//	public sidenav:SidenavService,
+	public navigation:NavigationService,
         public media: Media,
         public appRef: ApplicationRef,
 	private _sidenav: SidenavService
@@ -55,7 +57,7 @@ export class PgdocApp {
 	    this.fullPage = mql.matches;
 	    this.appRef.tick();
 	});
-	
+	navigation.currentTitle = 'Variation database';
     }
 
     hasMedia(breakSize:string):boolean {

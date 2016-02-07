@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgdocService} from './../../services/pgdoc_service';
+import {NavigationService} from './../../services/navigation';
 
 @Component({
     selector: 'function-details-cmp',
@@ -11,11 +12,6 @@ import {PgdocService} from './../../services/pgdoc_service';
 	     th, td { padding: 4px; border: 1px solid black; }
 	     `],
     template: `
-	<md-toolbar>
-	<h2 class="md-toolbar-tools">
-	<span>Function {{schema}}.{{id}}</span>
-	</h2>
-	</md-toolbar>
 	<md-content layout-padding>
 
 	<div *ngIf="details?.description">
@@ -57,10 +53,15 @@ export class FunctionDetailsCmp {
     args: any;
     retColumns: any;
 
-    constructor(params: RouteParams, _pgdocService: PgdocService) {
+    constructor(
+	params: RouteParams, 
+	_pgdocService: PgdocService,
+	private nav: NavigationService
+) {
 	this._pgdocService = _pgdocService;
 	this.schema = params.get('schema');
 	this.id = params.get('id');
+	this.nav.currentTitle = 'Function '+this.schema+'.'+this.id;
     }
 
     ngOnInit() {	    
