@@ -32,7 +32,7 @@ import {FunctionDetailsCmp} from './components/function_details/function_details
 	     `],
     templateUrl: './app/pgdoc_app.html',
     directives: [SchemasListCmp, SchemaDetailsCmp, ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES],
-    providers: [SidenavService, MATERIAL_PROVIDERS]
+    providers: [MATERIAL_PROVIDERS]
 })
 export class PgdocApp {
     @ViewChild('schemaDetails') schemaDetails;
@@ -45,9 +45,10 @@ export class PgdocApp {
     private _subscription = null;
 
     constructor(
-	public sidenav:SidenavService,
+//	public sidenav:SidenavService,
         public media: Media,
-        public appRef: ApplicationRef
+        public appRef: ApplicationRef,
+	private _sidenav: SidenavService
     ) {
 	let query = Media.getQuery(PgdocApp.SIDE_MENU_BREAKPOINT);
 	this._subscription = media.listen(query).onMatched.subscribe((mql: MediaQueryList) => {
@@ -60,16 +61,20 @@ export class PgdocApp {
     hasMedia(breakSize:string):boolean {
 	return Media.hasMedia(breakSize);
     }
-
+/*
     open(name:string) {
 	this.sidenav.show(name);
     }
     close(name:string) {
 	this.sidenav.hide(name);
     }
-
+*/
     schemaSelected(event) {
 	console.log(event);
 	this.schemaDetails.setSchema(event);
     }
+
+    showMenu(event?) {
+	this._sidenav.show('menu');
+  }
 }

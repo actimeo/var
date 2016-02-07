@@ -1,37 +1,37 @@
-<!--
-<h1>Pgdoc</h1>
-<nav>
-  <schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
-  <schema-details-cmp #schemaDetails></schema-details-cmp>
-</nav>
-<main><router-outlet></router-outlet></main>
--->
-<div layout="column" style="height:100%;">
+<md-sidenav-container layout="row" flex>
 
-  <md-sidenav-container layout="row" flex>
+  <md-sidenav name="menu" [style]="fullPage ? 'side' : 'over'">
 
-    <md-sidenav name="left" [style]="fullPage ? 'side' : 'over'">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">PgDoc</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
+      <schema-details-cmp #schemaDetails></schema-details-cmp>	
+    </md-content>
 
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">PgDoc</h1>
-      </md-toolbar>
-      <md-content layout-padding>
-	<schemas-list-cmp (onselected)="schemaSelected($event)"></schemas-list-cmp>
-	<schema-details-cmp #schemaDetails></schema-details-cmp>	
-      </md-content>
+  </md-sidenav>
 
-    </md-sidenav>
+  <section class="app-content" layout="column" layout-align="start center" flex>
 
-    <md-content flex>
-
-      <div layout="column" layout-fill layout-align="top center">
-	<main><router-outlet></router-outlet></main>
+    <md-toolbar class="fixed-toolbar">
+      <div class="md-toolbar-tools">
+        <button md-button
+                class="md-hamburger md-icon-button"
+                hide-gt-lg
+                (click)="showMenu($event)"
+                aria-label="Home">
+          <i md-icon class="md-dark">menu</i>
+        </button>
       </div>
+    </md-toolbar>
+
+    <md-content md-scroll-y layout-padding style="width: 100%;">
+
+      <router-outlet></router-outlet>
 
       <div flex></div>
 
     </md-content>
-
-  </md-sidenav-container>
-
-</div>
+  </section>
+</md-sidenav-container>

@@ -1,6 +1,10 @@
 import {Component} from 'angular2/core';
 import {RouterLink} from 'angular2/router';
+import {TimerWrapper} from "angular2/src/facade/async";
+
 import {PgdocService} from './../../services/pgdoc_service';
+
+import {SidenavService} from 'ng2-material/all';
 
 @Component({
     selector: 'schema-details-cmp',
@@ -11,25 +15,25 @@ import {PgdocService} from './../../services/pgdoc_service';
 	<div [hidden]="!schema">
 	<md-list>
 
-	<md-list-item class="md-1-line" [routerLink]="['SchemaDesc', { id: schema }]">
+	<md-list-item (click)="itemClick()" class="md-1-line" [routerLink]="['SchemaDesc', { id: schema }]">
 	  <i md-icon class="material-icons">description</i>
-	  <div class="md-list-item-text">Description</div>
+	  <div class="md-no-style md-list-item-text">Description</div>
 	</md-list-item>
 
 	<div [hidden]="noTables()"><md-subheader class="md-subheader">Tables</md-subheader></div>
-	<md-list-item class="md-1-line" *ngFor="#table of tables" md-ink [routerLink]="['TableDetails', { schema: schema, id: table }]">
+	<md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#table of tables" md-ink [routerLink]="['TableDetails', { schema: schema, id: table }]">
 	  <i md-icon class="material-icons">storage</i>
 	  <div class="md-list-item-text">{{table}}</div>
 	</md-list-item>
 
 	<div [hidden]="noTypes()"><md-subheader class="md-subheader">Types</md-subheader></div>
-	<md-list-item class="md-1-line" *ngFor="#type of types" md-ink [routerLink]="['TypeDetails', { schema: schema, id: type }]">
+	<md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#type of types" md-ink [routerLink]="['TypeDetails', { schema: schema, id: type }]">
 	  <i md-icon class="material-icons">list</i>
 	  <div class="md-list-item-text">{{type}}</div>
 	</md-list-item>
 
 	<div [hidden]="noFunctions()"><md-subheader class="md-subheader">Functions</md-subheader></div>
-	<md-list-item class="md-1-line" *ngFor="#function of functions" [routerLink]="['FunctionDetails', { schema: schema, id: function }]">
+	<md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#function of functions" [routerLink]="['FunctionDetails', { schema: schema, id: function }]">
 	  <i md-icon class="material-icons">functions</i>
 	  <div class="md-list-item-text">{{function}}</div>
 	</md-list-item>
@@ -49,7 +53,10 @@ export class SchemaDetailsCmp {
     functions: any;
     _pgdocService: PgdocService;
     
-    constructor(_pgdocService: PgdocService) {
+    constructor(
+	_pgdocService: PgdocService,
+	private _sidenav: SidenavService
+    ) {
 	this._pgdocService = _pgdocService;
 	this.schema = null;
     }
@@ -95,5 +102,13 @@ export class SchemaDetailsCmp {
     setSchema(schema) {
 	this.schema = schema;
 	this.reloadData();
+    }
+    
+    itemClick() {
+	console.log("itemClick");
+	TimerWrapper.setTimeout(() => {
+	    this._sidenav.hide('menu');
+	}, 0);
+	//this._sidenav.hide('menu');
     }
 }
