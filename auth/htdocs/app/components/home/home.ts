@@ -8,7 +8,7 @@ import {I18nService} from '../../services/i18n';
     selector: 'home-cmp',
     template: `
 	<div class="home">
-	<h1>{{i18n.t('core.logged_in_as')}} {{getUser()}}</h1>
+	<h1>{{i18n.t('auth.logged_in_as')}} {{getUser()}}</h1>
 	<p><a (click)="logout()">Logout</a></p>
 	</div>
 	`,

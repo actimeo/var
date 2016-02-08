@@ -2,7 +2,7 @@ en_translations = {
     "test": {
 	"key": "hello world",
     },
-    "core": {
+    "auth": {
 	"connect_title": "Connection",
 	"username": "Username",
 	"password": "Password",

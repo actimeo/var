@@ -2,7 +2,7 @@ fr_translations = {
     "test": {
 	"key": "Salut à toi !",
     },
-    "core": {
+    "auth": {
 	"connect_title": "Connexion",
 	"username": "Identifiant",
 	"password": "Mot de passe",

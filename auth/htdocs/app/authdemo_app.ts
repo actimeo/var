@@ -7,7 +7,7 @@ import {LoggedInRouterOutlet} from './components/loggedin_router_outlet/loggedin
 import {UserService} from './services/user';
 
 @Component({
-    selector: 'coredemo-app',
+    selector: 'authdemo-app',
     template: `
 	<loggedin-router-outlet></loggedin-router-outlet>
 	`,
@@ -18,7 +18,7 @@ import {UserService} from './services/user';
     {path:'/home', name: 'Home', component: HomeCmp },
     {path:'/login', name: 'Login', component: LoginCmp }   
 ])
-export class CoredemoApp {
+export class AuthdemoApp {
     
     constructor(private _router: Router, private _userService: UserService) {
 	if (this._userService.isConnected())

@@ -15,18 +15,18 @@ declare var PgProc: any;
   template: `
 	<div class="body">
 	<div class="panel panel-default loginform">
-	<div class="panel-heading"><h3 class="panel-title">{{i18n.t('core.connect_title')}}</h3></div>
+	<div class="panel-heading"><h3 class="panel-title">{{i18n.t('auth.connect_title')}}</h3></div>
 	<div class="panel-body">
 	<form (submit)="login($event, username.value, password.value)">
 	<div class="form-group">
-	<label for="username">{{i18n.t('core.username')}}</label>
-	<input type="text" #username class="form-control" id="username" placeholder="{{i18n.t('core.username')}}">
+	<label for="username">{{i18n.t('auth.username')}}</label>
+	<input type="text" #username class="form-control" id="username" placeholder="{{i18n.t('auth.username')}}">
 	</div>
 	<div class="form-group">
-	<label for="password">{{i18n.t('core.password')}}</label>
-	<input type="password" #password class="form-control" id="password" placeholder="{{i18n.t('core.password')}}">
+	<label for="password">{{i18n.t('auth.password')}}</label>
+	<input type="password" #password class="form-control" id="password" placeholder="{{i18n.t('auth.password')}}">
 	</div>
-	<button type="submit" class="btn btn-primary">{{i18n.t('core.submit')}}</button>
+	<button type="submit" class="btn btn-primary">{{i18n.t('auth.submit')}}</button>
 	</form>
 	<div [hidden]="!errormsg"><p class="text-danger">{{errormsg}}</p></div>
 	</div></div></div>
@@ -45,7 +45,7 @@ export class LoginCmp {
 	// This will be called when the user clicks on the Login button
 	event.preventDefault();
 	
-	PgProc('/core/ajax/', 'login', 'user_login', { 'prm_login': username, 'prm_pwd': password, prm_rights: [] })
+	PgProc('/auth/ajax/', 'login', 'user_login', { 'prm_login': username, 'prm_pwd': password, prm_rights: [] })
 	    .then((data) => {
 		this._userService.connect(data.usr_token, username);
 		this.errormsg = null;
@@ -54,7 +54,7 @@ export class LoginCmp {
 	    })
 	    .catch(error => {
 		console.log(error);
-		this.errormsg = this.i18n.t('core.autherror');
+		this.errormsg = this.i18n.t('auth.autherror');
 	    });
 	
 	// We call our API to log the user in. The username and password are entered by the user
