@@ -25,11 +25,8 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
     
     // Create object
     self::$base = new PgProcedures2 (self::$pgHost, self::$pgUser, self::$pgPass, self::$pgDatabase);
-    self::assertNotNull(self::$base);
-    
-    // Import SQL functions
-    $res = self::$base->execute_sql(file_get_contents('tests.sql'));
-    self::assertEmpty($res);
+    self::assertNotNull(self::$base);    
+
   }
 
   /*********

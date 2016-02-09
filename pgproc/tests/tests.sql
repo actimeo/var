@@ -1,5 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS pgtests;
-
 DROP TYPE IF EXISTS pgtests.enumtype CASCADE;
 CREATE TYPE pgtests.enumtype AS ENUM ('val1', 'val2', 'val3');
 
