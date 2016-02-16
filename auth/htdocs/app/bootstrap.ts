@@ -1,3 +1,4 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
 import {provide} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT, LocationStrategy, HashLocationStrategy} from 'angular2/router';
