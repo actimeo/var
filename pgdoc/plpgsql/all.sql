@@ -226,7 +226,7 @@ BEGIN
     INNER JOIN pg_type ON pg_type.oid = pg_attribute.atttypid
   WHERE
     pg_class.relname = prm_type
-    AND pg_class.relkind = 'c'
+    AND (pg_class.relkind = 'c' OR pg_class.relkind = 'r')
     AND pg_namespace.nspname = prm_schema
     AND attnum > 0
   ORDER BY attnum;
@@ -280,7 +280,7 @@ BEGIN
     pg_proc.provolatile
   INTO ret
   FROM pg_proc
-    INNER JOIN pg_description ON pg_description.objoid = pg_proc.oid
+     LEFT JOIN pg_description ON pg_description.objoid = pg_proc.oid
     INNER JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
     INNER JOIN pg_type rettype ON rettype.oid = prorettype
     INNER JOIN pg_namespace retschema ON retschema.oid = rettype.typnamespace

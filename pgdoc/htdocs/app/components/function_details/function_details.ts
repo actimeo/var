@@ -75,7 +75,7 @@ export class FunctionDetailsCmp {
 
 	    this._pgdocService.typeColumns(this.details.rettype_schema, this.details.rettype_name).then(data => {
 		this.retColumns = data;
-		console.log(this.retColumns);
+		console.log("retColumn: "+this.retColumns);
 	    });
 	});
 
