@@ -1,0 +1,43 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.js"></script>
+  <script src="node_modules/i18next/i18next.min.js"></script>
+  <script src="node_modules/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+  <script src="i18n/i18n.en.js"></script>
+  <script src="i18n/i18n.de.js"></script>
+  <script src="i18n/i18n.fr.js"></script>
+  <script src="ajax/pgajax.js"></script>
+  <script>
+  System.config({
+    // we want to import modules without writing .js at the end
+    defaultJSExtensions: true,
+    // the app will need the following dependencies
+    map: {
+      'angular2': 'node_modules/angular2',
+      'rxjs': 'node_modules/rxjs'
+    }
+  });
+  // and to finish, let's boot the app!
+  System.import('built/bootstrap');
+  </script>
+  <base href="/portal"></base>
+  <style>
+    body { color: #222;  }
+    h2, h3 { color: #2196F3; }
+  </style>
+</head>
+
+<body>
+  <portaldemo-app>
+    ...
+  </portaldemo-app>
+</body>
+
+</html>

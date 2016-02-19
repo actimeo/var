@@ -48,3 +48,4 @@ COMMENT ON COLUMN "user".usr_token IS 'Token id returned after authentication';
 COMMENT ON COLUMN "user".usr_token_creation_date IS 'Token creation date for validity';
 
 INSERT INTO login.user(usr_login, usr_salt, usr_rights) values ('variation', pgcrypto.crypt('variation', pgcrypto.gen_salt('bf', 8)), '{users}');
+INSERT INTO login.user(usr_login, usr_salt, usr_rights) values ('portaluser', pgcrypto.crypt('portal/user', pgcrypto.gen_salt('bf', 8)), '{structure}');
