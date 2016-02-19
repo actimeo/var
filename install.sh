@@ -15,6 +15,8 @@ fi
 
 FILES="pgproc/sql/*.sql pgdoc/sql/*.sql pgproc/plpgsql/*.sql pgproc/tests/tests.sql"
 FILES="$FILES auth/sql/*.sql auth/plpgsql/*.sql"
+FILES="$FILES portal/sql/*.sql"
+
 echo 'Installing SQL from files:'
 for i in $FILES; do 
     echo " - $i";
