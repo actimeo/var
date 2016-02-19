@@ -50,7 +50,6 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $res = self::$base->login->user_login($login, $pwd, null);
     $this->assertGreaterThan(0, $res['usr_token']);
     $this->assertFalse($res['usr_temp_pwd']);
-    print_r($res);
     $this->assertNull($res['usr_rights']);
   }
   

@@ -4,7 +4,7 @@ SET search_path = portal;
 -- PERSONSECTION --
 -----------------
 
-CREATE OR REPLACE FUNCTION personsection_add(prm_por_id integer, prm_entity portal.entity, prm_name text)
+CREATE OR REPLACE FUNCTION personsection_add(prm_token integer, prm_por_id integer, prm_entity portal.entity, prm_name text)
 RETURNS integer
 LANGUAGE plpgsql
 AS $$
@@ -12,6 +12,7 @@ DECLARE
   new_order integer;
   ret integer;
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   SELECT COALESCE(MAX(pse_order), 0) + 1 INTO new_order FROM portal.personsection 
     WHERE por_id = prm_por_id AND pse_entity = prm_entity;
   INSERT INTO portal.personsection (por_id, pse_entity, pse_name, pse_order)
@@ -21,23 +22,25 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION personsection_list(prm_por_id integer, prm_entity portal.entity)
+CREATE OR REPLACE FUNCTION personsection_list(prm_token integer, prm_por_id integer, prm_entity portal.entity)
 RETURNS SETOF portal.personsection
 LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   RETURN QUERY SELECT * FROM portal.personsection 
     WHERE por_id = prm_por_id AND pse_entity = prm_entity
     ORDER BY pse_order;
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION personsection_rename(prm_id integer, prm_name text)
+CREATE OR REPLACE FUNCTION personsection_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   UPDATE portal.personsection SET pse_name = prm_name WHERE pse_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
@@ -45,11 +48,12 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION personsection_delete(prm_id integer)
+CREATE OR REPLACE FUNCTION personsection_delete(prm_token integer, prm_id integer)
 RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   DELETE FROM portal.personsection WHERE pse_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
@@ -57,7 +61,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION personsection_move_before_position(prm_id integer, prm_position integer)
+CREATE OR REPLACE FUNCTION personsection_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
 LANGUAGE plpgsql
 AS $$
@@ -67,6 +71,7 @@ DECLARE
   i integer;
   mse integer;
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   SELECT por_id, pse_entity INTO por, ent FROM portal.personsection WHERE pse_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';

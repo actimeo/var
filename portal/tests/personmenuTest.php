@@ -30,6 +30,11 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
   protected function assertPreConditions()
   {
     self::$base->startTransaction();
+    $login = 'testdejfhcqcsdfkhn';
+    $pwd = 'ksfdjgsfdyubg';    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)),  '{structure}');");
+    $res = self::$base->login->user_login($login, $pwd, null);
+    $this->token = $res['usr_token'];
   }
 
   protected function assertPostConditions()
@@ -39,27 +44,27 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
 
   public function testPersonMenuAdd() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name = 'a main menu';
-    $pme_id = self::$base->portal->personmenu_add($pse_id, $pme_name);
+    $pme_id = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name);
     $this->assertGreaterThan(0, $pme_id);
   }
 
   public function testPersonMenuAddTwice() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name1 = 'a first menu';
     $pme_name2 = 'a second menu';
-    $id1 = self::$base->portal->personmenu_add($pse_id, $pme_name1);
-    $id2 = self::$base->portal->personmenu_add($pse_id, $pme_name2);
+    $id1 = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name1);
+    $id2 = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name2);
     $this->assertGreaterThan($id1, $id2);
   }
 
@@ -69,14 +74,14 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
    */
   public function testPersonMenuAddSameName() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name = 'a first menu';
-    $id1 = self::$base->portal->personmenu_add($pse_id, $pse_name);
-    $id2 = self::$base->portal->personmenu_add($pse_id, $pse_name);
+    $id1 = self::$base->portal->personmenu_add($this->token, $pse_id, $pse_name);
+    $id2 = self::$base->portal->personmenu_add($this->token, $pse_id, $pse_name);
   }  
 
   /**
@@ -84,83 +89,83 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
    */
   public function testPersonMenuAddSameNameOtherPersonsection() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name1 = 'a first section';
-    $pse_id1 = self::$base->portal->personsection_add($por_id, 'patient', $pse_name1);
+    $pse_id1 = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name1);
     $pse_name2 = 'a second section';
-    $pse_id2 = self::$base->portal->personsection_add($por_id, 'patient', $pse_name2);
+    $pse_id2 = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name2);
     
     $pme_name = 'a section';
-    $id1 = self::$base->portal->personmenu_add($pse_id1, $pme_name);
-    $id2 = self::$base->portal->personmenu_add($pse_id2, $pme_name);
+    $id1 = self::$base->portal->personmenu_add($this->token, $pse_id1, $pme_name);
+    $id2 = self::$base->portal->personmenu_add($this->token, $pse_id2, $pme_name);
     $this->assertGreaterThan($id1, $id2);
   }  
 
   public function testPersonMenuAddAndList() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name = 'a main menu';
-    $pme_id = self::$base->portal->personmenu_add($pse_id, $pme_name);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $pme_id = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(1, count($personmenus));
   }
 
   public function testPersonMenuAddTwiceAndList() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name1 = 'a first menu';
     $pme_name2 = 'a second menu';
-    $id1 = self::$base->portal->personmenu_add($pse_id, $pme_name1);
-    $id2 = self::$base->portal->personmenu_add($pse_id, $pme_name2);
+    $id1 = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name1);
+    $id2 = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name2);
    
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(2, count($personmenus));
   }
 
   public function testPersonMenuAddDifferentPersonsectionsAndList() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name1 = 'a first section';
-    $pse_id1 = self::$base->portal->personsection_add($por_id, 'patient', $pse_name1);
+    $pse_id1 = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name1);
     $pse_name2 = 'a second section';
-    $pse_id2 = self::$base->portal->personsection_add($por_id, 'patient', $pse_name2);
+    $pse_id2 = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name2);
     
     $pme_name = 'a menu';
-    $id1 = self::$base->portal->personmenu_add($pse_id1, $pme_name);
-    $id2 = self::$base->portal->personmenu_add($pse_id2, $pme_name);
+    $id1 = self::$base->portal->personmenu_add($this->token, $pse_id1, $pme_name);
+    $id2 = self::$base->portal->personmenu_add($this->token, $pse_id2, $pme_name);
 
-    $personmenus = self::$base->portal->personmenu_list($pse_id1);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id1);
     $this->assertEquals(1, count($personmenus));
 
-    $personmenus = self::$base->portal->personmenu_list($pse_id2);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id2);
     $this->assertEquals(1, count($personmenus));
   }
 
   public function testPersonMenuAddAndCheckOrder() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name[0] = 'a first menu';
     $pme_name[1] = 'a second menu';
     $pme_name[2] = 'a third menu';
     $pme_name[3] = 'a fourth menu';
     for ($i=0; $i<4; $i++)
-      $id[$i] = self::$base->portal->personmenu_add($pse_id, $pme_name[$i]);
+      $id[$i] = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name[$i]);
     
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(4, count($personmenus));
     for ($i=0; $i<4; $i++) {
       $this->assertEquals($i+1, $personmenus[$i]['pme_order']);
@@ -169,17 +174,17 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testPersonMenuRename() {
-    $por_id = self::$base->portal->portal_add('a portal');
+    $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $name1 = 'a menu';
     $name2 = 'another menu';
     
-    $id = self::$base->portal->personmenu_add($pse_id, $name1);
-    self::$base->portal->personmenu_rename($id, $name2);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $id = self::$base->portal->personmenu_add($this->token, $pse_id, $name1);
+    self::$base->portal->personmenu_rename($this->token, $id, $name2);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(1, count($personmenus));
     $personmenu = $personmenus[0];
     $this->assertEquals($name2, $personmenu['pme_name']);
@@ -193,26 +198,26 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
    public function testPersonMenuRenameUnknown() {
     $name1 = 'a section';
     $name2 = 'another section';
-    $por_id = self::$base->portal->portal_add('a portal');
+    $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
-    $id = self::$base->portal->personmenu_add($pse_id, $name1);
-    self::$base->portal->personmenu_rename($id+1, $name2);
+    $id = self::$base->portal->personmenu_add($this->token, $pse_id, $name1);
+    self::$base->portal->personmenu_rename($this->token, $id+1, $name2);
   }
 
   public function testPersonMenuDelete() {
-    $por_id = self::$base->portal->portal_add('a portal');
+    $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
-    $id = self::$base->portal->personmenu_add($pse_id, 'a menu');
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $id = self::$base->portal->personmenu_add($this->token, $pse_id, 'a menu');
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(1, count($personmenus));
-    self::$base->portal->personmenu_delete($id);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    self::$base->portal->personmenu_delete($this->token, $id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(0, count($personmenus));
   }
 
@@ -222,78 +227,78 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
    */
   public function testPersonMenuDeleteUnknown() {
     $name = 'a portal';
-    $por = self::$base->portal->portal_add($name);
+    $por = self::$base->portal->portal_add($this->token, $name);
 
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por, 'patient', $pse_name);
 
-    $id = self::$base->portal->personmenu_add($pse_id, 'a menu');
-    self::$base->portal->personmenu_delete($id+1);
+    $id = self::$base->portal->personmenu_add($this->token, $pse_id, 'a menu');
+    self::$base->portal->personmenu_delete($this->token, $id+1);
   }
 
   public function testPersonMenuAddAndMoveToMiddle() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name[0] = '1';
     $pme_name[1] = '2';
     $pme_name[2] = '3';
     $pme_name[3] = '4';
     for ($i=0; $i<4; $i++)
-      $id[$i] = self::$base->portal->personmenu_add($pse_id, $pme_name[$i]);
+      $id[$i] = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name[$i]);
     
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(4, count($personmenus));
 
-    self::$base->portal->personmenu_move_before_position($id[2], 1);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    self::$base->portal->personmenu_move_before_position($this->token, $id[2], 1);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(array('3', '1', '2', '4'), $this->getPmeNames($personmenus));
   }
 
   public function testPersonMenuAddAndMoveToStart() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
     $pme_name[0] = '1';
     $pme_name[1] = '2';
     $pme_name[2] = '3';
     $pme_name[3] = '4';
     for ($i=0; $i<4; $i++)
-      $id[$i] = self::$base->portal->personmenu_add($pse_id, $pme_name[$i]);
+      $id[$i] = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name[$i]);
     
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(4, count($personmenus));
 
-    self::$base->portal->personmenu_move_before_position($id[3], 1);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    self::$base->portal->personmenu_move_before_position($this->token, $id[3], 1);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(array('4', '1', '2', '3'), $this->getPmeNames($personmenus));
   }
 
   public function testPersonMenuAddAndMoveToEnd() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $pse_name = 'a main section';
-    $pse_id = self::$base->portal->personsection_add($por_id, 'patient', $pse_name);
+    $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
     $pme_name[0] = '1';
     $pme_name[1] = '2';
     $pme_name[2] = '3';
     $pme_name[3] = '4';
     for ($i=0; $i<4; $i++)
-      $id[$i] = self::$base->portal->personmenu_add($pse_id, $pme_name[$i]);
+      $id[$i] = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name[$i]);
     
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(4, count($personmenus));
 
-    self::$base->portal->personmenu_move_before_position($id[0], 5);
-    $personmenus = self::$base->portal->personmenu_list($pse_id);
+    self::$base->portal->personmenu_move_before_position($this->token, $id[0], 5);
+    $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(array('2', '3', '4', '1'), $this->getPmeNames($personmenus));
   }
   

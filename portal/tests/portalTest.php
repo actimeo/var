@@ -44,6 +44,11 @@ class portalTest extends PHPUnit_Framework_TestCase {
   protected function assertPreConditions()
   {
     self::$base->startTransaction();
+    $login = 'testdejfhcqcsdfkhn';
+    $pwd = 'ksfdjgsfdyubg';    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), '{structure}');");
+    $res = self::$base->login->user_login($login, $pwd, null);
+    $this->token = $res['usr_token'];
   }
 
   protected function assertPostConditions()
@@ -53,7 +58,7 @@ class portalTest extends PHPUnit_Framework_TestCase {
 
   public function testPortalAdd() {
     $name = 'a portal';
-    $id = self::$base->portal->portal_add($name);
+    $id = self::$base->portal->portal_add($this->token, $name);
     $this->assertGreaterThan(0, $id);
   }  
 
@@ -63,15 +68,15 @@ class portalTest extends PHPUnit_Framework_TestCase {
    */
   public function testPortalAddSameName() {
     $name = 'a portal';
-    $id = self::$base->portal->portal_add($name);
+    $id = self::$base->portal->portal_add($this->token, $name);
     $this->assertGreaterThan(0, $id);
-    $id = self::$base->portal->portal_add($name);
+    $id = self::$base->portal->portal_add($this->token, $name);
   }  
 
   public function testPortalList() {
     $name = 'a portal';
-    $id = self::$base->portal->portal_add($name);
-    $portals = self::$base->portal->portal_list();
+    $id = self::$base->portal->portal_add($this->token, $name);
+    $portals = self::$base->portal->portal_list($this->token);
     $this->assertEquals(1, count($portals));
     $portal = $portals[0];
     $this->assertEquals($name, $portal['por_name']);
@@ -80,9 +85,9 @@ class portalTest extends PHPUnit_Framework_TestCase {
   public function testPortalRename() {
     $name1 = 'a portal';
     $name2 = 'another portal';
-    $id = self::$base->portal->portal_add($name1);
-    self::$base->portal->portal_rename($id, $name2);
-    $portals = self::$base->portal->portal_list();
+    $id = self::$base->portal->portal_add($this->token, $name1);
+    self::$base->portal->portal_rename($this->token, $id, $name2);
+    $portals = self::$base->portal->portal_list($this->token);
     $this->assertEquals(1, count($portals));
     $portal = $portals[0];
     $this->assertEquals($name2, $portal['por_name']);
@@ -95,17 +100,17 @@ class portalTest extends PHPUnit_Framework_TestCase {
   public function testPortalRenameUnknown() {
     $name1 = 'a portal';
     $name2 = 'another portal';
-    $id = self::$base->portal->portal_add($name1);
-    self::$base->portal->portal_rename($id+1, $name2);
+    $id = self::$base->portal->portal_add($this->token, $name1);
+    self::$base->portal->portal_rename($this->token, $id+1, $name2);
   }
 
   public function testPortalDelete() {
     $name = 'a portal';
-    $id = self::$base->portal->portal_add($name);
-    $portals = self::$base->portal->portal_list();
+    $id = self::$base->portal->portal_add($this->token, $name);
+    $portals = self::$base->portal->portal_list($this->token);
     $this->assertEquals(1, count($portals));   
-    self::$base->portal->portal_delete($id);
-    $portals = self::$base->portal->portal_list();
+    self::$base->portal->portal_delete($this->token, $id);
+    $portals = self::$base->portal->portal_list($this->token);
     $this->assertEquals(0, count($portals));
   }
 
@@ -115,25 +120,25 @@ class portalTest extends PHPUnit_Framework_TestCase {
    */
   public function testPortalDeleteUnknown() {
     $name = 'a portal';
-    $id = self::$base->portal->portal_add($name);
-    self::$base->portal->portal_delete($id+1);
+    $id = self::$base->portal->portal_add($this->token, $name);
+    self::$base->portal->portal_delete($this->token, $id+1);
   }
 
   public function testPortalClean() {
     $por_name = 'a portal';
-    $por_id = self::$base->portal->portal_add($por_name);
+    $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
     $mse_name1 = 'a first section';
     $mse_name2 = 'a second section';
     $pse_name1 = 'a first section';
     $pse_name2 = 'a second section';
-    $id1 = self::$base->portal->mainsection_add($por_id, $mse_name1);
-    $id2 = self::$base->portal->mainsection_add($por_id, $mse_name2);
-    self::$base->portal->personsection_add($por_id, 'patient', $pse_name1);
-    self::$base->portal->personsection_add($por_id, 'staff', $pse_name2);
-    self::$base->portal->portal_clean($por_id);
+    $id1 = self::$base->portal->mainsection_add($this->token, $por_id, $mse_name1);
+    $id2 = self::$base->portal->mainsection_add($this->token, $por_id, $mse_name2);
+    self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name1);
+    self::$base->portal->personsection_add($this->token, $por_id, 'staff', $pse_name2);
+    self::$base->portal->portal_clean($this->token, $por_id);
     $this->setExpectedException('PgProcException');
-    self::$base->portal->portal_rename($por_id, 'new name');
+    self::$base->portal->portal_rename($this->token, $por_id, 'new name');
   }
 
 }

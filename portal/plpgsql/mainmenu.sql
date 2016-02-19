@@ -4,7 +4,7 @@ SET search_path = portal;
 -- MAINMENU --
 --------------
 
-CREATE OR REPLACE FUNCTION mainmenu_add(prm_mse_id integer, prm_name text)
+CREATE OR REPLACE FUNCTION mainmenu_add(prm_token integer, prm_mse_id integer, prm_name text)
 RETURNS integer
 LANGUAGE plpgsql
 AS $$
@@ -12,6 +12,7 @@ DECLARE
   new_order integer;
   ret integer;
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   SELECT COALESCE(MAX(mme_order), 0) + 1 INTO new_order FROM portal.mainmenu WHERE mse_id = prm_mse_id;
   INSERT INTO portal.mainmenu (mse_id, mme_name, mme_order)
     VALUES (prm_mse_id, prm_name, new_order)
@@ -20,22 +21,24 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION mainmenu_list(prm_mse_id integer)
+CREATE OR REPLACE FUNCTION mainmenu_list(prm_token integer, prm_mse_id integer)
 RETURNS SETOF portal.mainmenu
 LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   RETURN QUERY SELECT * FROM portal.mainmenu
     WHERE mse_id = prm_mse_id ORDER BY mme_order;
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION mainmenu_rename(prm_id integer, prm_name text)
+CREATE OR REPLACE FUNCTION mainmenu_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   UPDATE portal.mainmenu SET mme_name = prm_name WHERE mme_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
@@ -43,11 +46,12 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION mainmenu_delete(prm_id integer)
+CREATE OR REPLACE FUNCTION mainmenu_delete(prm_token integer, prm_id integer)
 RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   DELETE FROM portal.mainmenu WHERE mme_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
@@ -55,7 +59,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION mainmenu_move_before_position(prm_id integer, prm_position integer)
+CREATE OR REPLACE FUNCTION mainmenu_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
 LANGUAGE plpgsql
 AS $$
@@ -64,6 +68,7 @@ DECLARE
   i integer;
   mme integer;
 BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
   SELECT mse_id INTO mse FROM portal.mainmenu WHERE mme_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
