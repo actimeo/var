@@ -21,6 +21,8 @@ BEGIN
   RETURN ret;
 END;
 $$;
+COMMENT ON FUNCTION personsection_add(prm_token integer, prm_por_id integer, prm_entity portal.entity, prm_name text) 
+IS 'Add a section to an entity view of a portal';
 
 CREATE OR REPLACE FUNCTION personsection_list(prm_token integer, prm_por_id integer, prm_entity portal.entity)
 RETURNS SETOF portal.personsection
@@ -34,6 +36,8 @@ BEGIN
     ORDER BY pse_order;
 END;
 $$;
+COMMENT ON FUNCTION personsection_list(prm_token integer, prm_por_id integer, prm_entity portal.entity) 
+IS 'List the sections of an entity view';
 
 CREATE OR REPLACE FUNCTION personsection_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
@@ -47,6 +51,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION personsection_rename(prm_token integer, prm_id integer, prm_name text) 
+IS 'Rename a section of an entity view';
 
 CREATE OR REPLACE FUNCTION personsection_delete(prm_token integer, prm_id integer)
 RETURNS VOID
@@ -60,6 +66,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION personsection_delete(prm_token integer, prm_id integer) 
+IS 'Delete a section of an entity view';
 
 CREATE OR REPLACE FUNCTION personsection_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
@@ -100,5 +108,7 @@ BEGIN
   END LOOP;
 END;
 $$;
+COMMENT ON FUNCTION personsection_move_before_position(prm_token integer, prm_id integer, prm_position integer) 
+IS 'Move a section of an entity view before a given position';
 
 -- todo clean

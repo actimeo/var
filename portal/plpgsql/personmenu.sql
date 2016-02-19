@@ -20,6 +20,8 @@ BEGIN
   RETURN ret;
 END;
 $$;
+COMMENT ON FUNCTION personmenu_add(prm_token integer, prm_pse_id integer, prm_name text) 
+IS 'Add a menu entry to a section of an entity view';
 
 CREATE OR REPLACE FUNCTION personmenu_list(prm_token integer, prm_pse_id integer)
 RETURNS SETOF portal.personmenu
@@ -32,6 +34,8 @@ BEGIN
     WHERE pse_id = prm_pse_id ORDER BY pme_order;
 END;
 $$;
+COMMENT ON FUNCTION personmenu_list(prm_token integer, prm_pse_id integer) 
+IS 'List the menu entries in a section of an entity view';
 
 CREATE OR REPLACE FUNCTION personmenu_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
@@ -45,6 +49,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION personmenu_rename(prm_token integer, prm_id integer, prm_name text) 
+IS 'Rename a particular menu entry of an entity view';
 
 CREATE OR REPLACE FUNCTION personmenu_delete(prm_token integer, prm_id integer)
 RETURNS VOID
@@ -58,6 +64,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION personmenu_delete(prm_token integer, prm_id integer) 
+IS 'Delete a particular menu entry of an entity view';
 
 CREATE OR REPLACE FUNCTION personmenu_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
@@ -97,3 +105,5 @@ BEGIN
   END LOOP;
 END;
 $$;
+COMMENT ON FUNCTION personmenu_move_before_position(prm_token integer, prm_id integer, prm_position integer) 
+IS 'Move a menu entry of an entity view before a given position';

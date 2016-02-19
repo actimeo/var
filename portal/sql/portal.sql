@@ -1,6 +1,14 @@
 CREATE SCHEMA portal;
 COMMENT ON SCHEMA portal IS 'This module is used to create portals.
-Portals are views of user data. Several views can be created, depending on institution category, employee, etc';
+Portals are views of person data. Several portals can be created, depending on institution category, employee, etc.
+
+A portal contains:
+- a main navigation, which will contain information about all persons,
+- and a navigation for each entity type (patient, staff, etc), which will contain information about a particular person of this type.
+
+Each navigation is composed of sections containing menu entries.
+
+All functions from this module require the ''structure'' user right.';
 
 SET search_path = portal;
 
@@ -15,6 +23,9 @@ CREATE TABLE portal (
   por_id serial PRIMARY KEY,
   por_name text NOT NULL UNIQUE
 );
+COMMENT ON TABLE portal IS 'A portal is a particular view of the data contained in the database. It will be defined by several navigation views, one main view (mainsection and mainmenu) and one view per entity type (personsection and personmenu).';
+COMMENT ON COLUMN portal.por_id IS 'Unique identifier';
+COMMENT ON COLUMN portal.por_name IS 'Portal name';
 
 CREATE TABLE mainsection (
   mse_id serial PRIMARY KEY,
@@ -24,6 +35,11 @@ CREATE TABLE mainsection (
   CONSTRAINT mse_por_name_unique UNIQUE(por_id, mse_name),
   CONSTRAINT mse_por_order_unique UNIQUE(por_id, mse_order) DEFERRABLE INITIALLY IMMEDIATE
 );
+COMMENT ON TABLE mainsection IS 'The main view of a portal consists of menus regrouped in sections. This table defines these sections.';
+COMMENT ON COLUMN mainsection.mse_id IS 'Unique identifier';
+COMMENT ON COLUMN mainsection.por_id IS 'Portal containing this section';
+COMMENT ON COLUMN mainsection.mse_name IS 'Section name';
+COMMENT ON COLUMN mainsection.mse_order IS 'Order of the section in the portal';
 
 CREATE TABLE mainmenu (
   mme_id serial PRIMARY KEY,
@@ -33,6 +49,11 @@ CREATE TABLE mainmenu (
   CONSTRAINT mme_mse_name_unique UNIQUE(mse_id, mme_name),
   CONSTRAINT mme_mse_order_unique UNIQUE(mse_id, mme_order) DEFERRABLE INITIALLY IMMEDIATE
 );
+COMMENT ON TABLE mainmenu IS 'Menu entries of a main view';
+COMMENT ON COLUMN mainmenu.mme_id IS 'Unique identifier';
+COMMENT ON COLUMN mainmenu.mse_id IS 'Main section containing this menu entry';
+COMMENT ON COLUMN mainmenu.mme_name IS 'Menu name';
+COMMENT ON COLUMN mainmenu.mme_order IS 'Menu order in the section';
 
 CREATE TABLE personsection (
   pse_id serial PRIMARY KEY,  
@@ -43,6 +64,12 @@ CREATE TABLE personsection (
   CONSTRAINT pse_por_name_unique UNIQUE(por_id, pse_entity, pse_name),
   CONSTRAINT pse_por_order_unique UNIQUE(por_id, pse_entity, pse_order) DEFERRABLE INITIALLY IMMEDIATE
 );
+COMMENT ON TABLE personsection IS 'A view of a portal for an entity type consists of menus regrouped in sections. This table defines these sections.';
+COMMENT ON COLUMN personsection.pse_id IS 'Unique identifier';
+COMMENT ON COLUMN personsection.por_id IS 'Portal containing this section';
+COMMENT ON COLUMN personsection.pse_entity IS 'Entity type for this view';
+COMMENT ON COLUMN personsection.pse_name IS 'Section name';
+COMMENT ON COLUMN personsection.pse_order IS 'Order of the section in the portal for the entity type';
 
 CREATE TABLE personmenu (
   pme_id serial PRIMARY KEY,
@@ -52,4 +79,8 @@ CREATE TABLE personmenu (
   CONSTRAINT pme_pse_name_unique UNIQUE(pse_id, pme_name),
   CONSTRAINT pme_pse_order_unique UNIQUE(pse_id, pme_order) DEFERRABLE INITIALLY IMMEDIATE
 );
-
+COMMENT ON TABLE personmenu IS 'Menu entries of a view for an entity type';
+COMMENT ON COLUMN personmenu.pme_id IS 'Unique identifier';
+COMMENT ON COLUMN personmenu.pse_id IS 'Section containing this menu entry';
+COMMENT ON COLUMN personmenu.pme_name IS 'Menu name';
+COMMENT ON COLUMN personmenu.pme_order IS 'Menu order in the section';

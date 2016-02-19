@@ -20,6 +20,8 @@ BEGIN
   RETURN ret;
 END;
 $$;
+COMMENT ON FUNCTION mainmenu_add(prm_token integer, prm_mse_id integer, prm_name text) 
+IS 'Add a menu entry to a section of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainmenu_list(prm_token integer, prm_mse_id integer)
 RETURNS SETOF portal.mainmenu
@@ -32,6 +34,8 @@ BEGIN
     WHERE mse_id = prm_mse_id ORDER BY mme_order;
 END;
 $$;
+COMMENT ON FUNCTION mainmenu_list(prm_token integer, prm_mse_id integer) 
+IS 'List the menu entries in a section of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainmenu_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
@@ -45,6 +49,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION mainmenu_rename(prm_token integer, prm_id integer, prm_name text) 
+IS 'Rename a particular menu entry of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainmenu_delete(prm_token integer, prm_id integer)
 RETURNS VOID
@@ -58,6 +64,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION mainmenu_delete(prm_token integer, prm_id integer) 
+IS 'Delete a particular menu entry of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainmenu_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
@@ -97,3 +105,5 @@ BEGIN
   END LOOP;
 END;
 $$;
+COMMENT ON FUNCTION mainmenu_move_before_position(prm_token integer, prm_id integer, prm_position integer) 
+IS 'Move a menu entry of a portal main view before a given position';

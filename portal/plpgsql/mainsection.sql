@@ -20,6 +20,8 @@ BEGIN
   RETURN ret;
 END;
 $$;
+COMMENT ON FUNCTION mainsection_add(prm_token integer, prm_por_id integer, prm_name text) 
+IS 'Add a new section to the main view of a portal';
 
 CREATE OR REPLACE FUNCTION mainsection_list(prm_token integer, prm_por_id integer)
 RETURNS SETOF portal.mainsection
@@ -32,6 +34,8 @@ BEGIN
     WHERE por_id = prm_por_id ORDER BY mse_order;
 END;
 $$;
+COMMENT ON FUNCTION mainsection_list(prm_token integer, prm_por_id integer) 
+IS 'List the sections of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainsection_rename(prm_token integer, prm_id integer, prm_name text)
 RETURNS void
@@ -45,6 +49,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION mainsection_rename(prm_token integer, prm_id integer, prm_name text) 
+IS 'Rename a particular section of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainsection_delete(prm_token integer, prm_id integer)
 RETURNS VOID
@@ -58,6 +64,8 @@ BEGIN
   END IF;
 END;
 $$;
+COMMENT ON FUNCTION mainsection_delete(prm_token integer, prm_id integer) 
+IS 'Delete a particular section of a portal main view';
 
 CREATE OR REPLACE FUNCTION mainsection_move_before_position(prm_token integer, prm_id integer, prm_position integer)
 RETURNS VOID
@@ -97,5 +105,6 @@ BEGIN
   END LOOP;
 END;
 $$;
+COMMENT ON FUNCTION mainsection_move_before_position(prm_token integer, prm_id integer, prm_position integer) IS 'Move a particular section of a portal main view before a given position';
 
 -- todo clean
