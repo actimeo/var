@@ -3,6 +3,7 @@ import {Injectable} from 'angular2/core';
 declare var i18next: any;
 declare var i18nextBrowserLanguageDetector: any;
 declare var fr_translations: any;
+declare var de_translations: any;
 declare var en_translations: any;
 
 @Injectable()
