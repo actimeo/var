@@ -16,7 +16,6 @@ CREATE TABLE portal (
   por_name text NOT NULL UNIQUE
 );
 
-
 CREATE TABLE mainsection (
   mse_id serial PRIMARY KEY,
   por_id integer NOT NULL REFERENCES portal.portal,
@@ -26,6 +25,14 @@ CREATE TABLE mainsection (
   CONSTRAINT mse_por_order_unique UNIQUE(por_id, mse_order) DEFERRABLE INITIALLY IMMEDIATE
 );
 
+CREATE TABLE mainmenu (
+  mme_id serial PRIMARY KEY,
+  mse_id integer NOT NULL REFERENCES portal.mainsection,
+  mme_name text NOT NULL,
+  mme_order integer NOT NULL CHECK (mme_order > 0) ,
+  CONSTRAINT mme_mse_name_unique UNIQUE(mse_id, mme_name),
+  CONSTRAINT mme_mse_order_unique UNIQUE(mse_id, mme_order) DEFERRABLE INITIALLY IMMEDIATE
+);
 
 CREATE TABLE personsection (
   pse_id serial PRIMARY KEY,  
@@ -36,3 +43,13 @@ CREATE TABLE personsection (
   CONSTRAINT pse_por_name_unique UNIQUE(por_id, pse_entity, pse_name),
   CONSTRAINT pse_por_order_unique UNIQUE(por_id, pse_entity, pse_order) DEFERRABLE INITIALLY IMMEDIATE
 );
+
+CREATE TABLE personmenu (
+  pme_id serial PRIMARY KEY,
+  pse_id integer NOT NULL REFERENCES portal.personsection,
+  pme_name text NOT NULL,
+  pme_order integer NOT NULL CHECK (pme_order > 0) ,
+  CONSTRAINT pme_pse_name_unique UNIQUE(pse_id, pme_name),
+  CONSTRAINT pme_pse_order_unique UNIQUE(pse_id, pme_order) DEFERRABLE INITIALLY IMMEDIATE
+);
+
