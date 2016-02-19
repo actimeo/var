@@ -18,6 +18,7 @@ export class I18nService {
 		
 		resources: {
 		    en: { translation: en_translations },
+		    de: { translation: de_translations },
 		    fr: { translation: fr_translations }
 		}
 	    }, (err, t) => {
