@@ -189,7 +189,7 @@ class personSectionTest extends PHPUnit_Framework_TestCase {
     $name = 'a portal';
     $por = self::$base->portal->portal_add($name);
     $id = self::$base->portal->personsection_add($por, 'patient', 'a section');
-    self::$base->portal->portal_delete($id+1);
+    self::$base->portal->personsection_delete($id+1);
   }
 
   public function testPersonsectionAddAndMoveToMiddle() {

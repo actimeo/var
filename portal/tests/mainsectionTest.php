@@ -196,7 +196,7 @@ class mainsectionTest extends PHPUnit_Framework_TestCase {
     $name = 'a portal';
     $por = self::$base->portal->portal_add($name);
     $id = self::$base->portal->mainsection_add($por, 'a section');
-    self::$base->portal->portal_delete($id+1);
+    self::$base->portal->mainsection_delete($id+1);
   }
 
   public function testMainsectionAddAndMoveToMiddle() {
