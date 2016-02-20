@@ -1,24 +1,51 @@
-<header class="navbar navbar-default navbar-fixed-top navbar-inner bg-faded">
-  <div class="container">
-    <div class="navbar-header hidden-md-up">
-      <button type="button" class="navbar-toggle navbar-toggler pull-right" (click)="isCollapsed = !isCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand visible-xs" href="#">Portal builder</a>
+<nav class="navbar navbar-default navbar-fixed-top">  
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <span class="navbar-brand">Variation <span class="small glyphicon glyphicon-menu-right"></span> Portal builder</span>
     </div>
-    <nav class="hidden-xs hidden-xs-down">
+    <div id="navbar">
       <ul class="nav navbar-nav">
-        <li class="nav-item"><a href="#" role="button" class="navbar-brand">Portal builder</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" (click)="logout()">{{getUser()}} logout</a></li>
+	<li>
+	  <div class="btn-group" dropdown style="padding-top: 8px;">
+	    <button id="select-portal" type="button" class="btn btn-default" dropdownToggle>
+	      Select a portal  <span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu" role="menu" aria-labelledby="select-portal">
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Portal 1</a></li>
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Another portal</a></li>
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Something else here</a></li>
+	      <li class="divider"></li>
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-plus"></span> Add new portal</a></li>
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-minus"></span> Delete current portal</a></li>
+	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-copy"></span> Copy current portal</a></li>
+	    </ul>
+	  </div>
+	</li>
       </ul>
-    </nav>
-    <nav class="visible-xs hidden-md-up">
-      <ul class="nav nav-pills nav-stacked scrollable-menu" [collapse]="!isCollapsed" (click)="isCollapsed = !isCollapsed; true">
-        <li class="nav-item"><a class="nav-link" href="#" (click)="logout()">{{getUser()}} logout</a></li>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a>connected as {{getUser()}}</a></li>
+        <li><a href="#" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
       </ul>
-    </nav>
+    </div>
   </div>
-</header>
+</nav>
+
+<main class="portal-main">
+  <div id="portaltools">
+  </div>
+
+  <nav id="leftbar">
+    <accordion [closeOthers]="true">
+      <accordion-group heading="Section 1"
+		       [isOpen]="true">
+	Menu 1.1
+      </accordion-group>
+      <accordion-group heading="Section 2">
+	Menu 2.1
+      </accordion-group>
+      <accordion-group heading="Section 3">
+	Menu 3.1
+      </accordion-group>
+    </accordion>
+  </nav>
+</main>
