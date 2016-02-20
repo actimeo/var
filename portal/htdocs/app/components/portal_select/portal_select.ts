@@ -70,6 +70,8 @@ export class PortalSelect {
     onAddPortal() {
 	this.getting_name = true;
 	this.portalname_focused = true;
+	// set false to be able to set it to true again
+	setTimeout(() => {this.portalname_focused = false;});
     }
 
     cancelAddPortal() {
