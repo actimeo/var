@@ -1,9 +1,10 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import { ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES, Dropdown } from 'ng2-bootstrap/ng2-bootstrap';
 import {Collapse} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {PortalSelect} from '../../components/portal_select/portal_select';
 import {UserService} from '../../services/user';
 import {I18nService} from '../../services/i18n';
 
@@ -15,7 +16,7 @@ import {I18nService} from '../../services/i18n';
 	     `],
     templateUrl: './app/components/home/home.html',
     providers: [UserService],
-    directives: [Collapse, ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES]
+    directives: [Collapse, ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES, PortalSelect]
 })
 export class HomeCmp {
 
@@ -32,7 +33,5 @@ export class HomeCmp {
 	this._userService.disconnect();
 	this._router.parent.navigateByUrl('/login');
     }
-
-    onPortalSelected() {
-    }
+    
 }

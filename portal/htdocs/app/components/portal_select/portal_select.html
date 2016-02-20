@@ -1,0 +1,20 @@
+<div class="btn-group" dropdown style="padding-top: 8px;">
+  <button id="select-portal" type="button" class="btn btn-default" dropdownToggle [disabled]="getting_name">
+    {{selected_portal_name}}  <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="select-portal">
+    <li *ngFor="#portal of portals" role="menuitem">
+      <a class="dropdown-item" (click)="onPortalSelected(portal)">{{portal.por_name}}</a></li>
+    <li class="divider"></li>
+    <li role="menuitem"><a class="dropdown-item" (click)="onAddPortal()"><span class="glyphicon glyphicon-plus"></span> Add new portal</a></li>
+    <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onDeletePortal()"><span class="glyphicon glyphicon-minus"></span> Delete current portal</a></li>
+    <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onCopyPortal()"><span class="glyphicon glyphicon-copy"></span> Copy current portal</a></li>
+  </ul>
+  <span [hidden]="!getting_name">
+    <form (ngSubmit)="gotName()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
+      <input [(ngModel)]="portalname" ngControl required type="text" class="form-control" width="40" placeholder="portal name">
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Add</button>
+      <button (click)="stopGettingName()" type="button" class="btn btn-default">Cancel</button>
+    </form>
+  </span>
+</div>    

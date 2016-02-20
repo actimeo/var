@@ -6,20 +6,7 @@
     <div id="navbar">
       <ul class="nav navbar-nav">
 	<li>
-	  <div class="btn-group" dropdown style="padding-top: 8px;">
-	    <button id="select-portal" type="button" class="btn btn-default" dropdownToggle>
-	      Select a portal  <span class="caret"></span>
-	    </button>
-	    <ul class="dropdown-menu" role="menu" aria-labelledby="select-portal">
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Portal 1</a></li>
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Another portal</a></li>
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()">Something else here</a></li>
-	      <li class="divider"></li>
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-plus"></span> Add new portal</a></li>
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-minus"></span> Delete current portal</a></li>
-	      <li role="menuitem"><a class="dropdown-item" href="#" (click)="onPortalSelected()"><span class="glyphicon glyphicon-copy"></span> Copy current portal</a></li>
-	    </ul>
-	  </div>
+	    <portal-select></portal-select>
 	</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
