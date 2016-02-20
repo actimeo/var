@@ -12,7 +12,7 @@
   </ul>
   <span [hidden]="!getting_name">
     <form (ngSubmit)="doAddPortal()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
-      <input [(ngModel)]="portalname" ngControl required type="text" class="form-control" width="40" placeholder="portal name">
+      <input [(ngModel)]="portalname" ngControl required [focus]="portalname_focused" type="text" class="form-control" width="40" placeholder="portal name">
       <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Add</button>
       <button (click)="cancelAddPortal()" type="button" class="btn btn-default">Cancel</button>
     </form>

@@ -1,8 +1,21 @@
-import {Component} from 'angular2/core';
+import {Component, Directive, Input, ElementRef, Inject} from 'angular2/core';
 
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalService} from './../../services/portal_service';
+
+// Simple 'focus' Directive
+@Directive({
+    selector: '[focus]'
+})
+class FocusDirective {
+    @Input()
+    focus: boolean;
+    constructor(@Inject(ElementRef) private element: ElementRef) {}
+    protected ngOnChanges() {
+        this.element.nativeElement.focus();
+    }
+}
 
 @Component({
     selector: 'portal-select',
@@ -11,7 +24,7 @@ import {PortalService} from './../../services/portal_service';
 	     `],
     templateUrl: './app/components/portal_select/portal_select.html',
     providers: [PortalService],
-    directives: [DROPDOWN_DIRECTIVES]
+    directives: [DROPDOWN_DIRECTIVES, FocusDirective]
 })
 export class PortalSelect {
 
@@ -20,11 +33,13 @@ export class PortalSelect {
     selected_portal_name: string;
     portalname: any;
     getting_name: boolean;
+    portalname_focused: boolean;
 
     constructor(private _portalService: PortalService) {
 	this.selected_portal = null;
 	this.selected_portal_name = "Select a portal";
 	this.getting_name = false;
+	this.portalname_focused = false;
     }
     
     ngOnInit() {	    
@@ -52,8 +67,9 @@ export class PortalSelect {
     }
 
     // "Add portal" entry is selected in the list
-    onAddPortal(focusable) {
+    onAddPortal() {
 	this.getting_name = true;
+	this.portalname_focused = true;
     }
 
     cancelAddPortal() {
