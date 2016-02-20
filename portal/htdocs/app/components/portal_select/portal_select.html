@@ -11,10 +11,10 @@
     <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onCopyPortal()"><span class="glyphicon glyphicon-copy"></span> Copy current portal</a></li>
   </ul>
   <span [hidden]="!getting_name">
-    <form (ngSubmit)="gotName()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
+    <form (ngSubmit)="doAddPortal()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
       <input [(ngModel)]="portalname" ngControl required type="text" class="form-control" width="40" placeholder="portal name">
       <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Add</button>
-      <button (click)="stopGettingName()" type="button" class="btn btn-default">Cancel</button>
+      <button (click)="cancelAddPortal()" type="button" class="btn btn-default">Cancel</button>
     </form>
   </span>
 </div>    

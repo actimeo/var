@@ -28,37 +28,55 @@ export class PortalSelect {
     }
     
     ngOnInit() {	    
-	console.log("portalSelect ngOnInit");
-	this.reloadPortals();
+	this.reloadPortals(null);
     }
 
-    reloadPortals() {
+    // Reload portals and select the specified one (or none if null)
+    reloadPortals(selected_por_id) {
 	this._portalService.listPortals().then(data => {	    
 	    this.portals = data;
-	    console.log(this.portals);
+	    if (selected_por_id !== null) {
+		var p = this.portals.filter(d => d.por_id == selected_por_id);
+		if (p.length == 1)
+		    this.onPortalSelected(p[0]);
+	    }
 	}).catch(err => {
 	    console.log("err "+err);
 	});
     }
 
+    // A portal is selected in the list
     onPortalSelected(p) {
 	this.selected_portal = p;
 	this.selected_portal_name = p.por_name;
-	console.log("selportal: "+p);
     }
 
-    onAddPortal() {
-	console.log('getting name');
+    // "Add portal" entry is selected in the list
+    onAddPortal(focusable) {
 	this.getting_name = true;
     }
 
+    cancelAddPortal() {
+	this.getting_name = false;
+ 	this.portalname = '';
+    }
+
+    // The Add portal form is submitted. Let save the portal
+    doAddPortal(val) {
+	this._portalService.addPortal(this.portalname).then(new_por_id => {
+	    this.reloadPortals(new_por_id);
+	}).catch(err => {
+	    console.log("err "+err);
+	});	
+	this.cancelAddPortal();
+    }
+
+    // The "Delete portal" entry is selected in the list
     onDeletePortal() {
-	console.log("delete "+JSON.stringify(this.selected_portal));
 	this._portalService.deletePortal(this.selected_portal.por_id).then(data => {
-	    console.log("deleted");
 	    this.selected_portal = null;
 	    this.selected_portal_name = "Select a portal";
-	    this.reloadPortals();
+	    this.reloadPortals(null);
 	}).catch(err => {
 	    console.log("err "+err);
 	});	
@@ -67,19 +85,4 @@ export class PortalSelect {
     onCopyPortal() {
     }
 
-    gotName(val) {
-	console.log(this.portalname);
-	this._portalService.addPortal(this.portalname).then(data => {
-	    console.log("added: "+data);
-	    this.reloadPortals();
-	}).catch(err => {
-	    console.log("err "+err);
-	});	
-	this.stopGettingName();
-    }
-
-    stopGettingName() {
-	this.getting_name = false;
- 	this.portalname = '';
-    }
 }
