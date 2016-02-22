@@ -77,9 +77,15 @@ class portalTest extends PHPUnit_Framework_TestCase {
     $name = 'a portal';
     $id = self::$base->portal->portal_add($this->token, $name);
     $portals = self::$base->portal->portal_list($this->token);
-    $this->assertEquals(1, count($portals));
-    $portal = $portals[0];
-    $this->assertEquals($name, $portal['por_name']);
+    $this->assertGreaterThan(0, count($portals));
+    $found = false;
+    foreach ($portals as $portal) {
+      if ($name == $portal['por_name']) {
+	$found = true;
+	break;
+      }
+    }
+    $this->assertTrue($found);
   }
 
   public function testPortalRename() {
@@ -88,9 +94,16 @@ class portalTest extends PHPUnit_Framework_TestCase {
     $id = self::$base->portal->portal_add($this->token, $name1);
     self::$base->portal->portal_rename($this->token, $id, $name2);
     $portals = self::$base->portal->portal_list($this->token);
-    $this->assertEquals(1, count($portals));
+    $this->assertGreaterThan(0, count($portals));
     $portal = $portals[0];
-    $this->assertEquals($name2, $portal['por_name']);
+    $found = false;
+    foreach ($portals as $portal) {
+      if ($name2 == $portal['por_name']) {
+	$found = true;
+	break;
+      }
+    }
+    $this->assertTrue($found);
   }
 
   /**
@@ -108,10 +121,11 @@ class portalTest extends PHPUnit_Framework_TestCase {
     $name = 'a portal';
     $id = self::$base->portal->portal_add($this->token, $name);
     $portals = self::$base->portal->portal_list($this->token);
-    $this->assertEquals(1, count($portals));   
+    $nAfterAdd = count($portals);
+    $this->assertGreaterThan(0, count($portals));   
     self::$base->portal->portal_delete($this->token, $id);
     $portals = self::$base->portal->portal_list($this->token);
-    $this->assertEquals(0, count($portals));
+    $this->assertEquals($nAfterAdd-1, count($portals));
   }
 
   /**

@@ -18,7 +18,7 @@ export class PortalService {
 
     listEntities() {
 	return new Promise((resolve, reject) => {
-	    PgProc('/portal/ajax/', 'portal', 'entity_list', { 'prm_token': this.token })
+	    PgProc('/portal/ajax/', 'portal', 'entity_list', { })
 		.then(resolve);
 	});
     }

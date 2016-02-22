@@ -1,9 +1,5 @@
   <tabset>
-    <tab heading="Main"></tab>
-    <tab heading="Patient"></tab>
-    <tab heading="Staff"></tab>
-    <tab heading="Contact"></tab>
-    <tab heading="Family"></tab>
+    <tab *ngFor="#entityCode of entities" heading="{{entityCode}}"></tab>
   </tabset>
 
   <nav id="leftbar">
