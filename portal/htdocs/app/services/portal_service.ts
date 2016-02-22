@@ -16,6 +16,13 @@ export class PortalService {
 	this.token = _user.getToken();
     }
 
+    listEntities() {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'entity_list', { 'prm_token': this.token })
+		.then(resolve);
+	});
+    }
+
     listPortals() {
 	console.log("portalService listPortals, token="+this.token);
 	return new Promise((resolve, reject) => {

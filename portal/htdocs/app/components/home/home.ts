@@ -1,10 +1,10 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import { ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES, Dropdown } from 'ng2-bootstrap/ng2-bootstrap';
 import {Collapse} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalSelect} from '../../components/portal_select/portal_select';
+import {PortalMain} from '../../components/portal_main/portal_main';
 import {UserService} from '../../services/user';
 import {I18nService} from '../../services/i18n';
 
@@ -12,11 +12,10 @@ import {I18nService} from '../../services/i18n';
     selector: 'home-cmp',
     styles: [`
 	     .portal-main { margin-top: 60px; }
-	     #leftbar { width: 240px; }
 	     `],
     templateUrl: './app/components/home/home.html',
     providers: [UserService],
-    directives: [Collapse, ACCORDION_DIRECTIVES, DROPDOWN_DIRECTIVES, PortalSelect]
+    directives: [PortalSelect, PortalMain]
 })
 export class HomeCmp {
 
