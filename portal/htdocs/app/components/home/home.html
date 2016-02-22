@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">  
   <div class="container-fluid">
     <div class="navbar-header">
-      <span class="navbar-brand">Variation <span class="small glyphicon glyphicon-menu-right"></span> Portal builder</span>
+      <span class="navbar-brand">Variation <span class="small glyphicon glyphicon-menu-right"></span> {{i18n.t('portal.portal_builder')}}</span>
     </div>
     <div id="navbar">
       <ul class="nav navbar-nav">
@@ -10,7 +10,7 @@
 	</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-	<li><a>connected as {{getUser()}}</a></li>
+	<li><a>{{i18n.t('auth.logged_in_as')}} {{getUser()}}</a></li>
         <li><a href="#" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
       </ul>
     </div>

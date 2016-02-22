@@ -3,6 +3,7 @@ import {Component} from 'angular2/core';
 import { DROPDOWN_DIRECTIVES, Collapse, ACCORDION_DIRECTIVES, TAB_DIRECTIVES, Dropdown } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalService} from './../../services/portal_service';
+import {I18nService} from '../../services/i18n';
 
 @Component({
     selector: 'portal-main',
@@ -17,7 +18,9 @@ export class PortalMain {
     
     private entities: any;
     
-    constructor(private _portalService: PortalService) {
+    constructor(private _portalService: PortalService,
+		private i18n: I18nService
+	       ) {
     }
     
     ngOnInit() {	    

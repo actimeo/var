@@ -1,5 +1,5 @@
   <tabset>
-    <tab *ngFor="#entityCode of entities" heading="{{entityCode}}"></tab>
+    <tab *ngFor="#entityCode of entities" heading="{{i18n.t('entity.'+entityCode)}}"></tab>
   </tabset>
 
   <nav id="leftbar">

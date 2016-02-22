@@ -3,6 +3,7 @@ import {Component, Directive, Input, ElementRef, Inject} from 'angular2/core';
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalService} from './../../services/portal_service';
+import {I18nService} from '../../services/i18n';
 
 // Simple 'focus' Directive
 @Directive({
@@ -35,9 +36,10 @@ export class PortalSelect {
     getting_name: boolean;
     portalname_focused: boolean;
 
-    constructor(private _portalService: PortalService) {
-	this.selected_portal = null;
-	this.selected_portal_name = "Select a portal";
+    constructor(private _portalService: PortalService,
+		private i18n: I18nService
+	       ) {
+	this.unselectPortal();
 	this.getting_name = false;
 	this.portalname_focused = false;
     }
@@ -46,6 +48,11 @@ export class PortalSelect {
 	this.reloadPortals(null);
     }
 
+    unselectPortal() {
+	this.selected_portal = null;
+	this.selected_portal_name = this.i18n.t("portal.select_a_portal");	
+    }
+    
     // Reload portals and select the specified one (or none if null)
     reloadPortals(selected_por_id) {
 	this._portalService.listPortals().then(data => {	    
@@ -92,8 +99,7 @@ export class PortalSelect {
     // The "Delete portal" entry is selected in the list
     onDeletePortal() {
 	this._portalService.deletePortal(this.selected_portal.por_id).then(data => {
-	    this.selected_portal = null;
-	    this.selected_portal_name = "Select a portal";
+	    this.unselectPortal();
 	    this.reloadPortals(null);
 	}).catch(err => {
 	    console.log("err "+err);
