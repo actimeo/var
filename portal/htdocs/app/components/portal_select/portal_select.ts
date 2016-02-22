@@ -1,4 +1,4 @@
-import {Component, Directive, Input, ElementRef, Inject} from 'angular2/core';
+import {Component, Directive, Input, Output, EventEmitter, ElementRef, Inject} from 'angular2/core';
 
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -29,6 +29,8 @@ class FocusDirective {
 })
 export class PortalSelect {
 
+    @Output() onselected: EventEmitter<string> = new EventEmitter();
+
     portals: any;
     selected_portal: any;
     selected_portal_name: string;
@@ -51,6 +53,7 @@ export class PortalSelect {
     unselectPortal() {
 	this.selected_portal = null;
 	this.selected_portal_name = this.i18n.t("portal.select_a_portal");	
+	this.onselected.emit(null);
     }
     
     // Reload portals and select the specified one (or none if null)
@@ -71,6 +74,7 @@ export class PortalSelect {
     onPortalSelected(p) {
 	this.selected_portal = p;
 	this.selected_portal_name = p.por_name;
+	this.onselected.emit(p.por_id);
     }
 
     // "Add portal" entry is selected in the list

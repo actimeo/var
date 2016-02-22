@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, ViewChild} from 'angular2/core';
 import {Router} from 'angular2/router';
 
 import {Collapse} from 'ng2-bootstrap/ng2-bootstrap';
@@ -18,6 +18,7 @@ import {I18nService} from '../../services/i18n';
     directives: [PortalSelect, PortalMain]
 })
 export class HomeCmp {
+    @ViewChild('portalmain') portalmain;
 
     // Here we define this component's instance variables
     // They're accessible from the template
@@ -33,4 +34,8 @@ export class HomeCmp {
 	this._router.parent.navigateByUrl('/login');
     }
     
+    onPortalSelected(por_id) {
+	console.log("selected: "+por_id);
+	this.portalmain.setPortalId(por_id);
+    }
 }

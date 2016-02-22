@@ -6,7 +6,7 @@
     <div id="navbar">
       <ul class="nav navbar-nav">
 	<li>
-	    <portal-select></portal-select>
+	    <portal-select (onselected)="onPortalSelected($event)"></portal-select>
 	</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -18,5 +18,5 @@
 </nav>
 
 <main class="portal-main">
-  <portal-main></portal-main>
+  <portal-main #portalmain></portal-main>
 </main>

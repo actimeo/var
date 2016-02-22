@@ -23,6 +23,7 @@ en_translations = {
 	"delete_current_portal": "Delete current portal",
 	"copy_current_portal": "Copy current portal",
 	"portal_name": "portal name",
+	"main_window": "Main window",
     },
     "entity": {
 	"patient": "Patient",

@@ -1,18 +1,9 @@
   <tabset>
-    <tab *ngFor="#entityCode of entities" heading="{{i18n.t('entity.'+entityCode)}}"></tab>
+    <tab heading="{{i18n.t('portal.main_window')}}">
+      <portal-mainwin [por_id]="por_id"></portal-mainwin>
+    </tab>
+    <tab *ngFor="#entityCode of entities" heading="{{i18n.t('entity.'+entityCode)}}">
+      <portal-entity [por_id]="por_id" [entity]="entityCode"></portal-entity>
+    </tab>
   </tabset>
 
-  <nav id="leftbar">
-    <accordion [closeOthers]="true">
-      <accordion-group heading="Section 1"
-		       [isOpen]="true">
-	Menu 1.1
-      </accordion-group>
-      <accordion-group heading="Section 2">
-	Menu 2.1
-      </accordion-group>
-      <accordion-group heading="Section 3">
-	Menu 3.1
-      </accordion-group>
-    </accordion>
-  </nav>
