@@ -91,7 +91,7 @@ export class PortalSelect {
     }
 
     // The Add portal form is submitted. Let save the portal
-    doAddPortal(val) {
+    doAddPortal() {
 	this._portalService.addPortal(this.portalname).then(new_por_id => {
 	    this.reloadPortals(new_por_id);
 	}).catch(err => {

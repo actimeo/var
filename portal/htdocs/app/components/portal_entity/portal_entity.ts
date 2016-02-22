@@ -8,6 +8,7 @@ import {I18nService} from '../../services/i18n';
 @Component({
     selector: 'portal-entity',
     styles: [`
+	     #leftbar { width: 240px; }
 	     `],
     templateUrl: './app/components/portal_entity/portal_entity.html',
     providers: [PortalService],

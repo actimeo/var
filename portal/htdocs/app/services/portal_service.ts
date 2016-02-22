@@ -44,4 +44,25 @@ export class PortalService {
 		.then(resolve);
 	});	
     }
+
+    listMainsections(por_id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainsection_list', { 'prm_token': this.token, 'prm_por_id': por_id })
+		.then(resolve);
+	});
+    }
+
+    addMainsection(por_id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainsection_add', { prm_token: this.token, prm_por_id: por_id, prm_name: name })
+		.then(resolve);
+	});	
+    }
+
+    deleteMainsection(id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainsection_delete', { prm_token: this.token, prm_id: id })
+		.then(resolve);
+	});	
+    }
 }
