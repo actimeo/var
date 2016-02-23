@@ -24,7 +24,7 @@ if (count ($ret)) {
   foreach ($ret as $r) {
     $all = true;
     foreach ($r['argnames'] as $argname) {
-      if (!isset ($body->$argname)) {
+      if (!property_exists ($body, $argname)) {
 	if ($debug) {
 	  echo "$argname not found\n" ;
 	  print_r ($body);
