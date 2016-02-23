@@ -9,7 +9,7 @@ import {I18nService} from '../../services/i18n';
 @Component({
     selector: 'portal-mainwin',
     styles: [`
-	     #leftbar { width: 240px; }
+	     #leftbar { min-height: 100%; width: 240px; border-right: 1px solid #e7e7e7; }
 	     `],
     templateUrl: './app/components/portal_mainwin/portal_mainwin.html',
     providers: [PortalService],

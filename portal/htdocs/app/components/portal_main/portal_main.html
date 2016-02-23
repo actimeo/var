@@ -1,4 +1,4 @@
-  <tabset>
+  <tabset [hidden]="por_id == null">
     <tab heading="{{i18n.t('portal.main_window')}}">
       <portal-mainwin [por_id]="por_id"></portal-mainwin>
     </tab>
