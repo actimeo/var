@@ -1,0 +1,39 @@
+<span [hidden]="viewedit">{{menu.mme_name}}</span>
+<form [hidden]="!viewedit" class="form-inline" (ngSubmit)="doRename()" #userForm="ngForm">
+  <div class="input-group input-group-sm">
+    <input type="text" class="form-control" [(ngModel)]="menu.mme_name" ngControl required [focus]="menuname_focused" >
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
+      <button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+  </div>
+</form>
+
+<span [hidden]="!viewcfg">
+  <button type="button" class="btn btn-link btn-xs" 
+	  (click)="doViewtools(true)" 
+	  tooltip="configure" tooltipPlacement="right">
+    <span class="glyphicon glyphicon-cog btn-xs"></span>
+  </button>
+</span>
+ <span [hidden]="!viewtools">
+   <span class="btn-group">
+     <button type="button" class="btn btn-link btn-xs" 
+	     (click)="doViewtools(false)"
+	  tooltip="cancel" tooltipPlacement="right">
+       <span class="glyphicon glyphicon-remove btn-xs"></span>
+     </button>
+     <button type="button" class="btn btn-link btn-xs"
+	     (click)="onRename()"
+	     tooltip="rename" tooltipPlacement="right">	     
+       <span class="glyphicon glyphicon-pencil btn-xs"></span>
+     </button>
+     <button type="button" class="btn btn-link btn-xs"
+	     (click)="onDelete()"
+	     tooltip="delete" tooltipPlacement="right">
+       <span class="glyphicon glyphicon-minus btn-xs"></span>
+     </button>
+   </span>
+ </span>
+
+

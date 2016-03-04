@@ -1,0 +1,4 @@
+<ul>
+  <li *ngFor="#menu of mainmenus"><mainmenu [menu]="menu" (onchange)="onMenuChange()"></mainmenu></li>
+</ul>
+<mainmenu-add [mse_id]="mse_id" (onadded)="onMenuAdded()"></mainmenu-add>

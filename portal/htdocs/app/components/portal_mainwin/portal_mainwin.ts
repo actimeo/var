@@ -2,6 +2,7 @@ import {Input, Component} from 'angular2/core';
 
 import { Collapse, ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
+import {Mainsection} from './../../components/mainsection/mainsection';
 import {MainsectionAdd} from './../../components/mainsection_add/mainsection_add';
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
@@ -13,7 +14,7 @@ import {I18nService} from '../../services/i18n';
 	     `],
     templateUrl: './app/components/portal_mainwin/portal_mainwin.html',
     providers: [PortalService],
-    directives: [ MainsectionAdd, Collapse, ACCORDION_DIRECTIVES ],
+    directives: [ Mainsection, MainsectionAdd, Collapse, ACCORDION_DIRECTIVES ],
 })
 export class PortalMainwin {
 

@@ -115,4 +115,31 @@ export class PortalService {
 	});	
     }
 
+    listMainmenus(mse_id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainmenu_list', { 'prm_token': this.token, 'prm_mse_id': mse_id })
+		.then(resolve);
+	});
+    }
+
+    addMainmenu(mse_id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainmenu_add', { prm_token: this.token, prm_mse_id: mse_id, prm_name: name })
+		.then(resolve);
+	});	
+    }
+
+    deleteMainmenu(id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainmenu_delete', { prm_token: this.token, prm_id: id })
+		.then(resolve);
+	});	
+    }
+
+    renameMainmenu(id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainmenu_rename', { prm_token: this.token, prm_id: id, prm_name: name })
+		.then(resolve);
+	});	
+    }
 }
