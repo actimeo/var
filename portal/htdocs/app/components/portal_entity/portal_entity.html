@@ -1,14 +1,9 @@
 <nav id="leftbar">
   <accordion [closeOthers]="true">
-    <accordion-group heading="Section 1"
-		     [isOpen]="true">
-      Menu 1.1
-    </accordion-group>
-    <accordion-group heading="Section 2">
-      Menu 2.1
-    </accordion-group>
-    <accordion-group heading="Section 3">
-      Menu 3.1
+    <accordion-group *ngFor="#section of personsections" heading="{{section.pse_name}}">
+      Menu ...
+      <div><button (click)="onDeleteSection(section.pse_id)" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span> {{i18n.t('portal.delete_section')}}</button></div>
     </accordion-group>
   </accordion>
+  <personsection-add [hidden]="!_por_id" [entity]="entity" [por_id]="_por_id" (onadded)="onSectionAdded()"></personsection-add>
 </nav>

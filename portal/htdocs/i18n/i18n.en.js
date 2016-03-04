@@ -24,6 +24,9 @@ en_translations = {
 	"copy_current_portal": "Copy current portal",
 	"portal_name": "portal name",
 	"main_window": "Main window",
+	"section_name": "section name",
+	"add_new_section": "Add new section",
+	"delete_section": "Delete section",
     },
     "entity": {
 	"patient": "Patient",

@@ -24,6 +24,9 @@ fr_translations = {
 	"copy_current_portal": "Copier portail en cours",
 	"portal_name": "nom du portail",
 	"main_window": "Fenêtre principale",
+	"section_name": "Nom de la section",
+	"add_new_section": "Nouvelle section",
+	"delete_section": "Supprimer section",
     },
     "entity": {
 	"patient": "Usager",

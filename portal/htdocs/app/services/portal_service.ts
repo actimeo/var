@@ -65,4 +65,26 @@ export class PortalService {
 		.then(resolve);
 	});	
     }
+
+    listPersonsections(por_id, entity) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personsection_list', { 'prm_token': this.token, 'prm_por_id': por_id, 'prm_entity': entity })
+		.then(resolve);
+	});
+    }
+
+    addPersonsection(por_id, entity, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personsection_add', { prm_token: this.token, prm_por_id: por_id, prm_entity: entity, prm_name: name })
+		.then(resolve);
+	});	
+    }
+
+    deletePersonsection(id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personsection_delete', { prm_token: this.token, prm_id: id })
+		.then(resolve);
+	});	
+    }
+
 }
