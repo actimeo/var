@@ -1,20 +1,28 @@
-<div class="btn-group" dropdown style="padding-top: 8px;">
-  <button id="select-portal" type="button" class="btn btn-default" dropdownToggle [disabled]="getting_name">
-    {{selected_portal_name}}  <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="select-portal">
-    <li *ngFor="#portal of portals" role="menuitem">
-      <a class="dropdown-item" (click)="onPortalSelected(portal)">{{portal.por_name}}</a></li>
-    <li class="divider"></li>
-    <li role="menuitem"><a class="dropdown-item" (click)="onAddPortal()"><span class="glyphicon glyphicon-plus"></span> {{i18n.t("portal.add_new_portal")}}</a></li>
-    <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onDeletePortal()"><span class="glyphicon glyphicon-minus"></span> {{i18n.t("portal.delete_current_portal")}}</a></li>
-    <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onCopyPortal()"><span class="glyphicon glyphicon-copy"></span> {{i18n.t("portal.copy_current_portal")}}</a></li>
-  </ul>
-  <span [hidden]="!getting_name">
+<span [hidden]="getting_name">
+  <div class="btn-group" dropdown style="padding-top: 8px;">
+    <button id="select-portal" type="button" class="btn btn-default" dropdownToggle>
+      {{selected_portal_name}}  <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="select-portal">
+      <li *ngFor="#portal of portals" role="menuitem">
+	<a class="dropdown-item" (click)="onPortalSelected(portal)">{{portal.por_name}}</a></li>
+      <li class="divider"></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="onAddPortal()"><span class="glyphicon glyphicon-plus"></span> {{i18n.t("portal.add_new_portal")}}</a></li>
+      <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onDeletePortal()"><span class="glyphicon glyphicon-minus"></span> {{i18n.t("portal.delete_current_portal")}}</a></li>
+      <li [hidden]="selected_portal==null" role="menuitem"><a class="dropdown-item" (click)="onCopyPortal()"><span class="glyphicon glyphicon-copy"></span> {{i18n.t("portal.copy_current_portal")}}</a></li>
+    </ul>
+  </div>
+</span>
+<span [hidden]="!getting_name">
+  <div class="btn-group" style="padding-top: 8px;">
     <form (ngSubmit)="doAddPortal()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
-      <input [(ngModel)]="portalname" ngControl required [focus]="portalname_focused" type="text" class="form-control" width="40" placeholder="{{i18n.t('portal.portal_name')}}">
-      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">{{i18n.t('common.btn.add')}}</button>
-      <button (click)="cancelAddPortal()" type="button" class="btn btn-default">{{i18n.t('common.btn.cancel')}}</button>
+      <div class="input-group input-group-sm">
+	<input [(ngModel)]="portalname" ngControl required [focus]="portalname_focused" type="text" class="form-control" width="40" placeholder="{{i18n.t('portal.portal_name')}}">
+	<div class="input-group-btn">    
+	  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
+	  <button (click)="cancelAddPortal()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+	</div>
+      </div>
     </form>
-  </span>
-</div>    
+  </div>
+</span>

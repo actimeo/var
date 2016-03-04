@@ -11,6 +11,7 @@ import {I18nService} from '../../services/i18n';
     selector: 'portal-mainwin',
     styles: [`
 	     #leftbar { min-height: 100%; width: 240px; border-right: 1px solid #e7e7e7; }
+	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
 	     `],
     templateUrl: './app/components/portal_mainwin/portal_mainwin.html',
     providers: [PortalService],
