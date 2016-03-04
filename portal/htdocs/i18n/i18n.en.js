@@ -27,6 +27,8 @@ en_translations = {
 	"section_name": "section name",
 	"add_new_section": "Add new section",
 	"delete_section": "Delete section",
+	"add_new_menu": "Add new menu",
+	"menu_name": "menu name",
     },
     "entity": {
 	"patient": "Patient",
