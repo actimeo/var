@@ -87,4 +87,17 @@ export class PortalService {
 	});	
     }
 
+    listPersonmenus(pse_id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personmenu_list', { 'prm_token': this.token, 'prm_pse_id': pse_id })
+		.then(resolve);
+	});
+    }
+
+    addPersonmenu(pse_id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personmenu_add', { prm_token: this.token, prm_pse_id: pse_id, prm_name: name })
+		.then(resolve);
+	});	
+    }
 }

@@ -3,6 +3,7 @@ import {Input, Component} from 'angular2/core';
 import { Collapse, ACCORDION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PersonsectionAdd} from '../personsection_add/personsection_add';
+import {Personsection} from '../personsection/personsection';
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
@@ -10,10 +11,11 @@ import {I18nService} from '../../services/i18n';
     selector: 'portal-entity',
     styles: [`
 	     #leftbar { min-height: 100%; width: 240px; border-right: 1px solid #e7e7e7; }
+	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
 	     `],
     templateUrl: './app/components/portal_entity/portal_entity.html',
     providers: [PortalService],
-    directives: [ Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd ],
+    directives: [ Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection ],
 })
 export class PortalEntity {
 

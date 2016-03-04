@@ -1,0 +1,4 @@
+<ul>
+  <li *ngFor="#menu of personmenus">{{menu.pme_name}}</li>
+</ul>
+<personmenu-add [pse_id]="pse_id" (onadded)="onMenuAdded()"></personmenu-add>
