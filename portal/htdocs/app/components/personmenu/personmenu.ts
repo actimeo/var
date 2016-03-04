@@ -1,9 +1,21 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component,Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+
+@Directive({
+    selector: '[focus]'
+})
+class FocusDirective {
+    @Input()
+    focus: boolean;
+    constructor(@Inject(ElementRef) private element: ElementRef) {}
+    protected ngOnChanges() {
+        this.element.nativeElement.focus();
+    }
+}
 
 @Component({
     selector: 'personmenu',
@@ -11,13 +23,14 @@ import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 	     `],
     templateUrl: './app/components/personmenu/personmenu.html',
     providers: [],
-    directives: [TOOLTIP_DIRECTIVES],
+    directives: [TOOLTIP_DIRECTIVES, FocusDirective],
 })
 export class Personmenu {
 
     viewcfg: boolean;
     viewtools: boolean;
     viewedit: boolean;
+    menuname_focused: boolean;
 
     @Input('menu') menu: any;
     @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
@@ -28,6 +41,7 @@ export class Personmenu {
 	this.viewcfg = true;
 	this.viewtools = false;
 	this.viewedit = false;
+	this.menuname_focused = false;
     }
 
     doViewtools(v) {
@@ -43,12 +57,15 @@ export class Personmenu {
     onRename() {
 	this.viewedit = true;
 	this.viewtools = false;
+	this.menuname_focused = true;
+	setTimeout(() => {this.menuname_focused = false;});	
     }
 
     onCancelRename() {
 	this.viewedit = false;
 	this.viewtools = false;
 	this.viewcfg = true;
+	this.onchange.emit(null);	
     }
 
     doRename() {

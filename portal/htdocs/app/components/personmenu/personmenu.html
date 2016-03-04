@@ -1,7 +1,7 @@
 <span [hidden]="viewedit">{{menu.pme_name}}</span>
 <form [hidden]="!viewedit" class="form-inline" (ngSubmit)="doRename()" #userForm="ngForm">
   <div class="input-group input-group-sm">
-    <input type="text" class="form-control" [(ngModel)]="menu.pme_name" ngControl required>
+    <input type="text" class="form-control" [(ngModel)]="menu.pme_name" ngControl required [focus]="menuname_focused" >
     <div class="input-group-btn">
       <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
       <button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>

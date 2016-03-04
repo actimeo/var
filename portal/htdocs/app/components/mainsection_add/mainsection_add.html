@@ -1,10 +1,14 @@
-<center>
+<center style="margin-top: 15px">
   <span [hidden]="getting_name"><button (click)="onAddSection()" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> {{i18n.t('portal.add_new_section')}}</button></span>
   <span [hidden]="!getting_name">
     <form (ngSubmit)="doAddSection()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
-      <input [(ngModel)]="sectionname" ngControl required [focus]="sectionname_focused" type="text" class="form-control" width="40" placeholder="{{i18n.t('portal.section_name')}}">
-      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">{{i18n.t('common.btn.add')}}</button>
-      <button (click)="cancelAddSection()" type="button" class="btn btn-default">{{i18n.t('common.btn.cancel')}}</button>
+      <div class="input-group input-group-sm">
+	<input [(ngModel)]="sectionname" ngControl required [focus]="sectionname_focused" type="text" class="form-control" placeholder="{{i18n.t('portal.section_name')}}">
+	<div class="input-group-btn">    
+	  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
+	  <button (click)="cancelAddSection()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+	</div>
+      </div>
     </form>
   </span>
 </center>
