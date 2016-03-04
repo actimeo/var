@@ -100,4 +100,19 @@ export class PortalService {
 		.then(resolve);
 	});	
     }
+
+    deletePersonmenu(id) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personmenu_delete', { prm_token: this.token, prm_id: id })
+		.then(resolve);
+	});	
+    }
+
+    renamePersonmenu(id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personmenu_rename', { prm_token: this.token, prm_id: id, prm_name: name })
+		.then(resolve);
+	});	
+    }
+
 }

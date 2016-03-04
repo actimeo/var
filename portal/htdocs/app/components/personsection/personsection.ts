@@ -4,6 +4,7 @@ import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
 import {PersonmenuAdd} from '../personmenu_add/personmenu_add';
+import {Personmenu} from '../personmenu/personmenu';
 
 @Component({
     selector: 'personsection',
@@ -11,7 +12,7 @@ import {PersonmenuAdd} from '../personmenu_add/personmenu_add';
 	     `],
     templateUrl: './app/components/personsection/personsection.html',
     providers: [],
-    directives: [ PersonmenuAdd ],
+    directives: [ Personmenu, PersonmenuAdd ],
 })
 export class Personsection {
 
@@ -38,6 +39,10 @@ export class Personsection {
     }
 
     onMenuAdded() {
+	this.reloadMenus();
+    }
+
+    onMenuChange() {
 	this.reloadMenus();
     }
 }
