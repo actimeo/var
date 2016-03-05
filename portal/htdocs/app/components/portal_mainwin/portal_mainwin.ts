@@ -45,15 +45,6 @@ export class PortalMainwin {
 	});		    
     }
 
-    ngOnInit() {	
-/*	this._portalService.listEntities().then(data => {
-	    console.log("listEntities: "+data);
-	    this.entities = data;
-	}).catch(err => {
-	    console.log("err "+err);
-	});	*/
-    }
-
     onSectionAdded() {
 	this.reloadSections();
     }
