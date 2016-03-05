@@ -4,6 +4,7 @@ import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
+import {AlertsService} from './../../services/alerts';
 
 // Simple 'focus' Directive
 @Directive({
@@ -44,7 +45,8 @@ export class PortalSelect {
     current_operation: number;
 
     constructor(private _portalService: PortalService,
-		private i18n: I18nService
+		private i18n: I18nService,
+		private alerts: AlertsService
 	       ) {
 	this.unselectPortal();
 	this.getting_name = false;
@@ -106,8 +108,10 @@ export class PortalSelect {
 	this._portalService.deletePortal(this.selected_portal.por_id).then(data => {
 	    this.unselectPortal();
 	    this.reloadPortals(null);
+	    this.alerts.success(this.i18n.t('portal.alerts.portal_deleted'));
 	}).catch(err => {
 	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_portal'));
 	});	
     }
 
@@ -133,8 +137,10 @@ export class PortalSelect {
     doAddPortal() {
 	this._portalService.addPortal(this.portalname).then(new_por_id => {
 	    this.reloadPortals(new_por_id);
+	    this.alerts.success(this.i18n.t('portal.alerts.portal_added'));
 	}).catch(err => {
 	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_adding_portal'));
 	});	
 	this.cancelOperation();
     }
@@ -142,8 +148,10 @@ export class PortalSelect {
     doRenamePortal() {
 	this._portalService.renamePortal(this.selected_portal.por_id, this.portalname).then(data => {
 	    this.reloadPortals(this.selected_portal.por_id);
+	    this.alerts.success(this.i18n.t('portal.alerts.portal_renamed'));
 	}).catch(err => {
 	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_portal'));
 	});	
 	this.cancelOperation();
     }

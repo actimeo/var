@@ -17,6 +17,14 @@ en_translations = {
 	"logged_in_as": "Logged in as"
     },
     "portal": {
+	"alerts": {
+	    'portal_deleted': 'Portal deleted',
+	    'error_deleting_portal': 'Error deleting portal',
+	    'portal_added': 'Portal added',
+	    'error_adding_portal': 'Error adding portal',
+	    'portal_renamed': 'Portal renamed',
+	    'error_renaming_portal': 'Error renaming portal',
+	},
 	"portal_builder": "Portal builder",
 	"select_a_portal": "Select a portal",
 	"add_new_portal": "Add new portal",

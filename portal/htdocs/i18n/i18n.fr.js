@@ -17,6 +17,14 @@ fr_translations = {
 	"logged_in_as": "Connecté avec"
     },
     "portal": {
+	"alerts": {
+	    'portal_deleted': 'Portail supprimé',
+	    'error_deleting_portal': 'Impossible de supprimer le portail',
+	    'portal_added': 'Portail ajouté',
+	    'error_adding_portal': "Impossible d'ajouter le portail",
+	    'portal_renamed': 'Portail renommé',
+	    'error_renaming_portal': 'Impossible de renommer le portail',
+	},
 	"portal_builder": "Édition de portails",
 	"select_a_portal": "Sélectionner un portail",
 	"add_new_portal": "Ajouter un portail",
