@@ -1,14 +1,14 @@
 <div class="section_ops">
   <span [hidden]="viewedit">
-    <button (click)="onDeleteSection()" 
-	    type="button" class="btn btn-default btn-xs">
-      <span class="glyphicon glyphicon-minus"></span>
-      <span> {{i18n.t('portal.delete_section')}}</span>
-    </button>
     <button (click)="onRenameSection()" 
 	    type="button" class="btn btn-default btn-xs">
       <span class="glyphicon glyphicon-pencil"></span>
       <span> {{i18n.t('portal.rename_section')}}</span>
+    </button>
+    <button (click)="onDeleteSection()" 
+	    type="button" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-minus"></span>
+      <span> {{i18n.t('portal.delete_section')}}</span>
     </button>
   </span>
 
