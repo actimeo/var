@@ -20,6 +20,7 @@ en_translations = {
 	"portal_builder": "Portal builder",
 	"select_a_portal": "Select a portal",
 	"add_new_portal": "Add new portal",
+	"rename_current_portal": "Rename current portal",
 	"delete_current_portal": "Delete current portal",
 	"copy_current_portal": "Copy current portal",
 	"portal_name": "portal name",

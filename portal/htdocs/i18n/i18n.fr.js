@@ -20,6 +20,7 @@ fr_translations = {
 	"portal_builder": "Édition de portails",
 	"select_a_portal": "Sélectionner un portail",
 	"add_new_portal": "Ajouter un portail",
+	"rename_current_portal": "Renommer portail en cours",
 	"delete_current_portal": "Supprimer portail en cours",
 	"copy_current_portal": "Copier portail en cours",
 	"portal_name": "nom du portail",

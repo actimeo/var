@@ -29,6 +29,10 @@ class FocusDirective {
 })
 export class PortalSelect {
 
+    static OP_NONE = 0;
+    static OP_ADD = 1;
+    static OP_RENAME = 2;
+    
     @Output() onselected: EventEmitter<string> = new EventEmitter();
 
     portals: any;
@@ -37,6 +41,7 @@ export class PortalSelect {
     portalname: any;
     getting_name: boolean;
     portalname_focused: boolean;
+    current_operation: number;
 
     constructor(private _portalService: PortalService,
 		private i18n: I18nService
@@ -44,6 +49,7 @@ export class PortalSelect {
 	this.unselectPortal();
 	this.getting_name = false;
 	this.portalname_focused = false;
+	this.current_operation = PortalSelect.OP_NONE;
     }
     
     ngOnInit() {	    
@@ -81,23 +87,18 @@ export class PortalSelect {
     onAddPortal() {
 	this.getting_name = true;
 	this.portalname_focused = true;
+	this.current_operation = PortalSelect.OP_ADD;
 	// set false to be able to set it to true again
 	setTimeout(() => {this.portalname_focused = false;});
     }
 
-    cancelAddPortal() {
-	this.getting_name = false;
- 	this.portalname = '';
-    }
-
-    // The Add portal form is submitted. Let save the portal
-    doAddPortal() {
-	this._portalService.addPortal(this.portalname).then(new_por_id => {
-	    this.reloadPortals(new_por_id);
-	}).catch(err => {
-	    console.log("err "+err);
-	});	
-	this.cancelAddPortal();
+    // The "Rename portal" entry is selected in the list
+    onRenamePortal() {
+	this.getting_name = true;
+	this.portalname_focused = true;
+	this.current_operation = PortalSelect.OP_RENAME;
+	// set false to be able to set it to true again
+	setTimeout(() => {this.portalname_focused = false;});
     }
 
     // The "Delete portal" entry is selected in the list
@@ -111,6 +112,40 @@ export class PortalSelect {
     }
 
     onCopyPortal() {
+    }
+
+    // name input is cancelled
+    cancelOperation() {
+	this.getting_name = false;
+ 	this.portalname = '';
+	this.current_operation = PortalSelect.OP_NONE;
+    }
+
+    // name input is validated
+    doOperation () {
+	if (this.current_operation == PortalSelect.OP_ADD)
+	    this.doAddPortal();
+	else if (this.current_operation == PortalSelect.OP_RENAME)
+	    this.doRenamePortal();
+    }
+    
+    // The Add portal form is submitted. Let save the portal
+    doAddPortal() {
+	this._portalService.addPortal(this.portalname).then(new_por_id => {
+	    this.reloadPortals(new_por_id);
+	}).catch(err => {
+	    console.log("err "+err);
+	});	
+	this.cancelOperation();
+    }
+
+    doRenamePortal() {
+	this._portalService.renamePortal(this.selected_portal.por_id, this.portalname).then(data => {
+	    this.reloadPortals(this.selected_portal.por_id);
+	}).catch(err => {
+	    console.log("err "+err);
+	});	
+	this.cancelOperation();
     }
 
 }
