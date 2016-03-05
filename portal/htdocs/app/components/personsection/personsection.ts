@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
@@ -9,6 +9,7 @@ import {Personmenu} from '../personmenu/personmenu';
 @Component({
     selector: 'personsection',
     styles: [`
+	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
 	     `],
     templateUrl: './app/components/personsection/personsection.html',
     providers: [],
@@ -17,6 +18,7 @@ import {Personmenu} from '../personmenu/personmenu';
 export class Personsection {
 
     @Input('pse_id') pse_id: number;
+    @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
 
     private personmenus: any;
     
@@ -44,5 +46,14 @@ export class Personsection {
 
     onMenuChange() {
 	this.reloadMenus();
+    }
+
+    onDeleteSection() {
+	console.log("delete "+this.pse_id);
+	this._portalService.deletePersonsection(this.pse_id).then(data => {
+	    this.ondelete.emit(null);
+	}).catch(err => {
+	    console.log("err "+err);
+	});		    
     }
 }
