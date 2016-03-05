@@ -24,8 +24,11 @@ fr_translations = {
 	    'error_adding_portal': "Impossible d'ajouter le portail",
 	    'portal_renamed': 'Portail renommé',
 	    'error_renaming_portal': 'Impossible de renommer le portail',
+
 	    'mainsection_deleted': 'Section supprimée',
 	    'error_deleting_mainsection': 'Impossible de supprimer la section',
+	    'mainsection_added': 'Section ajoutée',
+	    'error_adding_mainsection': "Impossible d'ajouter la section",
 	    'mainsection_renamed': 'Section renommée',
 	    'error_renaming_mainsection': 'Impossible de renommer la section',
 	},

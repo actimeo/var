@@ -24,8 +24,11 @@ en_translations = {
 	    'error_adding_portal': 'Error adding portal',
 	    'portal_renamed': 'Portal renamed',
 	    'error_renaming_portal': 'Error renaming portal',
+
 	    'mainsection_deleted': 'Main Section deleted',
 	    'error_deleting_mainsection': 'Error deleting main section',
+	    'mainsection_added': 'Main section added',
+	    'error_adding_mainsection': 'Error adding main section',
 	    'mainsection_renamed': 'Main section renamed',
 	    'error_renaming_mainsection': 'Error renaming main section',
 	},
