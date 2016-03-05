@@ -5,6 +5,8 @@ import {Collapse} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalSelect} from '../../components/portal_select/portal_select';
 import {PortalMain} from '../../components/portal_main/portal_main';
+import {Alerts} from '../../components/alerts/alerts';
+
 import {UserService} from '../../services/user';
 import {I18nService} from '../../services/i18n';
 
@@ -12,10 +14,11 @@ import {I18nService} from '../../services/i18n';
     selector: 'home-cmp',
     styles: [`
 	     .portal-main { margin-top: 60px; }
+	     .alerts { position: fixed; top: 60px; right: 16px; }
 	     `],
     templateUrl: './app/components/home/home.html',
     providers: [UserService],
-    directives: [PortalSelect, PortalMain]
+    directives: [PortalSelect, PortalMain, Alerts]
 })
 export class HomeCmp {
     @ViewChild('portalmain') portalmain;
@@ -25,6 +28,9 @@ export class HomeCmp {
     constructor(private _router: Router, private _userService: UserService, private i18n: I18nService) {
     }
 
+    ngOnInit() {
+    }
+    
     getUser() {
 	return this._userService.getLogin();
     }

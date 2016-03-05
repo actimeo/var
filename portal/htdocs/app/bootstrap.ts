@@ -6,11 +6,13 @@ import {bootstrap} from 'angular2/platform/browser';
 import {PortaldemoApp} from './portaldemo_app';
 import {I18nService} from './services/i18n';
 import {UserService} from './services/user';
+import {AlertsService} from './services/alerts';
 
 bootstrap(PortaldemoApp, [HTTP_PROVIDERS, 
 			  ROUTER_PROVIDERS,
 			  I18nService,
 			  UserService,
+			  AlertsService,
 			  provide(ROUTER_PRIMARY_COMPONENT, {useValue: PortaldemoApp}),
 			  provide(LocationStrategy, { useClass: HashLocationStrategy })
 		    ])
