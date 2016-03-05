@@ -7,17 +7,7 @@ import {AlertsService} from './../../services/alerts';
 import {MainmenuAdd} from '../mainmenu_add/mainmenu_add';
 import {Mainmenu} from '../mainmenu/mainmenu';
 
-@Directive({
-    selector: '[focus]'
-})
-class FocusDirective {
-    @Input()
-    focus: boolean;
-    constructor(@Inject(ElementRef) private element: ElementRef) {}
-    protected ngOnChanges() {
-        this.element.nativeElement.focus();
-    }
-}
+import {FocusDirective} from './../../directives/focus';
 
 @Component({
     selector: 'mainsection',

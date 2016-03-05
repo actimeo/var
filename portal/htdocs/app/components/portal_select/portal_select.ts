@@ -1,4 +1,4 @@
-import {Component, Directive, Input, Output, EventEmitter, ElementRef, Inject} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -6,18 +6,7 @@ import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
 
-// Simple 'focus' Directive
-@Directive({
-    selector: '[focus]'
-})
-class FocusDirective {
-    @Input()
-    focus: boolean;
-    constructor(@Inject(ElementRef) private element: ElementRef) {}
-    protected ngOnChanges() {
-        this.element.nativeElement.focus();
-    }
-}
+import {FocusDirective} from './../../directives/focus';
 
 @Component({
     selector: 'portal-select',

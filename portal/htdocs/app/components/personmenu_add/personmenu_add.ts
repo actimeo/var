@@ -5,17 +5,8 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
-@Directive({
-    selector: '[focus]'
-})
-class FocusDirective {
-    @Input()
-    focus: boolean;
-    constructor(@Inject(ElementRef) private element: ElementRef) {}
-    protected ngOnChanges() {
-        this.element.nativeElement.focus();
-    }
-}
+import {FocusDirective} from './../../directives/focus';
+
 @Component({
     selector: 'personmenu-add',
     styles: [`

@@ -6,17 +6,7 @@ import {AlertsService} from '../../services/alerts';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-@Directive({
-    selector: '[focus]'
-})
-class FocusDirective {
-    @Input()
-    focus: boolean;
-    constructor(@Inject(ElementRef) private element: ElementRef) {}
-    protected ngOnChanges() {
-        this.element.nativeElement.focus();
-    }
-}
+import {FocusDirective} from './../../directives/focus';
 
 @Component({
     selector: 'mainmenu',
