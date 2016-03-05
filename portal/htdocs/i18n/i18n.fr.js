@@ -31,6 +31,13 @@ fr_translations = {
 	    'error_adding_mainsection': "Impossible d'ajouter la section",
 	    'mainsection_renamed': 'Section renommée',
 	    'error_renaming_mainsection': 'Impossible de renommer la section',
+
+	    'mainmenu_deleted': 'Menu supprimé',
+	    'error_deleting_mainmenu': 'Impossible de supprimer le menu',
+	    'mainmenu_added': 'Menu ajouté',
+	    'error_adding_mainmenu': "Impossible d'ajouter le menu",
+	    'mainmenu_renamed': 'Menu renommé',
+	    'error_renaming_mainmenu': 'Impossible de renommer le menu',
 	},
 	"portal_builder": "Édition de portails",
 	"select_a_portal": "Sélectionner un portail",

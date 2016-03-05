@@ -31,6 +31,13 @@ en_translations = {
 	    'error_adding_mainsection': 'Error adding main section',
 	    'mainsection_renamed': 'Main section renamed',
 	    'error_renaming_mainsection': 'Error renaming main section',
+
+	    'mainmenu_deleted': 'Main Menu deleted',
+	    'error_deleting_mainmenu': 'Error deleting main menu',
+	    'mainmenu_added': 'Main menu added',
+	    'error_adding_mainmenu': 'Error adding main menu',
+	    'mainmenu_renamed': 'Main menu renamed',
+	    'error_renaming_mainmenu': 'Error renaming main menu',
 	},
 	"portal_builder": "Portal builder",
 	"select_a_portal": "Select a portal",
