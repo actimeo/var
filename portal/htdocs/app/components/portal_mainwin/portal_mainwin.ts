@@ -61,4 +61,8 @@ export class PortalMainwin {
     onSectionDeleted() {
 	this.reloadSections();
     }
+
+    onSectionChange() {
+	this.reloadSections();
+    }
 }

@@ -1,11 +1,29 @@
 <div class="section_ops">
-  <button (click)="onDeleteSection()" 
-	  type="button" class="btn btn-default btn-xs">
-    <span class="glyphicon glyphicon-minus"></span>
-    <span> {{i18n.t('portal.delete_section')}}</span>
-  </button>
+  <span [hidden]="viewedit">
+    <button (click)="onDeleteSection()" 
+	    type="button" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-minus"></span>
+      <span> {{i18n.t('portal.delete_section')}}</span>
+    </button>
+    <button (click)="onRenameSection()" 
+	    type="button" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-pencil"></span>
+      <span> {{i18n.t('portal.rename_section')}}</span>
+    </button>
+  </span>
+
+  <form [hidden]="!viewedit" class="form-inline" (ngSubmit)="doRename()" #userForm="ngForm">
+  <div class="input-group input-group-sm">
+    <input type="text" class="form-control" [(ngModel)]="section.mse_name" ngControl required [focus]="sectionname_focused" >
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
+      <button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+  </div>
+</form>
+
 </div>
 <ul>
   <li *ngFor="#menu of mainmenus"><mainmenu [menu]="menu" (onchange)="onMenuChange()"></mainmenu></li>
 </ul>
-<mainmenu-add [mse_id]="mse_id" (onadded)="onMenuAdded()"></mainmenu-add>
+<mainmenu-add [mse_id]="section.mse_id" (onadded)="onMenuAdded()"></mainmenu-add>
