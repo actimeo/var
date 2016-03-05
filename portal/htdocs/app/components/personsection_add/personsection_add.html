@@ -1,4 +1,4 @@
-<center style="margin-top: 15px">
+<div style="margin: 15px 0 0 15px">
   <span [hidden]="getting_name"><button (click)="onAddSection()" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> {{i18n.t('portal.add_new_section')}}</button></span>
   <span [hidden]="!getting_name">
     <form (ngSubmit)="doAddSection()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
@@ -11,4 +11,4 @@
       </div>
     </form>
   </span>
-</center>
+</div>
