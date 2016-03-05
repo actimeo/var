@@ -11,7 +11,7 @@ import {I18nService} from '../../services/i18n';
     selector: 'portal-mainwin',
     styles: [`
 	     #leftbar { min-height: 100%; width: 240px; border-right: 1px solid #e7e7e7; }
-	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
+om: 15px; }
 	     `],
     templateUrl: './app/components/portal_mainwin/portal_mainwin.html',
     providers: [PortalService],
@@ -58,12 +58,7 @@ export class PortalMainwin {
 	this.reloadSections();
     }
 
-    onDeleteSection(mse_id) {
-	console.log("delete "+mse_id);
-	this._portalService.deleteMainsection(mse_id).then(data => {
-	    this.reloadSections();
-	}).catch(err => {
-	    console.log("err "+err);
-	});		    
+    onSectionDeleted() {
+	this.reloadSections();
     }
 }

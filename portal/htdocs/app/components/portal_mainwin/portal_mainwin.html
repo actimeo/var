@@ -1,8 +1,7 @@
 <nav id="leftbar">
   <accordion [closeOthers]="true">
     <accordion-group *ngFor="#section of mainsections" heading="{{section.mse_name}}">
-      <div class="section_ops"><button (click)="onDeleteSection(section.mse_id)" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span> {{i18n.t('portal.delete_section')}}</button></div>
-      <mainsection [mse_id]="section.mse_id"></mainsection>
+      <mainsection (ondelete)="onSectionDeleted()" [mse_id]="section.mse_id"></mainsection>
     </accordion-group>
   </accordion>
   <mainsection-add [hidden]="!_por_id" [por_id]="_por_id" (onadded)="onSectionAdded()"></mainsection-add>

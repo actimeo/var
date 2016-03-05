@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
@@ -9,7 +9,7 @@ import {Mainmenu} from '../mainmenu/mainmenu';
 @Component({
     selector: 'mainsection',
     styles: [`
-	     `],
+	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bott	     `],
     templateUrl: './app/components/mainsection/mainsection.html',
     providers: [],
     directives: [ Mainmenu, MainmenuAdd ],
@@ -17,6 +17,7 @@ import {Mainmenu} from '../mainmenu/mainmenu';
 export class Mainsection {
 
     @Input('mse_id') mse_id: number;
+    @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
 
     private mainmenus: any;
     
@@ -44,5 +45,14 @@ export class Mainsection {
 
     onMenuChange() {
 	this.reloadMenus();
+    }
+
+    onDeleteSection() {
+	console.log("delete "+this.mse_id);
+	this._portalService.deleteMainsection(this.mse_id).then(data => {
+	    this.ondelete.emit(null);		    
+	}).catch(err => {
+	    console.log("err "+err);
+	});		    
     }
 }
