@@ -150,6 +150,13 @@ export class PortalService {
 	});	
     }
 
+    movePersonmenu(id, pos) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personmenu_move_before_position', { prm_token: this.token, prm_id: id, prm_position: pos })
+		.then(resolve, reject);
+	});	
+    }
+
     listMainmenus(mse_id) {
 	return new Promise((resolve, reject) => {
 	    PgProc('/portal/ajax/', 'portal', 'mainmenu_list', { 'prm_token': this.token, 'prm_mse_id': mse_id })
@@ -177,4 +184,12 @@ export class PortalService {
 		.then(resolve, reject);
 	});	
     }
+
+    moveMainmenu(id, pos) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainmenu_move_before_position', { prm_token: this.token, prm_id: id, prm_position: pos })
+		.then(resolve, reject);
+	});	
+    }
+
 }
