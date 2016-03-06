@@ -1,4 +1,4 @@
-import {Component,Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
+import {Component,Directive, Input, Output, EventEmitter} from 'angular2/core';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
@@ -12,7 +12,8 @@ import {FocusDirective} from './../../directives/focus';
 @Component({
     selector: 'mainsection',
     styles: [`
-	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bott	     `],
+	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
+	     `],
     templateUrl: './app/components/mainsection/mainsection.html',
     providers: [],
     directives: [ Mainmenu, MainmenuAdd, FocusDirective ],

@@ -38,6 +38,13 @@ fr_translations = {
 	    'error_adding_mainmenu': "Impossible d'ajouter le menu",
 	    'mainmenu_renamed': 'Menu renommé',
 	    'error_renaming_mainmenu': 'Impossible de renommer le menu',
+
+	    'personmenu_deleted': 'Menu supprimé',
+	    'error_deleting_personmenu': 'Impossible de supprimer le menu',
+	    'personmenu_added': 'Menu ajouté',
+	    'error_adding_personmenu': "Impossible d'ajouter le menu",
+	    'personmenu_renamed': 'Menu renommé',
+	    'error_renaming_personmenu': 'Impossible de renommer le menu',
 	},
 	"portal_builder": "Édition de portails",
 	"select_a_portal": "Sélectionner un portail",

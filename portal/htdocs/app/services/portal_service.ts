@@ -101,6 +101,13 @@ export class PortalService {
 	});	
     }
 
+    renamePersonsection(id, name) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'personsection_rename', { prm_token: this.token, prm_id: id, prm_name: name })
+		.then(resolve, reject);
+	});	
+    }
+
     listPersonmenus(pse_id) {
 	return new Promise((resolve, reject) => {
 	    PgProc('/portal/ajax/', 'portal', 'personmenu_list', { 'prm_token': this.token, 'prm_pse_id': pse_id })

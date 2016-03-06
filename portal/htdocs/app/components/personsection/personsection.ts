@@ -2,9 +2,12 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
+import {AlertsService} from './../../services/alerts';
 
 import {PersonmenuAdd} from '../personmenu_add/personmenu_add';
 import {Personmenu} from '../personmenu/personmenu';
+
+import {FocusDirective} from './../../directives/focus';
 
 @Component({
     selector: 'personsection',
@@ -13,18 +16,24 @@ import {Personmenu} from '../personmenu/personmenu';
 	     `],
     templateUrl: './app/components/personsection/personsection.html',
     providers: [],
-    directives: [ Personmenu, PersonmenuAdd ],
+    directives: [ Personmenu, PersonmenuAdd, FocusDirective ],
 })
 export class Personsection {
 
-    @Input('pse_id') pse_id: number;
+    @Input('section') section: any;
     @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
     private personmenus: any;
+    private viewedit: boolean;
+    private sectionname_focused: boolean;
     
     constructor(private _portalService: PortalService,
-		private i18n: I18nService
+		private i18n: I18nService,
+		private alerts: AlertsService
 	       ) {
+	this.viewedit = false;
+	this.sectionname_focused = false;
     }
 
     ngOnInit() {
@@ -32,7 +41,7 @@ export class Personsection {
     }
 
     reloadMenus() {
-	this._portalService.listPersonmenus(this.pse_id).then(data => {
+	this._portalService.listPersonmenus(this.section.pse_id).then(data => {
 	    console.log("listPersonmenus: "+data);
 	    this.personmenus = data;
 	}).catch(err => {
@@ -49,11 +58,34 @@ export class Personsection {
     }
 
     onDeleteSection() {
-	console.log("delete "+this.pse_id);
-	this._portalService.deletePersonsection(this.pse_id).then(data => {
+	console.log("delete "+this.section.pse_id);
+	this._portalService.deletePersonsection(this.section.pse_id).then(data => {
 	    this.ondelete.emit(null);
+	    this.alerts.success(this.i18n.t('portal.alerts.personsection_deleted'));
 	}).catch(err => {
 	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personsection'));
 	});		    
+    }
+
+    onRenameSection() {
+	this.viewedit = true;
+	this.sectionname_focused = true;
+	setTimeout(() => {this.sectionname_focused = false;});	
+    }
+
+    doRename() {
+	this._portalService.renamePersonsection(this.section.pse_id, this.section.pse_name).then(data => {
+	    this.onchange.emit(null);	
+	    this.alerts.success(this.i18n.t('portal.alerts.personsection_renamed'));
+	}).catch(err => {
+	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_personsection'));
+	});		    	
+    }
+
+    onCancelRename() {
+	this.viewedit = false;
+	this.onchange.emit(null);	
     }
 }

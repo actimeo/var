@@ -1,8 +1,7 @@
-
 <nav id="leftbar">
   <accordion [closeOthers]="true">
     <accordion-group *ngFor="#section of personsections" heading="{{section.pse_name}}">
-      <personsection (ondelete)="onSectionDeleted()" [pse_id]="section.pse_id"></personsection>
+      <personsection (ondelete)="onSectionDeleted()" (onchange)="onSectionChange()" [section]="section"></personsection>
     </accordion-group>
   </accordion>
   <personsection-add [hidden]="!_por_id" [entity]="entity" [por_id]="_por_id" (onadded)="onSectionAdded()"></personsection-add>
