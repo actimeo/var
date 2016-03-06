@@ -3,17 +3,17 @@
     <span class="btn-group btn-group-sm">
       <button (click)="onMoveSection()" 
 	      type="button" class="btn btn-default"
-	      tooltip="{{i18n.t('portal.move_section')}}" tooltipPlacement="right">
+	      [tooltip]="i18n.t('portal.tip.move_section')" tooltipPlacement="right">
 	<span class="glyphicon glyphicon-sort"></span>
       </button>
       <button (click)="onRenameSection()" 
 	      type="button" class="btn btn-default"
-	      tooltip="{{i18n.t('portal.rename_section')}}" tooltipPlacement="right">
+	      [tooltip]="i18n.t('portal.tip.rename_section')" tooltipPlacement="right">
 	<span class="glyphicon glyphicon-pencil"></span>
       </button>
       <button (click)="onDeleteSection()" 
 	      type="button" class="btn btn-default"
-	      tooltip="{{i18n.t('portal.delete_section')}}" tooltipPlacement="right">
+	      [tooltip]="i18n.t('portal.tip.delete_section')" tooltipPlacement="right">
 	<span class="glyphicon glyphicon-minus"></span>
       </button>
     </span>

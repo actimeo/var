@@ -12,7 +12,7 @@
 <span [hidden]="!viewcfg">
   <button type="button" class="btn btn-link btn-xs" 
 	  (click)="doViewtools(true)" 
-	  tooltip="configure" tooltipPlacement="right">
+	  [tooltip]="i18n.t('portal.tip.configure')" tooltipPlacement="right">
     <span class="glyphicon glyphicon-cog btn-xs"></span>
   </button>
 </span>
@@ -20,17 +20,17 @@
    <span class="btn-group">
      <button type="button" class="btn btn-link btn-xs" 
 	     (click)="doViewtools(false)"
-	  tooltip="cancel" tooltipPlacement="right">
+	  [tooltip]="i18n.t('portal.tip.cancel')"tooltipPlacement="right">
        <span class="glyphicon glyphicon-remove btn-xs"></span>
      </button>
      <button type="button" class="btn btn-link btn-xs"
 	     (click)="onRename()"
-	     tooltip="rename" tooltipPlacement="right">	     
+	     [tooltip]="i18n.t('portal.tip.rename')"tooltipPlacement="right">	     
        <span class="glyphicon glyphicon-pencil btn-xs"></span>
      </button>
      <button type="button" class="btn btn-link btn-xs"
 	     (click)="onDelete()"
-	     tooltip="delete" tooltipPlacement="right">
+	     [tooltip]="i18n.t('portal.tip.delete')"tooltipPlacement="right">
        <span class="glyphicon glyphicon-minus btn-xs"></span>
      </button>
    </span>
