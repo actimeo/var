@@ -1,10 +1,10 @@
 import {Component,Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
 
+import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from '../../services/alerts';
-
-import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Directive({
     selector: '[focus]'

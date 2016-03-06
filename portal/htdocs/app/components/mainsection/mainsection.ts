@@ -83,6 +83,7 @@ export class Mainsection {
 
     // Rename
     onRenameSection() {
+	this.new_name = this.section.mse_name;
 	this.viewedit = true;
 	this.sectionname_focused = true;
 	setTimeout(() => {this.sectionname_focused = false;});	

@@ -1,5 +1,7 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
+import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
@@ -16,7 +18,7 @@ import {FocusDirective} from './../../directives/focus';
 	     `],
     templateUrl: './app/components/personsection/personsection.html',
     providers: [],
-    directives: [ Personmenu, PersonmenuAdd, FocusDirective ],
+    directives: [ Personmenu, PersonmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES ],
 })
 export class Personsection {
 
@@ -25,6 +27,7 @@ export class Personsection {
     @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
     private personmenus: any;
+    private new_name: string;
     private viewedit: boolean;
     private sectionname_focused: boolean;
     
@@ -69,13 +72,14 @@ export class Personsection {
     }
 
     onRenameSection() {
+	this.new_name = this.section.pse_name;
 	this.viewedit = true;
 	this.sectionname_focused = true;
 	setTimeout(() => {this.sectionname_focused = false;});	
     }
 
     doRename() {
-	this._portalService.renamePersonsection(this.section.pse_id, this.section.pse_name).then(data => {
+	this._portalService.renamePersonsection(this.section.pse_id, this.new_name).then(data => {
 	    this.onchange.emit(null);	
 	    this.alerts.success(this.i18n.t('portal.alerts.personsection_renamed'));
 	}).catch(err => {
@@ -86,6 +90,5 @@ export class Personsection {
 
     onCancelRename() {
 	this.viewedit = false;
-	this.onchange.emit(null);	
     }
 }
