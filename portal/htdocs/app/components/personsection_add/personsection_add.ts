@@ -4,6 +4,7 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
+import {AlertsService} from './../../services/alerts';
 
 import {FocusDirective} from './../../directives/focus';
 
@@ -26,21 +27,13 @@ export class PersonsectionAdd {
     sectionname_focused: boolean;
 
     constructor(private _portalService: PortalService,
-		private i18n: I18nService
+		private i18n: I18nService,
+		private alerts: AlertsService
 	       ) {
 	this.getting_name = false;
 	this.sectionname_focused = false;
     }
     
-    ngOnInit() {	    
-/*	this._portalService.listEntities().then(data => {
-	    console.log("listEntities: "+data);
-	    this.entities = data;
-	}).catch(err => {
-	    console.log("err "+err);
-	});	*/
-    }
-
     onAddSection() {
 	this.getting_name = true;
 	this.sectionname_focused = true;
@@ -58,8 +51,10 @@ export class PersonsectionAdd {
 
 	this._portalService.addPersonsection(this.por_id, this.entity, this.sectionname).then(new_pse_id => {
 	    this.onadded.emit(null);
+	    this.alerts.success(this.i18n.t('portal.alerts.personsection_added'));
 	}).catch(err => {
 	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_adding_personsection'));
 	});	
 	this.cancelAddSection();
     }
