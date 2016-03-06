@@ -9,6 +9,8 @@ import {Mainmenu} from '../mainmenu/mainmenu';
 
 import {FocusDirective} from './../../directives/focus';
 
+import {MseMovePipe} from './../../pipes/mse_move';
+
 @Component({
     selector: 'mainsection',
     styles: [`
@@ -17,6 +19,7 @@ import {FocusDirective} from './../../directives/focus';
     templateUrl: './app/components/mainsection/mainsection.html',
     providers: [],
     directives: [ Mainmenu, MainmenuAdd, FocusDirective ],
+    pipes: [MseMovePipe]
 })
 export class Mainsection {
 
@@ -27,6 +30,10 @@ export class Mainsection {
     private mainmenus: any;
     private viewedit: boolean;
     private sectionname_focused: boolean;
+    private viewmove: boolean;
+    private movechoices: any;
+    private before_pos: string;
+    private move_focused: boolean;
 
     constructor(private _portalService: PortalService,
 		private i18n: I18nService,
@@ -34,6 +41,8 @@ export class Mainsection {
 	       ) {
 	this.viewedit = false;
 	this.sectionname_focused = false;
+	this.viewmove = false;
+	this.move_focused = false;
     }
 
     ngOnInit() {
@@ -57,6 +66,7 @@ export class Mainsection {
 	this.reloadMenus();
     }
 
+    // Delete
     onDeleteSection() {
 	console.log("delete "+this.section.mse_id);
 	this._portalService.deleteMainsection(this.section.mse_id).then(data => {
@@ -68,6 +78,7 @@ export class Mainsection {
 	});		    
     }
 
+    // Rename
     onRenameSection() {
 	this.viewedit = true;
 	this.sectionname_focused = true;
@@ -87,5 +98,39 @@ export class Mainsection {
     onCancelRename() {
 	this.viewedit = false;
 	this.onchange.emit(null);	
+    }
+
+    // Move
+    onMoveSection() {
+	this.viewmove = true;
+	
+	this._portalService.listMainsections(this.section.por_id).then(data => {
+	    this.movechoices = data;
+	    this.move_focused = true;
+	    setTimeout(() => {this.move_focused = false;});	
+	    if (this.movechoices.length == 1) {
+		this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
+		this.viewmove = false;
+	    }
+		
+	}).catch(err => {
+	    console.log("err "+err);
+	});		    	
+    }
+
+    doMove() {
+	console.log("before pos: "+this.before_pos);
+	this._portalService.moveMainsection(this.section.mse_id, this.before_pos).then(data => {
+	    this.onchange.emit(null);
+	    this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));
+	}).catch(err => {
+	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainsection'));
+	});		    	
+	
+    }
+    
+    onCancelMove() {
+	this.viewmove = false;
     }
 }

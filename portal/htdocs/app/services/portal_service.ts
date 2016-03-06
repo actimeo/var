@@ -80,6 +80,13 @@ export class PortalService {
 	});	
     }
 
+    moveMainsection(id, pos) {
+	return new Promise((resolve, reject) => {
+	    PgProc('/portal/ajax/', 'portal', 'mainsection_move_before_position', { prm_token: this.token, prm_id: id, prm_position: pos })
+		.then(resolve, reject);
+	});	
+    }
+
     listPersonsections(por_id, entity) {
 	return new Promise((resolve, reject) => {
 	    PgProc('/portal/ajax/', 'portal', 'personsection_list', { 'prm_token': this.token, 'prm_por_id': por_id, 'prm_entity': entity })

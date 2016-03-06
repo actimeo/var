@@ -30,7 +30,7 @@ export class I18nService {
 	
     }
     
-    t(s: string) {
-	return this.i18n.t(s);
+    t(s: string, opts: any = undefined) {
+	return this.i18n.t(s, opts);
     }
 }

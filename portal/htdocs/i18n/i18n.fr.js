@@ -31,6 +31,9 @@ fr_translations = {
 	    'error_adding_mainsection': "Impossible d'ajouter la section",
 	    'mainsection_renamed': 'Section renommée',
 	    'error_renaming_mainsection': 'Impossible de renommer la section',
+	    'mainsection_moved': 'Section déplacée',
+	    'error_moving_mainsection': 'Impossible de déplacer la section',
+	    'no_moving_mainsection': 'Pas de déplacement possible',
 
 	    'mainmenu_deleted': 'Menu supprimé',
 	    'error_deleting_mainmenu': 'Impossible de supprimer le menu',
@@ -65,9 +68,14 @@ fr_translations = {
 	"add_new_section": "Nouvelle section",
 	"delete_section": "Supprimer",
 	"rename_section": "Renommer",
+	"move_section": "Déplacer",
 	"add_new_menu": "Nouveau menu",
 	"menu_name": "nom du menu",
-    },
+	'move': {
+	    "before_something": "Avant {{what}}",
+	    "at_the_end": "À la fin",
+	}
+,    },
     "entity": {
 	"patient": "Usager",
 	"staff": "Personnel",

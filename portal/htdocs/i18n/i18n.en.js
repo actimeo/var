@@ -31,6 +31,9 @@ en_translations = {
 	    'error_adding_mainsection': 'Error adding main section',
 	    'mainsection_renamed': 'Main section renamed',
 	    'error_renaming_mainsection': 'Error renaming main section',
+	    'mainsection_moved': 'Main Section moved',
+	    'error_moving_mainsection': 'Error moving main section',
+	    'no_moving_mainsection': 'Cannot move main section',
 
 	    'mainmenu_deleted': 'Main Menu deleted',
 	    'error_deleting_mainmenu': 'Error deleting main menu',
@@ -65,8 +68,13 @@ en_translations = {
 	"add_new_section": "Add new section",
 	"delete_section": "Delete",
 	"rename_section": "Rename",
+	"move_section": "Move",
 	"add_new_menu": "Add new menu",
 	"menu_name": "menu name",
+	'move': {
+	    "before_something": "Before {{what}}",
+	    "at_the_end": "At the end",
+	}
     },
     "entity": {
 	"patient": "Patient",
