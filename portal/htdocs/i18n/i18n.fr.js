@@ -39,6 +39,13 @@ fr_translations = {
 	    'mainmenu_renamed': 'Menu renommé',
 	    'error_renaming_mainmenu': 'Impossible de renommer le menu',
 
+	    'personsection_deleted': 'Section supprimée',
+	    'error_deleting_personsection': 'Impossible de supprimer la section',
+	    'personsection_added': 'Section ajoutée',
+	    'error_adding_personsection': "Impossible d'ajouter la section",
+	    'personsection_renamed': 'Section renommée',
+	    'error_renaming_personsection': 'Impossible de renommer la section',
+
 	    'personmenu_deleted': 'Menu supprimé',
 	    'error_deleting_personmenu': 'Impossible de supprimer le menu',
 	    'personmenu_added': 'Menu ajouté',

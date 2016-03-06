@@ -39,6 +39,13 @@ en_translations = {
 	    'mainmenu_renamed': 'Main menu renamed',
 	    'error_renaming_mainmenu': 'Error renaming main menu',
 
+	    'personsection_deleted': 'Section deleted',
+	    'error_deleting_personsection': 'Error deleting section',
+	    'personsection_added': 'Section added',
+	    'error_adding_personsection': 'Error adding section',
+	    'personsection_renamed': 'Section renamed',
+	    'error_renaming_personsection': 'Error renaming section',
+
 	    'personmenu_deleted': 'Menu deleted',
 	    'error_deleting_personmenu': 'Error deleting menu',
 	    'personmenu_added': 'Menu added',
