@@ -11,6 +11,8 @@ import {Personmenu} from '../personmenu/personmenu';
 
 import {FocusDirective} from './../../directives/focus';
 
+import {PseMovePipe} from './../../pipes/pse_move';
+
 @Component({
     selector: 'personsection',
     styles: [`
@@ -19,6 +21,7 @@ import {FocusDirective} from './../../directives/focus';
     templateUrl: './app/components/personsection/personsection.html',
     providers: [],
     directives: [ Personmenu, PersonmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES ],
+    pipes: [PseMovePipe]
 })
 export class Personsection {
 
@@ -30,13 +33,19 @@ export class Personsection {
     private new_name: string;
     private viewedit: boolean;
     private sectionname_focused: boolean;
-    
+    private viewmove: boolean;
+    private movechoices: any;
+    private before_pos: string;
+    private move_focused: boolean;
+
     constructor(private _portalService: PortalService,
 		private i18n: I18nService,
 		private alerts: AlertsService
 	       ) {
 	this.viewedit = false;
 	this.sectionname_focused = false;
+	this.viewmove = false;
+	this.move_focused = false;    
     }
 
     ngOnInit() {
@@ -60,6 +69,7 @@ export class Personsection {
 	this.reloadMenus();
     }
 
+    // Delete
     onDeleteSection() {
 	console.log("delete "+this.section.pse_id);
 	this._portalService.deletePersonsection(this.section.pse_id).then(data => {
@@ -71,6 +81,7 @@ export class Personsection {
 	});		    
     }
 
+    // Rename
     onRenameSection() {
 	this.new_name = this.section.pse_name;
 	this.viewedit = true;
@@ -91,4 +102,39 @@ export class Personsection {
     onCancelRename() {
 	this.viewedit = false;
     }
+
+    // Move
+    onMoveSection() {
+	this.viewmove = true;
+	
+	this._portalService.listPersonsections(this.section.por_id, this.section.pse_entity).then(data => {
+	    this.movechoices = data;
+	    this.move_focused = true;
+	    setTimeout(() => {this.move_focused = false;});
+	    if (this.movechoices.length == 1) {
+		this.alerts.info(this.i18n.t('portal.alerts.no_moving_personsection'));
+		this.viewmove = false;
+	    }
+	    
+	}).catch(err => {
+	    console.log("err "+err);
+	});    
+    }
+
+    doMove() {
+	console.log("before pos: "+this.before_pos);
+	this._portalService.movePersonsection(this.section.pse_id, this.before_pos).then(data => {
+	    this.onchange.emit(null);
+	    this.alerts.success(this.i18n.t('portal.alerts.personsection_moved'));
+	}).catch(err => {
+	    console.log("err "+err);
+	    this.alerts.danger(this.i18n.t('portal.alerts.error_moving_personsection'));
+	});    
+	
+    }
+    
+    onCancelMove() {
+	this.viewmove = false;
+    }
+
 }

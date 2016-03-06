@@ -48,6 +48,9 @@ fr_translations = {
 	    'error_adding_personsection': "Impossible d'ajouter la section",
 	    'personsection_renamed': 'Section renommée',
 	    'error_renaming_personsection': 'Impossible de renommer la section',
+	    'personsection_moved': 'Section déplacée',
+	    'error_moving_personsection': 'Impossible de déplacer la section',
+	    'no_moving_personsection': 'Pas de déplacement possible',
 
 	    'personmenu_deleted': 'Menu supprimé',
 	    'error_deleting_personmenu': 'Impossible de supprimer le menu',

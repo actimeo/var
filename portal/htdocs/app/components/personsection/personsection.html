@@ -1,6 +1,11 @@
 <div class="section_ops">
-  <span [hidden]="viewedit">
+  <span [hidden]="viewedit || viewmove">
     <span class="btn-group btn-group-sm">
+      <button (click)="onMoveSection()" 
+	      type="button" class="btn btn-default"
+	      tooltip="{{i18n.t('portal.move_section')}}" tooltipPlacement="right">
+	<span class="glyphicon glyphicon-sort"></span>
+      </button>
       <button (click)="onRenameSection()" 
 	      type="button" class="btn btn-default"
 	      tooltip="{{i18n.t('portal.rename_section')}}" tooltipPlacement="right">
@@ -23,6 +28,19 @@
       </div>
     </div>
   </form>
+
+  <form [hidden]="!viewmove" class="form-inline" (ngSubmit)="doMove()" #userFormMove="ngForm">
+    <div class="input-group input-group-sm">
+      <select [(ngModel)]="before_pos" ngControl required [focus]="move_focused" class="form-control">
+	<option *ngFor="#c of movechoices | psemove:section" [value]="c.pse_order">{{c.pse_name}}</option>
+      </select>
+      <div class="input-group-btn">
+	<button type="submit" class="btn btn-primary" [disabled]="!userFormMove.valid"><span class="glyphicon glyphicon-ok"></span></button>
+	<button type="button" class="btn btn-default" (click)="onCancelMove()"><span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+    </div>
+  </form>
+
 </div>
 <ul>
   <li *ngFor="#menu of personmenus"><personmenu [menu]="menu" (onchange)="onMenuChange()"></personmenu></li>

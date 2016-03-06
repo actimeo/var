@@ -48,6 +48,9 @@ en_translations = {
 	    'error_adding_personsection': 'Error adding section',
 	    'personsection_renamed': 'Section renamed',
 	    'error_renaming_personsection': 'Error renaming section',
+	    'personsection_moved': 'Section moved',
+	    'error_moving_personsection': 'Error moving section',
+	    'no_moving_personsection': 'Cannot move section',
 
 	    'personmenu_deleted': 'Menu deleted',
 	    'error_deleting_personmenu': 'Error deleting menu',
