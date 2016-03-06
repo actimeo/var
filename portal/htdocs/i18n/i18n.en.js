@@ -66,9 +66,9 @@ en_translations = {
 	"main_window": "Main window",
 	"section_name": "section name",
 	"add_new_section": "Add new section",
-	"delete_section": "Delete",
-	"rename_section": "Rename",
-	"move_section": "Move",
+	"delete_section": "Delete section",
+	"rename_section": "Rename section",
+	"move_section": "Move section",
 	"add_new_menu": "Add new menu",
 	"menu_name": "menu name",
 	'move': {

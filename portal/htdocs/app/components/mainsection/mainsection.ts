@@ -1,5 +1,7 @@
 import {Component,Directive, Input, Output, EventEmitter} from 'angular2/core';
 
+import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+
 import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
@@ -18,7 +20,7 @@ import {MseMovePipe} from './../../pipes/mse_move';
 	     `],
     templateUrl: './app/components/mainsection/mainsection.html',
     providers: [],
-    directives: [ Mainmenu, MainmenuAdd, FocusDirective ],
+    directives: [ Mainmenu, MainmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES ],
     pipes: [MseMovePipe]
 })
 export class Mainsection {
@@ -28,6 +30,7 @@ export class Mainsection {
     @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
     private mainmenus: any;
+    private new_name: string;
     private viewedit: boolean;
     private sectionname_focused: boolean;
     private viewmove: boolean;
@@ -86,7 +89,7 @@ export class Mainsection {
     }
 
     doRename() {
-	this._portalService.renameMainsection(this.section.mse_id, this.section.mse_name).then(data => {
+	this._portalService.renameMainsection(this.section.mse_id, this.new_name).then(data => {
 	    this.onchange.emit(null);	
 	    this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
 	}).catch(err => {
@@ -97,7 +100,6 @@ export class Mainsection {
 
     onCancelRename() {
 	this.viewedit = false;
-	this.onchange.emit(null);	
     }
 
     // Move
