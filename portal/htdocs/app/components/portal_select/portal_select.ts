@@ -9,16 +9,15 @@ import {AlertsService} from './../../services/alerts';
 import {FocusDirective} from './../../directives/focus';
 
 @Component({
-  selector : 'portal-select',
-  styles : [ `
+  selector: 'portal-select',
+  styles: [`
 	     .getname { margin-left: 4px; }
-	     ` ],
-  templateUrl : './app/components/portal_select/portal_select.html',
-  providers : [ PortalService ],
-  directives : [ DROPDOWN_DIRECTIVES, FocusDirective ]
+	     `],
+  templateUrl: './app/components/portal_select/portal_select.html',
+  providers: [PortalService],
+  directives: [DROPDOWN_DIRECTIVES, FocusDirective]
 })
 export class PortalSelect {
-
   static OP_NONE = 0;
   static OP_ADD = 1;
   static OP_RENAME = 2;
@@ -33,8 +32,9 @@ export class PortalSelect {
   portalname_focused: boolean;
   current_operation: number;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.unselectPortal();
     this.getting_name = false;
     this.portalname_focused = false;
@@ -56,8 +56,7 @@ export class PortalSelect {
           this.portals = data;
           if (selected_por_id !== null) {
             var p = this.portals.filter(d => d.por_id == selected_por_id);
-            if (p.length == 1)
-              this.onPortalSelected(p[0]);
+            if (p.length == 1) this.onPortalSelected(p[0]);
           }
         })
         .catch(err => { console.log("err " + err); });
@@ -98,8 +97,7 @@ export class PortalSelect {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_deleting_portal'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_portal'));
         });
   }
 
@@ -135,16 +133,14 @@ export class PortalSelect {
   }
 
   doRenamePortal() {
-    this._portalService
-        .renamePortal(this.selected_portal.por_id, this.portalname)
+    this._portalService.renamePortal(this.selected_portal.por_id, this.portalname)
         .then(data => {
           this.reloadPortals(this.selected_portal.por_id);
           this.alerts.success(this.i18n.t('portal.alerts.portal_renamed'));
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_renaming_portal'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_portal'));
         });
     this.cancelOperation();
   }

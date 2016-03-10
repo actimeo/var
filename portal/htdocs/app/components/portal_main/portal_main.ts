@@ -14,25 +14,22 @@ import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
 @Component({
-  selector : 'portal-main',
-  styles : [ `
+  selector: 'portal-main',
+  styles: [`
 	     #leftbar { width: 240px; }
-	     ` ],
-  templateUrl : './app/components/portal_main/portal_main.html',
-  providers : [ PortalService ],
-  directives : [
-    PortalEntity, PortalMainwin, DROPDOWN_DIRECTIVES, TAB_DIRECTIVES, Collapse,
-    ACCORDION_DIRECTIVES
+	     `],
+  templateUrl: './app/components/portal_main/portal_main.html',
+  providers: [PortalService],
+  directives: [
+    PortalEntity, PortalMainwin, DROPDOWN_DIRECTIVES, TAB_DIRECTIVES, Collapse, ACCORDION_DIRECTIVES
   ]
 })
 export class PortalMain {
-
   private entities: any;
 
   private por_id: number;
 
-  constructor(private _portalService: PortalService,
-              private i18n: I18nService) {
+  constructor(private _portalService: PortalService, private i18n: I18nService) {
     this.por_id = null;
   }
 

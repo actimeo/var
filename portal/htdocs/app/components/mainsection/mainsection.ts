@@ -14,17 +14,16 @@ import {FocusDirective} from './../../directives/focus';
 import {MseMovePipe} from './../../pipes/mse_move';
 
 @Component({
-  selector : 'mainsection',
-  styles : [ `
+  selector: 'mainsection',
+  styles: [`
 	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
-	     ` ],
-  templateUrl : './app/components/mainsection/mainsection.html',
-  providers : [],
-  directives : [ Mainmenu, MainmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES ],
-  pipes : [ MseMovePipe ]
+	     `],
+  templateUrl: './app/components/mainsection/mainsection.html',
+  providers: [],
+  directives: [Mainmenu, MainmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES],
+  pipes: [MseMovePipe]
 })
 export class Mainsection {
-
   @Input('section') section: any;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
@@ -38,8 +37,9 @@ export class Mainsection {
   private before_pos: string;
   private move_focused: boolean;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.viewedit = false;
     this.sectionname_focused = false;
     this.viewmove = false;
@@ -71,8 +71,7 @@ export class Mainsection {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_deleting_mainsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainsection'));
         });
   }
 
@@ -92,8 +91,7 @@ export class Mainsection {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_renaming_mainsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainsection'));
         });
   }
 
@@ -109,8 +107,7 @@ export class Mainsection {
           this.move_focused = true;
           setTimeout(() => { this.move_focused = false; });
           if (this.movechoices.length == 1) {
-            this.alerts.info(
-                this.i18n.t('portal.alerts.no_moving_mainsection'));
+            this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
             this.viewmove = false;
           }
 
@@ -127,8 +124,7 @@ export class Mainsection {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_moving_mainsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainsection'));
         });
   }
 

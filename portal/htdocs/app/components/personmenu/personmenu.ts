@@ -1,12 +1,4 @@
-import {
-  Component,
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
-  Inject,
-  ElementRef
-} from 'angular2/core';
+import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -19,16 +11,15 @@ import {FocusDirective} from './../../directives/focus';
 import {PmeMovePipe} from './../../pipes/pme_move';
 
 @Component({
-  selector : 'personmenu',
-  styles : [ `
-	     ` ],
-  templateUrl : './app/components/personmenu/personmenu.html',
-  providers : [],
-  directives : [ TOOLTIP_DIRECTIVES, FocusDirective ],
-  pipes : [ PmeMovePipe ],
+  selector: 'personmenu',
+  styles: [`
+	     `],
+  templateUrl: './app/components/personmenu/personmenu.html',
+  providers: [],
+  directives: [TOOLTIP_DIRECTIVES, FocusDirective],
+  pipes: [PmeMovePipe],
 })
 export class Personmenu {
-
   viewcfg: boolean;
   viewtools: boolean;
   viewedit: boolean;
@@ -41,8 +32,9 @@ export class Personmenu {
   @Input('menu') menu: any;
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.viewcfg = true;
     this.viewtools = false;
     this.viewedit = false;
@@ -84,8 +76,7 @@ export class Personmenu {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_renaming_personmenu'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_personmenu'));
         });
   }
 
@@ -98,8 +89,7 @@ export class Personmenu {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_deleting_personmenu'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personmenu'));
         });
   }
 
@@ -131,8 +121,7 @@ export class Personmenu {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_moving_personmenu'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_moving_personmenu'));
         });
   }
 

@@ -11,22 +11,22 @@ import {UserService} from '../../services/user';
 import {I18nService} from '../../services/i18n';
 
 @Component({
-  selector : 'home-cmp',
-  styles : [ `
+  selector: 'home-cmp',
+  styles: [`
 	     .portal-main { margin-top: 60px; }
 	     .alerts { position: fixed; top: 60px; right: 16px; }
-	     ` ],
-  templateUrl : './app/components/home/home.html',
-  providers : [ UserService ],
-  directives : [ PortalSelect, PortalMain, Alerts ]
+	     `],
+  templateUrl: './app/components/home/home.html',
+  providers: [UserService],
+  directives: [PortalSelect, PortalMain, Alerts]
 })
 export class HomeCmp {
   @ViewChild('portalmain') portalmain;
 
   // Here we define this component's instance variables
   // They're accessible from the template
-  constructor(private _router: Router, private _userService: UserService,
-              private i18n: I18nService) {}
+  constructor(
+      private _router: Router, private _userService: UserService, private i18n: I18nService) {}
 
   ngOnInit() {}
 

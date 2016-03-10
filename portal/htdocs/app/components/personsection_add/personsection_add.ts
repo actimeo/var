@@ -1,12 +1,4 @@
-import {
-  Component,
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
-  Inject,
-  ElementRef
-} from 'angular2/core';
+import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
 
 import {BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -17,15 +9,14 @@ import {AlertsService} from './../../services/alerts';
 import {FocusDirective} from './../../directives/focus';
 
 @Component({
-  selector : 'personsection-add',
-  styles : [ `
-	     ` ],
-  templateUrl : './app/components/personsection_add/personsection_add.html',
-  providers : [ PortalService ],
-  directives : [ BUTTON_DIRECTIVES, FocusDirective ],
+  selector: 'personsection-add',
+  styles: [`
+	     `],
+  templateUrl: './app/components/personsection_add/personsection_add.html',
+  providers: [PortalService],
+  directives: [BUTTON_DIRECTIVES, FocusDirective],
 })
 export class PersonsectionAdd {
-
   @Input('por_id') por_id: number;
   @Input('entity') entity: string;
   @Output() onadded: EventEmitter<void> = new EventEmitter<void>();
@@ -34,8 +25,9 @@ export class PersonsectionAdd {
   getting_name: boolean;
   sectionname_focused: boolean;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.getting_name = false;
     this.sectionname_focused = false;
   }
@@ -55,16 +47,14 @@ export class PersonsectionAdd {
   doAddSection() {
     console.log("do add section: " + this.sectionname);
 
-    this._portalService
-        .addPersonsection(this.por_id, this.entity, this.sectionname)
+    this._portalService.addPersonsection(this.por_id, this.entity, this.sectionname)
         .then(new_pse_id => {
           this.onadded.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personsection_added'));
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_adding_personsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_adding_personsection'));
         });
     this.cancelAddSection();
   }

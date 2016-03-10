@@ -1,12 +1,4 @@
-import {
-  Component,
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
-  Inject,
-  ElementRef
-} from 'angular2/core';
+import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} from 'angular2/core';
 
 import {BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -17,15 +9,14 @@ import {AlertsService} from '../../services/alerts';
 import {FocusDirective} from './../../directives/focus';
 
 @Component({
-  selector : 'mainsection-add',
-  styles : [ `
-	     ` ],
-  templateUrl : './app/components/mainsection_add/mainsection_add.html',
-  providers : [ PortalService ],
-  directives : [ BUTTON_DIRECTIVES, FocusDirective ],
+  selector: 'mainsection-add',
+  styles: [`
+	     `],
+  templateUrl: './app/components/mainsection_add/mainsection_add.html',
+  providers: [PortalService],
+  directives: [BUTTON_DIRECTIVES, FocusDirective],
 })
 export class MainsectionAdd {
-
   @Input('por_id') por_id: number;
   @Output() onadded: EventEmitter<void> = new EventEmitter<void>();
 
@@ -33,8 +24,9 @@ export class MainsectionAdd {
   getting_name: boolean;
   sectionname_focused: boolean;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.getting_name = false;
     this.sectionname_focused = false;
   }
@@ -61,8 +53,7 @@ export class MainsectionAdd {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_adding_mainsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_adding_mainsection'));
         });
     this.cancelAddSection();
   }

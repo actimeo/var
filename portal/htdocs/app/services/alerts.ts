@@ -9,9 +9,8 @@ export class AlertsService {
   private alertStore: {alerts: Array<any>};
 
   constructor() {
-    this.alerts$ =
-        new Observable(observer => this.alertsObserver = observer).share();
-    this.alertStore = {alerts : []};
+    this.alerts$ = new Observable(observer => this.alertsObserver = observer).share();
+    this.alertStore = {alerts: []};
     console.log('AlertsService cons');
   }
 
@@ -30,7 +29,7 @@ export class AlertsService {
   }
 
   addAlert(type: string, msg: string) {
-    this.alertStore.alerts.push({msg : msg, type : type, closable : true});
+    this.alertStore.alerts.push({msg: msg, type: type, closable: true});
     this.alertsObserver.next(this.alertStore.alerts);
     console.log('AlertsService addAlert');
   }

@@ -8,22 +8,19 @@ import {PortalService} from './../../services/portal_service';
 import {I18nService} from '../../services/i18n';
 
 @Component({
-  selector : 'portal-entity',
-  styles : [ `
+  selector: 'portal-entity',
+  styles: [`
 	     #leftbar { min-height: 100%; width: 240px; border-right: 1px solid #e7e7e7; }
-	     ` ],
-  templateUrl : './app/components/portal_entity/portal_entity.html',
-  providers : [ PortalService ],
-  directives :
-      [ Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection ],
+	     `],
+  templateUrl: './app/components/portal_entity/portal_entity.html',
+  providers: [PortalService],
+  directives: [Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection],
 })
 export class PortalEntity {
-
   private _por_id: number;
   private personsections: any;
 
-  constructor(private _portalService: PortalService,
-              private i18n: I18nService) {
+  constructor(private _portalService: PortalService, private i18n: I18nService) {
     this._por_id = null;
   }
 

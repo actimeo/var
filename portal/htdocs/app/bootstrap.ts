@@ -15,6 +15,6 @@ import {AlertsService} from './services/alerts';
 
 bootstrap(PortaldemoApp, [
   HTTP_PROVIDERS, ROUTER_PROVIDERS, I18nService, UserService, AlertsService,
-  provide(ROUTER_PRIMARY_COMPONENT, {useValue : PortaldemoApp}),
-  provide(LocationStrategy, {useClass : HashLocationStrategy})
-]).catch(err => console.log(err)); // useful to catch the errors
+  provide(ROUTER_PRIMARY_COMPONENT, {useValue: PortaldemoApp}),
+  provide(LocationStrategy, {useClass: HashLocationStrategy})
+]).catch(err => console.log(err));  // useful to catch the errors

@@ -14,18 +14,16 @@ import {FocusDirective} from './../../directives/focus';
 import {PseMovePipe} from './../../pipes/pse_move';
 
 @Component({
-  selector : 'personsection',
-  styles : [ `
+  selector: 'personsection',
+  styles: [`
 	     .section_ops { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 15px; }
-	     ` ],
-  templateUrl : './app/components/personsection/personsection.html',
-  providers : [],
-  directives :
-      [ Personmenu, PersonmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES ],
-  pipes : [ PseMovePipe ]
+	     `],
+  templateUrl: './app/components/personsection/personsection.html',
+  providers: [],
+  directives: [Personmenu, PersonmenuAdd, FocusDirective, TOOLTIP_DIRECTIVES],
+  pipes: [PseMovePipe]
 })
 export class Personsection {
-
   @Input('section') section: any;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
@@ -39,8 +37,9 @@ export class Personsection {
   private before_pos: string;
   private move_focused: boolean;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService,
-              private alerts: AlertsService) {
+  constructor(
+      private _portalService: PortalService, private i18n: I18nService,
+      private alerts: AlertsService) {
     this.viewedit = false;
     this.sectionname_focused = false;
     this.viewmove = false;
@@ -68,13 +67,11 @@ export class Personsection {
     this._portalService.deletePersonsection(this.section.pse_id)
         .then(data => {
           this.ondelete.emit(null);
-          this.alerts.success(
-              this.i18n.t('portal.alerts.personsection_deleted'));
+          this.alerts.success(this.i18n.t('portal.alerts.personsection_deleted'));
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_deleting_personsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personsection'));
         });
   }
 
@@ -90,13 +87,11 @@ export class Personsection {
     this._portalService.renamePersonsection(this.section.pse_id, this.new_name)
         .then(data => {
           this.onchange.emit(null);
-          this.alerts.success(
-              this.i18n.t('portal.alerts.personsection_renamed'));
+          this.alerts.success(this.i18n.t('portal.alerts.personsection_renamed'));
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_renaming_personsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_personsection'));
         });
   }
 
@@ -106,15 +101,13 @@ export class Personsection {
   onMoveSection() {
     this.viewmove = true;
 
-    this._portalService
-        .listPersonsections(this.section.por_id, this.section.pse_entity)
+    this._portalService.listPersonsections(this.section.por_id, this.section.pse_entity)
         .then(data => {
           this.movechoices = data;
           this.move_focused = true;
           setTimeout(() => { this.move_focused = false; });
           if (this.movechoices.length == 1) {
-            this.alerts.info(
-                this.i18n.t('portal.alerts.no_moving_personsection'));
+            this.alerts.info(this.i18n.t('portal.alerts.no_moving_personsection'));
             this.viewmove = false;
           }
 
@@ -131,8 +124,7 @@ export class Personsection {
         })
         .catch(err => {
           console.log("err " + err);
-          this.alerts.danger(
-              this.i18n.t('portal.alerts.error_moving_personsection'));
+          this.alerts.danger(this.i18n.t('portal.alerts.error_moving_personsection'));
         });
   }
 

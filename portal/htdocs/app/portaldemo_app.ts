@@ -3,29 +3,26 @@ import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {LoginCmp} from './components/login/login';
 import {HomeCmp} from './components/home/home';
-import {
-  LoggedInRouterOutlet
-} from './components/loggedin_router_outlet/loggedin_router_outlet';
+import {LoggedInRouterOutlet} from './components/loggedin_router_outlet/loggedin_router_outlet';
 import {UserService} from './services/user';
 
 @Component({
-  selector : 'portaldemo-app',
-  template : `
+  selector: 'portaldemo-app',
+  template: `
 	<loggedin-router-outlet></loggedin-router-outlet>
 	`,
-  directives : [ LoggedInRouterOutlet ],
-  providers : [ UserService ]
+  directives: [LoggedInRouterOutlet],
+  providers: [UserService]
 })
 @RouteConfig([
-  {path : '/home', name : 'Home', component : HomeCmp},
-  {path : '/login', name : 'Login', component : LoginCmp}
+  {path: '/home', name: 'Home', component: HomeCmp},
+  {path: '/login', name: 'Login', component: LoginCmp}
 ])
 export class PortaldemoApp {
-
   constructor(private _router: Router, private _userService: UserService) {
     if (this._userService.isConnected())
-      this._router.navigate([ 'Home' ]);
+      this._router.navigate(['Home']);
     else
-      this._router.navigate([ 'Login' ]);
+      this._router.navigate(['Login']);
   }
 }
