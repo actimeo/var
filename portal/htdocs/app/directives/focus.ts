@@ -1,7 +1,7 @@
-import {Input, Directive, ElementRef, Inject} from 'angular2/core';
+import {Input, Directive, ElementRef, Inject} from "angular2/core";
 
 @Directive({
-    selector: '[focus]'
+    selector: "[focus]"
 })
 export class FocusDirective {
     @Input() focus: boolean;
