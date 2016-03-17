@@ -1,0 +1,26 @@
+<md-content layout-padding>
+    <div *ngIf="description">
+        <h3>Description</h3>
+        <div class="description">{{description}}</div>
+    </div>
+
+    <h3>Columns</h3>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>not null</th>
+            <th>default</th>
+            <th>description</th>
+        </tr>
+        <tr *ngFor="#column of columns">
+            <td>{{column.col}}</td>
+            <td>{{column.typname}}<span *ngIf="column.typlen > 0">({{column.typlen}})</span></td>
+            <td>{{column.colname}}</td>
+            <td><span *ngIf="column.isnotnull">X</span></td>
+            <td><span *ngIf="column.hasdefault">{{column.deftext}}</span></td>
+            <td>{{column.description}}</td>
+        </tr>
+    </table>
+</md-content>

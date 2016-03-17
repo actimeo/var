@@ -1,0 +1,29 @@
+<md-content layout-padding>
+
+    <div *ngIf="description">
+        <h3>Description</h3>
+        <div class="description">{{description}}</div>
+    </div>
+
+    <h3>Columns</h3>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>description</th>
+        </tr>
+        <tr *ngFor="#column of columns">
+            <td>{{column.col}}</td>
+            <td>{{column.typname}}<span *ngIf="column.typlen > 0">({{column.typlen}})</span></td>
+            <td>{{column.colname}}</td>
+            <td>{{column.description}}</td>
+        </tr>
+    </table>
+    <div *ngIf="functionsReturningType">
+        <h3>Functions returning this type</h3>
+        <ul>
+            <li *ngFor="#function of functionsReturningType">{{function}}</li>
+        </ul>
+    </div>
+</md-content>
