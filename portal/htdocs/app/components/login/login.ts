@@ -49,11 +49,9 @@ export class LoginCmp {
         .then((data) => {
           this._userService.connect(data.usr_token, username);
           this.errormsg = null;
-          console.log(data);
           this._router.parent.navigateByUrl('/home');
         })
         .catch(error => {
-          console.log(error);
           this.errormsg = this.i18n.t('auth.autherror');
         });
 

@@ -20,12 +20,9 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   }
 
   activate(instruction: ComponentInstruction) {
-    console.log('Outlet activate');
     var url = this.parentRouter.lastNavigationAttempt;
-    console.log("url=" + url);
     if (!this.publicRoutes[url] && !this._userService.isConnected()) {
       // todo: redirect to Login, may be there a better way?
-      console.log(' no token => redirect to /login');
       this.parentRouter.navigateByUrl('/login');
     }
     return super.activate(instruction);

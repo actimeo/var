@@ -44,7 +44,6 @@ export class PersonmenuAdd {
   }
 
   doAddMenu() {
-    console.log("do add menu: " + this.menuname);
 
     this._pgService.pgcall('portal', 'personmenu_add', {
 	prm_pse_id: this.pse_id, 
@@ -55,7 +54,6 @@ export class PersonmenuAdd {
           this.alerts.success(this.i18n.t('portal.alerts.personmenu_added'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_adding_personmenu'));
         });
     this.cancelAddMenu();

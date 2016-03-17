@@ -54,10 +54,9 @@ export class Mainsection {
 	prm_mse_id: this.section.mse_id
     })
           .then(data => {
-              console.log("listMainmenus: " + data);
               this.mainmenus = data;
           })
-          .catch(err => { console.log("err " + err); });
+          .catch(err => { });
   }
 
   onMenuAdded() { this.reloadMenus(); }
@@ -66,7 +65,6 @@ export class Mainsection {
 
   // Delete
   onDeleteSection() {
-    console.log("delete " + this.section.mse_id);
     this._pgService.pgcall('portal', 'mainsection_delete', {
 	prm_id: this.section.mse_id
     })
@@ -75,7 +73,6 @@ export class Mainsection {
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_deleted'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainsection'));
         });
   }
@@ -98,7 +95,6 @@ export class Mainsection {
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainsection'));
         });
   }
@@ -122,11 +118,10 @@ export class Mainsection {
           }
 
         })
-        .catch(err => { console.log("err " + err); });
+        .catch(err => { });
   }
 
   doMove() {
-    console.log("before pos: " + this.before_pos);
     this._pgService.pgcall('portal', 'mainsection_move_before_position', {
 	prm_id: this.section.mse_id, 
 	prm_position: this.before_pos
@@ -136,7 +131,6 @@ export class Mainsection {
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainsection'));
         });
   }

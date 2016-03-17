@@ -36,14 +36,12 @@ export class PortalMain {
   ngOnInit() {
     this._pgService.pgcall('portal', 'entity_list')
           .then(data => {
-              console.log("listEntities: " + data);
               this.entities = data;
           })
-          .catch(err => { console.log("err " + err); });
+          .catch(err => { });
   }
 
   setPortalId(por_id) {
     this.por_id = por_id;
-    console.log("set portal id: " + por_id);
   }
 }

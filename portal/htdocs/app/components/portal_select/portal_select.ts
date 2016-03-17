@@ -59,7 +59,7 @@ export class PortalSelect {
             if (p.length == 1) this.onPortalSelected(p[0]);
           }
         })
-        .catch(err => { console.log("err " + err); });
+        .catch(err => { });
   }
 
   // A portal is selected in the list
@@ -98,7 +98,6 @@ export class PortalSelect {
           this.alerts.success(this.i18n.t('portal.alerts.portal_deleted'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_portal'));
         });
   }
@@ -130,7 +129,6 @@ export class PortalSelect {
           this.alerts.success(this.i18n.t('portal.alerts.portal_added'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_adding_portal'));
         });
     this.cancelOperation();
@@ -146,7 +144,6 @@ export class PortalSelect {
           this.alerts.success(this.i18n.t('portal.alerts.portal_renamed'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_portal'));
         });
     this.cancelOperation();

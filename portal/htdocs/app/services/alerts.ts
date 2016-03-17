@@ -11,7 +11,6 @@ export class AlertsService {
   constructor() {
     this.alerts$ = new Observable(observer => this.alertsObserver = observer).share();
     this.alertStore = {alerts: []};
-    console.log('AlertsService cons');
   }
 
   success(msg: string) { this.addAlert('success', msg); }
@@ -25,12 +24,10 @@ export class AlertsService {
   closeAlert(i: number) {
     this.alertStore.alerts.splice(i, 1);
     this.alertsObserver.next(this.alertStore.alerts);
-    console.log('AlertsService closeAlert');
   }
 
   addAlert(type: string, msg: string) {
     this.alertStore.alerts.push({msg: msg, type: type, closable: true});
     this.alertsObserver.next(this.alertStore.alerts);
-    console.log('AlertsService addAlert');
   }
 }

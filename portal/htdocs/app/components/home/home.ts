@@ -38,7 +38,6 @@ export class HomeCmp {
   }
 
   onPortalSelected(por_id) {
-    console.log("selected: " + por_id);
     this.portalmain.setPortalId(por_id);
   }
 }

@@ -78,7 +78,6 @@ export class Mainmenu {
               this.alerts.success(this.i18n.t('portal.alerts.mainmenu_renamed'));
           })
           .catch(err => {
-              console.log("err " + err);
               this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainmenu'));
           });
   }
@@ -93,7 +92,6 @@ export class Mainmenu {
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_deleted'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainmenu'));
         });
   }
@@ -116,11 +114,10 @@ export class Mainmenu {
           }
 
         })
-        .catch(err => { console.log("err " + err); });
+        .catch(err => {  });
   }
 
   doMove() {
-    console.log("before pos: " + this.before_pos);
     this._pgService.pgcall('portal', 'mainmenu_move_before_position', {
 	prm_id: this.menu.mme_id, 
 	prm_position: this.before_pos
@@ -130,7 +127,6 @@ export class Mainmenu {
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_moved'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainmenu'));
         });
   }

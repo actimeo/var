@@ -44,7 +44,6 @@ export class MainsectionAdd {
   }
 
   doAddSection() {
-    console.log("do add section: " + this.sectionname);
 
     this._pgService.pgcall('portal', 'mainsection_add', {
 	prm_por_id: this.por_id, 
@@ -55,7 +54,6 @@ export class MainsectionAdd {
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_added'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_adding_mainsection'));
         });
     this.cancelAddSection();

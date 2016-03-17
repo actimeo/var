@@ -44,8 +44,6 @@ export class MainmenuAdd {
   }
 
   doAddMenu() {
-    console.log("do add menu: " + this.menuname);
-
     this._pgService.pgcall('portal', 'mainmenu_add', {
 	prm_mse_id: this.mse_id, 
 	prm_name: this.menuname
@@ -55,7 +53,6 @@ export class MainmenuAdd {
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_added'));
         })
         .catch(err => {
-          console.log("err " + err);
           this.alerts.danger(this.i18n.t('portal.alerts.error_adding_mainmenu'));
         });
     this.cancelAddMenu();

@@ -26,7 +26,6 @@ export class I18nService {
             (err, t) => {
               // initialized and ready to go!
               const hw = i18next.t('test.key');  // hw = 'hello world'
-              console.log('hw: ' + hw);
             });
   }
 

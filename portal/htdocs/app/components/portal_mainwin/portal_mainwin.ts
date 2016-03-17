@@ -27,7 +27,6 @@ export class PortalMainwin {
 
   @Input('por_id')
   set por_id(new_por_id: number) {
-    console.log("por_id changed: " + new_por_id);
     this._por_id = new_por_id;
     if (new_por_id != null) {
       this.reloadSections();
@@ -39,10 +38,9 @@ export class PortalMainwin {
 	  prm_por_id: this._por_id
       })
           .then(data => {
-              console.log("listMainsections: " + data);
               this.mainsections = data;
           })
-          .catch(err => { console.log("err " + err); });
+          .catch(err => { });
   }
 
   onSectionAdded() { this.reloadSections(); }
