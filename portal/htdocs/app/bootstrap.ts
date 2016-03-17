@@ -12,9 +12,10 @@ import {PortaldemoApp} from './portaldemo_app';
 import {I18nService} from './services/i18n';
 import {UserService} from './services/user';
 import {AlertsService} from './services/alerts';
+import {PgService} from './services/pg_service';
 
 bootstrap(PortaldemoApp, [
-  HTTP_PROVIDERS, ROUTER_PROVIDERS, I18nService, UserService, AlertsService,
+  HTTP_PROVIDERS, ROUTER_PROVIDERS, I18nService, UserService, AlertsService, PgService,
   provide(ROUTER_PRIMARY_COMPONENT, {useValue: PortaldemoApp}),
   provide(LocationStrategy, {useClass: HashLocationStrategy})
 ]).catch(err => console.log(err));  // useful to catch the errors

@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
 
@@ -38,7 +38,8 @@ export class Personsection {
   private move_focused: boolean;
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, 
+      private i18n: I18nService,
       private alerts: AlertsService) {
     this.viewedit = false;
     this.sectionname_focused = false;
@@ -49,12 +50,14 @@ export class Personsection {
   ngOnInit() { this.reloadMenus(); }
 
   reloadMenus() {
-    this._portalService.listPersonmenus(this.section.pse_id)
-        .then(data => {
-          console.log("listPersonmenus: " + data);
-          this.personmenus = data;
-        })
-        .catch(err => { console.log("err " + err); });
+    this._pgService.pgcall('portal', 'personmenu_list', {
+	prm_pse_id: this.section.pse_id
+    })
+          .then(data => {
+              console.log("listPersonmenus: " + data);
+              this.personmenus = data;
+          })
+          .catch(err => { console.log("err " + err); });
   }
 
   onMenuAdded() { this.reloadMenus(); }
@@ -64,7 +67,9 @@ export class Personsection {
   // Delete
   onDeleteSection() {
     console.log("delete " + this.section.pse_id);
-    this._portalService.deletePersonsection(this.section.pse_id)
+    this._pgService.pgcall('portal', 'personsection_delete', {
+	prm_id: this.section.pse_id
+    })
         .then(data => {
           this.ondelete.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personsection_deleted'));
@@ -84,7 +89,10 @@ export class Personsection {
   }
 
   doRename() {
-    this._portalService.renamePersonsection(this.section.pse_id, this.new_name)
+    this._pgService.pgcall('portal', 'personsection_rename', {
+	prm_id: this.section.pse_id, 
+	prm_name: this.new_name
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personsection_renamed'));
@@ -101,7 +109,10 @@ export class Personsection {
   onMoveSection() {
     this.viewmove = true;
 
-    this._portalService.listPersonsections(this.section.por_id, this.section.pse_entity)
+    this._pgService.pgcall('portal', 'personsection_list', {
+	prm_por_id: this.section.por_id, 
+	prm_entity: this.section.pse_entity
+    })
         .then(data => {
           this.movechoices = data;
           this.move_focused = true;
@@ -117,7 +128,10 @@ export class Personsection {
 
   doMove() {
     console.log("before pos: " + this.before_pos);
-    this._portalService.movePersonsection(this.section.pse_id, this.before_pos)
+    this._pgService.pgcall('portal', 'personsection_move_before_position', {
+	prm_id: this.section.pse_id, 
+	prm_position: this.before_pos
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personsection_moved'));

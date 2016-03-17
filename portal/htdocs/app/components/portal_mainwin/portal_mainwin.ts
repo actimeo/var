@@ -4,7 +4,7 @@ import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {Mainsection} from './../../components/mainsection/mainsection';
 import {MainsectionAdd} from './../../components/mainsection_add/mainsection_add';
-import {PortalService} from './../../services/portal_service';
+import {PgService} from '../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 
 @Component({
@@ -14,14 +14,14 @@ import {I18nService} from '../../services/i18n';
 om: 15px; }
 	     `],
   templateUrl: './app/components/portal_mainwin/portal_mainwin.html',
-  providers: [PortalService],
+  providers: [],
   directives: [Mainsection, MainsectionAdd, Collapse, ACCORDION_DIRECTIVES],
 })
 export class PortalMainwin {
   private _por_id: number;
   private mainsections: any;
 
-  constructor(private _portalService: PortalService, private i18n: I18nService) {
+  constructor(private _pgService: PgService, private i18n: I18nService) {
     this._por_id = null;
   }
 
@@ -35,12 +35,14 @@ export class PortalMainwin {
   }
 
   reloadSections() {
-    this._portalService.listMainsections(this._por_id)
-        .then(data => {
-          console.log("listMainsections: " + data);
-          this.mainsections = data;
-        })
-        .catch(err => { console.log("err " + err); });
+      this._pgService.pgcall('portal', 'mainsection_list', {
+	  prm_por_id: this._por_id
+      })
+          .then(data => {
+              console.log("listMainsections: " + data);
+              this.mainsections = data;
+          })
+          .catch(err => { console.log("err " + err); });
   }
 
   onSectionAdded() { this.reloadSections(); }

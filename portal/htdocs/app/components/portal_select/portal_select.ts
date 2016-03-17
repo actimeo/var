@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 
 import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
 
@@ -14,7 +14,7 @@ import {FocusDirective} from './../../directives/focus';
 	     .getname { margin-left: 4px; }
 	     `],
   templateUrl: './app/components/portal_select/portal_select.html',
-  providers: [PortalService],
+  providers: [],
   directives: [DROPDOWN_DIRECTIVES, FocusDirective]
 })
 export class PortalSelect {
@@ -33,7 +33,7 @@ export class PortalSelect {
   current_operation: number;
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, private i18n: I18nService,
       private alerts: AlertsService) {
     this.unselectPortal();
     this.getting_name = false;
@@ -51,7 +51,7 @@ export class PortalSelect {
 
   // Reload portals and select the specified one (or none if null)
   reloadPortals(selected_por_id) {
-    this._portalService.listPortals()
+    this._pgService.pgcall('portal', 'portal_list')
         .then(data => {
           this.portals = data;
           if (selected_por_id !== null) {
@@ -89,7 +89,9 @@ export class PortalSelect {
 
   // The "Delete portal" entry is selected in the list
   onDeletePortal() {
-    this._portalService.deletePortal(this.selected_portal.por_id)
+    this._pgService.pgcall('portal', 'portal_delete', {
+	prm_id: this.selected_portal.por_id
+    })
         .then(data => {
           this.unselectPortal();
           this.reloadPortals(null);
@@ -120,7 +122,9 @@ export class PortalSelect {
 
   // The Add portal form is submitted. Let save the portal
   doAddPortal() {
-    this._portalService.addPortal(this.portalname)
+    this._pgService.pgcall('portal', 'portal_add', {
+	prm_name: this.portalname
+    })
         .then(new_por_id => {
           this.reloadPortals(new_por_id);
           this.alerts.success(this.i18n.t('portal.alerts.portal_added'));
@@ -133,7 +137,10 @@ export class PortalSelect {
   }
 
   doRenamePortal() {
-    this._portalService.renamePortal(this.selected_portal.por_id, this.portalname)
+    this._pgService.pgcall('portal', 'portal_rename', {
+	prm_id: this.selected_portal.por_id, 
+	prm_name: this.portalname
+    })
         .then(data => {
           this.reloadPortals(this.selected_portal.por_id);
           this.alerts.success(this.i18n.t('portal.alerts.portal_renamed'));

@@ -2,7 +2,7 @@ import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} f
 
 import {BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
 
@@ -13,7 +13,7 @@ import {FocusDirective} from './../../directives/focus';
   styles: [`
 	     `],
   templateUrl: './app/components/personsection_add/personsection_add.html',
-  providers: [PortalService],
+  providers: [],
   directives: [BUTTON_DIRECTIVES, FocusDirective],
 })
 export class PersonsectionAdd {
@@ -26,7 +26,7 @@ export class PersonsectionAdd {
   sectionname_focused: boolean;
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, private i18n: I18nService,
       private alerts: AlertsService) {
     this.getting_name = false;
     this.sectionname_focused = false;
@@ -47,7 +47,11 @@ export class PersonsectionAdd {
   doAddSection() {
     console.log("do add section: " + this.sectionname);
 
-    this._portalService.addPersonsection(this.por_id, this.entity, this.sectionname)
+    this._pgService.pgcall('portal', 'personsection_add', {
+	prm_por_id: this.por_id, 
+	prm_entity: this.entity, 
+	prm_name: this.sectionname
+    })
         .then(new_pse_id => {
           this.onadded.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personsection_added'));

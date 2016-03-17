@@ -44,7 +44,7 @@ export class LoginCmp {
     event.preventDefault();
 
     PgProc(
-        '/auth/ajax/', 'login', 'user_login',
+        '/pg', 'login', 'user_login',
         {'prm_login': username, 'prm_pwd': password, prm_rights: ['structure']})
         .then((data) => {
           this._userService.connect(data.usr_token, username);

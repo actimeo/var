@@ -2,7 +2,7 @@ import {Component, Directive, Input, Output, EventEmitter} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from './../../services/alerts';
 
@@ -38,7 +38,8 @@ export class Mainsection {
   private move_focused: boolean;
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, 
+      private i18n: I18nService,
       private alerts: AlertsService) {
     this.viewedit = false;
     this.sectionname_focused = false;
@@ -49,12 +50,14 @@ export class Mainsection {
   ngOnInit() { this.reloadMenus(); }
 
   reloadMenus() {
-    this._portalService.listMainmenus(this.section.mse_id)
-        .then(data => {
-          console.log("listMainmenus: " + data);
-          this.mainmenus = data;
-        })
-        .catch(err => { console.log("err " + err); });
+    this._pgService.pgcall('portal', 'mainmenu_list', {
+	prm_mse_id: this.section.mse_id
+    })
+          .then(data => {
+              console.log("listMainmenus: " + data);
+              this.mainmenus = data;
+          })
+          .catch(err => { console.log("err " + err); });
   }
 
   onMenuAdded() { this.reloadMenus(); }
@@ -64,7 +67,9 @@ export class Mainsection {
   // Delete
   onDeleteSection() {
     console.log("delete " + this.section.mse_id);
-    this._portalService.deleteMainsection(this.section.mse_id)
+    this._pgService.pgcall('portal', 'mainsection_delete', {
+	prm_id: this.section.mse_id
+    })
         .then(data => {
           this.ondelete.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_deleted'));
@@ -84,7 +89,10 @@ export class Mainsection {
   }
 
   doRename() {
-    this._portalService.renameMainsection(this.section.mse_id, this.new_name)
+    this._pgService.pgcall('portal', 'mainsection_rename', {
+	prm_id: this.section.mse_id, 
+	prm_name: this.new_name
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
@@ -101,7 +109,9 @@ export class Mainsection {
   onMoveSection() {
     this.viewmove = true;
 
-    this._portalService.listMainsections(this.section.por_id)
+    this._pgService.pgcall('portal', 'mainsection_list', {
+	prm_por_id: this.section.por_id
+    })
         .then(data => {
           this.movechoices = data;
           this.move_focused = true;
@@ -117,7 +127,10 @@ export class Mainsection {
 
   doMove() {
     console.log("before pos: " + this.before_pos);
-    this._portalService.moveMainsection(this.section.mse_id, this.before_pos)
+    this._pgService.pgcall('portal', 'mainsection_move_before_position', {
+	prm_id: this.section.mse_id, 
+	prm_position: this.before_pos
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));

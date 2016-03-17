@@ -2,7 +2,7 @@ import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} f
 
 import {BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from '../../services/alerts';
 
@@ -13,7 +13,7 @@ import {FocusDirective} from './../../directives/focus';
   styles: [`
 	     `],
   templateUrl: './app/components/mainmenu_add/mainmenu_add.html',
-  providers: [PortalService],
+  providers: [],
   directives: [BUTTON_DIRECTIVES, FocusDirective],
 })
 export class MainmenuAdd {
@@ -25,7 +25,7 @@ export class MainmenuAdd {
   menuname_focused: boolean;
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, private i18n: I18nService,
       private alerts: AlertsService) {
     this.getting_name = false;
     this.menuname_focused = false;
@@ -46,7 +46,10 @@ export class MainmenuAdd {
   doAddMenu() {
     console.log("do add menu: " + this.menuname);
 
-    this._portalService.addMainmenu(this.mse_id, this.menuname)
+    this._pgService.pgcall('portal', 'mainmenu_add', {
+	prm_mse_id: this.mse_id, 
+	prm_name: this.menuname
+    })
         .then(new_mme_id => {
           this.onadded.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_added'));

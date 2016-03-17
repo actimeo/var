@@ -2,7 +2,7 @@ import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} f
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from '../../services/alerts';
 
@@ -33,7 +33,7 @@ export class Mainmenu {
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, private i18n: I18nService,
       private alerts: AlertsService) {
     this.viewcfg = true;
     this.viewtools = false;
@@ -69,20 +69,25 @@ export class Mainmenu {
   }
 
   doRename() {
-    this._portalService.renameMainmenu(this.menu.mme_id, this.menu.mme_name)
-        .then(data => {
-          this.onchange.emit(null);
-          this.alerts.success(this.i18n.t('portal.alerts.mainmenu_renamed'));
-        })
-        .catch(err => {
-          console.log("err " + err);
-          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainmenu'));
-        });
+    this._pgService.pgcall('portal', 'mainmenu_rename', {
+	prm_id: this.menu.mme_id, 
+	prm_name: this.menu.mme_name
+    })
+          .then(data => {
+              this.onchange.emit(null);
+              this.alerts.success(this.i18n.t('portal.alerts.mainmenu_renamed'));
+          })
+          .catch(err => {
+              console.log("err " + err);
+              this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainmenu'));
+          });
   }
 
   // Delete
   onDelete() {
-    this._portalService.deleteMainmenu(this.menu.mme_id)
+    this._pgService.pgcall('portal', 'mainmenu_delete', {
+	prm_id: this.menu.mme_id
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_deleted'));
@@ -98,7 +103,9 @@ export class Mainmenu {
     this.viewmove = true;
     this.viewtools = false;
 
-    this._portalService.listMainmenus(this.menu.mse_id)
+    this._pgService.pgcall('portal', 'mainmenu_list', {
+	prm_mse_id: this.menu.mse_id
+    })
         .then(data => {
           this.movechoices = data;
           this.move_focused = true;
@@ -114,7 +121,10 @@ export class Mainmenu {
 
   doMove() {
     console.log("before pos: " + this.before_pos);
-    this._portalService.moveMainmenu(this.menu.mme_id, this.before_pos)
+    this._pgService.pgcall('portal', 'mainmenu_move_before_position', {
+	prm_id: this.menu.mme_id, 
+	prm_position: this.before_pos
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_moved'));

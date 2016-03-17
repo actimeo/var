@@ -2,7 +2,7 @@ import {Component, Directive, Input, Output, EventEmitter, Inject, ElementRef} f
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
-import {PortalService} from './../../services/portal_service';
+import {PgService} from './../../services/pg_service';
 import {I18nService} from '../../services/i18n';
 import {AlertsService} from '../../services/alerts';
 
@@ -33,7 +33,7 @@ export class Personmenu {
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-      private _portalService: PortalService, private i18n: I18nService,
+      private _pgService: PgService, private i18n: I18nService,
       private alerts: AlertsService) {
     this.viewcfg = true;
     this.viewtools = false;
@@ -69,7 +69,10 @@ export class Personmenu {
   }
 
   doRename() {
-    this._portalService.renamePersonmenu(this.menu.pme_id, this.menu.pme_name)
+    this._pgService.pgcall('portal', 'personmenu_rename', {
+	prm_id: this.menu.pme_id, 
+	prm_name: this.menu.pme_name
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personmenu_renamed'));
@@ -82,7 +85,9 @@ export class Personmenu {
 
   // Delete
   onDelete() {
-    this._portalService.deletePersonmenu(this.menu.pme_id)
+    this._pgService.pgcall('portal', 'personmenu_delete', {
+	prm_id: this.menu.pme_id
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personmenu_deleted'));
@@ -98,7 +103,9 @@ export class Personmenu {
     this.viewmove = true;
     this.viewtools = false;
 
-    this._portalService.listPersonmenus(this.menu.pse_id)
+    this._pgService.pgcall('portal', 'personmenu_list', {
+	prm_pse_id: this.menu.pse_id
+    })
         .then(data => {
           this.movechoices = data;
           this.move_focused = true;
@@ -114,7 +121,10 @@ export class Personmenu {
 
   doMove() {
     console.log("before pos: " + this.before_pos);
-    this._portalService.movePersonmenu(this.menu.pme_id, this.before_pos)
+    this._pgService.pgcall('portal', 'personmenu_move_before_position', {
+	prm_id: this.menu.pme_id, 
+	prm_position: this.before_pos
+    })
         .then(data => {
           this.onchange.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.personmenu_moved'));
