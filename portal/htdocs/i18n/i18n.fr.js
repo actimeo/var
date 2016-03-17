@@ -1,6 +1,6 @@
 fr_translations = {
     "test": {
-	"key": "Salut à toi !",
+    	"key": "Salut à toi !",
     },
     "common": {
 	"btn": {
@@ -9,8 +9,8 @@ fr_translations = {
 	},
     },
     "auth": {
-	"connect_title": "Connexion",
-	"username": "Identifiant",
+    	"connect_title": "Connexion",
+	    "username": "Identifiant",
 	"password": "Mot de passe",
 	"submit": "Connexion",
 	"autherror": "Erreur d'authentification",

@@ -1,9 +1,9 @@
 de_translations = {
     "test": {
-	"key": "hello world",
+        "key": "hello world",
     },
     "auth": {
-	"connect_title": "Anmeldung",
+        "connect_title": "Anmeldung",
         "username": "Benutzername",
         "password": "Passwort",
         "submit": "Anmelden",
