@@ -11,16 +11,29 @@ export class PgService {
     token: string;
     path = '/pg';
 
-    constructor(private http: Http, user: UserService) { 
-	this.token = user.getToken();
+    constructor(private http: Http, user: UserService) {
+        this.token = user.getToken();
     }
 
     pgcall(schema: string, method: string, args: any = {}) {
-	args['prm_token'] = this.token;
-	return new Promise((resolve, reject) => {
-	    PgProc(this.path, schema, method, args)
-		.then(resolve, reject);
-	});
+        args['prm_token'] = this.token;
+        return new Promise((resolve, reject) => {
+            var url = this.path + '/' + schema + '/' + method;
+            console.log('http.post: ' + url);
+            this.http.post(url, JSON.stringify(args))
+                .subscribe(
+                data => {
+                    console.log('resolve');
+                    resolve(data.json());
+                },
+                err => {
+                    console.log('reject');
+                    reject(err);
+                },
+                () => {
+                    console.log('else');
+                });
+        });
     }
-    
+
 }
