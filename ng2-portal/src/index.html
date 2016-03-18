@@ -49,6 +49,9 @@
           format: 'register',
           defaultExtension: 'js'
         }
+      },
+      map: {
+        moment: 'vendor/moment/moment.js'
       }
     });
     System.import('app.js').then(null, console.error.bind(console));
