@@ -10,8 +10,8 @@ import {I18nService} from '../services/i18n/i18n';
 
 @Component({
   selector: 'home-cmp',
-  styleUrls: ['app/components/home/home.css'],
-  templateUrl: './app/components/home/home.html',
+  styleUrls: ['app/home/home.css'],
+  templateUrl: './app/home/home.html',
   providers: [UserService],
   directives: [/*PortalSelect, PortalMain, Alerts*/]
 })
