@@ -81,6 +81,7 @@ export class PortalSelect {
     // The "Rename portal" entry is selected in the list
     onRenamePortal() {
         this.gettingName = true;
+        this.portalName = this.selectedPortal.por_name;
         this.portalnameFocused = true;
         this.currentOperation = PortalSelect.OP_RENAME;
         // set false to be able to set it to true again
