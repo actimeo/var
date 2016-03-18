@@ -1,7 +1,8 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {Ng2PortalApp} from './app/ng2-portal';
 
-import {ROUTER_PROVIDERS} from 'angular2/router';
+import {provide} from 'angular2/core';
+import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {UserService} from './app/services/user/user';
@@ -11,5 +12,7 @@ import {AlertsService} from './app/services/alerts/alerts';
 
 bootstrap(Ng2PortalApp, [
     ROUTER_PROVIDERS, HTTP_PROVIDERS,
-    UserService, I18nService, PgService, AlertsService
+    UserService, I18nService, PgService, AlertsService,
+      provide(LocationStrategy, {useClass: HashLocationStrategy})
+
 ]);
