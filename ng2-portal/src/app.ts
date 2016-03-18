@@ -13,6 +13,5 @@ import {AlertsService} from './app/services/alerts/alerts';
 bootstrap(Ng2PortalApp, [
     ROUTER_PROVIDERS, HTTP_PROVIDERS,
     UserService, I18nService, PgService, AlertsService,
-      provide(LocationStrategy, {useClass: HashLocationStrategy})
-
+    provide(LocationStrategy, { useClass: HashLocationStrategy })
 ]);
