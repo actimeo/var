@@ -10,7 +10,7 @@ import {UserService} from './services/user/user';
   selector: 'app',
   templateUrl: 'app/ng2-portal.html',
   directives: [LoggedinRouterOutlet],
-  providers: [UserService]
+  providers: []
 })
 @RouteConfig([
   {path: '/home', name: 'Home', component: HomeCmp},

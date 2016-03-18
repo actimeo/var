@@ -1,7 +1,7 @@
 import {Component, ViewChild} from 'angular2/core';
 import {Router} from 'angular2/router';
+import {PortalSelect} from '../portal-select/portal-select';
 /*
-import {PortalSelect} from '../../components/portal_select/portal_select';
 import {PortalMain} from '../../components/portal_main/portal_main';
 import {Alerts} from '../../components/alerts/alerts';
 */
@@ -12,8 +12,8 @@ import {I18nService} from '../services/i18n/i18n';
   selector: 'home-cmp',
   styleUrls: ['app/home/home.css'],
   templateUrl: './app/home/home.html',
-  providers: [UserService],
-  directives: [/*PortalSelect, PortalMain, Alerts*/]
+  providers: [],
+  directives: [PortalSelect /*, PortalMain, Alerts*/]
 })
 export class HomeCmp {
   @ViewChild('portalmain') portalmain;

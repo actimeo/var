@@ -9,7 +9,7 @@ import {PgService} from '../services/pg-service/pg-service';
     selector: 'login-cmp',
     styleUrls: ['app/login/login.css'],
     templateUrl: 'app/login/login.html',
-    providers: [UserService]
+    providers: []
 })
 export class LoginCmp {
     errormsg: string;
