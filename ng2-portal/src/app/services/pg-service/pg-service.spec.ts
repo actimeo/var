@@ -17,9 +17,9 @@ describe('PgService Service', () => {
 
   beforeEachProviders(() => [PgService]);
 
-
+/*
   it('should ...', inject([PgService], (service:PgService) => {
 
   }));
-
+*/
 });

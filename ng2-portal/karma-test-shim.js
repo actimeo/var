@@ -16,8 +16,17 @@ System.config({
           pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath]
         return pathsMapping;
       }, {})
+    },
+      'base/dist/node_modules/ng2-bootstrap': {
+          format: 'register',
+          defaultExtension: 'js'
+      }
+  },
+    paths: {
+	'ng2-bootstrap/ng2-bootstrap': 'base/dist/node_modules/ng2-bootstrap/ng2-bootstrap.js',
+	'moment': 'base/dist/vendor/moment/moment.js',
     }
-  }
+
 });
 
 System.import('angular2/testing').then(function(testing) {
