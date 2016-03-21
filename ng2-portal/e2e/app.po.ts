@@ -39,4 +39,52 @@ export class Ng2PortalPage {
     return element(by.css('portal-select form'));
   }
 
+  getAddMainSection() {
+    return element(by.css('mainsection-add > div > span > button'));
+  }
+  getMainsectionInput() {
+    return element(by.css('mainsection-add form input'));
+  }
+  getMainsectionForm() {
+    return element(by.css('mainsection-add form'));
+  }
+  getMainsectionsCount() {
+    return element.all(by.css('portal-mainwin accordion-group')).count();
+  }
+  getMainsectionsCountIs(v) {
+    return element.all(by.css('portal-mainwin accordion-group')).count().then(value => value == v);
+  }
+
+  getFirstMainSection() {
+    return element(by.css('portal-mainwin accordion-group:first-child'));
+  }
+
+  getFirstDeleteMainsection() {
+    return element.all(by.css('mainsection .mainsectiondelete')).first();
+  }
+
+  getFirstRenameMainsection() {
+    return element.all(by.css('mainsection .mainsectionrename')).first();
+  }
+
+  getFirstMainsectionTitle() {
+    return element(by.css('portal-mainwin accordion-group:first-child h4'));
+  }
+
+  getFirstMainsectionInput() {
+    return element(by.css('mainsection:first-child form input'));
+  }
+  getFirstMainsectionForm() {
+    return element(by.css('mainsection:first-child form'));
+  }
+
+  getFirstMoveMainsection() {
+    return element.all(by.css('mainsection .mainsectionmove')).first();
+  }
+  findMoveMainsectionOption() {
+    return element(by.css('mainsection select'));
+  }
+  getFirstMainsectionMoveForm() {
+    return element(by.css('mainsection:first-child form:nth-of-type(2)'));
+  }
 }
