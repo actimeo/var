@@ -1,0 +1,14 @@
+<div style="margin: 15px 0 0 15px">
+  <span [hidden]="gettingName"><button (click)="onAddSection()" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> {{i18n.t('portal.add_new_section')}}</button></span>
+  <span [hidden]="!gettingName">
+    <form (ngSubmit)="doAddSection()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
+      <div class="input-group input-group-sm">
+	<input [(ngModel)]="sectionname" ngControl required [focus]="sectionnameFocused" type="text" class="form-control" placeholder="{{i18n.t('portal.section_name')}}">
+	<div class="input-group-btn">    
+	  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
+	  <button (click)="cancelAddSection()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+	</div>
+      </div>
+    </form>
+  </span>
+</div>
