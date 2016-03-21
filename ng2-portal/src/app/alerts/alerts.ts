@@ -4,20 +4,20 @@ import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 import {AlertsService} from '../services/alerts/alerts';
 
 @Component({
-    selector: 'alerts',
-    styleUrls: [ ],
-    templateUrl: 'app/alerts/alerts.html',
-    providers: [],
-    directives: [Alert]
+  selector: 'alerts',
+  styleUrls: [],
+  templateUrl: 'app/alerts/alerts.html',
+  providers: [],
+  directives: [Alert]
 })
 export class Alerts {
-    private alerts: any;
+  private alerts: any;
 
-    constructor(private alertsService: AlertsService) {
-        alertsService.alerts$.subscribe(updatedAlerts => this.alerts = updatedAlerts);
-    }
+  constructor(private alertsService: AlertsService) {
+    alertsService.alerts$.subscribe(updatedAlerts => this.alerts = updatedAlerts);
+  }
 
-    closeAlert(i: number) { this.alertsService.closeAlert(i); }
+  closeAlert(i: number) { this.alertsService.closeAlert(i); }
 
-    addAlert(type: string, msg: string) { this.alertsService.addAlert(type, msg); }
+  addAlert(type: string, msg: string) { this.alertsService.addAlert(type, msg); }
 }

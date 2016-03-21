@@ -17,9 +17,9 @@ describe('PseMove Pipe', () => {
 
   beforeEachProviders(() => [PseMovePipe]);
 
-/*
-  it('should transform the input', inject([PseMove], (pipe:PseMove) => {
-      expect(pipe.transform(true)).toBe(null);
-  }));
-*/
+  /*
+    it('should transform the input', inject([PseMove], (pipe:PseMove) => {
+        expect(pipe.transform(true)).toBe(null);
+    }));
+  */
 });

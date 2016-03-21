@@ -18,10 +18,8 @@ describe('Footertip Component', () => {
   beforeEachProviders((): any[] => []);
 
 
-  it('should ...', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-    return tcb.createAsync(Footertip).then((fixture) => {
-      fixture.detectChanges();
-    });
-  }));
+  it('should ...', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+       return tcb.createAsync(Footertip).then((fixture) => { fixture.detectChanges(); });
+     }));
 
 });

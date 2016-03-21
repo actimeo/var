@@ -18,8 +18,9 @@ describe('Footertip Service', () => {
   beforeEachProviders(() => [FootertipService]);
 
 
-  it('should ...', inject([FootertipService], (service:FootertipService) => {
+  it('should ...', inject(
+                       [FootertipService], (service: FootertipService) => {
 
-  }));
+                                           }));
 
 });

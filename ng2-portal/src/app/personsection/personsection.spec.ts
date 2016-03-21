@@ -18,10 +18,8 @@ describe('Personsection Component', () => {
   beforeEachProviders((): any[] => []);
 
 
-  it('should ...', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-    return tcb.createAsync(Personsection).then((fixture) => {
-      fixture.detectChanges();
-    });
-  }));
+  it('should ...', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+       return tcb.createAsync(Personsection).then((fixture) => { fixture.detectChanges(); });
+     }));
 
 });

@@ -13,7 +13,4 @@ import {provide} from 'angular2/core';
 import {LoginCmp} from './login';
 
 
-describe('Login Component', () => {
-
-  beforeEachProviders((): any[] => []);
-});
+describe('Login Component', () => { beforeEachProviders((): any[] => []); });

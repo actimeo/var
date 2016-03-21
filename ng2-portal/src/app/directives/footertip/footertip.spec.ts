@@ -13,21 +13,17 @@ import {provide, Component} from 'angular2/core';
 import {Footertip} from './footertip';
 
 
-@Component({
-  selector: 'test-component',
-  template: `<div footertip></div>`
-})
-class TestComponent {}
+@Component({selector: 'test-component', template: `<div footertip></div>`})
+class TestComponent {
+}
 
 describe('Footertip Directive', () => {
 
   beforeEachProviders((): any[] => []);
 
 
-  it('should ...', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-    return tcb.createAsync(TestComponent).then((fixture) => {
-      fixture.detectChanges();
-    });
-  }));
+  it('should ...', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+       return tcb.createAsync(TestComponent).then((fixture) => { fixture.detectChanges(); });
+     }));
 
 });

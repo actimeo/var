@@ -18,8 +18,9 @@ describe('Alerts Service', () => {
   beforeEachProviders(() => [AlertsService]);
 
 
-  it('should ...', inject([AlertsService], (service:AlertsService) => {
+  it('should ...', inject(
+                       [AlertsService], (service: AlertsService) => {
 
-  }));
+                                        }));
 
 });

@@ -7,26 +7,17 @@ declare var PgProc: any;
 
 @Injectable()
 export class PgService {
-    token: string;
-    path = '/pg';
+  token: string;
+  path = '/pg';
 
-    constructor(private http: Http, private user: UserService) {
-    }
+  constructor(private http: Http, private user: UserService) {}
 
-    pgcall(schema: string, method: string, args: any = {}) {
-        args['prm_token'] = this.user.getToken();
-        return new Promise((resolve, reject) => {
-            var url = this.path + '/' + schema + '/' + method;
-            this.http.post(url, JSON.stringify(args))
-                .subscribe(
-                data => {
-                    resolve(data.json());
-                },
-                err => {
-                    reject(err);
-                },
-                () => {
-                });
-        });
-    }
+  pgcall(schema: string, method: string, args: any = {}) {
+    args['prm_token'] = this.user.getToken();
+    return new Promise((resolve, reject) => {
+      var url = this.path + '/' + schema + '/' + method;
+      this.http.post(url, JSON.stringify(args))
+          .subscribe(data => { resolve(data.json()); }, err => { reject(err); }, () => {});
+    });
+  }
 }

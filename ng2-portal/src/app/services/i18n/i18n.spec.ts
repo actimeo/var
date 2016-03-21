@@ -13,7 +13,4 @@ import {provide} from 'angular2/core';
 import {I18nService} from './i18n';
 
 
-describe('I18n Service', () => {
-
-  beforeEachProviders(() => [I18nService]);
-});
+describe('I18n Service', () => { beforeEachProviders(() => [I18nService]); });

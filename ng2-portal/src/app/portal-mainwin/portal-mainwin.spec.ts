@@ -18,10 +18,8 @@ describe('PortalMainwin Component', () => {
   beforeEachProviders((): any[] => []);
 
 
-  it('should ...', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-    return tcb.createAsync(PortalMainwin).then((fixture) => {
-      fixture.detectChanges();
-    });
-  }));
+  it('should ...', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+       return tcb.createAsync(PortalMainwin).then((fixture) => { fixture.detectChanges(); });
+     }));
 
 });

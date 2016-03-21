@@ -18,10 +18,8 @@ describe('MainmenuAdd Component', () => {
   beforeEachProviders((): any[] => []);
 
 
-  it('should ...', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-    return tcb.createAsync(MainmenuAdd).then((fixture) => {
-      fixture.detectChanges();
-    });
-  }));
+  it('should ...', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+       return tcb.createAsync(MainmenuAdd).then((fixture) => { fixture.detectChanges(); });
+     }));
 
 });

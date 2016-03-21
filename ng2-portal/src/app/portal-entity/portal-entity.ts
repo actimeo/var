@@ -18,9 +18,7 @@ export class PortalEntity {
   private myPorId: number;
   private personsections: any;
 
-  constructor(private pgService: PgService, private i18n: I18nService) {
-    this.myPorId = null;
-  }
+  constructor(private pgService: PgService, private i18n: I18nService) { this.myPorId = null; }
 
   @Input('entity') entity: string;
   @Input('porId')
@@ -32,13 +30,10 @@ export class PortalEntity {
   }
 
   reloadSections() {
-    this.pgService.pgcall('portal', 'personsection_list', {
-        prm_por_id: this.myPorId,
-        prm_entity: this.entity})
-          .then(data => {
-              this.personsections = data;
-          })
-          .catch(err => { });
+    this.pgService
+        .pgcall('portal', 'personsection_list', {prm_por_id: this.myPorId, prm_entity: this.entity})
+        .then(data => { this.personsections = data; })
+        .catch(err => {});
   }
 
   onSectionAdded() { this.reloadSections(); }
