@@ -1,6 +1,7 @@
 import {Input, Directive, ElementRef,
     DynamicComponentLoader, HostListener, ComponentRef} from 'angular2/core';
 
+import {FootertipService} from '../../services/footertip/footertip';
 
 @Directive({
     selector: '[footertip]'
@@ -10,10 +11,10 @@ export class Footertip {
     @Input('footertip') public content: string;
 
     private visible: boolean = false;
-    private footertip: Promise<ComponentRef>;
 
     constructor(public element: ElementRef,
-        public loader: DynamicComponentLoader) {
+        public loader: DynamicComponentLoader,
+        private footertipService: FootertipService) {
     }
 
     @HostListener('focusin', ['$event', '$target'])
@@ -24,8 +25,7 @@ export class Footertip {
         }
         this.visible = true;
 
-        // TODO
-        console.log('show');
+        this.footertipService.setTip(this.content);
     }
 
     // params event, target
@@ -37,8 +37,7 @@ export class Footertip {
         }
         this.visible = false;
 
-        // TODO
-        console.log('hide');
+        this.footertipService.clearTip();
     }
 
 }
