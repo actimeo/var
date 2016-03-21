@@ -9,7 +9,7 @@
       </li>
       <li class="divider"></li>
       <li role="menuitem">
-	<a class="dropdown-item" (click)="onAddPortal()">
+	<a class="dropdown-item" (click)="onAddPortal()" class="portaladd">
 	  <span class="glyphicon glyphicon-plus"></span>
 	  <span> {{i18n.t("portal.add_new_portal")}}</span>
 	</a>
@@ -21,7 +21,7 @@
 	</a>
       </li>
       <li [hidden]="selectedPortal==null" role="menuitem">
-	<a class="dropdown-item" (click)="onDeletePortal()">
+	<a class="dropdown-item" (click)="onDeletePortal()" class="portaldelete">
 	  <span class="glyphicon glyphicon-minus"></span>
 	  <span> {{i18n.t("portal.delete_current_portal")}}</span>
 	</a>
