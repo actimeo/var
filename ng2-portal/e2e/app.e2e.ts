@@ -1,5 +1,31 @@
 import { Ng2PortalPage } from './app.po';
 
+/*
+portal *
+ - add *
+ - rename *
+ - delete *
+mainsection *
+ - add *
+ - rename *
+ - delete *
+ - move *
+mainmenu
+ - add
+ - rename
+ - delete
+ - move
+personsection
+ - add
+ - rename
+ - delete
+ - move
+personmenu
+ - add
+ - rename
+ - delete
+ - move
+ */
 describe('ng2-portal App', function() {
   let page: Ng2PortalPage;
 
@@ -86,6 +112,16 @@ describe('ng2-portal App', function() {
     browser.driver.sleep(100);
     browser.driver.wait(page.getMainsectionsCountIs(0), 30000);
     expect(page.getMainsectionsCount()).toEqual(0);
+  });
+
+it('should rename portal 1p to 1po', () => {
+    page.getSelectPortalButton().click();
+    page.getRenamePortal().click();
+    page.getPortalnameInput().clear();
+    page.getPortalnameInput().sendKeys('1po');
+    page.getPortalnameForm().submit();
+    browser.driver.sleep(100);
+    expect(page.getSelectPortalButton().getText()).toEqual('1po');
   });
 
   it('should delete portal 1p', () => {

@@ -32,6 +32,9 @@ export class Ng2PortalPage {
   getDeletePortal() {
     return element(by.css('portal-select .portaldelete'));
   }
+  getRenamePortal() {
+    return element(by.css('portal-select .portalrename'));
+  }
   getPortalnameInput() {
     return element(by.css('portal-select form input'));
   }
@@ -72,19 +75,20 @@ export class Ng2PortalPage {
   }
 
   getFirstMainsectionInput() {
-    return element(by.css('mainsection:first-child form input'));
+    return element.all(by.css('mainsection:first-child form.mainsectionrename input.mainsectionrename'))
+      .first();
   }
   getFirstMainsectionForm() {
-    return element(by.css('mainsection:first-child form'));
+    return element.all(by.css('mainsection:first-child form.mainsectionrename')).first();
   }
 
   getFirstMoveMainsection() {
     return element.all(by.css('mainsection .mainsectionmove')).first();
   }
   findMoveMainsectionOption() {
-    return element(by.css('mainsection select'));
+    return element.all(by.css('mainsection:first-child select')).first();
   }
   getFirstMainsectionMoveForm() {
-    return element(by.css('mainsection:first-child form:nth-of-type(2)'));
+    return element.all(by.css('mainsection:first-child form:nth-of-type(2)')).first();
   }
 }

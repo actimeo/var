@@ -15,7 +15,7 @@
 	</a>
       </li>
       <li [hidden]="selectedPortal==null" role="menuitem">
-	<a class="dropdown-item" (click)="onRenamePortal()">
+	<a class="dropdown-item" (click)="onRenamePortal()" class="portalrename">
 	  <span class="glyphicon glyphicon-pencil"></span>
 	  <span> {{i18n.t("portal.rename_current_portal")}}</span>
 	</a>
