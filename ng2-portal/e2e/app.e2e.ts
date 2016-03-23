@@ -15,16 +15,16 @@ mainmenu *
  - rename *
  - delete *
  - move *
-personsection
- - add
- - rename
- - delete
- - move
-personmenu
- - add
- - rename
- - delete
- - move
+personsection *
+ - add *
+ - rename *
+ - delete *
+ - move *
+personmenu *
+ - add *
+ - rename *
+ - delete *
+ - move *
  */
 describe('ng2-portal App', function() {
   let page: Ng2PortalPage;
