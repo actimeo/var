@@ -31,7 +31,7 @@
 
   <form [hidden]="!viewmove" class="form-inline" (ngSubmit)="doMove()" #userFormMove="ngForm" class="mainsectionmove">
     <div class="input-group input-group-sm">
-      <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control">
+      <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control mainsectionmove">
 	<option *ngFor="#c of movechoices | msemove:section" [value]="c.mse_order">{{c.mse_name}}</option>
       </select>
       <div class="input-group-btn">

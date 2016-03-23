@@ -63,53 +63,76 @@ export class Ng2PortalPage {
   }
 
   getFirstDeleteMainsection() {
-    return element.all(by.css('mainsection .mainsectiondelete')).first();
+    return element.all(by.css('mainsection .mainsectiondelete'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
 
   getFirstRenameMainsection() {
-    return element.all(by.css('mainsection .mainsectionrename')).first();
+    return element.all(by.css('mainsection .mainsectionrename'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
 
   getFirstMainsectionTitle() {
-    return element(by.css('portal-mainwin accordion-group:first-child h4'));
+    return element.all(by.css('portal-mainwin accordion-group h4'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
 
   getFirstMainsectionInput() {
-    return element.all(by.css('mainsection:first-child form.mainsectionrename input.mainsectionrename'))
+    return element.all(by.css('portal-mainwin input.mainsectionrename'))
+      .filter(e => e.isDisplayed())
       .first();
   }
   getFirstMainsectionForm() {
-    return element.all(by.css('mainsection:first-child form.mainsectionrename')).first();
+    return element.all(by.css('form.mainsectionrename'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
 
   getFirstMoveMainsection() {
-    return element.all(by.css('mainsection .mainsectionmove')).first();
+    return element.all(by.css('button.mainsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
   findMoveMainsectionOption() {
-    return element.all(by.css('mainsection:first-child select')).first();
+    return element.all(by.css('portal-mainwin select.mainsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
   getFirstMainsectionMoveForm() {
-    return element.all(by.css('mainsection:first-child form:nth-of-type(2)')).first();
+    return element.all(by.css('portal-mainwin form.mainsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
-
 
   getAddMainmenu() {
-    return element(by.css('mainsection:first-child mainmenu-add > span > button'));
+    return element.all(by.css('portal-mainwin button.mainmenuadd'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
   getMainmenuInput() {
-    return element(by.css('mainsection:first-child mainmenu-add form input'));
+    return element.all(by.css('portal-mainwin input.mainmenuadd'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
   getMainmenuForm() {
-    return element(by.css('mainsection:first-child mainmenu-add form'));
+    return element(by.css('portal-mainwin form.mainmenuadd'));
   }
   getMainmenusCount() {
-    return element.all(by.css('mainsection:first-child mainmenu')).count();
+    return element.all(by.css('portal-mainwin mainsection mainmenu'))
+      .filter(e => e.isDisplayed())
+      .count();
   }
   getMainmenusCountIs(v) {
-    return element.all(by.css('mainsection:first-child mainmenu')).count().then(value => value == v);
+    return element.all(by.css('portal-mainwin mainsection mainmenu'))
+      .filter(e => e.isDisplayed())
+      .count()
+      .then(value => value == v);
   }
   getFirstMainmenuTitle() {
-    return element.all(by.css('mainsection:first-child mainmenu:first-child span:first-child')).first();
+    return element.all(by.css('portal-mainwin mainmenu:first-child span:first-child')).first();
   }
 
   getFirstMainmenuView() {
