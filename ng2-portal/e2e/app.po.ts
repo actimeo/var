@@ -91,4 +91,66 @@ export class Ng2PortalPage {
   getFirstMainsectionMoveForm() {
     return element.all(by.css('mainsection:first-child form:nth-of-type(2)')).first();
   }
+
+
+  getAddMainmenu() {
+    return element(by.css('mainsection:first-child mainmenu-add > span > button'));
+  }
+  getMainmenuInput() {
+    return element(by.css('mainsection:first-child mainmenu-add form input'));
+  }
+  getMainmenuForm() {
+    return element(by.css('mainsection:first-child mainmenu-add form'));
+  }
+  getMainmenusCount() {
+    return element.all(by.css('mainsection:first-child mainmenu')).count();
+  }
+  getMainmenusCountIs(v) {
+    return element.all(by.css('mainsection:first-child mainmenu')).count().then(value => value == v);
+  }
+  getFirstMainmenuTitle() {
+    return element.all(by.css('mainsection:first-child mainmenu:first-child span:first-child')).first();
+  }
+
+  getFirstMainmenuView() {
+    return element.all(by.css('portal-mainwin button.mainmenuview'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getFirstMainmenuRename() {
+    return element.all(by.css('portal-mainwin button.mainmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getFirstMainmenuInput() {
+    return element.all(by.css('portal-mainwin input.mainmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getFirstMainmenuForm() {
+    return element.all(by.css('portal-mainwin form.mainmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getFirstMainmenuMove() {
+    return element.all(by.css('portal-mainwin button.mainmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  findMoveMainmenuOption() {
+    return element.all(by.css('portal-mainwin select.mainmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  findMoveMainmenuForm() {
+    return element.all(by.css('portal-mainwin form.mainmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getFirstMainmenuDelete() {
+    return element.all(by.css('portal-mainwin button.mainmenudelete'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
 }

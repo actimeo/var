@@ -10,11 +10,11 @@ mainsection *
  - rename *
  - delete *
  - move *
-mainmenu
- - add
- - rename
- - delete
- - move
+mainmenu *
+ - add *
+ - rename *
+ - delete *
+ - move *
 personsection
  - add
  - rename
@@ -106,6 +106,66 @@ describe('ng2-portal App', function() {
     expect(page.getMainsectionsCount()).toEqual(1);
   });
 
+  it('should add first mainmenu m1', () => {
+    page.getFirstMainSection().click();
+    page.getAddMainmenu().click();
+    page.getMainmenuInput().sendKeys('m1');
+    page.getMainmenuForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(1), 30000);
+    expect(page.getMainmenusCount()).toEqual(1);
+
+  });
+
+  it('first mainmenu title should be m1', () => {
+    expect(page.getFirstMainmenuTitle().getText()).toEqual('m1');
+  });
+
+  it('should add mainmenu m2', () => {
+    page.getAddMainmenu().click();
+    page.getMainmenuInput().sendKeys('m2');
+    page.getMainmenuForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(2), 30000);
+    expect(page.getMainmenusCount()).toEqual(2);
+  });
+
+  it('should rename first main menu to m3', () => {
+    page.getFirstMainmenuView().click();
+    page.getFirstMainmenuRename().click();
+    page.getFirstMainmenuInput().clear();
+    page.getFirstMainmenuInput().sendKeys('m3');
+    page.getFirstMainmenuForm().submit();
+    browser.driver.sleep(100);
+    expect(page.getFirstMainmenuTitle().getText()).toEqual('m3');
+  });
+
+  it('should move first main menu after second', () => {
+    page.getFirstMainmenuView().click();
+    page.getFirstMainmenuMove().click();
+    page.findMoveMainmenuOption().sendKeys('À la fin');
+    browser.driver.sleep(100);
+    page.findMoveMainmenuForm().submit();
+    browser.driver.sleep(500);
+    expect(page.getFirstMainmenuTitle().getText()).toEqual('m2');
+  });
+
+  it('should delete first mainmenu', () => {
+    page.getFirstMainmenuView().click();
+    page.getFirstMainmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(1), 30000);
+    expect(page.getMainmenusCount()).toEqual(1);
+  });
+
+  it('should delete first mainmenu again', () => {
+    page.getFirstMainmenuView().click();
+    page.getFirstMainmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(0), 30000);
+    expect(page.getMainmenusCount()).toEqual(0);
+  });
+
   it('should delete first section again', () => {
     page.getFirstMainSection().click();
     page.getFirstDeleteMainsection().click();
@@ -114,7 +174,7 @@ describe('ng2-portal App', function() {
     expect(page.getMainsectionsCount()).toEqual(0);
   });
 
-it('should rename portal 1p to 1po', () => {
+  it('should rename portal 1p to 1po', () => {
     page.getSelectPortalButton().click();
     page.getRenamePortal().click();
     page.getPortalnameInput().clear();
