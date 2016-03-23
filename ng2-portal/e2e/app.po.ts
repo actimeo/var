@@ -176,4 +176,151 @@ export class Ng2PortalPage {
       .filter(e => e.isDisplayed())
       .first();
   }
+
+  // person section/menu
+
+  getFirstEntityTab() {
+    return element(by.css('portal-main tabset li:nth-of-type(2)'));
+  }
+
+  getAddPersonSection() {
+    return element.all(by.css('personsection-add > div > span > button'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getPersonsectionInput() {
+    return element.all(by.css('personsection-add form input'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getPersonsectionForm() {
+    return element.all(by.css('personsection-add form'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getPersonsectionsCount() {
+    return element.all(by.css('portal-entity accordion-group')).count();
+  }
+  getPersonsectionsCountIs(v) {
+    return element.all(by.css('portal-entity accordion-group')).count().then(value => value == v);
+  }
+
+  getVisiblePersonSection() {
+    return element(by.css('portal-entity accordion-group:first-child'));
+  }
+
+  getVisibleDeletePersonsection() {
+    return element.all(by.css('personsection .personsectiondelete'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getVisibleRenamePersonsection() {
+    return element.all(by.css('personsection .personsectionrename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getVisiblePersonsectionTitle() {
+    return element.all(by.css('portal-entity accordion-group h4'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getVisiblePersonsectionInput() {
+    return element.all(by.css('portal-entity input.personsectionrename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonsectionForm() {
+    return element.all(by.css('form.personsectionrename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getVisibleMovePersonsection() {
+    return element.all(by.css('button.personsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  findMovePersonsectionOption() {
+    return element.all(by.css('portal-entity select.personsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonsectionMoveForm() {
+    return element.all(by.css('portal-entity form.personsectionmove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getAddPersonmenu() {
+    return element.all(by.css('portal-entity button.personmenuadd'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getPersonmenuInput() {
+    return element.all(by.css('portal-entity input.personmenuadd'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getPersonmenuForm() {
+    return element(by.css('portal-entity form.personmenuadd'));
+  }
+  getPersonmenusCount() {
+    return element.all(by.css('portal-entity personsection personmenu'))
+      .filter(e => e.isDisplayed())
+      .count();
+  }
+  getPersonmenusCountIs(v) {
+    return element.all(by.css('portal-entity personsection personmenu'))
+      .filter(e => e.isDisplayed())
+      .count()
+      .then(value => value == v);
+  }
+  getVisiblePersonmenuTitle() {
+    return element.all(by.css('portal-entity personmenu:first-child span:first-child')).first();
+  }
+
+  getVisiblePersonmenuView() {
+    return element.all(by.css('portal-entity button.personmenuview'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getVisiblePersonmenuRename() {
+    return element.all(by.css('portal-entity button.personmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonmenuInput() {
+    return element.all(by.css('portal-entity input.personmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonmenuForm() {
+    return element.all(by.css('portal-entity form.personmenurename'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonmenuMove() {
+    return element.all(by.css('portal-entity button.personmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  findMovePersonmenuOption() {
+    return element.all(by.css('portal-entity select.personmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  findMovePersonmenuForm() {
+    return element.all(by.css('portal-entity form.personmenumove'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getVisiblePersonmenuDelete() {
+    return element.all(by.css('portal-entity button.personmenudelete'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
 }

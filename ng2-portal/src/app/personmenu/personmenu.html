@@ -1,7 +1,7 @@
 <span [hidden]="viewedit || viewmove">{{menu.pme_name}}</span>
-<form [hidden]="!viewedit" class="form-inline" (ngSubmit)="doRename()" #userForm="ngForm">
+<form [hidden]="!viewedit" class="form-inline personmenurename" (ngSubmit)="doRename()" #userForm="ngForm">
   <div class="input-group input-group-sm">
-    <input type="text" class="form-control" [(ngModel)]="menu.pme_name" ngControl required [focus]="menunameFocused" >
+    <input type="text" class="form-control personmenurename" [(ngModel)]="menu.pme_name" ngControl required [focus]="menunameFocused" >
     <div class="input-group-btn">
       <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
       <button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>
@@ -9,9 +9,9 @@
   </div>
 </form>
 
-<form [hidden]="!viewmove" class="form-inline" (ngSubmit)="doMove()" #userFormMove="ngForm">
+<form [hidden]="!viewmove" class="form-inline personmenumove" (ngSubmit)="doMove()" #userFormMove="ngForm">
   <div class="input-group input-group-sm">
-    <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control">
+    <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control personmenumove">
       <option *ngFor="#c of movechoices | pmemove:menu" [value]="c.pme_order">{{c.pme_name}}</option>
     </select>
     <div class="input-group-btn">
@@ -22,30 +22,30 @@
 </form>
 
 <span [hidden]="!viewcfg">
-  <button type="button" class="btn btn-link btn-xs" 
+  <button type="button" class="btn btn-link btn-xs personmenuview" 
 	  (click)="doViewtools(true)" 
 	  [footertip]="i18n.t('portal.tip.configure')">
     <span class="glyphicon glyphicon-cog"></span>
   </button>
 </span>
 <span [hidden]="!viewtools">
-  <button type="button" class="btn btn-link btn-xs" 
+  <button type="button" class="btn btn-link btn-xs personmenucancel" 
 	  (click)="doViewtools(false)"
 	  [footertip]="i18n.t('portal.tip.cancel')">
     <span class="glyphicon glyphicon-remove"></span>
   </button>
   <span class="btn-group btn-group-sm">
-    <button type="button" class="btn btn-default" 
+    <button type="button" class="btn btn-default personmenumove" 
 	    (click)="onMove()"
 	    [footertip]="i18n.t('portal.tip.move')">
       <span class="glyphicon glyphicon-sort"></span>
     </button>
-    <button type="button" class="btn btn-default"
+    <button type="button" class="btn btn-default personmenurename"
 	    (click)="onRename()"
 	    [footertip]="i18n.t('portal.tip.rename')">	     
       <span class="glyphicon glyphicon-pencil"></span>
     </button>
-    <button type="button" class="btn btn-default"
+    <button type="button" class="btn btn-default personmenudelete"
 	    (click)="onDelete()"
 	    [footertip]="i18n.t('portal.tip.delete')">
       <span class="glyphicon glyphicon-minus"></span>

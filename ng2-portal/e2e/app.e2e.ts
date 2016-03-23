@@ -31,7 +31,7 @@ describe('ng2-portal App', function() {
 
   beforeEach(() => {
     page = new Ng2PortalPage();
-  })
+  });
 
   it('should display login form', () => {
     page.navigateTo();
@@ -185,6 +185,127 @@ describe('ng2-portal App', function() {
   });
 
   // person section / menu
+  // start
+  it('should add section s1', () => {
+    page.getFirstEntityTab().click();
+    page.getAddPersonSection().click();
+    page.getPersonsectionInput().sendKeys('s1');
+    page.getPersonsectionForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonsectionsCountIs(1), 30000);
+    expect(page.getPersonsectionsCount()).toEqual(1);
+  });
+
+  it('first section title should be s1', () => {
+    expect(page.getVisiblePersonsectionTitle().getText()).toEqual('s1');
+  });
+
+  it('should add section s2', () => {
+    page.getAddPersonSection().click();
+    page.getPersonsectionInput().sendKeys('s2');
+    page.getPersonsectionForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonsectionsCountIs(2), 30000);
+    expect(page.getPersonsectionsCount()).toEqual(2);
+  });
+
+  it('should rename first Person section to s3', () => {
+    page.getVisiblePersonSection().click();
+    page.getVisibleRenamePersonsection().click();
+    page.getVisiblePersonsectionInput().clear();
+    page.getVisiblePersonsectionInput().sendKeys('s3');
+    page.getVisiblePersonsectionForm().submit();
+    browser.driver.sleep(100);
+    expect(page.getVisiblePersonsectionTitle().getText()).toEqual('s3');
+  });
+
+  it('should move first Person section after second', () => {
+    page.getVisiblePersonSection().click();
+    page.getVisibleMovePersonsection().click();
+    page.findMovePersonsectionOption().sendKeys('À la fin');
+    browser.driver.sleep(100);
+    page.getVisiblePersonsectionMoveForm().submit();
+    browser.driver.sleep(500);
+    expect(page.getVisiblePersonsectionTitle().getText()).toEqual('s2');
+  });
+
+  it('should delete first section', () => {
+    page.getVisiblePersonSection().click();
+    page.getVisibleDeletePersonsection().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonsectionsCountIs(1), 30000);
+    expect(page.getPersonsectionsCount()).toEqual(1);
+  });
+
+  it('should add first Personmenu m1', () => {
+    page.getVisiblePersonSection().click();
+    page.getAddPersonmenu().click();
+    page.getPersonmenuInput().sendKeys('m1');
+    page.getPersonmenuForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonmenusCountIs(1), 30000);
+    expect(page.getPersonmenusCount()).toEqual(1);
+
+  });
+
+  it('first Personmenu title should be m1', () => {
+    expect(page.getVisiblePersonmenuTitle().getText()).toEqual('m1');
+  });
+
+  it('should add Personmenu m2', () => {
+    page.getAddPersonmenu().click();
+    page.getPersonmenuInput().sendKeys('m2');
+    page.getPersonmenuForm().submit();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonmenusCountIs(2), 30000);
+    expect(page.getPersonmenusCount()).toEqual(2);
+  });
+
+  it('should rename first Person menu to m3', () => {
+    page.getVisiblePersonmenuView().click();
+    page.getVisiblePersonmenuRename().click();
+    page.getVisiblePersonmenuInput().clear();
+    page.getVisiblePersonmenuInput().sendKeys('m3');
+    page.getVisiblePersonmenuForm().submit();
+    browser.driver.sleep(100);
+    expect(page.getVisiblePersonmenuTitle().getText()).toEqual('m3');
+  });
+
+  it('should move first Person menu after second', () => {
+    page.getVisiblePersonmenuView().click();
+    page.getVisiblePersonmenuMove().click();
+    page.findMovePersonmenuOption().sendKeys('À la fin');
+    browser.driver.sleep(100);
+    page.findMovePersonmenuForm().submit();
+    browser.driver.sleep(500);
+    expect(page.getVisiblePersonmenuTitle().getText()).toEqual('m2');
+  });
+
+  it('should delete first Personmenu', () => {
+    page.getVisiblePersonmenuView().click();
+    page.getVisiblePersonmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonmenusCountIs(1), 30000);
+    expect(page.getPersonmenusCount()).toEqual(1);
+  });
+
+  it('should delete first Personmenu again', () => {
+    page.getVisiblePersonmenuView().click();
+    page.getVisiblePersonmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonmenusCountIs(0), 30000);
+    expect(page.getPersonmenusCount()).toEqual(0);
+  });
+
+  it('should delete first section again', () => {
+    page.getVisiblePersonSection().click();
+    page.getVisibleDeletePersonsection().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getPersonsectionsCountIs(0), 30000);
+    expect(page.getPersonsectionsCount()).toEqual(0);
+  });
+
+  // end
 
   it('should delete portal 1p', () => {
     page.getSelectPortalButton().click();
