@@ -58,40 +58,40 @@ export class Ng2PortalPage {
     return element.all(by.css('portal-mainwin accordion-group')).count().then(value => value == v);
   }
 
-  getFirstMainSection() {
+  getVisibleMainSection() {
     return element(by.css('portal-mainwin accordion-group:first-child'));
   }
 
-  getFirstDeleteMainsection() {
+  getVisibleDeleteMainsection() {
     return element.all(by.css('mainsection .mainsectiondelete'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
-  getFirstRenameMainsection() {
+  getVisibleRenameMainsection() {
     return element.all(by.css('mainsection .mainsectionrename'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
-  getFirstMainsectionTitle() {
+  getVisibleMainsectionTitle() {
     return element.all(by.css('portal-mainwin accordion-group h4'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
-  getFirstMainsectionInput() {
+  getVisibleMainsectionInput() {
     return element.all(by.css('portal-mainwin input.mainsectionrename'))
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainsectionForm() {
+  getVisibleMainsectionForm() {
     return element.all(by.css('form.mainsectionrename'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
-  getFirstMoveMainsection() {
+  getVisibleMoveMainsection() {
     return element.all(by.css('button.mainsectionmove'))
       .filter(e => e.isDisplayed())
       .first();
@@ -101,7 +101,7 @@ export class Ng2PortalPage {
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainsectionMoveForm() {
+  getVisibleMainsectionMoveForm() {
     return element.all(by.css('portal-mainwin form.mainsectionmove'))
       .filter(e => e.isDisplayed())
       .first();
@@ -131,32 +131,32 @@ export class Ng2PortalPage {
       .count()
       .then(value => value == v);
   }
-  getFirstMainmenuTitle() {
+  getVisibleMainmenuTitle() {
     return element.all(by.css('portal-mainwin mainmenu:first-child span:first-child')).first();
   }
 
-  getFirstMainmenuView() {
+  getVisibleMainmenuView() {
     return element.all(by.css('portal-mainwin button.mainmenuview'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
-  getFirstMainmenuRename() {
+  getVisibleMainmenuRename() {
     return element.all(by.css('portal-mainwin button.mainmenurename'))
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainmenuInput() {
+  getVisibleMainmenuInput() {
     return element.all(by.css('portal-mainwin input.mainmenurename'))
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainmenuForm() {
+  getVisibleMainmenuForm() {
     return element.all(by.css('portal-mainwin form.mainmenurename'))
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainmenuMove() {
+  getVisibleMainmenuMove() {
     return element.all(by.css('portal-mainwin button.mainmenumove'))
       .filter(e => e.isDisplayed())
       .first();
@@ -171,7 +171,7 @@ export class Ng2PortalPage {
       .filter(e => e.isDisplayed())
       .first();
   }
-  getFirstMainmenuDelete() {
+  getVisibleMainmenuDelete() {
     return element.all(by.css('portal-mainwin button.mainmenudelete'))
       .filter(e => e.isDisplayed())
       .first();
