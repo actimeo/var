@@ -46,10 +46,10 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
-    $pme_name = 'a main menu';
+    $pme_name = 'a person menu';
     $pme_id = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name);
     $this->assertGreaterThan(0, $pme_id);
   }
@@ -58,7 +58,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name1 = 'a first menu';
@@ -76,7 +76,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name = 'a first menu';
@@ -106,10 +106,10 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
-    $pme_name = 'a main menu';
+    $pme_name = 'a person menu';
     $pme_id = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name);
     $personmenus = self::$base->portal->personmenu_list($this->token, $pse_id);
     $this->assertEquals(1, count($personmenus));
@@ -119,7 +119,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name1 = 'a first menu';
@@ -155,7 +155,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name[0] = 'a first menu';
@@ -176,7 +176,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
   public function testPersonMenuRename() {
     $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $name1 = 'a menu';
@@ -200,7 +200,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $name2 = 'another section';
     $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
     $id = self::$base->portal->personmenu_add($this->token, $pse_id, $name1);
@@ -210,7 +210,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
   public function testPersonMenuDelete() {
     $por_id = self::$base->portal->portal_add($this->token, 'a portal');
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $id = self::$base->portal->personmenu_add($this->token, $pse_id, 'a menu');
@@ -229,7 +229,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $name = 'a portal';
     $por = self::$base->portal->portal_add($this->token, $name);
 
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por, 'patient', $pse_name);
 
     $id = self::$base->portal->personmenu_add($this->token, $pse_id, 'a menu');
@@ -240,7 +240,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
 
     $pme_name[0] = '1';
@@ -262,7 +262,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
     $pme_name[0] = '1';
@@ -284,7 +284,7 @@ class personmenuTest extends PHPUnit_Framework_TestCase {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);
     
-    $pse_name = 'a main section';
+    $pse_name = 'a person section';
     $pse_id = self::$base->portal->personsection_add($this->token, $por_id, 'patient', $pse_name);
     
     $pme_name[0] = '1';
