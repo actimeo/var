@@ -24,4 +24,8 @@ export class SelectedMenus {
     this.menuStore.personmenu[entity] = m;
     this.menuObserver.next(this.menuStore);
   }
+
+  getMainmenu() {
+    return this.menuStore.mainmenu;
+  }
 }

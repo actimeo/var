@@ -46,11 +46,13 @@ export class Mainmenu {
   }
 
   ngOnInit() {
+    this.selected = this.selectedMenus.getMainmenu() == this.menu.mme_id;
+
     this.selectedMenus.menu$.subscribe(updatedMenu => {
       this.selected = updatedMenu.mainmenu == this.menu.mme_id;
     });
   }
-  
+
   doViewtools(v) {
     if (v) {
       this.viewtools = true;
@@ -94,6 +96,9 @@ export class Mainmenu {
       .then(data => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainmenu_deleted'));
+        if (this.selectedMenus.getMainmenu() == this.menu.mme_id) {
+          this.selectedMenus.setMainmenu(null);
+        }
       })
       .catch(
       err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainmenu')); });

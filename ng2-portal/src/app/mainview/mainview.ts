@@ -22,7 +22,9 @@ export class Mainview {
     this.selectedMenus.menu$.subscribe(updatedMenu => {
       if (this.myMme != updatedMenu.mainmenu) {
         this.myMme = updatedMenu.mainmenu;
-        this.reloadMainview();
+        if (this.myMme != null) {
+          this.reloadMainview();
+        }
       }
     });
   }
