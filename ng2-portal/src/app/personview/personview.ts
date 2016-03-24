@@ -24,7 +24,9 @@ export class Personview {
     this.selectedMenus.menu$.subscribe(updatedMenu => {
       if (this.myPme != updatedMenu.personmenu[this.entity]) {
         this.myPme = updatedMenu.personmenu[this.entity];
-        this.reloadPersonview();
+        if (this.myPme != null) {
+          this.reloadPersonview();
+        }
       }
     });
   }

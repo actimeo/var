@@ -47,6 +47,8 @@ export class Personmenu {
   }
 
   ngOnInit() {
+    this.selected = this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id;
+
     this.selectedMenus.menu$.subscribe(updatedMenu => {
       this.selected = updatedMenu.personmenu[this.entity] == this.menu.pme_id;
     });
@@ -95,6 +97,9 @@ export class Personmenu {
       .then(data => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personmenu_deleted'));
+        if (this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id) {
+          this.selectedMenus.setPersonmenu(this.entity, null);
+        }
       })
       .catch(
       err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personmenu')); });

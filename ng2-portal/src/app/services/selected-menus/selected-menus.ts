@@ -28,4 +28,8 @@ export class SelectedMenus {
   getMainmenu() {
     return this.menuStore.mainmenu;
   }
+
+  getPersonmenu(entity: string) {
+    return this.menuStore.personmenu[entity];
+  }
 }
