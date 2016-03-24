@@ -4,6 +4,8 @@ import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {Mainsection} from '../mainsection/mainsection';
 import {MainsectionAdd} from '../mainsection-add/mainsection-add';
+import {Mainview} from '../mainview/mainview';
+
 import {PgService} from '../services/pg-service/pg-service';
 import {I18nService} from '../services/i18n/i18n';
 
@@ -12,7 +14,7 @@ import {I18nService} from '../services/i18n/i18n';
   styleUrls: ['app/portal-mainwin/portal-mainwin.css'],
   templateUrl: 'app/portal-mainwin/portal-mainwin.html',
   providers: [],
-  directives: [Mainsection, Collapse, ACCORDION_DIRECTIVES, MainsectionAdd],
+  directives: [Mainsection, Collapse, ACCORDION_DIRECTIVES, MainsectionAdd, Mainview],
 })
 export class PortalMainwin {
   private myPorId: number;
@@ -29,9 +31,9 @@ export class PortalMainwin {
   }
 
   reloadSections() {
-    this.pgService.pgcall('portal', 'mainsection_list', {prm_por_id: this.myPorId})
-        .then(data => { this.mainsections = data; })
-        .catch(err => {});
+    this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.myPorId })
+      .then(data => { this.mainsections = data; })
+      .catch(err => { });
   }
 
   onSectionAdded() { this.reloadSections(); }

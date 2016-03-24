@@ -1,4 +1,4 @@
-<span [hidden]="viewedit || viewmove">{{menu.mme_name}}</span>
+<span [hidden]="viewedit || viewmove" (click)="onClick()" class="menuentry" [ngClass]="{selected: selected}">{{menu.mme_name}}</span>
 <form [hidden]="!viewedit" class="form-inline mainmenurename" (ngSubmit)="doRename()" #userForm="ngForm">
   <div class="input-group input-group-sm">
     <input type="text" class="form-control mainmenurename" [(ngModel)]="menu.mme_name" ngControl required [focus]="menunameFocused">

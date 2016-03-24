@@ -10,8 +10,9 @@ import {I18nService} from './app/services/i18n/i18n';
 import {PgService} from './app/services/pg-service/pg-service';
 import {FootertipService} from './app/services/footertip/footertip';
 import {AlertsService} from './app/services/alerts/alerts';
+import {SelectedMenus} from './app/services/selected-menus/selected-menus';
 
 bootstrap(Ng2PortalApp, [
   ROUTER_PROVIDERS, HTTP_PROVIDERS, UserService, I18nService, PgService, FootertipService,
-  AlertsService, provide(LocationStrategy, {useClass: HashLocationStrategy})
+  AlertsService, SelectedMenus, provide(LocationStrategy, {useClass: HashLocationStrategy})
 ]);
