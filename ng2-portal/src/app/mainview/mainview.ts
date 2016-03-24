@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 import {PgService} from '../services/pg-service/pg-service';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
