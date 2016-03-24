@@ -1,1 +1,4 @@
+.wrapper { width: 100%; display: flex; }
+nav { }
+section { flex: 1 auto; padding-right: 16px; }
 h1 { margin-top: 0; font-size: 20px; }

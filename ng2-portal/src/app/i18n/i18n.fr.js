@@ -1,23 +1,26 @@
 fr_translations = {
-    "test": {
-    	"key": "Salut à toi !",
-    },
-    "common": {
-	"btn": {
+  "test": {
+    "key": "Salut à toi !",
+  },
+  "common": {
+	  "btn": {
 	    "add": "Ajout",
 	    "cancel": "Annuler",
-	},
-    },
-    "auth": {
-    	"connect_title": "Connexion",
-	    "username": "Identifiant",
-	"password": "Mot de passe",
-	"submit": "Connexion",
-	"autherror": "Erreur d'authentification",
-	"logged_in_as": "Connecté avec"
-    },
-    "portal": {
-	"alerts": {
+      "save": "Enregistrer",
+      "edit": "Éditer",
+      "delete": "Supprimer",
+	  },
+  },
+  "auth": {
+    "connect_title": "Connexion",
+    "username": "Identifiant",
+    "password": "Mot de passe",
+    "submit": "Connexion",
+    "autherror": "Erreur d'authentification",
+    "logged_in_as": "Connecté avec"
+  },
+  "portal": {
+    "alerts": {
 	    'portal_deleted': 'Portail supprimé',
 	    'error_deleting_portal': 'Impossible de supprimer le portail',
 	    'portal_added': 'Portail ajouté',
@@ -64,6 +67,11 @@ fr_translations = {
 	    'personmenu_moved': 'Menu déplacé',
 	    'error_moving_personmenu': 'Impossible de déplacer le menu',
 	    'no_moving_personmenu': 'Pas de déplacement possible',
+
+      'personview_saved': 'Vue enregistrée',
+      'error_saving_personview': 'Impossible de sauvegarder la vue',
+      'personview_deleted': 'Vue supprimée',
+      'error_deleting_personview': 'Impossible de supprimer la vue',
 	},
 	'tip': {
 	    'configure': 'Configurer',
@@ -75,6 +83,9 @@ fr_translations = {
 	    "rename_section": "Renommer section",
 	    "delete_section": "Supprimer section",
 	},
+        'placeholder': {
+          'view_title': 'Titre de la vue'
+        },
 	"portal_builder": "Édition de portails",
 	"select_a_portal": "Sélectionner un portail",
 	"add_new_portal": "Ajouter un portail",

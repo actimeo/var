@@ -6,6 +6,9 @@ en_translations = {
         "btn": {
             "add": "Add",
             "cancel": "Cancel",
+            "save": "Save",
+            "edit": "Edit",
+            "delete": "Delete",
         },
     },
     "auth": {
@@ -64,6 +67,11 @@ en_translations = {
             'personmenu_moved': 'Menu moved',
             'error_moving_personmenu': 'Error moving menu',
             'no_moving_personmenu': 'Cannot move menu',
+            
+            'personview_saved': 'View saved',
+            'error_saving_personview': 'Error saving view',
+            'personview_deleted': 'View deleted',
+            'error_deleting_personview': 'Error deleting view',
         },
         'tip': {
             'configure': 'Configure',
@@ -74,6 +82,9 @@ en_translations = {
             "move_section": "Move section",
             "rename_section": "Rename section",
             "delete_section": "Delete section",
+        },
+        'placeholder': {
+          'view_title': 'View title'
         },
         "portal_builder": "Portal builder",
         "select_a_portal": "Select a portal",

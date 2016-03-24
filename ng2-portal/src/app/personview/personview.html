@@ -1,7 +1,26 @@
-<div [hidden]="!personview">
-  <h1>{{personview?.pvi_title}}</h1>
+<div [hidden]="!myPme">
+  <form [hidden]="!editing" (submit)="save()" #personviewForm="ngForm" style="margin: 0">
+    <div class="wrapper">
+      <section>
+        <div>
+          <input type="text" placeholder="{{i18n.t('portal.placeholder.view_title')}}" class="form-control" [(ngModel)]="title" ngControl required>
+        </div>
+      </section>
+      <nav>
+        <button type="submit" class="btn btn-primary" [disabled]="!personviewForm.valid">{{i18n.t('common.btn.save')}}</button>
+        <button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button>
+      </nav>
+    </div>
+  </form>
+  <div [hidden]="editing">
+    <div class="wrapper">
+      <section>
+        <h1>{{personview?.pvi_title}}</h1>
+      </section>
+      <nav>
+        <button type="button" class="btn btn-default" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
+        <button type="button" class="btn btn-primary" (click)="setEditable(true)">{{i18n.t('common.btn.edit')}}</button>
+      </nav>
+    </div>
+  </div>
 </div>
-<div [hidden]="personview || !myPme">
-  <input type="text" placeholder="title">
-</div>
-Personview {{myPme}}

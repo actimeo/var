@@ -1,11 +1,13 @@
-<nav id="leftbar">
-  <accordion [closeOthers]="true">
-    <accordion-group *ngFor="#section of mainsections" heading="{{section.mse_name}}">
-      <mainsection (ondelete)="onSectionDeleted()" (onchange)="onSectionChange()" [section]="section"></mainsection>
-    </accordion-group>
-  </accordion>
-  <mainsection-add [hidden]="!myPorId" [porId]="myPorId" (onadded)="onSectionAdded()"></mainsection-add>
-</nav>
-<main>
-  <mainview></mainview>
-</main>
+<div class="wrapper">
+  <nav id="leftbar">
+    <accordion [closeOthers]="true">
+      <accordion-group *ngFor="#section of mainsections" heading="{{section.mse_name}}">
+        <mainsection (ondelete)="onSectionDeleted()" (onchange)="onSectionChange()" [section]="section"></mainsection>
+      </accordion-group>
+    </accordion>
+    <mainsection-add [hidden]="!myPorId" [porId]="myPorId" (onadded)="onSectionAdded()"></mainsection-add>
+  </nav>
+  <main>
+    <mainview></mainview>
+  </main>
+</div>
