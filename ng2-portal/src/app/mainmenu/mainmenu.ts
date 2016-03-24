@@ -43,11 +43,14 @@ export class Mainmenu {
     this.menunameFocused = false;
     this.viewmove = false;
     this.moveFocused = false;
-    selectedMenus.menu$.subscribe(updatedMenu => {
-      this.selected = updatedMenu == this.menu.mme_id;
-    });
   }
 
+  ngOnInit() {
+    this.selectedMenus.menu$.subscribe(updatedMenu => {
+      this.selected = updatedMenu.mainmenu == this.menu.mme_id;
+    });
+  }
+  
   doViewtools(v) {
     if (v) {
       this.viewtools = true;
@@ -134,6 +137,6 @@ export class Mainmenu {
   }
 
   onClick() {
-    this.selectedMenus.setMenu(this.menu.mme_id);
+    this.selectedMenus.setMainmenu(this.menu.mme_id);
   }
 }

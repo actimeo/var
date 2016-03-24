@@ -10,7 +10,6 @@ export class AlertsService {
 
   constructor() {
     this.alerts$ = new Observable(observer => {
-                     console.log('alertObserver set');
                      this.alertsObserver = observer;
                    }).share();
     this.alertStore = {alerts: []};

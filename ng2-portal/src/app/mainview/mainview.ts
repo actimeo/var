@@ -15,10 +15,15 @@ export class Mainview {
   private myMme: number;
   private mainview: any;
 
-  constructor(private pgService: PgService, selectedMenus: SelectedMenus) {
-    selectedMenus.menu$.subscribe(updatedMenu => {
-      this.myMme = updatedMenu;
-      this.reloadMainview();
+  constructor(private pgService: PgService, private selectedMenus: SelectedMenus) {
+  }
+
+  ngOnInit() {
+    this.selectedMenus.menu$.subscribe(updatedMenu => {
+      if (this.myMme != updatedMenu.mainmenu) {
+        this.myMme = updatedMenu.mainmenu;
+        this.reloadMainview();
+      }
     });
   }
 

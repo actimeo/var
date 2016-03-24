@@ -43,6 +43,6 @@
 
 </div>
 <ul>
-  <li *ngFor="#menu of personmenus"><personmenu [menu]="menu" (onchange)="onMenuChange()"></personmenu></li>
+  <li *ngFor="#menu of personmenus"><personmenu [entity]="entity" [menu]="menu" (onchange)="onMenuChange()"></personmenu></li>
 </ul>
 <personmenu-add [pse_id]="section.pse_id" (onadded)="onMenuAdded()"></personmenu-add>

@@ -4,6 +4,8 @@ import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {PersonsectionAdd} from '../personsection-add/personsection-add';
 import {Personsection} from '../personsection/personsection';
+import {Personview} from '../personview/personview';
+
 import {PgService} from '../services/pg-service/pg-service';
 import {I18nService} from '../services/i18n/i18n';
 
@@ -12,7 +14,7 @@ import {I18nService} from '../services/i18n/i18n';
   styleUrls: ['app/portal-entity/portal-entity.css'],
   templateUrl: 'app/portal-entity/portal-entity.html',
   providers: [],
-  directives: [Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection],
+  directives: [Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection, Personview],
 })
 export class PortalEntity {
   private myPorId: number;

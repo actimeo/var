@@ -14,6 +14,9 @@ export class Footertip {
   tip: string;
 
   constructor(private footertipService: FootertipService) {
-    footertipService.tip$.subscribe(updatedTip => { this.tip = updatedTip; });
+  }
+
+  ngOnInit() {
+    this.footertipService.tip$.subscribe(updatedTip => { this.tip = updatedTip; });
   }
 }

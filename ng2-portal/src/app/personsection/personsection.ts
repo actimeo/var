@@ -20,6 +20,7 @@ import {PseMovePipe} from '../pipes/pse-move/pse-move';
 })
 export class Personsection {
   @Input('section') section: any;
+  @Input('entity') entity: string;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
