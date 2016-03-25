@@ -33,6 +33,7 @@ export class Personview {
           this.reloadPersonview();
           this.editing = false;
         } else {
+          this.title = '';
           this.editing = true;
         }
       }
@@ -43,7 +44,7 @@ export class Personview {
     this.pgService.pgcall('portal', 'personview_get', {
       prm_entity: this.entity, prm_pme_id: this.myPme })
       .then(data => { this.personview = data; this.editing = false; })
-      .catch(err => { this.personview = null; this.editing = true; });
+      .catch(err => { this.personview = null; this.title = ''; this.editing = true; });
   }
 
   setEditable(editable) {
