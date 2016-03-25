@@ -31,9 +31,9 @@ export class PortalMainwin {
   }
 
   reloadSections() {
-    this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.myPorId })
-      .then(data => { this.mainsections = data; })
-      .catch(err => { });
+    this.pgService.pgcall('portal', 'mainsection_list', {prm_por_id: this.myPorId})
+        .then(data => { this.mainsections = data; })
+        .catch(err => {});
   }
 
   onSectionAdded() { this.reloadSections(); }

@@ -9,9 +9,7 @@ export class AlertsService {
   private alertStore: {alerts: Array<any>};
 
   constructor() {
-    this.alerts$ = new Observable(observer => {
-                     this.alertsObserver = observer;
-                   }).share();
+    this.alerts$ = new Observable(observer => { this.alertsObserver = observer; }).share();
     this.alertStore = {alerts: []};
   }
 

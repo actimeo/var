@@ -36,8 +36,8 @@ export class Personmenu {
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private pgService: PgService, private i18n: I18nService, private alerts: AlertsService,
-    private selectedMenus: SelectedMenus) {
+      private pgService: PgService, private i18n: I18nService, private alerts: AlertsService,
+      private selectedMenus: SelectedMenus) {
     this.viewcfg = true;
     this.viewtools = false;
     this.viewedit = false;
@@ -81,28 +81,28 @@ export class Personmenu {
 
   doRename() {
     this.pgService
-      .pgcall(
-      'portal', 'personmenu_rename', { prm_id: this.menu.pme_id, prm_name: this.menu.pme_name })
-      .then(data => {
-        this.onchange.emit(null);
-        this.alerts.success(this.i18n.t('portal.alerts.personmenu_renamed'));
-      })
-      .catch(
-      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_personmenu')); });
+        .pgcall(
+            'portal', 'personmenu_rename', {prm_id: this.menu.pme_id, prm_name: this.menu.pme_name})
+        .then(data => {
+          this.onchange.emit(null);
+          this.alerts.success(this.i18n.t('portal.alerts.personmenu_renamed'));
+        })
+        .catch(
+            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_personmenu')); });
   }
 
   // Delete
   onDelete() {
-    this.pgService.pgcall('portal', 'personmenu_delete', { prm_id: this.menu.pme_id })
-      .then(data => {
-        this.onchange.emit(null);
-        this.alerts.success(this.i18n.t('portal.alerts.personmenu_deleted'));
-        if (this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id) {
-          this.selectedMenus.setPersonmenu(this.entity, null);
-        }
-      })
-      .catch(
-      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personmenu')); });
+    this.pgService.pgcall('portal', 'personmenu_delete', {prm_id: this.menu.pme_id})
+        .then(data => {
+          this.onchange.emit(null);
+          this.alerts.success(this.i18n.t('portal.alerts.personmenu_deleted'));
+          if (this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id) {
+            this.selectedMenus.setPersonmenu(this.entity, null);
+          }
+        })
+        .catch(
+            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personmenu')); });
   }
 
   // Move
@@ -110,31 +110,31 @@ export class Personmenu {
     this.viewmove = true;
     this.viewtools = false;
 
-    this.pgService.pgcall('portal', 'personmenu_list', { prm_pse_id: this.menu.pse_id })
-      .then(data => {
-        this.movechoices = data;
-        this.moveFocused = true;
-        setTimeout(() => { this.moveFocused = false; });
-        if (this.movechoices.length == 1) {
-          this.alerts.info(this.i18n.t('portal.alerts.no_moving_personmenu'));
-          this.onCancelMove();
-        }
+    this.pgService.pgcall('portal', 'personmenu_list', {prm_pse_id: this.menu.pse_id})
+        .then(data => {
+          this.movechoices = data;
+          this.moveFocused = true;
+          setTimeout(() => { this.moveFocused = false; });
+          if (this.movechoices.length == 1) {
+            this.alerts.info(this.i18n.t('portal.alerts.no_moving_personmenu'));
+            this.onCancelMove();
+          }
 
-      })
-      .catch(err => { });
+        })
+        .catch(err => {});
   }
 
   doMove() {
     this.pgService
-      .pgcall(
-      'portal', 'personmenu_move_before_position',
-      { prm_id: this.menu.pme_id, prm_position: this.beforePos })
-      .then(data => {
-        this.onchange.emit(null);
-        this.alerts.success(this.i18n.t('portal.alerts.personmenu_moved'));
-      })
-      .catch(
-      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_moving_personmenu')); });
+        .pgcall(
+            'portal', 'personmenu_move_before_position',
+            {prm_id: this.menu.pme_id, prm_position: this.beforePos})
+        .then(data => {
+          this.onchange.emit(null);
+          this.alerts.success(this.i18n.t('portal.alerts.personmenu_moved'));
+        })
+        .catch(
+            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_moving_personmenu')); });
   }
 
   onCancelMove() {
@@ -143,7 +143,5 @@ export class Personmenu {
     this.viewcfg = true;
   }
 
-  onClick() {
-    this.selectedMenus.setPersonmenu(this.entity, this.menu.pme_id);
-  }
+  onClick() { this.selectedMenus.setPersonmenu(this.entity, this.menu.pme_id); }
 }

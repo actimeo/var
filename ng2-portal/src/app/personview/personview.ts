@@ -21,9 +21,9 @@ export class Personview {
 
   @Input('entity') entity: string;
 
-  constructor(private pgService: PgService, private selectedMenus: SelectedMenus,
-  private i18n: I18nService, private alerts: AlertsService) {
-  }
+  constructor(
+      private pgService: PgService, private selectedMenus: SelectedMenus, private i18n: I18nService,
+      private alerts: AlertsService) {}
 
   ngOnInit() {
     this.selectedMenus.menu$.subscribe(updatedMenu => {
@@ -41,10 +41,17 @@ export class Personview {
   }
 
   reloadPersonview() {
-    this.pgService.pgcall('portal', 'personview_get', {
-      prm_entity: this.entity, prm_pme_id: this.myPme })
-      .then(data => { this.personview = data; this.editing = false; })
-      .catch(err => { this.personview = null; this.title = ''; this.editing = true; });
+    this.pgService
+        .pgcall('portal', 'personview_get', {prm_entity: this.entity, prm_pme_id: this.myPme})
+        .then(data => {
+          this.personview = data;
+          this.editing = false;
+        })
+        .catch(err => {
+          this.personview = null;
+          this.title = '';
+          this.editing = true;
+        });
   }
 
   setEditable(editable) {
@@ -53,29 +60,27 @@ export class Personview {
   }
 
   save() {
-    this.pgService.pgcall('portal', 'personview_set', {
-      prm_pme_id: this.myPme, prm_title: this.title, prm_icon: 'todo'
-    })
-    .then(data => {
-      this.alerts.success(this.i18n.t('portal.alerts.personview_saved'));
-      this.editing = false;
-      this.reloadPersonview();
-    })
-    .catch(err => {
-      this.alerts.danger(this.i18n.t('portal.alerts.error_saving_personview'));
-    });
+    this.pgService
+        .pgcall(
+            'portal', 'personview_set',
+            {prm_pme_id: this.myPme, prm_title: this.title, prm_icon: 'todo'})
+        .then(data => {
+          this.alerts.success(this.i18n.t('portal.alerts.personview_saved'));
+          this.editing = false;
+          this.reloadPersonview();
+        })
+        .catch(
+            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_saving_personview')); });
   }
 
-  delete() {
-    this.pgService.pgcall('portal', 'personview_delete', {
-      prm_pme_id: this.myPme
-    })
-    .then(data => {
-      this.alerts.success(this.i18n.t('portal.alerts.personview_deleted'));
-      this.title = '';
-      this.editing = true;
-    }).catch(err => {
-      this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personview'));
-    });
+  delete () {
+    this.pgService.pgcall('portal', 'personview_delete', {prm_pme_id: this.myPme})
+        .then(data => {
+          this.alerts.success(this.i18n.t('portal.alerts.personview_deleted'));
+          this.title = '';
+          this.editing = true;
+        })
+        .catch(
+            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personview')); });
   }
 }

@@ -13,11 +13,9 @@ import {AlertsService} from '../services/alerts/alerts';
 export class Alerts {
   private alerts: any;
 
-  constructor(private alertsService: AlertsService) { }
+  constructor(private alertsService: AlertsService) {}
 
-  ngOnInit() {
-    this.alertsService.alerts$.subscribe(updatedAlerts => this.alerts = updatedAlerts);
-  }
+  ngOnInit() { this.alertsService.alerts$.subscribe(updatedAlerts => this.alerts = updatedAlerts); }
 
   closeAlert(i: number) { this.alertsService.closeAlert(i); }
 

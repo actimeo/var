@@ -18,8 +18,9 @@ describe('SelectedMenus Service', () => {
   beforeEachProviders(() => [SelectedMenus]);
 
 
-  it('should ...', inject([SelectedMenus], (service:SelectedMenus) => {
+  it('should ...', inject(
+                       [SelectedMenus], (service: SelectedMenus) => {
 
-  }));
+                                        }));
 
 });

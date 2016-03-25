@@ -18,8 +18,7 @@ describe('Groupby Pipe', () => {
   beforeEachProviders(() => [Groupby]);
 
 
-  it('should transform the input', inject([Groupby], (pipe:Groupby) => {
-      expect(pipe.transform(true)).toBe(null);
-  }));
+  it('should transform the input',
+     inject([Groupby], (pipe: Groupby) => { expect(pipe.transform(true)).toBe(null); }));
 
 });

@@ -13,8 +13,7 @@ import {FootertipService} from '../services/footertip/footertip';
 export class Footertip {
   tip: string;
 
-  constructor(private footertipService: FootertipService) {
-  }
+  constructor(private footertipService: FootertipService) {}
 
   ngOnInit() {
     this.footertipService.tip$.subscribe(updatedTip => { this.tip = updatedTip; });

@@ -5,14 +5,13 @@ import 'rxjs/add/operator/share';
 
 @Injectable()
 export class SelectedMenus {
-
   menu$: Observable<any>;
   private menuObserver: Observer<any>;
-  private menuStore: { mainmenu: number, personmenu: any };
+  private menuStore: {mainmenu: number, personmenu: any};
 
   constructor() {
     this.menu$ = new Observable(observer => this.menuObserver = observer).share();
-    this.menuStore = { mainmenu: null, personmenu: {} };
+    this.menuStore = {mainmenu: null, personmenu: {}};
   }
 
   setMainmenu(m: number) {
@@ -25,11 +24,7 @@ export class SelectedMenus {
     this.menuObserver.next(this.menuStore);
   }
 
-  getMainmenu() {
-    return this.menuStore.mainmenu;
-  }
+  getMainmenu() { return this.menuStore.mainmenu; }
 
-  getPersonmenu(entity: string) {
-    return this.menuStore.personmenu[entity];
-  }
+  getPersonmenu(entity: string) { return this.menuStore.personmenu[entity]; }
 }
