@@ -1,8 +1,9 @@
 fr_translations = {
   "test": {
-    "key": "Salut à toi !",
+    "key": "Salut à toi !"
   },
   "common": {
+    "doubledot": " : ",
 	  "btn": {
 	    "add": "Ajout",
 	    "cancel": "Annuler",
@@ -109,4 +110,4 @@ fr_translations = {
 	"contact": "Contact",
 	"family": "Famille",
     },
-}
+};
