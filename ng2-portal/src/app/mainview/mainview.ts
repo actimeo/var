@@ -27,8 +27,8 @@ export class Mainview {
   @Input('entity') entity: string;
 
   constructor(
-      private pgService: PgService, private selectedMenus: SelectedMenus, private i18n: I18nService,
-      private alerts: AlertsService) {}
+    private pgService: PgService, private selectedMenus: SelectedMenus, private i18n: I18nService,
+    private alerts: AlertsService) { }
 
   ngOnInit() {
     this.selectedMenus.menu$.subscribe(updatedMenu => {
@@ -46,26 +46,26 @@ export class Mainview {
 
   reloadMainview() {
     this.pgService
-        .pgcall('portal', 'mainview_get', {prm_entity: this.entity, prm_mme_id: this.myMme})
-        .then(data => {
-          this.mainview = data;
-          this.loadAssociatedPersonview();
-          this.editing = false;
-        })
-        .catch(err => {
-          this.mainview = null;
-          this.prepareEdition();
-        });
+      .pgcall('portal', 'mainview_get', { prm_entity: this.entity, prm_mme_id: this.myMme })
+      .then(data => {
+        this.mainview = data;
+        this.loadAssociatedPersonview();
+        this.editing = false;
+      })
+      .catch(err => {
+        this.mainview = null;
+        this.prepareEdition();
+      });
   }
 
   loadAssociatedPersonview() {
     if (this.mainview.pme_id_associated != 0) {
       this.pgService
-          .pgcall(
-              'portal', 'personview_get',
-              {prm_entity: 'patient', prm_pme_id: this.mainview.pme_id_associated})
-          .then(data => { this.personviewAssociated = data; })
-          .catch(err => { this.personviewAssociated = null; });
+        .pgcall(
+        'portal', 'personview_get',
+        { prm_entity: 'patient', prm_pme_id: this.mainview.pme_id_associated })
+        .then(data => { this.personviewAssociated = data; })
+        .catch(err => { this.personviewAssociated = null; });
     }
   }
 
@@ -78,44 +78,45 @@ export class Mainview {
 
   save() {
     this.pgService
-        .pgcall('portal', 'mainview_set', {
-          prm_mme_id: this.myMme,
-          prm_title: this.title,
-          prm_icon: 'todo',
-          prm_pme_id_associated: null
-        })
-        .then(data => {
-          this.alerts.success(this.i18n.t('portal.alerts.mainview_saved'));
-          this.editing = false;
-          this.reloadMainview();
-        })
-        .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_saving_mainview')); });
+      .pgcall('portal', 'mainview_set', {
+        prm_mme_id: this.myMme,
+        prm_title: this.title,
+        prm_icon: 'todo',
+        prm_pme_id_associated: this.pmeAssociated != 0 ? this.pmeAssociated : null
+      })
+      .then(data => {
+        this.alerts.success(this.i18n.t('portal.alerts.mainview_saved'));
+        this.editing = false;
+        this.reloadMainview();
+      })
+      .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_saving_mainview')); });
   }
 
-  delete () {
-    this.pgService.pgcall('portal', 'mainview_delete', {prm_mme_id: this.myMme})
-        .then(data => {
-          this.alerts.success(this.i18n.t('portal.alerts.mainview_deleted'));
-          this.mainview = null;
-          this.prepareEdition();
-        })
-        .catch(
-            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainview')); });
+  delete() {
+    this.pgService.pgcall('portal', 'mainview_delete', { prm_mme_id: this.myMme })
+      .then(data => {
+        this.alerts.success(this.i18n.t('portal.alerts.mainview_deleted'));
+        this.mainview = null;
+        this.prepareEdition();
+      })
+      .catch(
+      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainview')); });
   }
 
   prepareEdition() {
     this.title = this.mainview ? this.mainview.mvi_title : '';
-    this.pmeAssociated = this.mainview ? this.mainview.pme_id_associated : 0;
+    this.pmeAssociated = this.mainview ?
+      (this.mainview.pme_id_associated ? this.mainview.pme_id_associated : 0) : 0;
     this.editing = true;
     this.loadPatientViews();
   }
 
   loadPatientViews() {
-    this.pgService.pgcall('portal', 'personview_details_list', {prm_entity: 'patient'})
-        .then((data: any) => {
-          this.patientViews = (new Groupby).transform(data, 'pse_name');
-          console.log(this.patientViews);
-        })
-        .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_loading_mainview')); });
+    this.pgService.pgcall('portal', 'personview_details_list', { prm_entity: 'patient' })
+      .then((data: any) => {
+        this.patientViews = (new Groupby).transform(data, 'pse_name');
+        console.log(this.patientViews);
+      })
+      .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_loading_mainview')); });
   }
 }

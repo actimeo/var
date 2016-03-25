@@ -9,7 +9,7 @@
         <div class="form-group">
           <label for="pmeAssociated">Associated patient view</label>
           <select class="form-control" [(ngModel)]="pmeAssociated">
-            <option value="0">()</option>
+            <option value="0">(no associated patient view)</option>
             <optgroup *ngFor="#type of patientViews" [label]="type.type">
               <option *ngFor="#view of type.data" [value]="view.pme_id">{{view.pme_name}}{{i18n.t('common.doubledot')}}{{view.pvi_title}}</option>
             </optgroup>
@@ -17,8 +17,8 @@
         </div>
       </section>
       <nav>
-        <button type="submit" class="btn btn-primary" [disabled]="!mainviewForm.valid">{{i18n.t('common.btn.save')}}</button>
         <button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!mainviewForm.valid">{{i18n.t('common.btn.save')}}</button>
       </nav>
     </div>
   </form>
@@ -27,6 +27,7 @@
       <section>
         <h1>{{mainview?.mvi_title}}</h1>
         <p [hidden]="!mainview?.pme_id_associated">Associated patient view: {{personviewAssociated?.pvi_title}}</p>
+        <p [hidden]="mainview?.pme_id_associated">No associated patient view</p>
       </section>
       <nav>
         <button type="button" class="btn btn-default" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
