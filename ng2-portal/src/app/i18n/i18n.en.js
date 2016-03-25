@@ -72,7 +72,12 @@ en_translations = {
       'personview_saved': 'View saved',
       'error_saving_personview': 'Error saving view',
       'personview_deleted': 'View deleted',
-      'error_deleting_personview': 'Error deleting view'
+      'error_deleting_personview': 'Error deleting view',
+
+      'mainview_saved': 'View saved',
+      'error_saving_mainview': 'Error saving view',
+      'mainview_deleted': 'View deleted',
+      'error_deleting_mainview': 'Error deleting view'
     },
     'tip': {
       'configure': 'Configure',
@@ -86,6 +91,11 @@ en_translations = {
     },
     'placeholder': {
       'view_title': 'View title'
+    },
+    "mainview": {
+      "associated_patient_view": "Associated patient view",
+      "_no_associated_patient_view_": "(no associated patient view)",
+      "no_associated_patient_view": "No associated patient view"
     },
     "portal_builder": "Portal builder",
     "select_a_portal": "Select a portal",

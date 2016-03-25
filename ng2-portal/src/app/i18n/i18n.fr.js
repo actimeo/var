@@ -73,6 +73,11 @@ fr_translations = {
       'error_saving_personview': 'Impossible de sauvegarder la vue',
       'personview_deleted': 'Vue supprimée',
       'error_deleting_personview': 'Impossible de supprimer la vue',
+
+      'mainview_saved': 'Vue enregistrée',
+      'error_saving_mainview': 'Impossible de sauvegarder la vue',
+      'mainview_deleted': 'Vue supprimée',
+      'error_deleting_mainview': 'Impossible de supprimer la vue',
     },
     'tip': {
       'configure': 'Configurer',
@@ -86,6 +91,11 @@ fr_translations = {
     },
     'placeholder': {
       'view_title': 'Titre de la vue'
+    },
+    "mainview": {
+      "associated_patient_view": "Vue usager associée",
+      "_no_associated_patient_view_": "(pas de vue usager associée)",
+      "no_associated_patient_view": "Pas de vue usager associée"
     },
     "portal_builder": "Édition de portails",
     "select_a_portal": "Sélectionner un portail",

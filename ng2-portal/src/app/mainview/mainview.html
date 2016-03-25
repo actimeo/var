@@ -7,9 +7,9 @@
           required>
         </div>
         <div class="form-group">
-          <label for="pmeAssociated">Associated patient view</label>
+          <label for="pmeAssociated">{{i18n.t('portal.mainview.associated_patient_view')}}</label>
           <select class="form-control" [(ngModel)]="pmeAssociated">
-            <option value="0">(no associated patient view)</option>
+            <option value="0">{{i18n.t('portal.mainview._no_associated_patient_view_')}}</option>
             <optgroup *ngFor="#type of patientViews" [label]="type.type">
               <option *ngFor="#view of type.data" [value]="view.pme_id">{{view.pme_name}}{{i18n.t('common.doubledot')}}{{view.pvi_title}}</option>
             </optgroup>
@@ -26,8 +26,8 @@
     <div class="wrapper">
       <section>
         <h1>{{mainview?.mvi_title}}</h1>
-        <p [hidden]="!mainview?.pme_id_associated">Associated patient view: {{personviewAssociated?.pvi_title}}</p>
-        <p [hidden]="mainview?.pme_id_associated">No associated patient view</p>
+        <p [hidden]="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
+        <p [hidden]="mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
       </section>
       <nav>
         <button type="button" class="btn btn-default" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
