@@ -16,7 +16,7 @@ export class I18nService {
         .init(
             {
               detection: {order: ['navigator']},
-
+	      fallbackLng: 'en',
               resources: {
                 en: {translation: en_translations},
                 de: {translation: de_translations},
