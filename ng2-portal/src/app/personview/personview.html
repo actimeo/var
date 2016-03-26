@@ -7,8 +7,8 @@
         </div>
       </section>
       <nav>
+        <span [hidden]="!mainview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
         <button type="submit" class="btn btn-primary" [disabled]="!personviewForm.valid">{{i18n.t('common.btn.save')}}</button>
-        <button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button>
       </nav>
     </div>
   </form>
