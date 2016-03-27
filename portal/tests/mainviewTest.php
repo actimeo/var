@@ -68,6 +68,20 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'pme_id_associated' => null));
   }
 
+  public function testMainviewAddWithPme() {
+    $title = 'a title';
+    $icon = 'an icon';
+
+    $ptitle = 'a person title';
+    $picon = 'an person icon';
+    self::$base->portal->personview_set($this->token, $this->pmeId, $ptitle, $picon);
+    $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
+
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $this->pmeId);
+    $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'pme_id_associated' => $this->pmeId));
+  }
+
   public function testMainviewDelete() {
     $title = 'a title';
     $icon = 'an icon';
