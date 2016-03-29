@@ -23,6 +23,8 @@ export class Mainview {
   private title: string;
   private patientViews: any;
   private pmeAssociated: number;
+  private mviType: number;
+  private mainviewTypes: any;
 
   @Input('entity') entity: string;
   @Input('porId') porId: string;
@@ -43,6 +45,9 @@ export class Mainview {
         }
       }
     });
+    this.pgService.pgcache('portal', 'mainview_type_list')
+    .then(data => { this.mainviewTypes = data; })
+        .catch(err => {});
   }
 
   reloadMainview() {
@@ -83,6 +88,7 @@ export class Mainview {
         prm_mme_id: this.myMme,
         prm_title: this.title,
         prm_icon: 'todo',
+        prm_type: this.mviType,
         prm_pme_id_associated: this.pmeAssociated != 0 ? this.pmeAssociated : null
       })
       .then(data => {
@@ -106,6 +112,7 @@ export class Mainview {
 
   prepareEdition() {
     this.title = this.mainview ? this.mainview.mvi_title : '';
+    this.mviType = this.mainview ? this.mainview.mvi_type : '';
     this.pmeAssociated = this.mainview ?
       (this.mainview.pme_id_associated ? this.mainview.pme_id_associated : 0) : 0;
     this.editing = true;

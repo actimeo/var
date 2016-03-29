@@ -3,8 +3,15 @@
     <div class="wrapper">
       <section>
         <div class="form-group">
-          <input type="text" placeholder="{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle" [(ngModel)]="title" ngControl
+          <input type="text" placeholder="{{i18n.t('common.required')}}{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle" [(ngModel)]="title" ngControl="c1"
           required>
+        </div>
+        <div class="form-group">
+          <label for="mviType">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_type')}}</label>
+          <select class="form-control" [(ngModel)]="mviType" ngControl="c2" required>
+            <option value="">{{i18n.t('portal.mainview._select_a_type_')}}</option>
+            <option *ngFor="#pvtype of mainviewTypes" [value]="pvtype">{{i18n.t('portal.mainview_types.'+pvtype)}}</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="pmeAssociated">{{i18n.t('portal.mainview.associated_patient_view')}}</label>
@@ -28,6 +35,7 @@
         <h1>{{mainview?.mvi_title}}</h1>
         <p [hidden]="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
         <p [hidden]="mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
+        {{i18n.t('portal.mainview.main_view_type')}}{{i18n.t('common.doubledot')}}{{i18n.t('portal.mainview_types.'+mainview?.mvi_type)}}
       </section>
       <nav>
         <button type="button" class="btn btn-default mainviewdelete" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>

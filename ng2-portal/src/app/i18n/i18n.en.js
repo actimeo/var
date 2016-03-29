@@ -4,6 +4,7 @@ en_translations = {
   },
   "common": {
     "doubledot": ": ",
+    "required": "* ",
     "btn": {
       "add": "Add",
       "cancel": "Cancel",
@@ -95,7 +96,21 @@ en_translations = {
     "mainview": {
       "associated_patient_view": "Associated patient view",
       "_no_associated_patient_view_": "(no associated patient view)",
-      "no_associated_patient_view": "No associated patient view"
+      "no_associated_patient_view": "No associated patient view",
+      "main_view_type": "Main view type",
+      "_select_a_type_": "(select a type)"
+    },
+    "mainview_types": {
+      "sample1": "Sample 1",
+      "sample2": "Sample 2"
+    },
+    "personview": {
+      "person_view_type": "Person view type",
+      "_select_a_type_": "(select a type)"
+    },
+    "personview_types": {
+      "personsample1": "Person sample 1",
+      "personsample2": "Person sample 2"
     },
     "portal_builder": "Portal builder",
     "select_a_portal": "Select a portal",

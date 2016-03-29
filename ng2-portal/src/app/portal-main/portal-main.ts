@@ -29,7 +29,7 @@ export class PortalMain {
   constructor(private pgService: PgService, private i18n: I18nService) { this.porId = null; }
 
   ngOnInit() {
-    this.pgService.pgcall('portal', 'entity_list')
+    this.pgService.pgcache('portal', 'entity_list')
         .then(data => { this.entities = data; })
         .catch(err => {});
   }
