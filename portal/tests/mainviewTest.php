@@ -65,7 +65,7 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
     $icon = 'an icon';
     self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, null);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'pme_id_associated' => null));
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => null));
   }
 
   public function testMainviewAddWithPme() {
@@ -79,7 +79,7 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
 
     self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $this->pmeId);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'pme_id_associated' => $this->pmeId));
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => $this->pmeId));
   }
 
   public function testMainviewDelete() {
@@ -98,10 +98,10 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
     $icon2 = 'an second icon';
     self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, null);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'pme_id_associated' => null));
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => null));
     self::$base->portal->mainview_set($this->token, $this->mmeId, $title2, $icon2, null);
     $mvi2 = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi2, array('mme_id' => $this->mmeId, 'mvi_title' => $title2, 'mvi_icon' => $icon2, 'pme_id_associated' => null));
+    $this->assertEquals($mvi2, array('mme_id' => $this->mmeId, 'mvi_title' => $title2, 'mvi_icon' => $icon2, 'mvi_type' => null, 'pme_id_associated' => null));
   }
   
 }

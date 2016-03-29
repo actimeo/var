@@ -58,7 +58,7 @@ class personviewTest extends PHPUnit_Framework_TestCase {
     $icon = 'an icon';
     self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon);
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_icon' => $icon));
+    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_icon' => $icon, 'pvi_type' => null));
   }
 
   public function testPersonviewDelete() {
@@ -77,10 +77,10 @@ class personviewTest extends PHPUnit_Framework_TestCase {
     $icon2 = 'an second icon';
     self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon);
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_icon' => $icon));
+    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_type' => null, 'pvi_icon' => $icon));
     self::$base->portal->personview_set($this->token, $this->pmeId, $title2, $icon2);
     $pvi2 = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi2, array('pme_id' => $this->pmeId, 'pvi_title' => $title2, 'pvi_icon' => $icon2));
+    $this->assertEquals($pvi2, array('pme_id' => $this->pmeId, 'pvi_title' => $title2, 'pvi_type' => null, 'pvi_icon' => $icon2));
   }
   
 }
