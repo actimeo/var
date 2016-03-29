@@ -63,29 +63,35 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
   public function testMainviewAdd() {
     $title = 'a title';
     $icon = 'an icon';
-    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, null);
+    $type = 'sample1';
+
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $type, null);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => null));
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => $type, 'pme_id_associated' => null));
   }
 
   public function testMainviewAddWithPme() {
     $title = 'a title';
     $icon = 'an icon';
+    $type = 'sample1';
 
     $ptitle = 'a person title';
     $picon = 'an person icon';
-    self::$base->portal->personview_set($this->token, $this->pmeId, $ptitle, $picon);
+    $ptype = 'personsample1';
+    self::$base->portal->personview_set($this->token, $this->pmeId, $ptitle, $picon, $ptype);
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
 
-    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $this->pmeId);
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $type, $this->pmeId);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => $this->pmeId));
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => $type, 'pme_id_associated' => $this->pmeId));
   }
 
   public function testMainviewDelete() {
     $title = 'a title';
     $icon = 'an icon';
-    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, null);
+    $type = 'sample1';
+
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $type, null);
     self::$base->portal->mainview_delete($this->token, $this->mmeId);
     $this->setExpectedException('PgProcException');
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
@@ -94,14 +100,20 @@ class mainviewTest extends PHPUnit_Framework_TestCase {
   public function testMainviewSet() {
     $title = 'a title';
     $icon = 'an icon';
+    $type = 'sample1';
     $title2 = 'a second title';
     $icon2 = 'an second icon';
-    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, null);
+    $type2 = 'sample2';
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title, $icon, $type, null);
     $mvi = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => null, 'pme_id_associated' => null));
-    self::$base->portal->mainview_set($this->token, $this->mmeId, $title2, $icon2, null);
+    $this->assertEquals($mvi, array('mme_id' => $this->mmeId, 'mvi_title' => $title, 'mvi_icon' => $icon, 'mvi_type' => $type, 'pme_id_associated' => null));
+    self::$base->portal->mainview_set($this->token, $this->mmeId, $title2, $icon2, $type2, null);
     $mvi2 = self::$base->portal->mainview_get($this->token, $this->mmeId);
-    $this->assertEquals($mvi2, array('mme_id' => $this->mmeId, 'mvi_title' => $title2, 'mvi_icon' => $icon2, 'mvi_type' => null, 'pme_id_associated' => null));
+    $this->assertEquals($mvi2, array('mme_id' => $this->mmeId, 'mvi_title' => $title2, 'mvi_icon' => $icon2, 'mvi_type' => $type2, 'pme_id_associated' => null));
   }
   
+  public function testMainviewTypeList() {
+    $types = self::$base->portal->mainview_type_list();
+    $this->assertInternalType('array', $types);
+  }
 }

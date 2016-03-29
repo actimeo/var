@@ -93,7 +93,7 @@ CREATE TABLE personview (
   pme_id integer PRIMARY KEY REFERENCES portal.personmenu,
   pvi_title text NOT NULL,
   pvi_icon text NOT NULL,
-  pvi_type portal.personview_type
+  pvi_type portal.personview_type NOT NULL
 );
 COMMENT ON TABLE personview IS 'Common information about a page displayed by an entity menu';
 COMMENT ON COLUMN personview.pme_id IS 'Person menu to which the page is attached. At most one page can be attached to a menu';
@@ -108,7 +108,7 @@ CREATE TABLE mainview (
   mme_id integer PRIMARY KEY REFERENCES portal.mainmenu,
   mvi_title text NOT NULL,
   mvi_icon text NOT NULL,
-  mvi_type portal.mainview_type,
+  mvi_type portal.mainview_type NOT NULL,
   pme_id_associated integer REFERENCES portal.personview(pme_id)
 );
 COMMENT ON TABLE mainview IS 'Common information about a page displayed by a main menu.';
