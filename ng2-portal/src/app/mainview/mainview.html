@@ -1,9 +1,9 @@
 <div [hidden]="!myMme">
-  <form [hidden]="!editing" (submit)="save()" #mainviewForm="ngForm" style="margin: 0">
+  <form class="mainview" [hidden]="!editing" (submit)="save()" #mainviewForm="ngForm" style="margin: 0">
     <div class="wrapper">
       <section>
         <div class="form-group">
-          <input type="text" placeholder="{{i18n.t('portal.placeholder.view_title')}}" class="form-control" [(ngModel)]="title" ngControl
+          <input type="text" placeholder="{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle" [(ngModel)]="title" ngControl
           required>
         </div>
         <div class="form-group">
@@ -30,8 +30,8 @@
         <p [hidden]="mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
       </section>
       <nav>
-        <button type="button" class="btn btn-default" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
-        <button type="button" class="btn btn-primary" (click)="setEditable(true)">{{i18n.t('common.btn.edit')}}</button>
+        <button type="button" class="btn btn-default mainviewdelete" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
+        <button type="button" class="btn btn-primary mainviewedit" (click)="setEditable(true)">{{i18n.t('common.btn.edit')}}</button>
       </nav>
     </div>
   </div>

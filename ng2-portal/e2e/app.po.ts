@@ -178,9 +178,22 @@ export class Ng2PortalPage {
   }
 
   // person section/menu
+  getMainWindowTab() {
+    return element.all(by.css('portal-main tabset li:nth-of-type(1)'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
 
   getFirstEntityTab() {
-    return element(by.css('portal-main tabset li:nth-of-type(2)'));
+    return element.all(by.css('portal-main tabset li:nth-of-type(2)'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  getFirstSection() {
+    return element.all(by.css('accordion accordion-group'))
+      .filter(e => e.isDisplayed())
+      .first();
   }
 
   getAddPersonSection() {
@@ -320,6 +333,33 @@ export class Ng2PortalPage {
   }
   getVisiblePersonmenuDelete() {
     return element.all(by.css('portal-entity button.personmenudelete'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+
+  // Main view
+  getMainviewTitle() {
+    return element.all(by.css('mainview input.mainviewtitle'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getMainviewH1() {
+    return element.all(by.css('mainview h1'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getMainviewForm() {
+    return element.all(by.css('mainview form.mainview'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getMainviewEdit() {
+    return element.all(by.css('mainview button.mainviewedit'))
+      .filter(e => e.isDisplayed())
+      .first();
+  }
+  getMainviewDelete() {
+    return element.all(by.css('mainview button.mainviewdelete'))
       .filter(e => e.isDisplayed())
       .first();
   }

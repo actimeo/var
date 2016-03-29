@@ -150,29 +150,6 @@ describe('ng2-portal App', function() {
     expect(page.getVisibleMainmenuTitle().getText()).toEqual('m2');
   });
 
-  it('should delete first mainmenu', () => {
-    page.getVisibleMainmenuView().click();
-    page.getVisibleMainmenuDelete().click();
-    browser.driver.sleep(100);
-    browser.driver.wait(page.getMainmenusCountIs(1), 30000);
-    expect(page.getMainmenusCount()).toEqual(1);
-  });
-
-  it('should delete first mainmenu again', () => {
-    page.getVisibleMainmenuView().click();
-    page.getVisibleMainmenuDelete().click();
-    browser.driver.sleep(100);
-    browser.driver.wait(page.getMainmenusCountIs(0), 30000);
-    expect(page.getMainmenusCount()).toEqual(0);
-  });
-
-  it('should delete first section again', () => {
-    page.getVisibleMainSection().click();
-    page.getVisibleDeleteMainsection().click();
-    browser.driver.sleep(100);
-    browser.driver.wait(page.getMainsectionsCountIs(0), 30000);
-    expect(page.getMainsectionsCount()).toEqual(0);
-  });
 
   it('should rename portal 1p to 1po', () => {
     page.getSelectPortalButton().click();
@@ -281,7 +258,59 @@ describe('ng2-portal App', function() {
     expect(page.getVisiblePersonmenuTitle().getText()).toEqual('m2');
   });
 
+  it('should set view title for first main menu of main section', () => {
+    page.getMainWindowTab().click();
+    page.getFirstSection().click();
+    page.getVisibleMainmenuTitle().click();
+    page.getMainviewTitle().sendKeys('ttl');
+    page.getMainviewForm().submit();
+    expect(page.getMainviewH1().getText()).toEqual('ttl');
+  });
+
+  it('should rename title do t2', () => {
+    page.getMainviewEdit().click();
+    page.getMainviewTitle().clear();
+    page.getMainviewTitle().sendKeys('t2');
+    page.getMainviewForm().submit();
+    expect(page.getMainviewH1().getText()).toEqual('t2');
+  });
+
+  it('should delete mainview', () => {
+    page.getMainviewDelete().click();
+  });
+
+  it('should delete first mainmenu', () => {
+    page.getMainWindowTab().click();
+
+    page.getVisibleMainmenuView().click();
+    page.getVisibleMainmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(1), 30000);
+    expect(page.getMainmenusCount()).toEqual(1);
+  });
+
+  it('should delete first mainmenu again', () => {
+    page.getVisibleMainmenuView().click();
+    page.getVisibleMainmenuDelete().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainmenusCountIs(0), 30000);
+    expect(page.getMainmenusCount()).toEqual(0);
+  });
+
+  it('should delete first section again', () => {
+    page.getVisibleMainSection().click();
+    page.getVisibleDeleteMainsection().click();
+    browser.driver.sleep(100);
+    browser.driver.wait(page.getMainsectionsCountIs(0), 30000);
+    expect(page.getMainsectionsCount()).toEqual(0);
+  });
+
   it('should delete first Personmenu', () => {
+    page.getFirstEntityTab().click();
+    browser.driver.sleep(100);
+    page.getFirstSection().click();
+    browser.driver.sleep(100);
+
     page.getVisiblePersonmenuView().click();
     page.getVisiblePersonmenuDelete().click();
     browser.driver.sleep(100);
@@ -304,8 +333,6 @@ describe('ng2-portal App', function() {
     browser.driver.wait(page.getPersonsectionsCountIs(0), 30000);
     expect(page.getPersonsectionsCount()).toEqual(0);
   });
-
-  // end
 
   it('should delete portal 1p', () => {
     page.getSelectPortalButton().click();
