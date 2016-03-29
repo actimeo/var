@@ -63,7 +63,7 @@ COMMENT ON COLUMN personview_details_list.pse_name IS 'Name of the section conta
 COMMENT ON COLUMN personview_details_list.pme_name IS 'Name of the menu containing view';
 COMMENT ON COLUMN personview_details_list.pvi_title IS 'View title';
 
-CREATE FUNCTION personview_details_list(prm_token integer, prm_entity portal.entity)
+CREATE FUNCTION personview_details_list(prm_token integer, prm_entity portal.entity, prm_por_id integer)
 RETURNS SETOF portal.personview_details_list
 LANGUAGE plpgsql
 STABLE
@@ -80,7 +80,8 @@ BEGIN
       INNER JOIN portal.personmenu USING(pme_id)
       INNER JOIN portal.personsection USING(pse_id)
     WHERE (prm_entity ISNULL OR pse_entity = prm_entity)
+      AND personsection.por_id = prm_por_id
     ORDER BY pse_entity, pse_order, pme_order;
 END;
 $$;
-COMMENT ON FUNCTION personview_details_list(prm_token integer, prm_entity portal.entity) IS 'Return the detailled list of person views. It is possible to filter by entities specifying a non-null value for prm_entity';
+COMMENT ON FUNCTION personview_details_list(prm_token integer, prm_entity portal.entity, prm_por_id integer) IS 'Return the detailled list of person views for a given portal. It is possible to filter by entities specifying a non-null value for prm_entity';
