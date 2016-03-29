@@ -25,6 +25,7 @@ export class Mainview {
   private pmeAssociated: number;
 
   @Input('entity') entity: string;
+  @Input('porId') porId: string;
 
   constructor(
     private pgService: PgService, private selectedMenus: SelectedMenus, private i18n: I18nService,
@@ -112,7 +113,9 @@ export class Mainview {
   }
 
   loadPatientViews() {
-    this.pgService.pgcall('portal', 'personview_details_list', { prm_entity: 'patient' })
+    this.pgService.pgcall('portal', 'personview_details_list', {
+      prm_entity: 'patient', prm_por_id: this.porId
+    })
       .then((data: any) => {
         this.patientViews = (new Groupby).transform(data, 'pse_name');
         console.log(this.patientViews);
