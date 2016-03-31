@@ -23,8 +23,10 @@ export class Mainview {
   private title: string;
   private patientViews: any;
   private pmeAssociated: number;
-  private mviType: number;
-  private mainviewTypes: any;
+  private mveType: string; // selected type
+  private mveId: any; // selected view 
+  private mainviewTypes: any; // list of types
+  private mainviewsInType: any; // list of views in the selected type
 
   @Input('entity') entity: string;
   @Input('porId') porId: string;
@@ -45,14 +47,14 @@ export class Mainview {
         }
       }
     });
-    this.pgService.pgcache('portal', 'mainview_type_list')
-    .then(data => { this.mainviewTypes = data; })
-        .catch(err => {});
+    this.pgService.pgcache('portal', 'mainview_element_type_list')
+      .then(data => { this.mainviewTypes = data; })
+      .catch(err => { });
   }
 
   reloadMainview() {
     this.pgService
-      .pgcall('portal', 'mainview_get', { prm_entity: this.entity, prm_mme_id: this.myMme })
+      .pgcall('portal', 'mainview_get_details', { prm_entity: this.entity, prm_mme_id: this.myMme })
       .then(data => {
         this.mainview = data;
         this.loadAssociatedPersonview();
@@ -88,7 +90,7 @@ export class Mainview {
         prm_mme_id: this.myMme,
         prm_title: this.title,
         prm_icon: 'todo',
-        prm_type: this.mviType,
+        prm_mve_id: this.mveId,
         prm_pme_id_associated: this.pmeAssociated != 0 ? this.pmeAssociated : null
       })
       .then(data => {
@@ -112,11 +114,13 @@ export class Mainview {
 
   prepareEdition() {
     this.title = this.mainview ? this.mainview.mvi_title : '';
-    this.mviType = this.mainview ? this.mainview.mvi_type : '';
+    this.mveType = this.mainview ? this.mainview.mve_type : '';
+    this.mveId = this.mainview ? this.mainview.mve_id : '';
     this.pmeAssociated = this.mainview ?
       (this.mainview.pme_id_associated ? this.mainview.pme_id_associated : 0) : 0;
     this.editing = true;
     this.loadPatientViews();
+    this.loadElements(this.mveId);
   }
 
   loadPatientViews() {
@@ -125,8 +129,32 @@ export class Mainview {
     })
       .then((data: any) => {
         this.patientViews = (new Groupby).transform(data, 'pse_name');
-        console.log(this.patientViews);
       })
       .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_loading_mainview')); });
+  }
+
+  onTypeChange(newValue: string) {
+    this.mveType = newValue;
+    console.log('type changed to: ' + this.mveType);
+    this.loadElements('');
+  }
+
+  loadElements(newMveId) {
+    if (this.mveType) {
+      this.pgService.pgcall('portal', 'mainview_element_list', {
+        prm_type: this.mveType
+      })
+        .then((data: any) => {
+          console.log(data);
+          this.mainviewsInType = data;
+          this.mveId = newMveId;
+        })
+        .catch(err => {
+          this.alerts.danger(this.i18n.t('portal.alerts.error_loading_mainview_elements'));
+        });
+    } else {
+      this.mainviewsInType = [];
+      this.mveId = '';
+    }
   }
 }

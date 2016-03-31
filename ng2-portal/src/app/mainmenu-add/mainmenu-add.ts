@@ -49,7 +49,6 @@ export class MainmenuAdd {
         .then((newMmeId: number) => {
           this.onadded.emit(null);
           this.alerts.success(this.i18n.t('portal.alerts.mainmenu_added'));
-          console.log(newMmeId);
           this.selectedMenus.setMainmenu(newMmeId);
         })
         .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_adding_mainmenu')); });

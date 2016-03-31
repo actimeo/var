@@ -98,7 +98,10 @@ en_translations = {
       "_no_associated_patient_view_": "(no associated patient view)",
       "no_associated_patient_view": "No associated patient view",
       "main_view_type": "Main view type",
-      "_select_a_type_": "(select a type)"
+      "_select_a_type_": "(select a type)",
+      "main_view_in_type": "Main view of this type",
+      "_select_a_view_": "(select a view)",
+      "main_view_element": "Main view element"
     },
     "mainview_types": {
       "sample1": "Sample 1",

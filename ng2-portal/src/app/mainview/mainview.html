@@ -3,16 +3,31 @@
     <div class="wrapper">
       <section>
         <div class="form-group">
-          <input type="text" placeholder="{{i18n.t('common.required')}}{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle" [(ngModel)]="title" ngControl="c1"
-          required>
+          <input type="text" placeholder="{{i18n.t('common.required')}}{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle"
+          [(ngModel)]="title" ngControl="c1" required>
         </div>
-        <div class="form-group">
-          <label for="mviType">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_type')}}</label>
-          <select class="form-control" [(ngModel)]="mviType" ngControl="c2" required>
-            <option value="">{{i18n.t('portal.mainview._select_a_type_')}}</option>
-            <option *ngFor="#pvtype of mainviewTypes" [value]="pvtype">{{i18n.t('portal.mainview_types.'+pvtype)}}</option>
-          </select>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="mveType">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_type')}}</label>
+              <select class="form-control" (ngModelChange)="onTypeChange($event)" [ngModel]="mveType" ngControl="c2" required>
+                <option value="">{{i18n.t('portal.mainview._select_a_type_')}}</option>
+                <option *ngFor="#pvtype of mainviewTypes" [value]="pvtype">{{i18n.t('portal.mainview_types.'+pvtype)}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="mveId">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_in_type')}}</label>
+              <select class="form-control" [(ngModel)]="mveId" ngControl="c3" required>
+                <option value="">{{i18n.t('portal.mainview._select_a_view_')}}</option>
+                <option *ngFor="#viewInType of mainviewsInType" [value]="viewInType.mve_id">{{viewInType.mve_name}}</option>
+              </select>
+            </div>
+          </div>
         </div>
+      
         <div class="form-group">
           <label for="pmeAssociated">{{i18n.t('portal.mainview.associated_patient_view')}}</label>
           <select class="form-control" [(ngModel)]="pmeAssociated">
@@ -33,9 +48,11 @@
     <div class="wrapper">
       <section>
         <h1>{{mainview?.mvi_title}}</h1>
+        {{i18n.t('portal.mainview.main_view_element')}}{{i18n.t('common.doubledot')}} {{mainview?.mve_name}} ({{i18n.t('portal.mainview_types.'+mainview?.mve_type)}})
+
         <p [hidden]="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
         <p [hidden]="mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
-        {{i18n.t('portal.mainview.main_view_type')}}{{i18n.t('common.doubledot')}}{{i18n.t('portal.mainview_types.'+mainview?.mvi_type)}}
+
       </section>
       <nav>
         <button type="button" class="btn btn-default mainviewdelete" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>

@@ -98,7 +98,10 @@ fr_translations = {
       "_no_associated_patient_view_": "(pas de vue usager associée)",
       "no_associated_patient_view": "Pas de vue usager associée",
       "main_view_type": "Type de vue principale",
-      "_select_a_type_": "(sélectionner un type)"
+      "_select_a_type_": "(sélectionner un type)",
+      "main_view_in_type": "Vue principale",
+      "_select_a_view_": "(sélectionner une vue)",
+      "main_view_element": "Vue principale"
     },
     "mainview_types": {
       "sample1": "Exemple 1",

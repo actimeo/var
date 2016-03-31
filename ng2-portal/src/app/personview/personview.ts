@@ -38,7 +38,7 @@ export class Personview {
         }
       }
     });
-    this.pgService.pgcache('portal', 'personview_type_list')
+    this.pgService.pgcache('portal', 'personview_element_type_list')
       .then(data => { this.personviewTypes = data; })
       .catch(err => { });
   }

@@ -25,7 +25,6 @@ export class PgService {
   pgcache(schema: string, method: string) {
     var cacheKey = schema + '.' + method;
     if (cacheKey in this.cached) {
-      console.log(cacheKey + ' cached');
       return new Promise((resolve, reject) => {
         resolve(this.cached[cacheKey]);
       });
