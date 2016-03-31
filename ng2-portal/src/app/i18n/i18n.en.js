@@ -125,6 +125,7 @@ en_translations = {
     "delete_current_portal": "Delete current portal",
     "copy_current_portal": "Copy current portal",
     "portal_name": "portal name",
+    "portal_parameters": "Portal parameters",
     "main_window": "Main window",
     "section_name": "section name",
     "add_new_section": "Add new section",

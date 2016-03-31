@@ -126,6 +126,7 @@ fr_translations = {
     "delete_current_portal": "Supprimer portail en cours",
     "copy_current_portal": "Copier portail en cours",
     "portal_name": "nom du portail",
+    "portal_parameters": "Paramètres du portail",
     "main_window": "Fenêtre principale",
     "section_name": "Nom de la section",
     "add_new_section": "Nouvelle section",

@@ -1,8 +1,12 @@
 <tabset [hidden]="porId == null">
+    <tab heading="{{i18n.t('portal.portal_parameters')}}">
+        <portal-config [porId]="porId"></portal-config>
+    </tab>
+
     <tab heading="{{i18n.t('portal.main_window')}}">
         <portal-mainwin [porId]="porId"></portal-mainwin>
     </tab>
     <tab *ngFor="#entityCode of entities" heading="{{i18n.t('entity.'+entityCode)}}">
         <portal-entity [porId]="porId" [entity]="entityCode"></portal-entity>
-    </tab>
+    </tab>    
 </tabset>
