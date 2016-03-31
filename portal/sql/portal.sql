@@ -18,6 +18,7 @@ CREATE TYPE portal.entity AS ENUM (
   'contact',
   'family'
 );
+COMMENT ON TYPE portal.entity IS 'The different types of persons';
 
 CREATE TABLE portal (
   por_id serial PRIMARY KEY,
@@ -88,6 +89,7 @@ COMMENT ON COLUMN personmenu.pme_order IS 'Menu order in the section';
 /* person views */
 /* ************ */
 CREATE TYPE portal.personview_element_type AS ENUM ();
+COMMENT ON TYPE portal.personview_element_type IS 'Different types of person views. Modules can add values to this type';
 
 CREATE TABLE personview_element (
   pve_id serial PRIMARY KEY,
@@ -117,6 +119,7 @@ COMMENT ON COLUMN personview.pve_id IS 'Person view element attached to this vie
 /* main views */
 /* ********** */
 CREATE TYPE portal.mainview_element_type AS ENUM ();
+COMMENT ON TYPE portal.mainview_element_type IS 'Different types of main views. Modules can add values to this type';
 
 CREATE TABLE mainview_element (
   mve_id serial PRIMARY KEY,
@@ -142,3 +145,28 @@ COMMENT ON COLUMN mainview.mvi_title IS 'Page title';
 COMMENT ON COLUMN mainview.mvi_icon IS 'Icon associated with the page';
 COMMENT ON COLUMN mainview.mve_id IS 'Main view element attached to this view';
 COMMENT ON COLUMN mainview.pme_id_associated IS 'Person view associated with this main view';
+
+-- portal parameters
+CREATE TYPE portal.param_type AS ENUM (
+  'topic', 
+  'bool'
+);
+COMMENT ON TYPE portal.param_type IS 'The different types of portal parameters. Modules *cannot* add values to this type';
+
+CREATE TYPE portal.param AS ENUM (
+  'topic.topic',
+  'add-patient.bool',
+  'add-staff.bool',
+  'add-contact.bool',
+  'add-family.bool',
+  'delete-notes.bool'  
+);
+COMMENT ON TYPE portal.param IS 'The portal parameters. The name is composed of two elements, separated by a dot (.): the name and the type (from portal.param_type). Modules can add values to this type';
+
+CREATE TABLE portal.param_value (
+  por_id integer NOT NULL REFERENCES portal.portal,
+  pva_param portal.param NOT NULL,
+  pva_value_bool boolean,
+  pva_value_topic integer, -- todo portal.topic
+  CONSTRAINT pva_por_param_unique UNIQUE(por_id, pva_param)
+);

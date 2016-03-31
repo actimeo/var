@@ -298,7 +298,10 @@ class PgSchema {
     case 'user_right':
     case 'entity':
     case 'personview_element_type':
-    case 'mainview_element_type': // user-defined enum types
+    case 'mainview_element_type':
+    case 'param':
+    case 'param_type':
+      // user-defined enum types
       return $value;
       
     default: 
