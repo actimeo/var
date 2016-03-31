@@ -57,6 +57,7 @@ describe('ng2-portal App', function() {
   });
 
   it('should add section s1', () => {
+    page.getMainWindowTab().click();
     page.getAddMainSection().click();
     page.getMainsectionInput().sendKeys('s1');
     page.getMainsectionForm().submit();
@@ -257,7 +258,7 @@ describe('ng2-portal App', function() {
     browser.driver.sleep(500);
     expect(page.getVisiblePersonmenuTitle().getText()).toEqual('m2');
   });
-
+/*
   it('should set view title for first main menu of main section', () => {
     page.getMainWindowTab().click();
     page.getFirstSection().click();
@@ -278,7 +279,7 @@ describe('ng2-portal App', function() {
   it('should delete mainview', () => {
     page.getMainviewDelete().click();
   });
-
+*/
   it('should delete first mainmenu', () => {
     page.getMainWindowTab().click();
 
