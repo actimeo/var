@@ -22,6 +22,33 @@ fr_translations = {
     "logged_in_as": "Connecté avec"
   },
   "portal": {
+    "config": {
+      "add-patient": {
+        "name": "Ajouter des usagers",
+        "true": "Les utilisateurs de ce portail peuvent ajouter des usagers",
+        "false": "Les utilisateurs de ce portail ne peuvent pas ajouter d'usagers",
+      },
+      "add-staff": {
+        "name": "Ajouter des membres du personnel",
+        "true": "Les utilisateurs de ce portail peuvent ajouter des membres du personnel",
+        "false": "Les utilisateurs de ce portail ne peuvent pas ajouter de membres du personnel",
+      },
+      "add-contact": {
+        "name": "Ajouter des contacts",
+        "true": "Les utilisateurs de ce portail peuvent ajouter des contacts",
+        "false": "Les utilisateurs de ce portail ne peuvent pas ajouter de contacts",
+      },
+      "add-family": {
+        "name": "Ajouter des membres de famille d'usagers",
+        "true": "Les utilisateurs de ce portail peuvent ajouter des membres de famille d'usagers",
+        "false": "Les utilisateurs de ce portail ne peuvent pas ajouter de membres de famille d'usagers",
+      },
+      "delete-notes": {
+        "name": "Supprimer des notes",
+        "true": "Les utilisateurs de ce portail peuvent supprimer des notes",
+        "false": "Les utilisateurs de ce portail ne peuvent pas supprimer de notes",
+      },
+    },
     "alerts": {
       'portal_deleted': 'Portail supprimé',
       'error_deleting_portal': 'Impossible de supprimer le portail',
@@ -113,7 +140,6 @@ fr_translations = {
       "person_view_in_type": "Vue principale",
       "_select_a_view_": "(sélectionner une vue)",
       "person_view_element": "Vue principale"
-
     },
     "personview_types": {
       "personsample1": "Exemple Personne 1",

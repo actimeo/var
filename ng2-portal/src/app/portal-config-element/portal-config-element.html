@@ -1,0 +1,18 @@
+<main>
+  <div [ngSwitch]="param.prm_type">
+    <template [ngSwitchWhen]="'bool'">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [ngModel]="boolValue" (ngModelChange)="boolValueChange($event)">{{i18n.t("portal.config."+param.prm_name+".name")}}
+        </label>
+      </div>
+      <span *ngIf="boolValue != null" class="help-block">{{i18n.t("portal.config." + param.prm_name + (boolValue ? ".true" : ".false"))}}</span>
+    </template>
+
+    <template [ngSwitchWhen]="'topic'">
+      Topic: {{param.prm_val}}, {{param.prm_name}}
+    </template>
+
+    <template ngSwitchDefault>bug: unknown type "{{param.prm_type}}"</template>
+  </div>
+</main>

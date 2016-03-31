@@ -22,6 +22,33 @@ en_translations = {
     "logged_in_as": "Logged in as"
   },
   "portal": {
+    "config": {
+      "add-patient": {
+        "name": "Add patients",
+        "true": "Users of this portal can add patients",
+        "false": "Users of this portal cannot add patients",
+      },
+      "add-staff": {
+        "name": "Add staff members",
+        "true": "Users of this portal can add staff members",
+        "false": "Users of this portal cannot add staff members",
+      },
+      "add-contact": {
+        "name": "Add contacts",
+        "true": "Users of this portal can add contacts",
+        "false": "Users of this portal cannot add contacts",
+      },
+      "add-family": {
+        "name": "Add family members",
+        "true": "Users of this portal can add family members",
+        "false": "Users of this portal cannot add family members",
+      },
+      "delete-notes": {
+        "name": "Delete notes",
+        "true": "Users of this portal can delete notes",
+        "false": "Users of this portal cannot delete notes",
+      },
+    },
     "alerts": {
       'portal_deleted': 'Portal deleted',
       'error_deleting_portal': 'Error deleting portal',
