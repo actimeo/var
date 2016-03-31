@@ -59,6 +59,39 @@ END;
 $$;
 COMMENT ON FUNCTION mainview_get(prm_token integer, prm_mme_id integer) IS 'Get information about a view attached to a main menu';
 
+DROP FUNCTION IF EXISTS mainview_get_details(prm_token integer, prm_mme_id integer);
+DROP TYPE IF EXISTS portal.mainview_get_details;
+CREATE TYPE portal.mainview_get_details AS (
+  mme_id integer,
+  mvi_title text,
+  mvi_icon text,
+  mve_id integer,
+  pme_id_associated integer,
+  mve_type portal.mainview_element_type,
+  mve_name text
+);
+
+CREATE FUNCTION mainview_get_details(prm_token integer, prm_mme_id integer)
+RETURNS portal.mainview_get_details
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  ret portal.mainview_get_details;
+BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
+  SELECT mme_id, mvi_title, mvi_icon, mve_id, pme_id_associated, mve_type, mve_name INTO ret 
+    FROM portal.mainview 
+    INNER JOIN portal.mainview_element USING(mve_id)
+    WHERE mme_id = prm_mme_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+  RETURN ret;
+END;
+$$;
+COMMENT ON FUNCTION mainview_get_details(prm_token integer, prm_mme_id integer) IS 'Get detailled information about a view attached to a main menu, containing main view element information';
+
 CREATE OR REPLACE FUNCTION mainview_element_type_list()
 RETURNS SETOF portal.mainview_element_type
 LANGUAGE plpgsql
