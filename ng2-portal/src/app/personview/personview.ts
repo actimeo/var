@@ -11,15 +11,17 @@ import {SelectedMenus} from '../services/selected-menus/selected-menus';
   styleUrls: ['app///personview/personview.css'],
   providers: [],
   directives: [],
-  pipes: []
 })
 export class Personview {
   private myPme: number;
   private personview: any;
   private editing: boolean;
   private title: string;
-  private pviType: number;
-  private personviewTypes: any;
+  private pveType: string; // selected type
+  private pveId: any; // selected view 
+  private personviewTypes: any; // list of types
+  private personviewsInType: any; // list of views in the selected type
+
   @Input('entity') entity: string;
 
   constructor(
@@ -45,7 +47,9 @@ export class Personview {
 
   reloadPersonview() {
     this.pgService
-      .pgcall('portal', 'personview_get', { prm_entity: this.entity, prm_pme_id: this.myPme })
+      .pgcall('portal', 'personview_get_details', {
+        prm_entity: this.entity, prm_pme_id: this.myPme
+      })
       .then(data => {
         this.personview = data;
         this.editing = false;
@@ -65,20 +69,18 @@ export class Personview {
 
   save() {
     this.pgService
-      .pgcall(
-      'portal', 'personview_set', {
+      .pgcall('portal', 'personview_set', {
         prm_pme_id: this.myPme,
         prm_title: this.title,
         prm_icon: 'todo',
-        prm_type: this.pviType
+        prm_pve_id: this.pveId
       })
       .then(data => {
         this.alerts.success(this.i18n.t('portal.alerts.personview_saved'));
         this.editing = false;
         this.reloadPersonview();
       })
-      .catch(
-      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_saving_personview')); });
+      .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_saving_personview')); });
   }
 
   delete() {
@@ -86,15 +88,42 @@ export class Personview {
       .then(data => {
         this.alerts.success(this.i18n.t('portal.alerts.personview_deleted'));
         this.personview = null;
-         this.prepareEdition();
+        this.prepareEdition();
       })
       .catch(
       err => { this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_personview')); });
   }
 
   prepareEdition() {
-    this.title = this.personview ? this.personview.pvi_title : '';
-    this.pviType = this.personview ? this.personview.pvi_type : '';
+    this.title = this.personview ? this.personview.mvi_title : '';
+    this.pveType = this.personview ? this.personview.mve_type : '';
+    this.pveId = this.personview ? this.personview.mve_id : '';
     this.editing = true;
+    this.loadElements(this.pveId);
+  }
+
+  onTypeChange(newValue: string) {
+    this.pveType = newValue;
+    this.loadElements('');
+  }
+
+  loadElements(newPveId) {
+    if (this.pveType) {
+      this.pgService.pgcall('portal', 'personview_element_list', {
+        prm_type: this.pveType,
+        prm_entity: this.entity
+      })
+        .then((data: any) => {
+          console.log(data);
+          this.personviewsInType = data;
+          this.pveId = newPveId;
+        })
+        .catch(err => {
+          this.alerts.danger(this.i18n.t('portal.alerts.error_loading_personview_elements'));
+        });
+    } else {
+      this.personviewsInType = [];
+      this.pveId = '';
+    }
   }
 }

@@ -109,7 +109,11 @@ fr_translations = {
     },
     "personview": {
       "person_view_type": "Type de vue",
-      "_select_a_type_": "(sélectionner un type)"
+      "_select_a_type_": "(sélectionner un type)",
+      "person_view_in_type": "Vue principale",
+      "_select_a_view_": "(sélectionner une vue)",
+      "person_view_element": "Vue principale"
+
     },
     "personview_types": {
       "personsample1": "Exemple Personne 1",

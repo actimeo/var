@@ -109,7 +109,10 @@ en_translations = {
     },
     "personview": {
       "person_view_type": "Person view type",
-      "_select_a_type_": "(select a type)"
+      "_select_a_type_": "(select a type)",
+      "person_view_in_type": "Person view of this type",
+      "_select_a_view_": "(select a view)",
+      "person_view_element": "Person view element"
     },
     "personview_types": {
       "personsample1": "Person sample 1",
