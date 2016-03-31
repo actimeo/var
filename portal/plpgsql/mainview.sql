@@ -7,7 +7,7 @@ mainview_set(mme_id, title, icon, pme_associated): void
 
 SET search_path = portal;
 
-CREATE OR REPLACE FUNCTION mainview_set(prm_token integer, prm_mme_id integer, prm_title text, prm_icon text, prm_type portal.mainview_type, prm_pme_id_associated integer)
+CREATE OR REPLACE FUNCTION mainview_set(prm_token integer, prm_mme_id integer, prm_title text, prm_icon text, prm_mve_id integer, prm_pme_id_associated integer)
 RETURNS void
 LANGUAGE plpgsql
 AS $$
@@ -16,16 +16,16 @@ BEGIN
   UPDATE portal.mainview SET 
     mvi_title = prm_title, 
     mvi_icon = prm_icon,
-    mvi_type = prm_type,
+    mve_id = prm_mve_id,
     pme_id_associated = prm_pme_id_associated
     WHERE mme_id = prm_mme_id;
   IF NOT FOUND THEN
-    INSERT INTO portal.mainview (mme_id, mvi_title, mvi_icon, mvi_type, pme_id_associated) 
-      VALUES(prm_mme_id, prm_title, prm_icon, prm_type, prm_pme_id_associated);
+    INSERT INTO portal.mainview (mme_id, mvi_title, mvi_icon, mve_id, pme_id_associated) 
+      VALUES(prm_mme_id, prm_title, prm_icon, prm_mve_id, prm_pme_id_associated);
   END IF;
 END;
 $$;
-COMMENT ON FUNCTION mainview_set(prm_token integer, prm_mme_id integer, prm_title text, prm_icon text, prm_type portal.mainview_type, prm_pme_id_associated integer) IS 'Set or update information about a view attached to a specified main menu';
+COMMENT ON FUNCTION mainview_set(prm_token integer, prm_mme_id integer, prm_title text, prm_icon text, prm_mve_id integer, prm_pme_id_associated integer) IS 'Set or update information about a view attached to a specified main menu';
 
 CREATE OR REPLACE FUNCTION mainview_delete(prm_token integer, prm_mme_id integer)
 RETURNS void
@@ -59,13 +59,13 @@ END;
 $$;
 COMMENT ON FUNCTION mainview_get(prm_token integer, prm_mme_id integer) IS 'Get information about a view attached to a main menu';
 
-CREATE OR REPLACE FUNCTION mainview_type_list()
-RETURNS SETOF portal.mainview_type
+CREATE OR REPLACE FUNCTION mainview_element_type_list()
+RETURNS SETOF portal.mainview_element_type
 LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
-  RETURN QUERY SELECT unnest(enum_range(null::portal.mainview_type));
+  RETURN QUERY SELECT unnest(enum_range(null::portal.mainview_element_type));
 END;
 $$;
-COMMENT ON FUNCTION mainview_type_list() IS 'Return the list of main view types codes';
+COMMENT ON FUNCTION mainview_element_type_list() IS 'Return the list of types codes for main view elements';

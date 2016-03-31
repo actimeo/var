@@ -87,32 +87,58 @@ COMMENT ON COLUMN personmenu.pme_order IS 'Menu order in the section';
 
 /* person views */
 /* ************ */
-CREATE TYPE portal.personview_type AS ENUM ();
+CREATE TYPE portal.personview_element_type AS ENUM ();
+
+CREATE TABLE personview_element (
+  pve_id serial PRIMARY KEY,
+  pve_type portal.personview_element_type NOT NULL,
+  pve_name text NOT NULL,
+  pve_entities portal.entity[] NOT NULL 
+    CHECK (pve_entities <> '{}'),
+  CONSTRAINT pve_type_name_unique UNIQUE(pve_type, pve_name)
+);
+COMMENT ON TABLE portal.personview_element IS 'Elements that can be attached to a person view';
+COMMENT ON COLUMN personview_element.pve_id IS 'Unique identifier';
+COMMENT ON COLUMN personview_element.pve_type IS 'Type of person view element';
+COMMENT ON COLUMN personview_element.pve_name IS 'Name of person view element';
 
 CREATE TABLE personview (
   pme_id integer PRIMARY KEY REFERENCES portal.personmenu,
   pvi_title text NOT NULL,
   pvi_icon text NOT NULL,
-  pvi_type portal.personview_type NOT NULL
+  pve_id integer NOT NULL REFERENCES portal.personview_element
 );
 COMMENT ON TABLE personview IS 'Common information about a page displayed by an entity menu';
 COMMENT ON COLUMN personview.pme_id IS 'Person menu to which the page is attached. At most one page can be attached to a menu';
 COMMENT ON COLUMN personview.pvi_title IS 'Page title';
 COMMENT ON COLUMN personview.pvi_icon IS 'Icon associated with the page';
+COMMENT ON COLUMN personview.pve_id IS 'Person view element attached to this view';
 
 /* main views */
 /* ********** */
-CREATE TYPE portal.mainview_type AS ENUM ();
+CREATE TYPE portal.mainview_element_type AS ENUM ();
+
+CREATE TABLE mainview_element (
+  mve_id serial PRIMARY KEY,
+  mve_type portal.mainview_element_type NOT NULL,
+  mve_name text NOT NULL,
+  CONSTRAINT mve_type_name_unique UNIQUE(mve_type, mve_name)
+);
+COMMENT ON TABLE portal.mainview_element IS 'Elements that can be attached to a main view';
+COMMENT ON COLUMN mainview_element.mve_id IS 'Unique identifier';
+COMMENT ON COLUMN mainview_element.mve_type IS 'Type of main view element';
+COMMENT ON COLUMN mainview_element.mve_name IS 'Name of main view element';
 
 CREATE TABLE mainview (
   mme_id integer PRIMARY KEY REFERENCES portal.mainmenu,
   mvi_title text NOT NULL,
   mvi_icon text NOT NULL,
-  mvi_type portal.mainview_type NOT NULL,
+  mve_id integer NOT NULL REFERENCES portal.mainview_element,
   pme_id_associated integer REFERENCES portal.personview(pme_id)
 );
 COMMENT ON TABLE mainview IS 'Common information about a page displayed by a main menu.';
 COMMENT ON COLUMN mainview.mme_id IS 'Main menu to which the page is attached. At most one page can be attached to a menu';
 COMMENT ON COLUMN mainview.mvi_title IS 'Page title';
 COMMENT ON COLUMN mainview.mvi_icon IS 'Icon associated with the page';
+COMMENT ON COLUMN mainview.mve_id IS 'Main view element attached to this view';
 COMMENT ON COLUMN mainview.pme_id_associated IS 'Person view associated with this main view';

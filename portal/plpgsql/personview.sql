@@ -1,20 +1,20 @@
 SET search_path = portal;
 
-CREATE OR REPLACE FUNCTION personview_set(prm_token integer, prm_pme_id integer, prm_title text, prm_icon text, prm_type portal.personview_type)
+CREATE OR REPLACE FUNCTION personview_set(prm_token integer, prm_pme_id integer, prm_title text, prm_icon text, prm_pve_id integer)
 RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{structure}');
-  UPDATE portal.personview SET pvi_title = prm_title, pvi_icon = prm_icon, pvi_type = prm_type
+  UPDATE portal.personview SET pvi_title = prm_title, pvi_icon = prm_icon, pve_id = prm_pve_id
     WHERE pme_id = prm_pme_id;
   IF NOT FOUND THEN
-    INSERT INTO portal.personview (pme_id, pvi_title, pvi_icon, pvi_type) 
-      VALUES(prm_pme_id, prm_title, prm_icon, prm_type);
+    INSERT INTO portal.personview (pme_id, pvi_title, pvi_icon, pve_id) 
+      VALUES(prm_pme_id, prm_title, prm_icon, prm_pve_id);
   END IF;
 END;
 $$;
-COMMENT ON FUNCTION personview_set(prm_token integer, prm_pme_id integer, prm_title text, prm_icon text, prm_type portal.personview_type) IS 'Set or update information about a view attached to a specified person menu';
+COMMENT ON FUNCTION personview_set(prm_token integer, prm_pme_id integer, prm_title text, prm_icon text, prm_pve_id integer) IS 'Set or update information about a view attached to a specified person menu';
 
 CREATE OR REPLACE FUNCTION personview_delete(prm_token integer, prm_pme_id integer)
 RETURNS void
@@ -48,7 +48,7 @@ END;
 $$;
 COMMENT ON FUNCTION personview_get(prm_token integer, prm_pme_id integer) IS 'Get information about a view attached to a person menu';
 
-DROP FUNCTION IF EXISTS personview_details_list(prm_token integer, prm_entity portal.entity);
+DROP FUNCTION IF EXISTS personview_details_list(prm_token integer, prm_entity portal.entity, prm_por_id integer);
 DROP TYPE IF EXISTS personview_details_list;
 CREATE TYPE personview_details_list AS (
   pme_id integer,
@@ -87,13 +87,13 @@ END;
 $$;
 COMMENT ON FUNCTION personview_details_list(prm_token integer, prm_entity portal.entity, prm_por_id integer) IS 'Return the detailled list of person views for a given portal. It is possible to filter by entities specifying a non-null value for prm_entity';
 
-CREATE OR REPLACE FUNCTION personview_type_list()
-RETURNS SETOF portal.personview_type
+CREATE OR REPLACE FUNCTION personview_element_type_list()
+RETURNS SETOF portal.personview_element_type
 LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
-  RETURN QUERY SELECT unnest(enum_range(null::portal.personview_type));
+  RETURN QUERY SELECT unnest(enum_range(null::portal.personview_element_type));
 END;
 $$;
-COMMENT ON FUNCTION personview_type_list() IS 'Return the list of person view types codes';
+COMMENT ON FUNCTION personview_element_type_list() IS 'Return the list of types codes for person view elements';

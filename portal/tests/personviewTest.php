@@ -46,20 +46,30 @@ class personviewTest extends PHPUnit_Framework_TestCase {
 
     $pme_name = 'a person menu';
     $this->pmeId = self::$base->portal->personmenu_add($this->token, $pse_id, $pme_name);
+
+    $pve_type1 = 'personsample1';
+    $pve_name1 = 'person element 1';
+    $entities1 = array ('staff', 'contact');
+    $this->pve_id1 = self::$base->portal->personview_element_add($this->token, $pve_type1, $pve_name1, $entities1);
+
+    $pve_type2 = 'personsample2';
+    $pve_name2 = 'person element 2';
+    $entities2 = array ('patient');
+    $this->pve_id2 = self::$base->portal->personview_element_add($this->token, $pve_type2, $pve_name2, $entities2);
   }
 
   protected function assertPostConditions()
   {
     self::$base->rollback();
   }
-
+  
   public function testPersonviewAdd() {
     $title = 'a title';
     $icon = 'an icon';
-    $type = 'personsample1';
-    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $type);
+
+    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $this->pve_id1);
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_icon' => $icon, 'pvi_type' => $type));
+    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_icon' => $icon, 'pve_id' => $this->pve_id1));
   }
 
   public function testPersonviewDelete() {
@@ -67,7 +77,7 @@ class personviewTest extends PHPUnit_Framework_TestCase {
     $icon = 'an icon';
     $type = 'personsample1';
 
-    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $type);
+    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $this->pve_id1);
     self::$base->portal->personview_delete($this->token, $this->pmeId);
     $this->setExpectedException('PgProcException');
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
@@ -81,16 +91,16 @@ class personviewTest extends PHPUnit_Framework_TestCase {
     $title2 = 'a second title';
     $icon2 = 'an second icon';
     $type2 = 'personsample1';
-    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $type);
+    self::$base->portal->personview_set($this->token, $this->pmeId, $title, $icon, $this->pve_id1);
     $pvi = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pvi_type' => $type, 'pvi_icon' => $icon));
-    self::$base->portal->personview_set($this->token, $this->pmeId, $title2, $icon2, $type);
+    $this->assertEquals($pvi, array('pme_id' => $this->pmeId, 'pvi_title' => $title, 'pve_id' => $this->pve_id1, 'pvi_icon' => $icon));
+    self::$base->portal->personview_set($this->token, $this->pmeId, $title2, $icon2, $this->pve_id2);
     $pvi2 = self::$base->portal->personview_get($this->token, $this->pmeId);
-    $this->assertEquals($pvi2, array('pme_id' => $this->pmeId, 'pvi_title' => $title2, 'pvi_type' => $type2, 'pvi_icon' => $icon2));
+    $this->assertEquals($pvi2, array('pme_id' => $this->pmeId, 'pvi_title' => $title2, 'pve_id' => $this->pve_id2, 'pvi_icon' => $icon2));
   }
   
   public function testPersonviewTypeList() {
-    $types = self::$base->portal->personview_type_list();
+    $types = self::$base->portal->personview_element_type_list();
     $this->assertInternalType('array', $types);
   }
 }
