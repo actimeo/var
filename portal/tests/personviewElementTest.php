@@ -38,7 +38,10 @@ class personviewElementTest extends PHPUnit_Framework_TestCase {
     $res = self::$base->login->user_login($login, $pwd, null);
     $this->token = $res['usr_token'];
 
-
+    $pves = self::$base->portal->personview_element_list($this->token, null, null);
+    foreach ($pves as $pve) {
+      self::$base->portal->personview_element_delete($this->token, $pve['pve_id']);
+    }
   }
 
   protected function assertPostConditions()

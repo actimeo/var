@@ -47,25 +47,32 @@ class mainviewElementTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testMainviewElementAdd() {
-    $mve_name1 = 'element 1';
     $mve_type1 = 'sample1';
+    $mve_type2 = 'sample2';
+
+    $listAllBefore = self::$base->portal->mainview_element_list($this->token, null);
+    $list1Before = self::$base->portal->mainview_element_list($this->token, $mve_type1);
+    $list2Before = self::$base->portal->mainview_element_list($this->token, $mve_type2);
+    
+    $mve_name1 = 'element 1';
     self::$base->portal->mainview_element_add($this->token, $mve_type1, $mve_name1);
 
     $mve_name2 = 'element 2';
-    $mve_type2 = 'sample2';
     self::$base->portal->mainview_element_add($this->token, $mve_type2, $mve_name2);
 
     $listAll = self::$base->portal->mainview_element_list($this->token, null);
-    $this->assertEquals(count($listAll), 2);
+    $this->assertEquals(count($listAll), 2 + count($listAllBefore));
 
     $list1 = self::$base->portal->mainview_element_list($this->token, $mve_type1);
-    $this->assertEquals(count($list1), 1);
+    $this->assertEquals(count($list1), 1 + count($list1Before));
 
     $list2 = self::$base->portal->mainview_element_list($this->token, $mve_type2);
-    $this->assertEquals(count($list2), 1);
+    $this->assertEquals(count($list2), 1 + count($list2Before));
   }
 
   public function testMainviewElementDelete() {
+    $listAllBefore = self::$base->portal->mainview_element_list($this->token, null);
+
     $mve_name1 = 'element 1';
     $mve_type1 = 'sample1';
     $mve_id1 = self::$base->portal->mainview_element_add($this->token, $mve_type1, $mve_name1);
@@ -75,11 +82,11 @@ class mainviewElementTest extends PHPUnit_Framework_TestCase {
     $mve_id2 = self::$base->portal->mainview_element_add($this->token, $mve_type2, $mve_name2);
 
     $listAll = self::$base->portal->mainview_element_list($this->token, null);
-    $this->assertEquals(count($listAll), 2);
+    $this->assertEquals(count($listAll), 2 + count($listAllBefore));
 
     self::$base->portal->mainview_element_delete($this->token, $mve_id1);
     $listAll = self::$base->portal->mainview_element_list($this->token, null);
-    $this->assertEquals(count($listAll), 1);
+    $this->assertEquals(count($listAll), 1 + count($listAllBefore));
   }
 
   public function testMainviewElementRename() {
@@ -90,9 +97,16 @@ class mainviewElementTest extends PHPUnit_Framework_TestCase {
     $mve_name2 = 'element 2';
     self::$base->portal->mainview_element_rename($this->token, $mve_id1, $mve_name2);
 
-    $listAll = self::$base->portal->mainview_element_list($this->token, null);
-    $this->assertEquals(count($listAll), 1);
-    $this->assertEquals($listAll[0]['mve_name'], $mve_name2);
+    $mves = self::$base->portal->mainview_element_list($this->token, null);
+    $found = false;
+    foreach ($mves as $mve) {
+      if ($mve['mve_id'] == $mve_id1) {
+	$this->assertEquals($mve['mve_name'], $mve_name2);
+	$found = true;
+	break;
+      }
+    }
+    $this->assertTrue($found);
   }
 
 }

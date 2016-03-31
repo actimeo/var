@@ -48,6 +48,39 @@ END;
 $$;
 COMMENT ON FUNCTION personview_get(prm_token integer, prm_pme_id integer) IS 'Get information about a view attached to a person menu';
 
+DROP FUNCTION IF EXISTS personview_get_details(prm_token integer, prm_pme_id integer);
+DROP TYPE IF EXISTS portal.personview_get_details;
+CREATE TYPE portal.personview_get_details AS (
+  pme_id integer,
+  pvi_title text,
+  pvi_icon text,
+  pve_id integer,
+  pve_type portal.personview_element_type,
+  pve_name text,
+  pve_entities portal.entity[]
+);
+
+CREATE FUNCTION personview_get_details(prm_token integer, prm_pme_id integer)
+RETURNS portal.personview_get_details
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  ret portal.personview_get_details;
+BEGIN
+  PERFORM login._token_assert(prm_token, '{structure}');
+  SELECT pme_id, pvi_title, pvi_icon, pve_id, pve_type, pve_name, pve_entities INTO ret 
+    FROM portal.personview 
+    INNER JOIN portal.personview_element USING(pve_id)
+    WHERE pme_id = prm_pme_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+  RETURN ret;
+END;
+$$;
+COMMENT ON FUNCTION personview_get_details(prm_token integer, prm_pme_id integer) IS 'Get detailled information about a view attached to a person menu, containing person view element information';
+
 DROP FUNCTION IF EXISTS personview_details_list(prm_token integer, prm_entity portal.entity, prm_por_id integer);
 DROP TYPE IF EXISTS personview_details_list;
 CREATE TYPE personview_details_list AS (
