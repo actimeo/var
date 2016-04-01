@@ -1,6 +1,6 @@
 SET search_path = portal;
 
-ALTER TYPE portal.mainview_element_type ADD VALUE 'sample1';
+-- ALTER TYPE portal.mainview_element_type ADD VALUE 'sample1';
 
 -- test data
 INSERT INTO portal.mainview_element (mve_type, mve_name) VALUES 

@@ -1,6 +1,6 @@
 SET search_path = portal;
 
-ALTER TYPE portal.personview_element_type ADD VALUE 'personsample2';
+--ALTER TYPE portal.personview_element_type ADD VALUE 'personsample2';
 
 -- test data
 INSERT INTO portal.personview_element (pve_type, pve_name, pve_entities) VALUES 

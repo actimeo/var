@@ -124,7 +124,10 @@ COMMENT ON COLUMN personmenu.pme_order IS 'Menu order in the section';
 
 /* person views */
 /* ************ */
-CREATE TYPE portal.personview_element_type AS ENUM ();
+CREATE TYPE portal.personview_element_type AS ENUM (
+  'personsample1',
+  'personsample2'
+);
 COMMENT ON TYPE portal.personview_element_type IS 'Different types of person views. Modules can add values to this type';
 
 CREATE TABLE personview_element (
@@ -154,7 +157,10 @@ COMMENT ON COLUMN personview.pve_id IS 'Person view element attached to this vie
 
 /* main views */
 /* ********** */
-CREATE TYPE portal.mainview_element_type AS ENUM ();
+CREATE TYPE portal.mainview_element_type AS ENUM (
+  'sample1',
+  'sample2'
+);
 COMMENT ON TYPE portal.mainview_element_type IS 'Different types of main views. Modules can add values to this type';
 
 CREATE TABLE mainview_element (
