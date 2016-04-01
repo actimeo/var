@@ -138,6 +138,16 @@ class portalTest extends PHPUnit_Framework_TestCase {
     self::$base->portal->portal_delete($this->token, $id+1);
   }
 
+  /**
+   * Trying to delete a portal with null value as por_id raises an exception
+   * @expectedException PgProcException
+   */
+  public function testPortalDeleteNull() {
+    $name = 'a portal';
+    $id = self::$base->portal->portal_add($this->token, $name);
+    self::$base->portal->portal_delete($this->token, null);
+  }
+
   public function testPortalClean() {
     $por_name = 'a portal';
     $por_id = self::$base->portal->portal_add($this->token, $por_name);

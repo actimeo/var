@@ -51,6 +51,7 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{structure}');
+  PERFORM portal.param_value_delete_all(prm_token, prm_id);
   DELETE FROM portal.portal WHERE por_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';

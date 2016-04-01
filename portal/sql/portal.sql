@@ -20,6 +20,42 @@ CREATE TYPE portal.entity AS ENUM (
 );
 COMMENT ON TYPE portal.entity IS 'The different types of persons';
 
+CREATE TYPE portal.topics AS ENUM (
+  'social',
+  'education',
+  'health',
+  'pedagogy',
+  'justice',
+  'employment',
+  'lodging',
+  'sport',
+  'culture',
+  'transport',
+  'decisionmaker',
+  'financer',
+  'support',
+  'entertainment',
+  'juridic_protection',
+  'catering',
+  'housekeeping',
+  'personal_assistance',
+  'financial_assistance',
+  'equipment',
+  'family',
+  'project',
+  'visit',
+  'medical_care',
+  'dietetic',
+  'occupational_therapy',
+  'physiotherapy',
+  'kinesitherapy',
+  'speech_therapy',
+  'psychomotor',
+  'psychology',
+  'residence_right',
+  'formalities_assistance'
+);
+
 CREATE TABLE portal (
   por_id serial PRIMARY KEY,
   por_name text NOT NULL UNIQUE
@@ -167,6 +203,6 @@ CREATE TABLE portal.param_value (
   por_id integer NOT NULL REFERENCES portal.portal,
   pva_param portal.param NOT NULL,
   pva_value_bool boolean,
-  pva_value_topic integer, -- todo portal.topic
+  pva_value_topic portal.topics, 
   CONSTRAINT pva_por_param_unique UNIQUE(por_id, pva_param)
 );
