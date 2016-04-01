@@ -36,7 +36,7 @@ export class Mainsection {
   private moveFocused: boolean;
 
   constructor(
-      private pgService: PgService, private i18n: I18nService, private alerts: AlertsService) {
+    private pgService: PgService, private i18n: I18nService, private alerts: AlertsService) {
     this.viewedit = false;
     this.sectionnameFocused = false;
     this.viewmove = false;
@@ -46,9 +46,9 @@ export class Mainsection {
   ngOnInit() { this.reloadMenus(); }
 
   reloadMenus() {
-    this.pgService.pgcall('portal', 'mainmenu_list', {prm_mse_id: this.section.mse_id})
-        .then(data => { this.mainmenus = data; })
-        .catch(err => {});
+    this.pgService.pgcall('portal', 'mainmenu_list', { prm_mse_id: this.section.mse_id })
+      .then(data => { this.mainmenus = data; })
+      .catch(err => { });
   }
 
   onMenuAdded() { this.reloadMenus(); }
@@ -57,35 +57,37 @@ export class Mainsection {
 
   // Delete
   onDeleteSection() {
-    this.pgService.pgcall('portal', 'mainsection_delete', {prm_id: this.section.mse_id})
-        .then(data => {
-          this.ondelete.emit(null);
-          this.alerts.success(this.i18n.t('portal.alerts.mainsection_deleted'));
-        })
-        .catch(err => {
-          this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainsection'));
-        });
+    this.pgService.pgcall('portal', 'mainsection_delete', { prm_id: this.section.mse_id })
+      .then(data => {
+        this.ondelete.emit(null);
+        this.alerts.success(this.i18n.t('portal.alerts.mainsection_deleted'));
+      })
+      .catch(err => {
+        this.alerts.danger(this.i18n.t('portal.alerts.error_deleting_mainsection'));
+      });
   }
 
   // Rename
   onRenameSection() {
     this.newName = this.section.mse_name;
     this.viewedit = true;
-    this.sectionnameFocused = true;
-    setTimeout(() => { this.sectionnameFocused = false; });
+    setTimeout(() => {
+      this.sectionnameFocused = true;
+      setTimeout(() => { this.sectionnameFocused = false; });
+    });
   }
 
   doRename() {
     this.pgService
-        .pgcall(
-            'portal', 'mainsection_rename', {prm_id: this.section.mse_id, prm_name: this.newName})
-        .then(data => {
-          this.onchange.emit(null);
-          this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
-        })
-        .catch(err => {
-          this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainsection'));
-        });
+      .pgcall(
+      'portal', 'mainsection_rename', { prm_id: this.section.mse_id, prm_name: this.newName })
+      .then(data => {
+        this.onchange.emit(null);
+        this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
+      })
+      .catch(err => {
+        this.alerts.danger(this.i18n.t('portal.alerts.error_renaming_mainsection'));
+      });
   }
 
   onCancelRename() { this.viewedit = false; }
@@ -94,31 +96,31 @@ export class Mainsection {
   onMoveSection() {
     this.viewmove = true;
 
-    this.pgService.pgcall('portal', 'mainsection_list', {prm_por_id: this.section.por_id})
-        .then(data => {
-          this.movechoices = data;
-          this.moveFocused = true;
-          setTimeout(() => { this.moveFocused = false; });
-          if (this.movechoices.length == 1) {
-            this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
-            this.viewmove = false;
-          }
+    this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.section.por_id })
+      .then(data => {
+        this.movechoices = data;
+        this.moveFocused = true;
+        setTimeout(() => { this.moveFocused = false; });
+        if (this.movechoices.length == 1) {
+          this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
+          this.viewmove = false;
+        }
 
-        })
-        .catch(err => {});
+      })
+      .catch(err => { });
   }
 
   doMove() {
     this.pgService
-        .pgcall(
-            'portal', 'mainsection_move_before_position',
-            {prm_id: this.section.mse_id, prm_position: this.beforePos})
-        .then(data => {
-          this.onchange.emit(null);
-          this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));
-        })
-        .catch(
-            err => { this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainsection')); });
+      .pgcall(
+      'portal', 'mainsection_move_before_position',
+      { prm_id: this.section.mse_id, prm_position: this.beforePos })
+      .then(data => {
+        this.onchange.emit(null);
+        this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));
+      })
+      .catch(
+      err => { this.alerts.danger(this.i18n.t('portal.alerts.error_moving_mainsection')); });
   }
 
   onCancelMove() { this.viewmove = false; }

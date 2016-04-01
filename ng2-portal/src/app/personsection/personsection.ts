@@ -69,8 +69,10 @@ export class Personsection {
   onRenameSection() {
     this.new_name = this.section.pse_name;
     this.viewedit = true;
-    this.sectionname_focused = true;
-    setTimeout(() => { this.sectionname_focused = false; });
+    setTimeout(() => {
+      this.sectionname_focused = true;
+      setTimeout(() => { this.sectionname_focused = false; });
+    });
   }
 
   doRename() {

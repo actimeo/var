@@ -81,6 +81,7 @@ describe('ng2-portal App', function() {
 
   it('should rename first main section to s3', () => {
     page.getVisibleMainSection().click();
+    browser.driver.sleep(100);
     page.getVisibleRenameMainsection().click();
     page.getVisibleMainsectionInput().clear();
     page.getVisibleMainsectionInput().sendKeys('s3');
@@ -91,6 +92,7 @@ describe('ng2-portal App', function() {
 
   it('should move first main section after second', () => {
     page.getVisibleMainSection().click();
+    browser.driver.sleep(100);
     page.getVisibleMoveMainsection().click();
     page.findMoveMainsectionOption().sendKeys('À la fin');
     browser.driver.sleep(100);
@@ -101,6 +103,7 @@ describe('ng2-portal App', function() {
 
   it('should delete first section', () => {
     page.getVisibleMainSection().click();
+    browser.driver.sleep(100);
     page.getVisibleDeleteMainsection().click();
     browser.driver.sleep(100);
     browser.driver.wait(page.getMainsectionsCountIs(1), 30000);
@@ -109,6 +112,7 @@ describe('ng2-portal App', function() {
 
   it('should add first mainmenu m1', () => {
     page.getVisibleMainSection().click();
+    browser.driver.sleep(300);
     page.getAddMainmenu().click();
     page.getMainmenuInput().sendKeys('m1');
     page.getMainmenuForm().submit();
@@ -199,7 +203,9 @@ describe('ng2-portal App', function() {
 
   it('should move first Person section after second', () => {
     page.getVisiblePersonSection().click();
+    browser.driver.sleep(100);
     page.getVisibleMovePersonsection().click();
+    browser.driver.sleep(100);
     page.findMovePersonsectionOption().sendKeys('À la fin');
     browser.driver.sleep(100);
     page.getVisiblePersonsectionMoveForm().submit();
@@ -209,6 +215,7 @@ describe('ng2-portal App', function() {
 
   it('should delete first section', () => {
     page.getVisiblePersonSection().click();
+    browser.driver.sleep(100);
     page.getVisibleDeletePersonsection().click();
     browser.driver.sleep(100);
     browser.driver.wait(page.getPersonsectionsCountIs(1), 30000);
@@ -217,7 +224,9 @@ describe('ng2-portal App', function() {
 
   it('should add first Personmenu m1', () => {
     page.getVisiblePersonSection().click();
+    browser.driver.sleep(300);
     page.getAddPersonmenu().click();
+    browser.driver.sleep(100);
     page.getPersonmenuInput().sendKeys('m1');
     page.getPersonmenuForm().submit();
     browser.driver.sleep(100);
