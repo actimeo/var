@@ -23,6 +23,9 @@ en_translations = {
   },
   "portal": {
     "config": {
+      "topic": {
+        "name": "Portal topic",
+      },
       "add-patient": {
         "name": "Add patients",
         "true": "Users of this portal can add patients",
@@ -158,6 +161,7 @@ en_translations = {
     "add_new_section": "Add new section",
     "add_new_menu": "Add new menu",
     "menu_name": "menu name",
+    "_no_topic_": "(no particular topic)",
     'move': {
       "before_something": "Before {{what}}",
       "at_the_end": "At the end"
@@ -168,5 +172,40 @@ en_translations = {
     "staff": "Staff",
     "contact": "Contact",
     "family": "Family"
+  },
+  "topics": {
+    'social': "Social",
+    'education': "Education",
+    'health': "Health",
+    'pedagogy': "Pedagogy",
+    'justice': "Justice",
+    'employment': "Employment",
+    'lodging': "Lodging",
+    'sport': "Sport",
+    'culture': "Culture",
+    'transport': "Transport",
+    'decisionmaker': "Decision maker",
+    'financer': "Financer",
+    'support': "Support",
+    'entertainment': "Entertainment",
+    'juridic_protection': "Juridic protection",
+    'catering': "Catering",
+    'housekeeping': "Housekeeping",
+    'personal_assistance': "Personal assistance",
+    'financial_assistance': "Financial assistance",
+    'equipment': "Equipment",
+    'family': "Family",
+    'project': "Project",
+    'visit': "Visit",
+    'medical_care': "Medical care",
+    'dietetic': "Dietetic",
+    'occupational_therapy': "Occupational therapy",
+    'physiotherapy': "Physiotherapy",
+    'kinesitherapy': "Kinesitherapy",
+    'speech_therapy': "Speech therapy",
+    'psychomotor': "Psychomotor",
+    'psychology': "Psychology",
+    'residence_right': "Residence right",
+    'formalities_assistance': "Formalities assistance"
   }
 };

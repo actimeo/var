@@ -14,7 +14,10 @@ import {I18nService} from '../services/i18n/i18n';
 export class PortalConfigElement {
 
   private boolValue: boolean;
+  private topicValue: string;
+
   private myPorId: number;
+  private topics: any;
 
   @Input() param: any;
   @Input('porId')
@@ -26,6 +29,11 @@ export class PortalConfigElement {
   constructor(private pgService: PgService, private i18n: I18nService) { }
 
   ngOnInit() {
+    if (this.param.prm_type == 'topic') {
+      this.pgService.pgcache('portal', 'topics_list')
+        .then(data => this.topics = data)
+        .catch(err => { });
+    }
   }
 
   reloadValue() {
@@ -59,6 +67,23 @@ export class PortalConfigElement {
   }
 
   loadTopicValue() {
+    this.pgService.pgcall('portal', 'param_value_get_topic', {
+      prm_por_id: this.myPorId,
+      prm_param: this.param.prm_val
+    })
+      .then((data: string) => this.topicValue = data)
+      .catch(err => { });
+  }
 
+  topicValueChange(e: string) {
+    this.topicValue = e;
+    console.log('e: ' + e);
+    this.pgService.pgcall('portal', 'param_value_set_topic', {
+      prm_por_id: this.myPorId,
+      prm_param: this.param.prm_val,
+      prm_value: this.topicValue
+    })
+      .then(data => { })
+      .catch(err => { console.log('err'); });
   }
 }

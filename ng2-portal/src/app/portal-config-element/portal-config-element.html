@@ -10,7 +10,13 @@
     </template>
 
     <template [ngSwitchWhen]="'topic'">
-      Topic: {{param.prm_val}}, {{param.prm_name}}
+      <div class="form-group">
+        <label>{{i18n.t("portal.config."+param.prm_name+".name")}}</label>
+        <select class="form-control" [ngModel]="topicValue" (ngModelChange)="topicValueChange($event)">
+          <option value="">{{i18n.t('portal._no_topic_')}}</option>
+          <option *ngFor="#topic of topics" [value]="topic">{{i18n.t("topics."+topic)}}</option>
+        </select>
+      </div>
     </template>
 
     <template ngSwitchDefault>bug: unknown type "{{param.prm_type}}"</template>

@@ -23,6 +23,9 @@ fr_translations = {
   },
   "portal": {
     "config": {
+      "topic": {
+        "name": "Thématique du portail",
+      },
       "add-patient": {
         "name": "Ajouter des usagers",
         "true": "Les utilisateurs de ce portail peuvent ajouter des usagers",
@@ -158,10 +161,11 @@ fr_translations = {
     "add_new_section": "Nouvelle section",
     "add_new_menu": "Nouveau menu",
     "menu_name": "nom du menu",
+    "_no_topic_": "(pas de thématique particulière)",
     'move': {
       "before_something": "Avant {{what}}",
       "at_the_end": "À la fin",
-    }
+    },
   },
   "entity": {
     "patient": "Usager",
@@ -169,4 +173,40 @@ fr_translations = {
     "contact": "Contact",
     "family": "Famille",
   },
+  "topics": {
+    'social': "Social",
+    'education': "Éducation",
+    'health': "Santé",
+    'pedagogy': "Pédagogie",
+    'justice': "Justice",
+    'employment': "Emploi",
+    'lodging': "Hébergement",
+    'sport': "Sport",
+    'culture': "Culture",
+    'transport': "Transport",
+    'decisionmaker': "Décideur",
+    'financer': "Financeur",
+    'support': "Prise en charge",
+    'entertainment': "Divertissement",
+    'juridic_protection': "Protection juridique",
+    'catering': "Restauration",
+    'housekeeping': "Entretien",
+    'personal_assistance': "Aide à la personne",
+    'financial_assistance': "Aide financière",
+    'equipment': "Équipement personnel",
+    'family': "Famille",
+    'project': "Projet",
+    'visit': "Séjour",
+    'medical_care': "Soins infirmiers",
+    'dietetic': "Diététique",
+    'occupational_therapy': "Ergothérapie",
+    'physiotherapy': "Physiothérapie",
+    'kinesitherapy': "Kinésithérapie",
+    'speech_therapy': "Orthophonie",
+    'psychomotor': "Psychomotricité",
+    'psychology': "Psychologie",
+    'residence_right': "Droits de séjour",
+    'formalities_assistance': "Aide aux formalités"
+  }
+
 };
