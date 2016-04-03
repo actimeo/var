@@ -81,7 +81,7 @@ export class PortalConfigElement {
     this.pgService.pgcall('portal', 'param_value_set_topic', {
       prm_por_id: this.myPorId,
       prm_param: this.param.prm_val,
-      prm_value: this.topicValue
+      prm_value: this.topicValue != '' ? this.topicValue : null
     })
       .then(data => { })
       .catch(err => { console.log('err'); });
