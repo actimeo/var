@@ -179,13 +179,13 @@ export class Ng2PortalPage {
 
   // person section/menu
   getMainWindowTab() {
-    return element.all(by.css('portal-main tabset li:nth-of-type(2)'))
+    return element.all(by.css('portal-main tabset li:nth-of-type(1)'))
       .filter(e => e.isDisplayed())
       .first();
   }
 
   getFirstEntityTab() {
-    return element.all(by.css('portal-main tabset li:nth-of-type(3)'))
+    return element.all(by.css('portal-main tabset li:nth-of-type(2)'))
       .filter(e => e.isDisplayed())
       .first();
   }

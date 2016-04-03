@@ -28,6 +28,7 @@ export class PortalMain {
   private entities: any;
 
   private porId: number;
+  private ones = [1];
 
   constructor(private pgService: PgService, private i18n: I18nService) { this.porId = null; }
 
