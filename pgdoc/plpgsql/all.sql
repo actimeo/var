@@ -164,7 +164,9 @@ BEGIN
     LEFT JOIN pg_description
       ON pg_description.objoid = pg_attribute.attrelid
       AND pg_description.objsubid = pg_attribute.attnum
-    LEFT JOIN pg_attrdef ON pg_attrdef.adrelid = pg_class.oid
+    LEFT JOIN pg_attrdef 
+      ON pg_attrdef.adrelid = pg_class.oid
+      AND pg_attrdef.adnum = pg_attribute.attnum
     INNER JOIN pg_type ON pg_type.oid = pg_attribute.atttypid
   WHERE
     pg_class.relname = prm_table 
