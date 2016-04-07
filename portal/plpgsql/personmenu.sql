@@ -75,6 +75,7 @@ DECLARE
   pse integer;
   i integer;
   pme integer;
+  l integer; -- length of list + margin
 BEGIN
   PERFORM login._token_assert(prm_token, '{structure}');
   SELECT pse_id INTO pse FROM portal.personmenu WHERE pme_id = prm_id;
@@ -88,12 +89,12 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
 
-  -- make space between indices
-  SET CONSTRAINTS portal.pme_pse_order_unique DEFERRED;
-  UPDATE portal.personmenu SET pme_order = 2 * pme_order WHERE pse_id = pse;
+  SELECT COUNT(*) + 10 INTO l FROM portal.personmenu WHERE pse_id = pse;
+  -- offset and make space between indices
+  UPDATE portal.personmenu SET pme_order = l + 2 * pme_order WHERE pse_id = pse;
 
   -- reorder
-  UPDATE portal.personmenu SET pme_order = 2 * prm_position - 1 WHERE pme_id = prm_id;
+  UPDATE portal.personmenu SET pme_order = l + 2 * prm_position - 1 WHERE pme_id = prm_id;
 
   -- 1-increment indices again
   i = 1;

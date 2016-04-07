@@ -70,7 +70,7 @@ CREATE TABLE mainsection (
   mse_name text NOT NULL,
   mse_order integer NOT NULL CHECK (mse_order > 0) ,
   CONSTRAINT mse_por_name_unique UNIQUE(por_id, mse_name),
-  CONSTRAINT mse_por_order_unique UNIQUE(por_id, mse_order) DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT mse_por_order_unique UNIQUE(por_id, mse_order)
 );
 COMMENT ON TABLE mainsection IS 'The main view of a portal consists of menus regrouped in sections. This table defines these sections.';
 COMMENT ON COLUMN mainsection.mse_id IS 'Unique identifier';
@@ -84,7 +84,7 @@ CREATE TABLE mainmenu (
   mme_name text NOT NULL,
   mme_order integer NOT NULL CHECK (mme_order > 0) ,
   CONSTRAINT mme_mse_name_unique UNIQUE(mse_id, mme_name),
-  CONSTRAINT mme_mse_order_unique UNIQUE(mse_id, mme_order) DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT mme_mse_order_unique UNIQUE(mse_id, mme_order) 
 );
 COMMENT ON TABLE mainmenu IS 'Menu entries of a main view';
 COMMENT ON COLUMN mainmenu.mme_id IS 'Unique identifier';
@@ -99,7 +99,7 @@ CREATE TABLE personsection (
   pse_name text NOT NULL,
   pse_order integer NOT NULL CHECK (pse_order > 0) ,
   CONSTRAINT pse_por_name_unique UNIQUE(por_id, pse_entity, pse_name),
-  CONSTRAINT pse_por_order_unique UNIQUE(por_id, pse_entity, pse_order) DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT pse_por_order_unique UNIQUE(por_id, pse_entity, pse_order)
 );
 COMMENT ON TABLE personsection IS 'A view of a portal for an entity type consists of menus regrouped in sections. This table defines these sections.';
 COMMENT ON COLUMN personsection.pse_id IS 'Unique identifier';
@@ -114,7 +114,7 @@ CREATE TABLE personmenu (
   pme_name text NOT NULL,
   pme_order integer NOT NULL CHECK (pme_order > 0) ,
   CONSTRAINT pme_pse_name_unique UNIQUE(pse_id, pme_name),
-  CONSTRAINT pme_pse_order_unique UNIQUE(pse_id, pme_order) DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT pme_pse_order_unique UNIQUE(pse_id, pme_order) 
 );
 COMMENT ON TABLE personmenu IS 'Menu entries of a view for an entity type';
 COMMENT ON COLUMN personmenu.pme_id IS 'Unique identifier';
@@ -210,5 +210,5 @@ CREATE TABLE portal.param_value (
   pva_param portal.param NOT NULL,
   pva_value_bool boolean,
   pva_value_topic portal.topics, 
-  CONSTRAINT pva_por_param_unique UNIQUE(por_id, pva_param)
+  CONSTRAINT pva_pkey PRIMARY KEY(por_id, pva_param)
 );

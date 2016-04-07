@@ -78,6 +78,7 @@ DECLARE
   ent portal.entity;
   i integer;
   mse integer;
+  l integer; -- length of list + margin
 BEGIN
   PERFORM login._token_assert(prm_token, '{structure}');
   SELECT por_id, pse_entity INTO por, ent FROM portal.personsection WHERE pse_id = prm_id;
@@ -91,12 +92,12 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
 
-  -- make space between indices
-  SET CONSTRAINTS portal.pse_por_order_unique DEFERRED;
-  UPDATE portal.personsection SET pse_order = 2 * pse_order WHERE por_id = por AND pse_entity = ent;
+  SELECT COUNT(*) + 10 INTO l FROM portal.personsection WHERE por_id = por AND pse_entity = ent;
+  -- offset and make space between indices
+  UPDATE portal.personsection SET pse_order = l + 2 * pse_order WHERE por_id = por AND pse_entity = ent;
 
   -- reorder
-  UPDATE portal.personsection SET pse_order = 2 * prm_position - 1 WHERE pse_id = prm_id;
+  UPDATE portal.personsection SET pse_order = l + 2 * prm_position - 1 WHERE pse_id = prm_id;
 
   -- 1-increment indices again
   i = 1;

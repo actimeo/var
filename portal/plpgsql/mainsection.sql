@@ -75,6 +75,7 @@ DECLARE
   por integer;
   i integer;
   mse integer;
+  l integer; -- length of list + margin
 BEGIN
   PERFORM login._token_assert(prm_token, '{structure}');
   SELECT por_id INTO por FROM portal.mainsection WHERE mse_id = prm_id;
@@ -88,14 +89,14 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
 
-  -- make space between indices
-  SET CONSTRAINTS portal.mse_por_order_unique DEFERRED;
-  UPDATE portal.mainsection SET mse_order = 2 * mse_order WHERE por_id = por;
+  SELECT COUNT(*) + 10 INTO l FROM portal.mainsection WHERE por_id = por;
+  -- offset and make space between indices
+  UPDATE portal.mainsection SET mse_order = l + 2 * mse_order WHERE por_id = por;
 
   -- reorder
-  UPDATE portal.mainsection SET mse_order = 2 * prm_position - 1 WHERE mse_id = prm_id;
+  UPDATE portal.mainsection SET mse_order = l + 2 * prm_position - 1 WHERE mse_id = prm_id;
 
-  -- 1-increment indices again
+  -- 0-offset and 1-increment indices again
   i = 1;
   FOR mse IN
     SELECT mse_id FROM portal.mainsection WHERE por_id = por ORDER BY mse_order
