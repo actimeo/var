@@ -58,9 +58,7 @@ export class PgdocApp {
           this.sidenav.hide(name);
       }
   */
-  schemaSelected(event) {
-    this.schemaDetails.setSchema(event);
-  }
+  schemaSelected(event) { this.schemaDetails.setSchema(event); }
 
   showMenu(event?) { this.sidenav.show('menu'); }
 }

@@ -35,15 +35,11 @@ export class FunctionDetailsCmp {
               .pgcall(
                   'pgdoc', 'type_columns',
                   {prm_schema: this.details.rettype_schema, prm_type: this.details.rettype_name})
-              .then(data2 => {
-                this.retColumns = data2;
-              });
+              .then(data2 => { this.retColumns = data2; });
         });
 
     this.pgService
         .pgcall('pgdoc', 'function_arguments', {prm_schema: this.schema, prm_function: this.id})
-        .then(data => {
-          this.args = data;
-        });
+        .then(data => { this.args = data; });
   }
 }

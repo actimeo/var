@@ -26,21 +26,14 @@ export class TypeDetailsCmp {
   ngOnInit() { this.reloadData(); }
 
   reloadData() {
-    this.pgService
-        .pgcall('pgdoc', 'type_description', {prm_schema: this.schema, prm_type: this.id})
-        .then(data => {
-          this.description = data;
-        });
+    this.pgService.pgcall('pgdoc', 'type_description', {prm_schema: this.schema, prm_type: this.id})
+        .then(data => { this.description = data; });
 
     this.pgService.pgcall('pgdoc', 'type_columns', {prm_schema: this.schema, prm_type: this.id})
-        .then(data => {
-          this.columns = data;
-        });
+        .then(data => { this.columns = data; });
 
     this.pgService
         .pgcall('pgdoc', 'functions_returning_type', {prm_schema: this.schema, prm_type: this.id})
-        .then(data => {
-          this.functionsReturningType = data;
-        });
+        .then(data => { this.functionsReturningType = data; });
   }
 }

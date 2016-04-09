@@ -20,9 +20,7 @@ export class SchemaDetailsCmp {
   types: any;
   functions: any;
 
-  constructor(private pgService: PgService, private sidenav: SidenavService) {
-    this.schema = null;
-  }
+  constructor(private pgService: PgService, private sidenav: SidenavService) { this.schema = null; }
 
   ngOnInit() { this.reloadData(); }
 
@@ -47,9 +45,7 @@ export class SchemaDetailsCmp {
       this.types = data;
     });
     this.pgService.pgcall('pgdoc', 'schema_list_functions', {prm_schema: this.schema})
-        .then(data => {
-          this.functions = data;
-        });
+        .then(data => { this.functions = data; });
   }
 
   setSchema(schema) {

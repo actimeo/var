@@ -27,13 +27,9 @@ export class TableDetailsCmp {
   reloadData() {
     this.pgService
         .pgcall('pgdoc', 'table_description', {prm_schema: this.schema, prm_table: this.id})
-        .then(data => {
-          this.description = data;
-        });
+        .then(data => { this.description = data; });
 
     this.pgService.pgcall('pgdoc', 'table_columns', {prm_schema: this.schema, prm_table: this.id})
-        .then(data => {
-          this.columns = data;
-        });
+        .then(data => { this.columns = data; });
   }
 }

@@ -1,6 +1,3 @@
-import {
-  describe,
-} from 'angular2/testing';
+import {describe,} from 'angular2/testing';
 
-describe('TypeDetailsCmp Component', () => {
-});
+describe('TypeDetailsCmp Component', () => {});

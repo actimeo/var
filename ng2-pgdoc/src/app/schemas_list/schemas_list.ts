@@ -15,12 +15,8 @@ export class SchemasListCmp {
 
   ngOnInit() {
     this.pgService.pgcall('pgdoc', 'list_schemas', {'prm_ignore': ['pg%', 'information_schema']})
-        .then(data => {
-          this.schemas = data;
-        });
+        .then(data => { this.schemas = data; });
   }
 
-  onSelectChange(event) {
-    this.onselected.emit(event.target.value);
-  }
+  onSelectChange(event) { this.onselected.emit(event.target.value); }
 }

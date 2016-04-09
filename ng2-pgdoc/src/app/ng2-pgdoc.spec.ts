@@ -3,4 +3,4 @@ import {PgdocApp} from '../app/ng2-pgdoc';
 
 beforeEachProviders(() => [PgdocApp]);
 
-describe('App: Pgdoc', () => { });
+describe('App: Pgdoc', () => {});
