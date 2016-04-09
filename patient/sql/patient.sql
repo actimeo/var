@@ -11,6 +11,15 @@ CREATE TYPE patient.care_group_assignment_status AS ENUM (
 );
 COMMENT ON TYPE patient.care_group_assignment_status IS 'Status of the assignment request of a patient in a care group';
 
+CREATE TYPE patient.institution_status AS ENUM (
+  'preadmission',
+  'admission',
+  'present',
+  'left',
+  'unknown'
+);
+COMMENT ON TYPE patient.institution_status IS 'Presence status of a patient in an institution';
+
 CREATE TABLE patient.patient (
   pat_id serial PRIMARY KEY,
   pat_firstname text NOT NULL,
@@ -45,3 +54,15 @@ COMMENT ON COLUMN patient.care_group_assignment.cga_end_date IS 'Assignment end 
 COMMENT ON COLUMN patient.care_group_assignment.cga_request_date IS 'Date of assignment request';
 COMMENT ON COLUMN patient.care_group_assignment.cga_renew_request_date IS 'Date of assignment renewal request';
 COMMENT ON COLUMN patient.care_group_assignment.cga_notes IS 'Free notes about the assignment';
+
+CREATE TABLE patient.status (
+  sta_id serial PRIMARY KEY,
+  pat_id integer REFERENCES patient.patient NOT NULL,
+  ins_id integer REFERENCES organ.institution NOT NULL,
+  sta_status patient.institution_status NOT NULL
+);
+COMMENT ON TABLE patient.status IS 'Presence status of a patient in an institution';
+COMMENT ON COLUMN patient.status.sta_id IS 'Unique identifier';
+COMMENT ON COLUMN patient.status.pat_id IS 'Patient';
+COMMENT ON COLUMN patient.status.ins_id IS 'Institution';
+COMMENT ON COLUMN patient.status.sta_status IS 'Status';
