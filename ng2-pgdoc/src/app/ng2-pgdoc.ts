@@ -10,12 +10,14 @@ import {SchemaDetailsCmp} from './schema_details/schema_details';
 import {SchemaDescriptionCmp} from './schema_description/schema_description';
 import {TableDetailsCmp} from './table_details/table_details';
 import {TypeDetailsCmp} from './type_details/type_details';
+import {EnumDetailsCmp} from './enum_details/enum_details';
 import {FunctionDetailsCmp} from './function_details/function_details';
 
 @RouteConfig([
   new Route({path: '/schema/:id', component: SchemaDescriptionCmp, name: 'SchemaDesc'}),
   new Route({path: '/table/:schema/:id', component: TableDetailsCmp, name: 'TableDetails'}),
   new Route({path: '/type/:schema/:id', component: TypeDetailsCmp, name: 'TypeDetails'}),
+  new Route({path: '/enum/:schema/:id', component: EnumDetailsCmp, name: 'EnumDetails'}),
   new Route(
       {path: '/function/:schema/:id', component: FunctionDetailsCmp, name: 'FunctionDetails'}),
 ])

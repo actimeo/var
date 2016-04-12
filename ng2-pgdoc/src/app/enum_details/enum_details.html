@@ -1,0 +1,13 @@
+<md-content layout-padding>
+    <div *ngIf="description">
+        <h3>Description</h3>
+        <div class="description">{{description}}</div>
+    </div>
+
+    <div *ngIf="values">
+        <h3>Values</h3>
+        <ul>
+          <li *ngFor="#value of values">{{value}}</li>
+        </ul>
+    </div>
+</md-content>

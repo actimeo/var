@@ -18,6 +18,7 @@ export class SchemaDetailsCmp {
 
   tables: any;
   types: any;
+  enums: any;
   functions: any;
 
   constructor(private pgService: PgService, private sidenav: SidenavService) { this.schema = null; }
@@ -28,12 +29,15 @@ export class SchemaDetailsCmp {
 
   noTypes() { return this.types == null || this.types.length == 0; }
 
+  noEnums() { return this.enums == null || this.enums.length == 0; }
+
   noFunctions() { return this.functions == null || this.functions.length == 0; }
 
   reloadData() {
     if (this.schema == null) {
       this.tables = null;
       this.types = null;
+      this.enums = null;
       this.functions = null;
       return;
     }
@@ -43,6 +47,9 @@ export class SchemaDetailsCmp {
     });
     this.pgService.pgcall('pgdoc', 'schema_list_types', {prm_schema: this.schema}).then(data => {
       this.types = data;
+    });
+    this.pgService.pgcall('pgdoc', 'schema_list_enums', {prm_schema: this.schema}).then(data => {
+      this.enums = data;
     });
     this.pgService.pgcall('pgdoc', 'schema_list_functions', {prm_schema: this.schema})
         .then(data => { this.functions = data; });

@@ -21,6 +21,14 @@
             <div class="md-list-item-text">{{type}}</div>
         </md-list-item>
 
+        <div [hidden]="noEnums()">
+            <md-subheader class="md-subheader">Enums</md-subheader>
+        </div>
+        <md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#enum of enums" md-ink [routerLink]="['EnumDetails', { schema: schema, id: enum }]">
+            <i md-icon class="material-icons">list</i>
+            <div class="md-list-item-text">{{enum}}</div>
+        </md-list-item>
+
         <div [hidden]="noFunctions()">
             <md-subheader class="md-subheader">Functions</md-subheader>
         </div>
