@@ -5,12 +5,14 @@ SET search_path = organ;
 
 CREATE TABLE organ.institution (
   ins_id serial PRIMARY KEY,
-  ins_name text NOT NULL
+  ins_name text NOT NULL,
+  ins_topics portal.topics[] NOT NULL
 );
 
 COMMENT ON TABLE organ.institution IS 'An institution receiving patients.';
 COMMENT ON COLUMN organ.institution.ins_id IS 'Unique identifier';
 COMMENT ON COLUMN organ.institution.ins_name IS 'Institution name';
+COMMENT ON COLUMN organ.institution.ins_topics IS 'Topics of interest for the institution';
 
 CREATE TABLE organ.care (
   car_id serial PRIMARY KEY,
