@@ -59,6 +59,27 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
     $this->assertGreaterThan(0, count($res));
   }
 
+  public function testReturnsSchemaEnums() {
+    $schema = 'login';
+    $res = self::$base->pgdoc->schema_list_enums($schema);
+    $this->assertEquals(1, count($res));
+    $this->assertEquals('user_right', $res[0]);
+  }
+
+  public function testReturnsEnumDescription() {
+    $schema = 'patient';
+    $type = 'institution_status';
+    $res = self::$base->pgdoc->enum_description($schema, $type);
+    $this->assertGreaterThan(0, strlen($res));
+  }
+
+  public function testReturnsEnumValues() {
+    $schema = 'patient';
+    $type = 'institution_status';
+    $res = self::$base->pgdoc->enum_values($schema, $type);
+    $this->assertGreaterThan(0, count($res));
+  }
+
   public function testReturnsSchemaFunctions() {
     $schema = 'login';
     $res = self::$base->pgdoc->schema_list_functions($schema);
@@ -83,7 +104,6 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
     $schema = 'login';
     $type = 'user_login';
     $res = self::$base->pgdoc->type_description($schema, $type);
-    echo $res;
     $this->assertGreaterThan(0, strlen($res));
   }
 

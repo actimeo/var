@@ -96,6 +96,52 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION pgdoc.schema_list_enums(prm_schema name)
+RETURNS SETOF name
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+BEGIN
+  RETURN QUERY SELECT pg_type.typname
+    FROM pg_type
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_type.typnamespace
+    WHERE typtype = 'e' AND pg_namespace.nspname = $1
+    ORDER BY pg_type.typname;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgdoc.enum_description(prm_schema name, prm_enum name)
+RETURNS text
+LANGUAGE PLPGSQL
+STABLE
+AS $$
+DECLARE
+  ret text;
+BEGIN
+  SELECT pg_description.description INTO ret
+    FROM pg_type
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_type.typnamespace
+    LEFT JOIN pg_description ON pg_type.oid = pg_description.objoid AND pg_description.objsubid = 0
+  WHERE
+    typname = prm_enum AND nspname = prm_schema;
+  RETURN ret;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgdoc.enum_values(prm_schema name, prm_enum name)
+RETURNS SETOF name
+LANGUAGE plpgsql
+STABLE
+AS $$
+BEGIN
+  RETURN QUERY SELECT enumlabel FROM pg_catalog.pg_enum
+    INNER JOIN pg_catalog.pg_type ON pg_type.oid=enumtypid
+    INNER JOIN pg_namespace ON pg_type.typnamespace = pg_namespace.oid
+    WHERE nspname = prm_schema AND typname = prm_enum
+    ORDER BY enumsortorder;
+END;
+$$;
+
 CREATE OR REPLACE FUNCTION pgdoc.schema_list_functions(prm_schema name)
 RETURNS SETOF name
 LANGUAGE PLPGSQL
