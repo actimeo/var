@@ -5,7 +5,7 @@ SET search_path = organ;
 
 CREATE TABLE organ.institution (
   ins_id serial PRIMARY KEY,
-  ins_name text NOT NULL,
+  ins_name text NOT NULL UNIQUE,
   ins_topics portal.topics[] NOT NULL
 );
 

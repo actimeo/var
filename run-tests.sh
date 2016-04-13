@@ -10,6 +10,9 @@ echo '======================= Auth PHPUNIT ========================='
 echo '====================== Portal PHPUNIT ========================'
 (cd portal/tests && ../../phpunit .) || exit 1
 
+echo '====================== Organ PHPUNIT ========================='
+(cd organ/tests && ../../phpunit .) || exit 1
+
 exit;
 echo '========================= JASMINE ============================'
 karma start || exit 1
