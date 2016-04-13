@@ -214,6 +214,9 @@ class PgSchema {
       if ($value === null)
 	return null;
       $v = substr ($value, 1, -1);
+      if ($v === '')
+	return array ();
+      
       $ret = explode (',', $v);
       foreach ($ret as &$r) {
 	$r = $this->cast_value (substr ($rettype, 1), $r);

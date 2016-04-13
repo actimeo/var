@@ -281,3 +281,11 @@ IMMUTABLE
 AS $$
   SELECT 'héllo'::varchar;
 $$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_empty_array()
+RETURNS integer[]
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT '{}'::integer[];
+$$;

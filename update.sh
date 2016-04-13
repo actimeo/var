@@ -14,6 +14,7 @@ if [ "$DBUSER" = "" ]; then
 fi
 
 FILES="./*/plpgsql/*.sql"
+FILES="$FILES pgproc/tests/tests.sql"
 echo 'Updating PL/PgSQL from files:'
 for i in $FILES; do 
     echo " - $i";

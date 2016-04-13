@@ -124,7 +124,6 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
 
   public function testReturnsEnumArrayAsNull() {
     $res = self::$base->pgtests->test_returns_null_enum_array();
-    print_r($res);
     $this->assertSame(null, $res);
   }
 
@@ -338,5 +337,9 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
   public function testEnumEmptyArrayArg() {
     $val = self::$base->pgtests->test_enum_array_arg(array());
     $this->assertEquals($val, null); // Takes care this current file is utf-8 encoded
+  }
+
+  public function testReturnsEmptyArray() {
+    $val = self::$base->pgtests->test_returns_empty_array();
   }
 }
