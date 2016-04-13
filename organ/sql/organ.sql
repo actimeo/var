@@ -32,9 +32,10 @@ CREATE TABLE organ.care_group (
   cgr_id serial PRIMARY KEY,
   car_id integer NOT NULL REFERENCES organ.care,
   cgr_name text NOT NULL,
-  cgr_start_date date NOT NULL,
-  cgr_end_date date NOT NULL,
-  cgr_notes text NOT NULL DEFAULT ''
+  cgr_start_date date NOT NULL DEFAULT '-infinity',
+  cgr_end_date date NOT NULL DEFAULT 'infinity',
+  cgr_notes text NOT NULL DEFAULT '',
+  CONSTRAINT care_group_car_name_unique UNIQUE(car_id, cgr_name)
 );
 
 COMMENT ON TABLE organ.care_group IS 'Group of a certain care';
