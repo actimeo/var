@@ -16,19 +16,21 @@ COMMENT ON COLUMN organ.institution.ins_topics IS 'Topics of interest for the in
 
 CREATE TABLE organ.care (
   car_id serial PRIMARY KEY,
+  ins_id integer NOT NULL REFERENCES organ.institution,
   car_name text NOT NULL,
-  car_topics portal.topics[] NOT NULL
+  car_topics portal.topics[] NOT NULL,
+  CONSTRAINT care_ins_name_unique UNIQUE(ins_id, car_name)
 );
 
 COMMENT ON TABLE organ.care IS 'A way patients are cared';
 COMMENT ON COLUMN organ.care.car_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.care.ins_id IS 'Institution to which the group is attached';
 COMMENT ON COLUMN organ.care.car_name IS 'Care name';
 COMMENT ON COLUMN organ.care.car_topics IS 'Topics covered by the care';
 
 CREATE TABLE organ.care_group (
   cgr_id serial PRIMARY KEY,
   car_id integer NOT NULL REFERENCES organ.care,
-  ins_id integer NOT NULL REFERENCES organ.institution,
   cgr_name text NOT NULL,
   cgr_start_date date NOT NULL,
   cgr_end_date date NOT NULL,
@@ -38,7 +40,6 @@ CREATE TABLE organ.care_group (
 COMMENT ON TABLE organ.care_group IS 'Group of a certain care';
 COMMENT ON COLUMN organ.care_group.cgr_id IS 'Unique identifier';
 COMMENT ON COLUMN organ.care_group.car_id IS 'Care of the group';
-COMMENT ON COLUMN organ.care_group.ins_id IS 'Institution to which the group is attached';
 COMMENT ON COLUMN organ.care_group.cgr_name IS 'Name of the group';
 COMMENT ON COLUMN organ.care_group.cgr_start_date IS 'Date at which the group activity begins';
 COMMENT ON COLUMN organ.care_group.cgr_end_date IS 'Date at which the group activity ends';

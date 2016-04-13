@@ -105,7 +105,7 @@ class institutionTest extends PHPUnit_Framework_TestCase {
    * Trying to rename an inexistant portal raises an exception
    * @expectedException PgProcException
    */
-  public function testPortalRenameUnknown() {
+  public function testInstitutionRenameUnknown() {
     $name1 = 'a portal';
     $name2 = 'another portal';
     $id = self::$base->organ->institution_add($this->token, $name1);

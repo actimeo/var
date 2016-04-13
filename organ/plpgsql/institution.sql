@@ -86,7 +86,6 @@ BEGIN
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
-
 END;
 $$;
 COMMENT ON FUNCTION organ.institution_set_topics(prm_token integer, prm_id integer, prm_topics portal.topics[]) IS 'Set the topics of interest for a particular institution';
