@@ -25,8 +25,9 @@ The token becomes invalid:
 SET search_path = login;
 
 CREATE TYPE login.user_right AS ENUM (
-  'structure', -- can edit portal structure
-  'users'      -- can manage users
+  'structure',    -- can edit portal structure
+  'organization', -- can edit organization
+  'users'         -- can manage users
 );
 
 CREATE TABLE "user" (
