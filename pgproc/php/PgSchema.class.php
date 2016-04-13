@@ -265,7 +265,12 @@ class PgSchema {
       break;
       
     case 'date':
+      //      echo $value."\n";
       if (strlen ($value)) {
+	if ($value === 'infinity')
+	  return null;
+	else if ($value === '-infinity')
+	  return null;
 	$timestamp = strtotime ($value);
 	return date ($this->base->date_return_format, $timestamp);
       } else {

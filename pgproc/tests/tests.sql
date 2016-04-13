@@ -65,6 +65,30 @@ AS $$
   SELECT CURRENT_TIMESTAMP::date;
 $$;
 
+CREATE OR REPLACE FUNCTION pgtests.test_returns_infinity_date()
+RETURNS date
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT 'infinity'::date;
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_minus_infinity_date()
+RETURNS date
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT '-infinity'::date;
+$$;
+
+CREATE OR REPLACE FUNCTION pgtests.test_returns_64bits_date()
+RETURNS date
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT '2040-01-01'::date;
+$$;
+
 CREATE OR REPLACE FUNCTION pgtests.test_returns_timestamp()
 RETURNS timestamp
 LANGUAGE SQL

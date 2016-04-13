@@ -80,6 +80,22 @@ class pgproceduresTest extends PHPUnit_Framework_TestCase {
     $res = self::$base->pgtests->test_returns_date();
     $this->assertRegExp('|^\d\d\d\d-\d\d-\d\d$|', $res);
   }
+  
+  public function testReturnsInfinityDate() {
+    $res = self::$base->pgtests->test_returns_infinity_date();
+    $this->assertNull($res);
+  }
+  
+  public function testReturnsMinusInfinityDate() {
+    $res = self::$base->pgtests->test_returns_minus_infinity_date();
+    $this->assertNull($res);
+  }
+  
+  public function testReturns64Date() {
+    self::$base->set_date_return_format("d/m/Y");
+    $res = self::$base->pgtests->test_returns_64bits_date();
+    //  print_r($res);
+  }
 
   public function testReturnsTimestamp() {
     self::$base->set_timestamp_return_format("d/m/Y H:i:s");
