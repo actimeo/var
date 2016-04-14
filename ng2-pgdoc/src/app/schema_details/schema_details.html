@@ -1,11 +1,11 @@
-<div [hidden]="!schema">
+<div *ngIf="schema">
     <md-list>
         <md-list-item (click)="itemClick()" class="md-1-line" [routerLink]="['SchemaDesc', { id: schema }]">
             <i md-icon class="material-icons">description</i>
             <div class="md-list-item-text">Description</div>
         </md-list-item>
 
-        <div [hidden]="noTables()">
+        <div *ngIf="hasTables()">
             <md-subheader class="md-subheader">Tables</md-subheader>
         </div>
         <md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#table of tables" md-ink [routerLink]="['TableDetails', { schema: schema, id: table }]">
@@ -13,7 +13,7 @@
             <div class="md-list-item-text">{{table}}</div>
         </md-list-item>
 
-        <div [hidden]="noTypes()">
+        <div *ngIf="hasTypes()">
             <md-subheader class="md-subheader">Types</md-subheader>
         </div>
         <md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#type of types" md-ink [routerLink]="['TypeDetails', { schema: schema, id: type }]">
@@ -21,7 +21,7 @@
             <div class="md-list-item-text">{{type}}</div>
         </md-list-item>
 
-        <div [hidden]="noEnums()">
+        <div *ngIf="hasEnums()">
             <md-subheader class="md-subheader">Enums</md-subheader>
         </div>
         <md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#enum of enums" md-ink [routerLink]="['EnumDetails', { schema: schema, id: enum }]">
@@ -29,7 +29,7 @@
             <div class="md-list-item-text">{{enum}}</div>
         </md-list-item>
 
-        <div [hidden]="noFunctions()">
+        <div *ngIf="hasFunctions()">
             <md-subheader class="md-subheader">Functions</md-subheader>
         </div>
         <md-list-item (click)="itemClick()" class="md-1-line" *ngFor="#function of functions" [routerLink]="['FunctionDetails', { schema: schema, id: function }]">

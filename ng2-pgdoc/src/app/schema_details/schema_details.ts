@@ -25,13 +25,13 @@ export class SchemaDetailsCmp {
 
   ngOnInit() { this.reloadData(); }
 
-  noTables() { return this.tables == null || this.tables.length == 0; }
+  hasTables() { return this.tables != null && this.tables.length != 0; }
 
-  noTypes() { return this.types == null || this.types.length == 0; }
+  hasTypes() { return this.types != null && this.types.length != 0; }
 
-  noEnums() { return this.enums == null || this.enums.length == 0; }
+  hasEnums() { return this.enums != null && this.enums.length != 0; }
 
-  noFunctions() { return this.functions == null || this.functions.length == 0; }
+  hasFunctions() { return this.functions != null && this.functions.length != 0; }
 
   reloadData() {
     if (this.schema == null) {
