@@ -5,7 +5,7 @@
         <personsection (ondelete)="onSectionDeleted()" (onchange)="onSectionChange()" [entity]="entity" [section]="section"></personsection>
       </accordion-group>
     </accordion>
-    <personsection-add [hidden]="!myPorId" [entity]="entity" [porId]="myPorId" (onadded)="onSectionAdded()"></personsection-add>
+    <personsection-add [entity]="entity" [porId]="myPorId" (onadded)="onSectionAdded()"></personsection-add>
   </nav>
   <main>
     <personview [entity]="entity"></personview>

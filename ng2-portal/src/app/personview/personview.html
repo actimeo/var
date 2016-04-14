@@ -1,5 +1,5 @@
-<div [hidden]="!myPme">
-  <form class="personview" [hidden]="!editing" (submit)="save()" #personviewForm="ngForm" style="margin: 0">
+<div *ngIf="myPme">
+  <form class="personview" *ngIf="editing" (submit)="save()" #personviewForm="ngForm" style="margin: 0">
     <div class="wrapper">
       <section>
         <div class="form-group">
@@ -29,12 +29,12 @@
         </div>      
       </section>
       <nav>
-        <span [hidden]="!personview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
+        <span *ngIf="personview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
         <button type="submit" class="btn btn-primary" [disabled]="!personviewForm.valid">{{i18n.t('common.btn.save')}}</button>
       </nav>
     </div>
   </form>
-  <div [hidden]="editing">
+  <div *ngIf="!editing">
     <div class="wrapper">
       <section>
         <h1>{{personview?.pvi_title}}</h1>

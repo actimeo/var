@@ -14,7 +14,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">{{i18n.t('auth.submit')}}</button>
             </form>
-            <div [hidden]="!errormsg">
+            <div *ngIf="errormsg">
                 <p class="text-danger">{{errormsg}}</p>
             </div>
         </div>

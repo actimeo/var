@@ -1,5 +1,5 @@
-<span [hidden]="viewedit || viewmove" (click)="onClick()" class="menuentry" [ngClass]="{selected: selected}">{{menu.mme_name}}</span>
-<form [hidden]="!viewedit" class="form-inline mainmenurename" (ngSubmit)="doRename()" #userForm="ngForm">
+<span *ngIf="!viewedit && !viewmove" (click)="onClick()" class="menuentry" [ngClass]="{selected: selected}">{{menu.mme_name}}</span>
+<form *ngIf="viewedit" class="form-inline mainmenurename" (ngSubmit)="doRename()" #userForm="ngForm">
   <div class="input-group input-group-sm">
     <input type="text" class="form-control mainmenurename" [(ngModel)]="menu.mme_name" ngControl required [focus]="menunameFocused">
     <div class="input-group-btn">
@@ -9,7 +9,7 @@
   </div>
 </form>
 
-<form [hidden]="!viewmove" class="form-inline mainmenumove" (ngSubmit)="doMove()" #userFormMove="ngForm">
+<form *ngIf="viewmove" class="form-inline mainmenumove" (ngSubmit)="doMove()" #userFormMove="ngForm">
   <div class="input-group input-group-sm">
     <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control mainmenumove">
       <option *ngFor="#c of movechoices | mmemove:menu" [value]="c.mme_order">{{c.mme_name}}</option>
@@ -21,14 +21,14 @@
   </div>
 </form>
 
-<span [hidden]="!viewcfg">
+<span *ngIf="viewcfg">
   <button type="button" class="btn btn-link btn-xs mainmenuview" 
 	  (click)="doViewtools(true)" 
 	  [footertip]="i18n.t('portal.tip.configure')">
     <span class="glyphicon glyphicon-cog"></span>
   </button>
 </span>
-<span [hidden]="!viewtools">
+<span *ngIf="viewtools">
   <button type="button" class="btn btn-link btn-xs mainmenucancel" 
 	  (click)="doViewtools(false)"
 	  [footertip]="i18n.t('portal.tip.cancel')">

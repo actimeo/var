@@ -1,5 +1,5 @@
 <div class="section_ops">
-  <span [hidden]="viewedit || viewmove">
+  <span *ngIf="!viewedit && !viewmove">
     <span class="btn-group btn-group-sm">
       <button (click)="onMoveSection()" 
 	      type="button" class="btn btn-default personsectionmove"
@@ -19,7 +19,7 @@
     </span>
   </span>
   
-  <form [hidden]="!viewedit" class="form-inline personsectionrename" (ngSubmit)="doRename()" #userForm="ngForm">
+  <form *ngIf="viewedit" class="form-inline personsectionrename" (ngSubmit)="doRename()" #userForm="ngForm">
     <div class="input-group input-group-sm">
       <input type="text" class="form-control personsectionrename" [(ngModel)]="new_name" ngControl required [focus]="sectionname_focused" >
       <div class="input-group-btn">
@@ -29,7 +29,7 @@
     </div>
   </form>
 
-  <form [hidden]="!viewmove" class="form-inline personsectionmove" (ngSubmit)="doMove()" #userFormMove="ngForm">
+  <form *ngIf="viewmove" class="form-inline personsectionmove" (ngSubmit)="doMove()" #userFormMove="ngForm">
     <div class="input-group input-group-sm">
       <select [(ngModel)]="before_pos" ngControl required [focus]="move_focused" class="form-control personsectionmove">
 	<option *ngFor="#c of movechoices | psemove:section" [value]="c.pse_order">{{c.pse_name}}</option>

@@ -1,5 +1,5 @@
-<div [hidden]="!myMme">
-  <form class="mainview" [hidden]="!editing" (submit)="save()" #mainviewForm="ngForm" style="margin: 0">
+<div *ngIf="myMme">
+  <form class="mainview" *ngIf="editing" (submit)="save()" #mainviewForm="ngForm" style="margin: 0">
     <div class="wrapper">
       <section>
         <div class="form-group">
@@ -39,19 +39,19 @@
         </div>
       </section>
       <nav>
-        <span [hidden]="!mainview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
+        <span *ngIf="mainview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
         <button type="submit" class="btn btn-primary" [disabled]="!mainviewForm.valid">{{i18n.t('common.btn.save')}}</button>
       </nav>
     </div>
   </form>
-  <div [hidden]="editing">
+  <div *ngIf="!editing">
     <div class="wrapper">
       <section>
         <h1>{{mainview?.mvi_title}}</h1>
         {{i18n.t('portal.mainview.main_view_element')}}{{i18n.t('common.doubledot')}} {{mainview?.mve_name}} ({{i18n.t('portal.mainview_types.'+mainview?.mve_type)}})
 
-        <p [hidden]="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
-        <p [hidden]="mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
+        <p *ngIf="mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
+        <p *ngIf="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
 
       </section>
       <nav>

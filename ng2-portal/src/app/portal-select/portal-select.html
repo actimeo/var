@@ -1,4 +1,4 @@
-<span [hidden]="gettingName">
+<span *ngIf="!gettingName">
   <div class="btn-group" dropdown style="padding-top: 8px;">
     <button id="select-portal" type="button" class="btn btn-default" dropdownToggle>
       {{selectedPortalName}}  <span class="caret"></span>
@@ -14,19 +14,19 @@
 	  <span> {{i18n.t("portal.add_new_portal")}}</span>
 	</a>
       </li>
-      <li [hidden]="selectedPortal==null" role="menuitem">
+      <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onRenamePortal()" class="portalrename">
 	  <span class="glyphicon glyphicon-pencil"></span>
 	  <span> {{i18n.t("portal.rename_current_portal")}}</span>
 	</a>
       </li>
-      <li [hidden]="selectedPortal==null" role="menuitem">
+      <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onDeletePortal()" class="portaldelete">
 	  <span class="glyphicon glyphicon-minus"></span>
 	  <span> {{i18n.t("portal.delete_current_portal")}}</span>
 	</a>
       </li>
-      <li [hidden]="selectedPortal==null" role="menuitem">
+      <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onCopyPortal()">
 	  <span class="glyphicon glyphicon-copy"></span> 
 	  <span> {{i18n.t("portal.copy_current_portal")}}</span>
@@ -35,7 +35,7 @@
     </ul>
   </div>
 </span>
-<span [hidden]="!gettingName">
+<span *ngIf="gettingName">
   <div class="btn-group" style="padding-top: 8px;">
     <form (ngSubmit)="doOperation()" #userForm="ngForm" 
 	  class="getname form-inline" style="display: inline-block">
