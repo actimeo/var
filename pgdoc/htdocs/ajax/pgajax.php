@@ -1,1 +1,0 @@
-../../../pgproc/htdocs/ajax/pgajax.php

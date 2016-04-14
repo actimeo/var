@@ -13,7 +13,7 @@ echo '====================== Portal PHPUNIT ========================'
 echo '====================== Organ PHPUNIT ========================='
 (cd organ/tests && ../../phpunit .) || exit 1
 
-exit;
+#exit;
 echo '========================= JASMINE ============================'
 karma start || exit 1
 
