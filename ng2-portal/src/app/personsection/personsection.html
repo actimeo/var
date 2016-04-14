@@ -21,7 +21,7 @@
   
   <form *ngIf="viewedit" class="form-inline personsectionrename" (ngSubmit)="doRename()" #userForm="ngForm">
     <div class="input-group input-group-sm">
-      <input type="text" class="form-control personsectionrename" [(ngModel)]="new_name" ngControl required [focus]="sectionname_focused" >
+      <input #inputname type="text" class="form-control personsectionrename" [(ngModel)]="new_name" ngControl required>
       <div class="input-group-btn">
 	<button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
 	<button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>
@@ -31,7 +31,7 @@
 
   <form *ngIf="viewmove" class="form-inline personsectionmove" (ngSubmit)="doMove()" #userFormMove="ngForm">
     <div class="input-group input-group-sm">
-      <select [(ngModel)]="before_pos" ngControl required [focus]="move_focused" class="form-control personsectionmove">
+      <select #selectsection [(ngModel)]="before_pos" ngControl required class="form-control personsectionmove">
 	<option *ngFor="#c of movechoices | psemove:section" [value]="c.pse_order">{{c.pse_name}}</option>
       </select>
       <div class="input-group-btn">

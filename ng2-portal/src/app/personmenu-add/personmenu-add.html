@@ -2,7 +2,7 @@
 <span *ngIf="gettingName">
   <form (ngSubmit)="doAddMenu()" #userForm="ngForm" class="getname form-inline personmenuadd" style="display: inline-block">
     <div class="input-group input-group-sm">
-      <input [(ngModel)]="menuname" ngControl required [focus]="menunameFocused" type="text" class="form-control personmenuadd" placeholder="{{i18n.t('portal.menu_name')}}">
+      <input #inputname [(ngModel)]="menuname" ngControl required type="text" class="form-control personmenuadd" placeholder="{{i18n.t('portal.menu_name')}}">
       <div class="input-group-btn">    
 	<button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
 	<button (click)="cancelAddMenu()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>

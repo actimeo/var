@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -8,7 +8,6 @@ import {AlertsService} from '../services/alerts/alerts';
 import {MainmenuAdd} from '../mainmenu-add/mainmenu-add';
 import {Mainmenu} from '../mainmenu/mainmenu';
 
-import {FocusDirective} from '../directives/focus/focus';
 import {Footertip} from '../directives/footertip/footertip';
 
 import {MseMovePipe} from '../pipes/mse-move/mse-move';
@@ -18,29 +17,28 @@ import {MseMovePipe} from '../pipes/mse-move/mse-move';
   styleUrls: ['app/mainsection/mainsection.css'],
   templateUrl: 'app/mainsection/mainsection.html',
   providers: [],
-  directives: [FocusDirective, TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip],
+  directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip],
   pipes: [MseMovePipe]
 })
 export class Mainsection {
   @Input('section') section: any;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
+  @ViewChild('inputname') inputname: ElementRef;
+  @ViewChild('selectsection') selectsection: ElementRef;
 
   private mainmenus: any;
   private newName: string;
   private viewedit: boolean;
-  private sectionnameFocused: boolean;
   private viewmove: boolean;
   private movechoices: any;
   private beforePos: string;
-  private moveFocused: boolean;
 
   constructor(
-    private pgService: PgService, private i18n: I18nService, private alerts: AlertsService) {
+    private pgService: PgService, private i18n: I18nService, private alerts: AlertsService,
+    private renderer: Renderer) {
     this.viewedit = false;
-    this.sectionnameFocused = false;
     this.viewmove = false;
-    this.moveFocused = false;
   }
 
   ngOnInit() { this.reloadMenus(); }
@@ -71,10 +69,7 @@ export class Mainsection {
   onRenameSection() {
     this.newName = this.section.mse_name;
     this.viewedit = true;
-    setTimeout(() => {
-      this.sectionnameFocused = true;
-      setTimeout(() => { this.sectionnameFocused = false; });
-    });
+    setTimeout(() => this.setFocus(this.inputname));
   }
 
   doRename() {
@@ -99,13 +94,11 @@ export class Mainsection {
     this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.section.por_id })
       .then(data => {
         this.movechoices = data;
-        this.moveFocused = true;
-        setTimeout(() => { this.moveFocused = false; });
         if (this.movechoices.length == 1) {
           this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
           this.viewmove = false;
         }
-
+        setTimeout(() => this.setFocus(this.selectsection));
       })
       .catch(err => { });
   }
@@ -124,4 +117,10 @@ export class Mainsection {
   }
 
   onCancelMove() { this.viewmove = false; }
+
+  setFocus(input: ElementRef) {
+    if (input != null) {
+      this.renderer.invokeElementMethod(input.nativeElement, 'focus', null);
+    }
+  }
 }

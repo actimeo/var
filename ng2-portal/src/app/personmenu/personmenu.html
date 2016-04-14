@@ -1,7 +1,7 @@
 <span *ngIf="!viewedit && !viewmove" (click)="onClick()" class="menuentry" [ngClass]="{selected: selected}">{{menu.pme_name}}</span>
 <form *ngIf="viewedit" class="form-inline personmenurename" (ngSubmit)="doRename()" #userForm="ngForm">
   <div class="input-group input-group-sm">
-    <input type="text" class="form-control personmenurename" [(ngModel)]="menu.pme_name" ngControl required [focus]="menunameFocused" >
+    <input #inputname type="text" class="form-control personmenurename" [(ngModel)]="menu.pme_name" ngControl required>
     <div class="input-group-btn">
       <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
       <button type="button" class="btn btn-default" (click)="onCancelRename()"><span class="glyphicon glyphicon-remove"></span></button>
@@ -11,7 +11,7 @@
 
 <form *ngIf="viewmove" class="form-inline personmenumove" (ngSubmit)="doMove()" #userFormMove="ngForm">
   <div class="input-group input-group-sm">
-    <select [(ngModel)]="beforePos" ngControl required [focus]="moveFocused" class="form-control personmenumove">
+    <select #selectmenu [(ngModel)]="beforePos" ngControl required class="form-control personmenumove">
       <option *ngFor="#c of movechoices | pmemove:menu" [value]="c.pme_order">{{c.pme_name}}</option>
     </select>
     <div class="input-group-btn">

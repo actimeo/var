@@ -5,7 +5,7 @@
     <span *ngIf="gettingName">
         <form (ngSubmit)="doAddSection()" #userForm="ngForm" class="getname form-inline" style="display: inline-block">
             <div class="input-group input-group-sm">
-	            <input [(ngModel)]="sectionname" ngControl required [focus]="sectionnameFocused" type="text" class="form-control" placeholder="{{i18n.t('portal.section_name')}}">
+	            <input #inputname [(ngModel)]="sectionname" ngControl required type="text" class="form-control" placeholder="{{i18n.t('portal.section_name')}}">
 	            <div class="input-group-btn">    
 	                <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
                     <button (click)="cancelAddSection()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>

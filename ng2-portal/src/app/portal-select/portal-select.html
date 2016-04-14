@@ -40,8 +40,7 @@
     <form (ngSubmit)="doOperation()" #userForm="ngForm" 
 	  class="getname form-inline" style="display: inline-block">
       <div class="input-group input-group-sm">
-	<input [(ngModel)]="portalName" ngControl required 
-	       [focus]="portalnameFocused" 
+	<input #inputname [(ngModel)]="portalName" ngControl required 
 	       type="text" class="form-control" width="40" 
 	       placeholder="{{i18n.t('portal.portal_name')}}">
 	<div class="input-group-btn">    
