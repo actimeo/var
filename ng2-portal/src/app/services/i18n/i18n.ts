@@ -13,17 +13,17 @@ export class I18nService {
   constructor() {
     this.i18n = i18next;
     this.i18n.use(i18nextBrowserLanguageDetector)
-        .init(
-            {
-              detection: {order: ['navigator']},
-	      fallbackLng: 'en',
-              resources: {
-                en: {translation: en_translations},
-                de: {translation: de_translations},
-                fr: {translation: fr_translations}
-              }
-            },
-            (err, t) => {});
+      .init(
+      {
+        detection: { order: ['navigator'] },
+        fallbackLng: 'en',
+        resources: {
+          en: { translation: en_translations },
+          de: { translation: de_translations },
+          fr: { translation: fr_translations }
+        }
+      },
+      (err, t) => { });
   }
 
   t(s: string, opts: any = undefined) { return this.i18n.t(s, opts); }

@@ -3,8 +3,6 @@ import {Http} from 'angular2/http';
 
 import {UserService} from 'variation-user/services';
 
-declare var PgProc: any;
-
 @Injectable()
 export class PgService {
   token: string;
