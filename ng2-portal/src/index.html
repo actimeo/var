@@ -48,10 +48,15 @@
         app: {
           format: 'register',
           defaultExtension: 'js'
-        }
+        },
+        'vendor/variation-user': {
+          format: 'cjs',
+          defaultExtension: 'js'
+        }        
       },
       map: {
-        moment: 'vendor/moment/moment.js'
+        moment: 'vendor/moment/moment.js',
+        'variation-user': 'vendor/variation-user'
       }
     });
     System.import('app.js').then(null, console.error.bind(console));

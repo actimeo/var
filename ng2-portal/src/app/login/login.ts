@@ -1,7 +1,8 @@
 import {Component, ElementRef, ViewChild, Renderer} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {UserService} from '../services/user/user';
+import {UserService} from 'variation-user/services';
+
 import {I18nService} from '../services/i18n/i18n';
 import {PgService} from '../services/pg-service/pg-service';
 

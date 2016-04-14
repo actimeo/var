@@ -1,7 +1,7 @@
 import {Directive, ElementRef, DynamicComponentLoader} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
 
-import {UserService} from '../services/user/user';
+import {UserService} from 'variation-user/services';
 
 @Directive({selector: 'loggedin-router-outlet', providers: []})
 export class LoggedinRouterOutlet extends RouterOutlet {

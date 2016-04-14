@@ -1,7 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
 
-import {UserService} from '../../services/user/user';
+import {UserService} from 'variation-user/services';
 
 declare var PgProc: any;
 

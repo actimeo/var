@@ -23,7 +23,9 @@
     "i18next": "^2.3.5",
     "i18next-browser-languagedetector": "^0.2.2",
 
-    "ng2-bootstrap": "1.0.11"
+    "ng2-bootstrap": "1.0.11",
+
+    "variation-user": "0.0.7"
   },
   "devDependencies": {
     "angular-cli": "0.0.25",

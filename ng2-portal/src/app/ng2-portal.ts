@@ -1,10 +1,12 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router} from 'angular2/router';
 
+import {UserService} from 'variation-user/services';
+
 import {LoginCmp} from './login/login';
 import {HomeCmp} from './home/home';
 import {LoggedinRouterOutlet} from './loggedin-router-outlet/loggedin-router-outlet';
-import {UserService} from './services/user/user';
+
 
 @Component({
   selector: 'app',
