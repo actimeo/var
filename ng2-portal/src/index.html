@@ -50,11 +50,16 @@
         'vendor/variation-user': {
           format: 'cjs',
           defaultExtension: 'js'
-        }        
+        },
+        'vendor/ng2-i18next': {
+          format: 'cjs',
+          defaultExtension: 'js'
+        }                
       },
       map: {
         moment: 'vendor/moment/moment.js',
-        'variation-user': 'vendor/variation-user'
+        'variation-user': 'vendor/variation-user',
+        'ng2-i18next': 'vendor/ng2-i18next'
       }
     });
     System.import('app.js').then(null, console.error.bind(console));
