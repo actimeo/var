@@ -1,14 +1,24 @@
 import {Injectable} from 'angular2/core';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
 
 declare var i18next: any;
 declare var i18nextBrowserLanguageDetector: any;
 declare var i18nextXHRBackend: any;
 
+/* see I18nDirective for more information */
 @Injectable()
 export class I18nService {
   i18n: any;
+  private init;
+
+  alerts$: Observable<boolean>;
+  private alertsObserver: any;
 
   constructor() {
+    this.init = false;
+    this.alerts$ = new Observable(observer => { this.alertsObserver = observer; }).share();
+
     this.i18n = i18next;
     this.i18n
       .use(i18nextXHRBackend)
@@ -18,8 +28,23 @@ export class I18nService {
         detection: { order: ['navigator'] },
         fallbackLng: 'en'
       },
-      (err, t) => { });
+      (err, t) => {
+        this.init = true;
+        this.alertsObserver.next(true);
+      });
   }
 
-  t(s: string, opts: any = undefined) { return this.i18n.t(s, opts); }
+  t(s: string, opts: any = undefined) {
+    return this.i18n.t(s, opts);
+  }
+
+  tPromise(s: string, opts: any = undefined) {
+    return new Promise((resolve, reject) => {
+      if (this.init) {
+        resolve(this.i18n.t(s, opts));
+      } else {
+        reject(s);
+      }
+    });
+  }
 }

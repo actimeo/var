@@ -1,18 +1,18 @@
 <div class="body">
     <div class="panel panel-default loginform">
         <div class="panel-heading">
-            <h3 class="panel-title">{{i18n.t('auth.connect_title')}}</h3></div>
+            <h3 class="panel-title" i18n="auth.connect_title"></h3></div>
         <div class="panel-body">
             <form (submit)="login($event, username.value, password.value)">
                 <div class="form-group">
-                    <label for="username">{{i18n.t('auth.username')}}</label>
-                    <input type="text" #username class="form-control" id="username" placeholder="{{i18n.t('auth.username')}}">
+                    <label for="username" i18n="auth.username"></label>
+                    <input type="text" #username class="form-control" id="username" i18n-placeholder="auth.username">
                 </div>
                 <div class="form-group">
-                    <label for="password">{{i18n.t('auth.password')}}</label>
-                    <input type="password" #password class="form-control" id="password" placeholder="{{i18n.t('auth.password')}}">
+                    <label for="password" i18n="auth.password"></label>
+                    <input type="password" #password class="form-control" id="password" i18n-placeholder="auth.password">
                 </div>
-                <button type="submit" class="btn btn-primary">{{i18n.t('auth.submit')}}</button>
+                <button type="submit" class="btn btn-primary" i18n="auth.submit"></button>
             </form>
             <div *ngIf="errormsg">
                 <p class="text-danger">{{errormsg}}</p>

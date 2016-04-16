@@ -6,11 +6,14 @@ import {UserService} from 'variation-user/services';
 import {I18nService} from '../services/i18n/i18n';
 import {PgService} from '../services/pg-service/pg-service';
 
+import {I18nDirective} from '../directives/i18n/i18n';
+
 @Component({
   selector: 'login-cmp',
   styleUrls: ['app/login/login.css'],
   templateUrl: 'app/login/login.html',
-  providers: []
+  providers: [],
+  directives: [I18nDirective]
 })
 export class LoginCmp {
   @ViewChild('username') username: ElementRef;
