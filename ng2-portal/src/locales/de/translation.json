@@ -1,4 +1,4 @@
-de_translations = {
+{
   "test": {
     "key": "hello world"
   },
@@ -10,4 +10,4 @@ de_translations = {
     "autherror": "Fehler bei der Anmeldung",
     "logged_in_as": "Angemeldet als"
   }
-};
+}

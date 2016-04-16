@@ -2,6 +2,7 @@ import {Injectable} from 'angular2/core';
 
 declare var i18next: any;
 declare var i18nextBrowserLanguageDetector: any;
+declare var i18nextXHRBackend: any;
 declare var fr_translations: any;
 declare var de_translations: any;
 declare var en_translations: any;
@@ -12,16 +13,14 @@ export class I18nService {
 
   constructor() {
     this.i18n = i18next;
-    this.i18n.use(i18nextBrowserLanguageDetector)
+    this.i18n
+    .use(i18nextXHRBackend)
+      .use(i18nextBrowserLanguageDetector)
       .init(
       {
         detection: { order: ['navigator'] },
         fallbackLng: 'en',
-        resources: {
-          en: { translation: en_translations },
-          de: { translation: de_translations },
-          fr: { translation: fr_translations }
-        }
+        backend: {}
       },
       (err, t) => { });
   }
