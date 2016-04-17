@@ -1,7 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit, OnDestroy} from 'angular2/core';
+
+import {Subscription} from 'rxjs/Subscription';
 
 import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
-import {AlertsService} from '../services/alerts/alerts';
+import {AlertsService, AlertType} from '../services/alerts/alerts';
 
 @Component({
   selector: 'alerts',
@@ -10,14 +12,20 @@ import {AlertsService} from '../services/alerts/alerts';
   providers: [],
   directives: [Alert]
 })
-export class Alerts {
-  private alerts: any;
+export class Alerts implements OnInit, OnDestroy {
+  private alerts: AlertType[];
+  private subscription: Subscription;
 
-  constructor(private alertsService: AlertsService) {}
+  constructor(private alertsService: AlertsService) { }
 
-  ngOnInit() { this.alertsService.alerts$.subscribe(updatedAlerts => this.alerts = updatedAlerts); }
+  ngOnInit() {
+    this.subscription = this.alertsService.alerts$.subscribe(
+      updatedAlerts => this.alerts = updatedAlerts);
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
+  }
 
   closeAlert(i: number) { this.alertsService.closeAlert(i); }
-
-  addAlert(type: string, msg: string) { this.alertsService.addAlert(type, msg); }
 }
