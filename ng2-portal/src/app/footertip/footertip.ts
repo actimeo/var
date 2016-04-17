@@ -1,4 +1,5 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit, OnDestroy} from 'angular2/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import {FootertipService} from '../services/footertip/footertip';
 
@@ -10,12 +11,18 @@ import {FootertipService} from '../services/footertip/footertip';
   directives: [],
   pipes: []
 })
-export class Footertip {
+export class Footertip implements OnInit, OnDestroy {
   tip: string;
+  private subscription: Subscription;
 
-  constructor(private footertipService: FootertipService) {}
+  constructor(private footertipService: FootertipService) { }
 
   ngOnInit() {
-    this.footertipService.tip$.subscribe(updatedTip => { this.tip = updatedTip; });
+    this.footertipService.tip$.subscribe(
+      updatedTip => this.tip = updatedTip);
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 }
