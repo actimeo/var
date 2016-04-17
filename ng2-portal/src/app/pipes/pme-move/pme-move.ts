@@ -1,5 +1,6 @@
-import {I18nService} from '../../services/i18n/i18n';
 import {PipeTransform, Pipe} from 'angular2/core';
+
+import {I18nService} from 'ng2-i18next/ng2-i18next';
 
 @Pipe({
   name: 'pmemove',

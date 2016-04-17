@@ -24,30 +24,30 @@
 <span *ngIf="viewcfg">
   <button type="button" class="btn btn-link btn-xs mainmenuview" 
 	  (click)="doViewtools(true)" 
-	  [footertip]="i18n.t('portal.tip.configure')">
+	  footertip="portal.tip.configure">
     <span class="glyphicon glyphicon-cog"></span>
   </button>
 </span>
 <span *ngIf="viewtools">
   <button type="button" class="btn btn-link btn-xs mainmenucancel" 
 	  (click)="doViewtools(false)"
-	  [footertip]="i18n.t('portal.tip.cancel')">
+	  footertip="portal.tip.cancel">
     <span class="glyphicon glyphicon-remove"></span>
   </button>
   <span class="btn-group btn-group-sm">
     <button type="button" class="btn btn-default mainmenumove" 
 	    (click)="onMove()"
-	    [footertip]="i18n.t('portal.tip.move')">
+	    footertip="portal.tip.move">
       <span class="glyphicon glyphicon-sort"></span>
     </button>
     <button type="button" class="btn btn-default mainmenurename"
 	    (click)="onRename()"
-	    [footertip]="i18n.t('portal.tip.rename')">	     
+	    footertip="portal.tip.rename">	     
       <span class="glyphicon glyphicon-pencil"></span>
     </button>
     <button type="button" class="btn btn-default mainmenudelete"
 	    (click)="onDelete()"
-	    [footertip]="i18n.t('portal.tip.delete')">
+	    footertip="portal.tip.delete">
       <span class="glyphicon glyphicon-minus"></span>
     </button>
   </span>

@@ -1,8 +1,9 @@
 import {Component, Input} from 'angular2/core';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PgService} from '../services/pg-service/pg-service';
 import {AlertsService} from '../services/alerts/alerts';
-import {I18nService} from '../services/i18n/i18n';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 
 @Component({
@@ -10,7 +11,7 @@ import {SelectedMenus} from '../services/selected-menus/selected-menus';
   templateUrl: 'app///personview/personview.html',
   styleUrls: ['app///personview/personview.css'],
   providers: [],
-  directives: [],
+  directives: [I18nDirective],
 })
 export class Personview {
   private myPme: number;

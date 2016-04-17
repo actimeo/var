@@ -7,8 +7,6 @@ import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
 import {PgService} from '../services/pg-service/pg-service';
 
-//import {I18nDirective} from '../directives/i18n/i18n';
-
 @Component({
   selector: 'login-cmp',
   styleUrls: ['app/login/login.css'],

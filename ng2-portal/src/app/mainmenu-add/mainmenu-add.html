@@ -1,8 +1,8 @@
-<span *ngIf="!gettingName"><button (click)="onAddMenu()" type="button" class="btn btn-default btn-xs mainmenuadd"><span class="glyphicon glyphicon-plus"></span> {{i18n.t('portal.add_new_menu')}}</button></span>
+<span *ngIf="!gettingName"><button (click)="onAddMenu()" type="button" class="btn btn-default btn-xs mainmenuadd"><span class="glyphicon glyphicon-plus"></span> <span i18n="portal.add_new_menu"></span></button></span>
 <span *ngIf="gettingName">
   <form (ngSubmit)="doAddMenu()" #userForm="ngForm" class="getname form-inline mainmenuadd" style="display: inline-block">
     <div class="input-group input-group-sm">
-      <input #inputname [(ngModel)]="menuname" ngControl required type="text" class="form-control mainmenuadd" placeholder="{{i18n.t('portal.menu_name')}}">
+      <input #inputname [(ngModel)]="menuname" ngControl required type="text" class="form-control mainmenuadd" i18n-placeholder="portal.menu_name">
       <div class="input-group-btn">    
 	<button type="submit" class="btn btn-primary" [disabled]="!userForm.valid"><span class="glyphicon glyphicon-ok"></span></button>
 	<button (click)="cancelAddMenu()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>

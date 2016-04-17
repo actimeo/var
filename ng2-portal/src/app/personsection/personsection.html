@@ -3,17 +3,17 @@
     <span class="btn-group btn-group-sm">
       <button (click)="onMoveSection()" 
 	      type="button" class="btn btn-default personsectionmove"
-	      [footertip]="i18n.t('portal.tip.move_section')">
+	      footertip="portal.tip.move_section">
 	<span class="glyphicon glyphicon-sort"></span>
       </button>
       <button (click)="onRenameSection()" 
 	      type="button" class="btn btn-default personsectionrename"
-	      [footertip]="i18n.t('portal.tip.rename_section')">
+	      footertip="portal.tip.rename_section">
 	<span class="glyphicon glyphicon-pencil"></span>
       </button>
       <button (click)="onDeleteSection()" 
 	      type="button" class="btn btn-default personsectiondelete"
-	      [footertip]="i18n.t('portal.tip.delete_section')">
+	      footertip="portal.tip.delete_section">
 	<span class="glyphicon glyphicon-minus"></span>
       </button>
     </span>

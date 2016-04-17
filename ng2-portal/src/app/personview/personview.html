@@ -3,25 +3,25 @@
     <div class="wrapper">
       <section>
         <div class="form-group">
-          <input type="text" placeholder="{{i18n.t('common.required')}}{{i18n.t('portal.placeholder.view_title')}}" class="form-control personviewtitle"
+          <input type="text" i18n-placeholder="portal.placeholder.view_title" class="form-control personviewtitle"
           [(ngModel)]="title" ngControl="c1" required>
         </div>
 
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="pveType">{{i18n.t('common.required')}}{{i18n.t('portal.personview.person_view_type')}}</label>
+              <label for="pveType" i18n="portal.personview.person_view_type"></label>
               <select class="form-control" (ngModelChange)="onTypeChange($event)" [ngModel]="pveType" ngControl="c2" required>
-                <option value="">{{i18n.t('portal.personview._select_a_type_')}}</option>
+                <option value="" i18n="portal.personview._select_a_type_"></option>
                 <option *ngFor="#pvtype of personviewTypes" [value]="pvtype">{{i18n.t('portal.personview_types.'+pvtype)}}</option>
               </select>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="pveId">{{i18n.t('common.required')}}{{i18n.t('portal.personview.person_view_in_type')}}</label>
+              <label for="pveId" i18n="portal.personview.person_view_in_type"></label>
               <select class="form-control" [(ngModel)]="pveId" ngControl="c3" required>
-                <option value="">{{i18n.t('portal.personview._select_a_view_')}}</option>
+                <option value="" i18n="portal.personview._select_a_view_"></option>
                 <option *ngFor="#viewInType of personviewsInType" [value]="viewInType.pve_id">{{viewInType.pve_name}}</option>
               </select>
             </div>
@@ -29,8 +29,8 @@
         </div>      
       </section>
       <nav>
-        <span *ngIf="personview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
-        <button type="submit" class="btn btn-primary" [disabled]="!personviewForm.valid">{{i18n.t('common.btn.save')}}</button>
+        <span *ngIf="personview"><button type="button" class="btn btn-default" (click)="setEditable(false)" i18n="common.btn.cancel"></button></span>
+        <button type="submit" class="btn btn-primary" [disabled]="!personviewForm.valid" i18n="common.btn.save"></button>
       </nav>
     </div>
   </form>
@@ -41,8 +41,8 @@
         {{i18n.t('portal.personview.person_view_element')}}{{i18n.t('common.doubledot')}} {{personview?.pve_name}} ({{i18n.t('portal.personview_types.'+personview?.pve_type)}})
       </section>
       <nav>
-        <button type="button" class="btn btn-default personviewdelete" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
-        <button type="button" class="btn btn-primary personviewedit" (click)="setEditable(true)">{{i18n.t('common.btn.edit')}}</button>
+        <button type="button" class="btn btn-default personviewdelete" (click)="delete()" i18n="common.btn.delete"></button>
+        <button type="button" class="btn btn-primary personviewedit" (click)="setEditable(true)" i18n="common.btn.edit"></button>
       </nav>
     </div>
   </div>

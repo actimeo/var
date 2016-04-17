@@ -2,19 +2,23 @@ import {Input, Component} from 'angular2/core';
 
 import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PersonsectionAdd} from '../personsection-add/personsection-add';
 import {Personsection} from '../personsection/personsection';
 import {Personview} from '../personview/personview';
 
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 
 @Component({
   selector: 'portal-entity',
   styleUrls: ['app/portal-entity/portal-entity.css'],
   templateUrl: 'app/portal-entity/portal-entity.html',
   providers: [],
-  directives: [Collapse, ACCORDION_DIRECTIVES, PersonsectionAdd, Personsection, Personview],
+  directives: [
+    Collapse, ACCORDION_DIRECTIVES,
+    PersonsectionAdd, Personsection, Personview,
+    I18nDirective],
 })
 export class PortalEntity {
   private myPorId: number;
@@ -33,9 +37,9 @@ export class PortalEntity {
 
   reloadSections() {
     this.pgService
-        .pgcall('portal', 'personsection_list', {prm_por_id: this.myPorId, prm_entity: this.entity})
-        .then(data => { this.personsections = data; })
-        .catch(err => {});
+      .pgcall('portal', 'personsection_list', { prm_por_id: this.myPorId, prm_entity: this.entity })
+      .then(data => { this.personsections = data; })
+      .catch(err => { });
   }
 
   onSectionAdded() { this.reloadSections(); }

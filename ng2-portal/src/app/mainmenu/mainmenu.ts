@@ -1,9 +1,12 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
+import {
+  Component, Input, Output, EventEmitter,
+  ViewChild, ElementRef, Renderer} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 import {AlertsService} from '../services/alerts/alerts';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 
@@ -16,7 +19,7 @@ import {MmeMovePipe} from '../pipes/mme-move/mme-move';
   styleUrls: ['app/mainmenu/mainmenu.css'],
   templateUrl: 'app/mainmenu/mainmenu.html',
   providers: [],
-  directives: [TOOLTIP_DIRECTIVES, Footertip],
+  directives: [TOOLTIP_DIRECTIVES, Footertip, I18nDirective],
   pipes: [MmeMovePipe],
 })
 export class Mainmenu {

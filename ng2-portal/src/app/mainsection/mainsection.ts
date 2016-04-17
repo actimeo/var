@@ -1,9 +1,12 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
+import {
+  Component, Input, Output, EventEmitter,
+  ViewChild, ElementRef, Renderer} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 import {AlertsService} from '../services/alerts/alerts';
 import {MainmenuAdd} from '../mainmenu-add/mainmenu-add';
 import {Mainmenu} from '../mainmenu/mainmenu';
@@ -17,7 +20,7 @@ import {MseMovePipe} from '../pipes/mse-move/mse-move';
   styleUrls: ['app/mainsection/mainsection.css'],
   templateUrl: 'app/mainsection/mainsection.html',
   providers: [],
-  directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip],
+  directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip, I18nDirective],
   pipes: [MseMovePipe]
 })
 export class Mainsection {

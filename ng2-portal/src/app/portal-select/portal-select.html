@@ -10,26 +10,22 @@
       <li class="divider"></li>
       <li role="menuitem">
 	<a class="dropdown-item" (click)="onAddPortal()" class="portaladd">
-	  <span class="glyphicon glyphicon-plus"></span>
-	  <span> {{i18n.t("portal.add_new_portal")}}</span>
+	  <span class="glyphicon glyphicon-plus"></span>&nbsp;<span i18n="portal.add_new_portal"></span>
 	</a>
       </li>
       <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onRenamePortal()" class="portalrename">
-	  <span class="glyphicon glyphicon-pencil"></span>
-	  <span> {{i18n.t("portal.rename_current_portal")}}</span>
+	  <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span i18n="portal.rename_current_portal"></span>
 	</a>
       </li>
       <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onDeletePortal()" class="portaldelete">
-	  <span class="glyphicon glyphicon-minus"></span>
-	  <span> {{i18n.t("portal.delete_current_portal")}}</span>
+	  <span class="glyphicon glyphicon-minus"></span>&nbsp;<span i18n="portal.delete_current_portal"></span>
 	</a>
       </li>
       <li *ngIf="selectedPortal!=null" role="menuitem">
 	<a class="dropdown-item" (click)="onCopyPortal()">
-	  <span class="glyphicon glyphicon-copy"></span> 
-	  <span> {{i18n.t("portal.copy_current_portal")}}</span>
+	  <span class="glyphicon glyphicon-copy"></span>&nbsp;<span i18n="portal.copy_current_portal"></span>
 	</a>
       </li>
     </ul>
@@ -42,7 +38,7 @@
       <div class="input-group input-group-sm">
 	<input #inputname [(ngModel)]="portalName" ngControl required 
 	       type="text" class="form-control" width="40" 
-	       placeholder="{{i18n.t('portal.portal_name')}}">
+	       i18n-placeholder="portal.portal_name">
 	<div class="input-group-btn">    
 	  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
 	    <span class="glyphicon glyphicon-ok"></span>

@@ -3,25 +3,25 @@
     <div class="wrapper">
       <section>
         <div class="form-group">
-          <input type="text" placeholder="{{i18n.t('common.required')}}{{i18n.t('portal.placeholder.view_title')}}" class="form-control mainviewtitle"
+          <input type="text" i18n-placeholder="portal.placeholder.view_title" class="form-control mainviewtitle"
           [(ngModel)]="title" ngControl="c1" required>
         </div>
 
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="mveType">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_type')}}</label>
+              <label for="mveType" i18n="portal.mainview.main_view_type"></label>
               <select class="form-control" (ngModelChange)="onTypeChange($event)" [ngModel]="mveType" ngControl="c2" required>
-                <option value="">{{i18n.t('portal.mainview._select_a_type_')}}</option>
+                <option value="" i18n="portal.mainview._select_a_type_"></option>
                 <option *ngFor="#pvtype of mainviewTypes" [value]="pvtype">{{i18n.t('portal.mainview_types.'+pvtype)}}</option>
               </select>
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="mveId">{{i18n.t('common.required')}}{{i18n.t('portal.mainview.main_view_in_type')}}</label>
+              <label for="mveId" i18n="portal.mainview.main_view_in_type"></label>
               <select class="form-control" [(ngModel)]="mveId" ngControl="c3" required>
-                <option value="">{{i18n.t('portal.mainview._select_a_view_')}}</option>
+                <option value="" i18n="portal.mainview._select_a_view_"></option>
                 <option *ngFor="#viewInType of mainviewsInType" [value]="viewInType.mve_id">{{viewInType.mve_name}}</option>
               </select>
             </div>
@@ -29,18 +29,18 @@
         </div>
       
         <div class="form-group">
-          <label for="pmeAssociated">{{i18n.t('portal.mainview.associated_patient_view')}}</label>
+          <label for="pmeAssociated" i18n="portal.mainview.associated_patient_view"></label>
           <select class="form-control" [(ngModel)]="pmeAssociated">
-            <option value="0">{{i18n.t('portal.mainview._no_associated_patient_view_')}}</option>
+            <option value="0" i18n="portal.mainview._no_associated_patient_view_"></option>
             <optgroup *ngFor="#type of patientViews" [label]="type.type">
-              <option *ngFor="#view of type.data" [value]="view.pme_id">{{view.pme_name}}{{i18n.t('common.doubledot')}}{{view.pvi_title}}</option>
+              <option *ngFor="#view of type.data" [value]="view.pme_id">{{view.pme_name}}<span i18n="common.doubledot"></span>{{view.pvi_title}}</option>
             </optgroup>
           </select>
         </div>
       </section>
       <nav>
-        <span *ngIf="mainview"><button type="button" class="btn btn-default" (click)="setEditable(false)">{{i18n.t('common.btn.cancel')}}</button></span>
-        <button type="submit" class="btn btn-primary" [disabled]="!mainviewForm.valid">{{i18n.t('common.btn.save')}}</button>
+        <span *ngIf="mainview"><button type="button" class="btn btn-default" (click)="setEditable(false)" i18n="common.btn.cancel"></button></span>
+        <button type="submit" class="btn btn-primary" [disabled]="!mainviewForm.valid" i18n="common.btn.save"></button>
       </nav>
     </div>
   </form>
@@ -51,12 +51,12 @@
         {{i18n.t('portal.mainview.main_view_element')}}{{i18n.t('common.doubledot')}} {{mainview?.mve_name}} ({{i18n.t('portal.mainview_types.'+mainview?.mve_type)}})
 
         <p *ngIf="mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
-        <p *ngIf="!mainview?.pme_id_associated">{{i18n.t('portal.mainview.no_associated_patient_view')}}</p>
+        <p *ngIf="!mainview?.pme_id_associated" i18n="portal.mainview.no_associated_patient_view"></p>
 
       </section>
       <nav>
-        <button type="button" class="btn btn-default mainviewdelete" (click)="delete()">{{i18n.t('common.btn.delete')}}</button>
-        <button type="button" class="btn btn-primary mainviewedit" (click)="setEditable(true)">{{i18n.t('common.btn.edit')}}</button>
+        <button type="button" class="btn btn-default mainviewdelete" (click)="delete()" i18n="common.btn.delete"></button>
+        <button type="button" class="btn btn-primary mainviewedit" (click)="setEditable(true)" i18n="common.btn.edit"></button>
       </nav>
     </div>
   </div>

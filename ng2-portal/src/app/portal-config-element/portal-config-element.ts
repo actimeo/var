@@ -1,14 +1,15 @@
 import {Component, Input} from 'angular2/core';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 
 @Component({
   selector: 'portal-config-element',
   templateUrl: 'app///portal-config-element/portal-config-element.html',
   styleUrls: ['app///portal-config-element/portal-config-element.css'],
   providers: [],
-  directives: [],
+  directives: [I18nDirective],
   pipes: []
 })
 export class PortalConfigElement {

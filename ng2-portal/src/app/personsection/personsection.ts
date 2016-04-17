@@ -1,7 +1,10 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
+import {
+  Component, Input, Output, EventEmitter,
+  ViewChild, ElementRef, Renderer} from 'angular2/core';
+
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 import {AlertsService} from '../services/alerts/alerts';
 import {PersonmenuAdd} from '../personmenu-add/personmenu-add';
 import {Personmenu} from '../personmenu/personmenu';
@@ -15,7 +18,7 @@ import {PseMovePipe} from '../pipes/pse-move/pse-move';
   styleUrls: ['app/personsection/personsection.css'],
   templateUrl: 'app/personsection/personsection.html',
   providers: [],
-  directives: [PersonmenuAdd, Personmenu, Footertip],
+  directives: [PersonmenuAdd, Personmenu, Footertip, I18nDirective],
   pipes: [PseMovePipe]
 })
 export class Personsection {

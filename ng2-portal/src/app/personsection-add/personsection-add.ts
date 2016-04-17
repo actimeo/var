@@ -1,9 +1,12 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
+import {
+  Component, Input, Output, EventEmitter,
+  ViewChild, ElementRef, Renderer} from 'angular2/core';
 
 import {BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
+import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+
 import {PgService} from '../services/pg-service/pg-service';
-import {I18nService} from '../services/i18n/i18n';
 import {AlertsService} from '../services/alerts/alerts';
 
 @Component({
@@ -11,7 +14,7 @@ import {AlertsService} from '../services/alerts/alerts';
   styleUrls: [],
   templateUrl: 'app/personsection-add/personsection-add.html',
   providers: [],
-  directives: [BUTTON_DIRECTIVES],
+  directives: [BUTTON_DIRECTIVES, I18nDirective],
 })
 export class PersonsectionAdd {
   @Input('porId') porId: number;
