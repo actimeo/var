@@ -1,4 +1,5 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
@@ -16,7 +17,7 @@ import {Groupby} from '../pipes/groupby/groupby';
   directives: [I18nDirective],
   pipes: [Groupby]
 })
-export class Mainview {
+export class Mainview implements OnInit, OnDestroy {
   private myMme: number;
   private mainview: any;
   private personviewAssociated: any;
@@ -28,6 +29,7 @@ export class Mainview {
   private mveId: any; // selected view 
   private mainviewTypes: any; // list of types
   private mainviewsInType: any; // list of views in the selected type
+  private subscription: Subscription;
 
   @Input('entity') entity: string;
   @Input('porId') porId: string;
@@ -37,7 +39,7 @@ export class Mainview {
     private alerts: AlertsService) { }
 
   ngOnInit() {
-    this.selectedMenus.menu$.subscribe(updatedMenu => {
+    this.subscription = this.selectedMenus.menu$.subscribe(updatedMenu => {
       if (this.myMme != updatedMenu.mainmenu) {
         this.myMme = updatedMenu.mainmenu;
         if (this.myMme != null) {
@@ -51,6 +53,10 @@ export class Mainview {
     this.pgService.pgcache('portal', 'mainview_element_type_list')
       .then(data => { this.mainviewTypes = data; })
       .catch(err => { });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   reloadMainview() {

@@ -1,4 +1,5 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
@@ -13,7 +14,7 @@ import {SelectedMenus} from '../services/selected-menus/selected-menus';
   providers: [],
   directives: [I18nDirective],
 })
-export class Personview {
+export class Personview implements OnInit, OnDestroy {
   private myPme: number;
   private personview: any;
   private editing: boolean;
@@ -22,6 +23,7 @@ export class Personview {
   private pveId: any; // selected view 
   private personviewTypes: any; // list of types
   private personviewsInType: any; // list of views in the selected type
+  private subscription: Subscription;
 
   @Input('entity') entity: string;
 
@@ -30,7 +32,7 @@ export class Personview {
     private alerts: AlertsService) { }
 
   ngOnInit() {
-    this.selectedMenus.menu$.subscribe(updatedMenu => {
+    this.subscription = this.selectedMenus.menu$.subscribe(updatedMenu => {
       if (this.myPme != updatedMenu.personmenu[this.entity]) {
         this.myPme = updatedMenu.personmenu[this.entity];
         if (this.myPme != null) {
@@ -44,6 +46,10 @@ export class Personview {
     this.pgService.pgcache('portal', 'personview_element_type_list')
       .then(data => { this.personviewTypes = data; })
       .catch(err => { });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   reloadPersonview() {

@@ -25,8 +25,6 @@ export class HomeCmp {
   constructor(private router: Router, private userService: UserService, private i18n: I18nService) {
   }
 
-  ngOnInit() {}
-
   getUser() { return this.userService.getLogin(); }
 
   logout() {

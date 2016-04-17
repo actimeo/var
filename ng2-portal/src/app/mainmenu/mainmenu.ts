@@ -1,6 +1,8 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewChild, ElementRef, Renderer} from 'angular2/core';
+  ViewChild, ElementRef, Renderer,
+  OnInit, OnDestroy} from 'angular2/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -22,7 +24,7 @@ import {MmeMovePipe} from '../pipes/mme-move/mme-move';
   directives: [TOOLTIP_DIRECTIVES, Footertip, I18nDirective],
   pipes: [MmeMovePipe],
 })
-export class Mainmenu {
+export class Mainmenu implements OnInit, OnDestroy {
   viewcfg: boolean;
   viewtools: boolean;
   viewedit: boolean;
@@ -30,6 +32,7 @@ export class Mainmenu {
   private movechoices: any;
   private beforePos: string;
   private selected: boolean;
+  private subscription: Subscription;
 
   @Input('menu') menu: any;
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();
@@ -48,8 +51,12 @@ export class Mainmenu {
   ngOnInit() {
     this.selected = this.selectedMenus.getMainmenu() == this.menu.mme_id;
 
-    this.selectedMenus.menu$.subscribe(
+    this.subscription = this.selectedMenus.menu$.subscribe(
       updatedMenu => { this.selected = updatedMenu.mainmenu == this.menu.mme_id; });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   doViewtools(v) {

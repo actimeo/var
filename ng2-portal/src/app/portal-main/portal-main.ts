@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 
 import {
   DROPDOWN_DIRECTIVES, Collapse,
@@ -22,7 +22,7 @@ import {PgService} from '../services/pg-service/pg-service';
     DROPDOWN_DIRECTIVES, TAB_DIRECTIVES, Collapse, ACCORDION_DIRECTIVES
   ]
 })
-export class PortalMain {
+export class PortalMain implements OnInit {
   private entities: any;
 
   private porId: number;

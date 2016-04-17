@@ -2,16 +2,24 @@ import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/startWith';
+
+export class SelectedMenuType {
+  mainmenu: number;
+  personmenu: { [key: string]: number; };
+}
 
 @Injectable()
 export class SelectedMenus {
-  menu$: Observable<any>;
-  private menuObserver: Observer<any>;
-  private menuStore: {mainmenu: number, personmenu: any};
+  menu$: Observable<SelectedMenuType>;
+  private menuObserver: Observer<SelectedMenuType>;
+  private menuStore: SelectedMenuType;
 
   constructor() {
-    this.menu$ = new Observable(observer => this.menuObserver = observer).share();
-    this.menuStore = {mainmenu: null, personmenu: {}};
+    this.menuStore = { mainmenu: null, personmenu: {} };
+    this.menu$ = new Observable(observer => this.menuObserver = observer)
+      .startWith(this.menuStore)
+      .share();
   }
 
   setMainmenu(m: number) {

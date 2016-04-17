@@ -1,4 +1,5 @@
-import {Component, Output, EventEmitter, ViewChild, ElementRef, Renderer} from 'angular2/core';
+import {Component, Output, EventEmitter,
+  ViewChild, ElementRef, Renderer, OnInit} from 'angular2/core';
 
 import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -14,7 +15,7 @@ import {AlertsService} from '../services/alerts/alerts';
   providers: [],
   directives: [DROPDOWN_DIRECTIVES, I18nDirective]
 })
-export class PortalSelect {
+export class PortalSelect implements OnInit {
   static OP_NONE = 0;
   static OP_ADD = 1;
   static OP_RENAME = 2;

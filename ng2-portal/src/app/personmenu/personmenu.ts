@@ -1,6 +1,8 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewChild, ElementRef, Renderer} from 'angular2/core';
+  ViewChild, ElementRef, Renderer,
+  OnInit, OnDestroy} from 'angular2/core';
+import {Subscription} from 'rxjs/Subscription';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -22,7 +24,7 @@ import {PmeMovePipe} from '../pipes/pme-move/pme-move';
   directives: [TOOLTIP_DIRECTIVES, Footertip, I18nDirective],
   pipes: [PmeMovePipe],
 })
-export class Personmenu {
+export class Personmenu implements OnInit, OnDestroy {
   viewcfg: boolean;
   viewtools: boolean;
   viewedit: boolean;
@@ -30,6 +32,7 @@ export class Personmenu {
   private movechoices: any;
   private beforePos: string;
   private selected: boolean;
+  private subscription: Subscription;
 
   @Input('menu') menu: any;
   @Input('entity') entity: string;
@@ -49,9 +52,13 @@ export class Personmenu {
   ngOnInit() {
     this.selected = this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id;
 
-    this.selectedMenus.menu$.subscribe(updatedMenu => {
+    this.subscription = this.selectedMenus.menu$.subscribe(updatedMenu => {
       this.selected = updatedMenu.personmenu[this.entity] == this.menu.pme_id;
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
   doViewtools(v) {

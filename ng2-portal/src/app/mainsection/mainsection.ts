@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewChild, ElementRef, Renderer} from 'angular2/core';
+  ViewChild, ElementRef, Renderer, OnInit} from 'angular2/core';
 
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
@@ -23,7 +23,7 @@ import {MseMovePipe} from '../pipes/mse-move/mse-move';
   directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip, I18nDirective],
   pipes: [MseMovePipe]
 })
-export class Mainsection {
+export class Mainsection implements OnInit {
   @Input('section') section: any;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onchange: EventEmitter<void> = new EventEmitter<void>();

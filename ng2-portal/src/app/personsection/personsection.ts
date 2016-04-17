@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewChild, ElementRef, Renderer} from 'angular2/core';
+  ViewChild, ElementRef, Renderer, OnInit} from 'angular2/core';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
@@ -21,7 +21,7 @@ import {PseMovePipe} from '../pipes/pse-move/pse-move';
   directives: [PersonmenuAdd, Personmenu, Footertip, I18nDirective],
   pipes: [PseMovePipe]
 })
-export class Personsection {
+export class Personsection implements OnInit {
   @Input('section') section: any;
   @Input('entity') entity: string;
   @Output() ondelete: EventEmitter<void> = new EventEmitter<void>();

@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnInit} from 'angular2/core';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 
@@ -14,7 +14,7 @@ import {PgService} from '../services/pg-service/pg-service';
   directives: [PortalConfigElement, I18nDirective],
   pipes: []
 })
-export class PortalConfig {
+export class PortalConfig implements OnInit {
 
   private params: any;
 
@@ -23,7 +23,6 @@ export class PortalConfig {
   constructor(private pgService: PgService, private i18n: I18nService) { }
 
   ngOnInit() {
-    console.log("porId1: " + this.porId);
     this.pgService.pgcall('portal', 'param_list', {})
       .then(data => this.params = data)
       .catch(err => { });
