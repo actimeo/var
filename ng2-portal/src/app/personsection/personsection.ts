@@ -3,9 +3,9 @@ import {
   ViewChild, ElementRef, Renderer, OnInit} from 'angular2/core';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import {AlertsService} from 'variation-toolkit/variation-toolkit';
 
 import {PgService} from '../services/pg-service/pg-service';
-import {AlertsService} from '../services/alerts/alerts';
 import {PersonmenuAdd} from '../personmenu-add/personmenu-add';
 import {Personmenu} from '../personmenu/personmenu';
 

@@ -3,11 +3,11 @@ import {Router} from 'angular2/router';
 
 import {UserService} from 'variation-user/services';
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import {AlertsComponent} from 'variation-toolkit/variation-toolkit';
 
 import {Footertip} from '../footertip/footertip';
 import {PortalSelect} from '../portal-select/portal-select';
 import {PortalMain} from '../portal-main/portal-main';
-import {Alerts} from '../alerts/alerts';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {Alerts} from '../alerts/alerts';
   styleUrls: ['app/home/home.css'],
   templateUrl: './app/home/home.html',
   providers: [],
-  directives: [PortalSelect, PortalMain, Alerts, Footertip, I18nDirective]
+  directives: [PortalSelect, PortalMain, AlertsComponent, Footertip, I18nDirective]
 })
 export class HomeCmp {
   @ViewChild('portalmain') portalmain;
