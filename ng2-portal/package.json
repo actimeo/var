@@ -28,7 +28,7 @@
 
     "variation-user": "0.0.9",
     "ng2-i18next": "0.0.4",
-    "variation-toolkit": "0.0.1"
+    "variation-toolkit": "0.0.2"
   },
   "devDependencies": {
     "angular-cli": "0.0.25",

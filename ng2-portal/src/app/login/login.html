@@ -12,7 +12,7 @@
                     <label for="password" i18n="auth.password"></label>
                     <input type="password" #password class="form-control" id="password" i18n-placeholder="auth.password">
                 </div>
-                <button type="submit" class="btn btn-primary" i18n="auth.submit"></button>
+                <button type="submit" class="btn btn-primary" i18n="auth.submit" footertip="test.key"></button>
             </form>
             <div *ngIf="errormsg">
                 <p class="text-danger">{{errormsg}}</p>

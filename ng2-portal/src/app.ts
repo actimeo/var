@@ -4,14 +4,11 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {UserService} from 'variation-user/services';
-
 import {I18nService} from 'ng2-i18next/ng2-i18next';
-import {AlertsService} from 'variation-toolkit/variation-toolkit';
+import {AlertsService, FootertipService} from 'variation-toolkit/variation-toolkit';
 
 import {Ng2PortalApp} from './app/ng2-portal';
-
 import {PgService} from './app/services/pg-service/pg-service';
-import {FootertipService} from './app/services/footertip/footertip';
 import {SelectedMenus} from './app/services/selected-menus/selected-menus';
 
 bootstrap(Ng2PortalApp, [

@@ -5,14 +5,11 @@ import {
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
-import {AlertsService} from 'variation-toolkit/variation-toolkit';
+import {AlertsService, FootertipDirective} from 'variation-toolkit/variation-toolkit';
 
 import {PgService} from '../services/pg-service/pg-service';
 import {MainmenuAdd} from '../mainmenu-add/mainmenu-add';
 import {Mainmenu} from '../mainmenu/mainmenu';
-
-import {Footertip} from '../directives/footertip/footertip';
-
 import {MseMovePipe} from '../pipes/mse-move/mse-move';
 
 @Component({
@@ -20,7 +17,7 @@ import {MseMovePipe} from '../pipes/mse-move/mse-move';
   styleUrls: ['app/mainsection/mainsection.css'],
   templateUrl: 'app/mainsection/mainsection.html',
   providers: [],
-  directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, Footertip, I18nDirective],
+  directives: [TOOLTIP_DIRECTIVES, Mainmenu, MainmenuAdd, FootertipDirective, I18nDirective],
   pipes: [MseMovePipe]
 })
 export class Mainsection implements OnInit {

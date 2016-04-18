@@ -3,9 +3,8 @@ import {Router} from 'angular2/router';
 
 import {UserService} from 'variation-user/services';
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
-import {AlertsComponent} from 'variation-toolkit/variation-toolkit';
+import {AlertsComponent, Footertip} from 'variation-toolkit/variation-toolkit';
 
-import {Footertip} from '../footertip/footertip';
 import {PortalSelect} from '../portal-select/portal-select';
 import {PortalMain} from '../portal-main/portal-main';
 

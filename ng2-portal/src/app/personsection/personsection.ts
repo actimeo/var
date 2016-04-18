@@ -3,14 +3,11 @@ import {
   ViewChild, ElementRef, Renderer, OnInit} from 'angular2/core';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
-import {AlertsService} from 'variation-toolkit/variation-toolkit';
+import {AlertsService, FootertipDirective} from 'variation-toolkit/variation-toolkit';
 
 import {PgService} from '../services/pg-service/pg-service';
 import {PersonmenuAdd} from '../personmenu-add/personmenu-add';
 import {Personmenu} from '../personmenu/personmenu';
-
-import {Footertip} from '../directives/footertip/footertip';
-
 import {PseMovePipe} from '../pipes/pse-move/pse-move';
 
 @Component({
@@ -18,7 +15,7 @@ import {PseMovePipe} from '../pipes/pse-move/pse-move';
   styleUrls: ['app/personsection/personsection.css'],
   templateUrl: 'app/personsection/personsection.html',
   providers: [],
-  directives: [PersonmenuAdd, Personmenu, Footertip, I18nDirective],
+  directives: [PersonmenuAdd, Personmenu, FootertipDirective, I18nDirective],
   pipes: [PseMovePipe]
 })
 export class Personsection implements OnInit {
