@@ -44,19 +44,49 @@ COMMENT ON COLUMN organ.service_group.sgr_start_date IS 'Date at which the group
 COMMENT ON COLUMN organ.service_group.sgr_end_date IS 'Date at which the group activity ends';
 COMMENT ON COLUMN organ.service_group.sgr_notes IS 'Free notes about the group';
 
+CREATE TABLE organ.staff (
+  stf_id serial PRIMARY KEY,
+  stf_firstname text NOT NULL,
+  stf_lastname text NOT NULL,
+  CONSTRAINT stf_name_unique UNIQUE(stf_firstname, stf_lastname)
+);
+
+COMMENT ON TABLE organ.staff IS 'Base information about a staff member. Uniqueness of staff members is done in firstname/lastname.';
+COMMENT ON COLUMN organ.staff.stf_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.staff.stf_firstname IS 'Staff member first name(s)';
+COMMENT ON COLUMN organ.staff.stf_lastname IS 'Staff member last name';
+
+CREATE TABLE organ.staff_group_assignment (
+  sga_id serial PRIMARY KEY,
+  sgr_id integer NOT NULL REFERENCES organ.service_group,
+  stf_id integer NOT NULL REFERENCES organ.staff  
+  -- todo (sgr_id, stf_id) unique
+);
+COMMENT ON TABLE organ.staff_group_assignment IS 'Assignation of a staff member to a service group';
+COMMENT ON COLUMN organ.staff_group_assignment.sga_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.staff_group_assignment.sgr_id IS 'Service group to which the staff member is assigned';
+COMMENT ON COLUMN organ.staff_group_assignment.stf_id IS 'Staff member assigned';
+
+CREATE TABLE organ.staff_institution_assignable (
+  sia_id serial PRIMARY KEY,
+  ins_id integer NOT NULL REFERENCES organ.institution,
+  stf_id integer NOT NULL REFERENCES organ.staff  
+  -- todo (ins_id, stf_id) unique
+);
+COMMENT ON TABLE organ.staff_institution_assignable IS 'Assignation possibility of a staff member to service groups of an institution';
+COMMENT ON COLUMN organ.staff_institution_assignable.sia_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.staff_institution_assignable.ins_id IS 'Staff can be assigned to the service groups of this institution';
+COMMENT ON COLUMN organ.staff_institution_assignable.stf_id IS 'Staff member assignable';
+
+----------
+-- TODO --
+----------
 -- list of thematics of institution: move to global config
-
--- staff: 
---   link to group for rights
---   link to *institutions for affectation
-
--- care_group_assignment: list of staff referents
 
 -- patient = entity with attribute person or regroupment
 --   regroup persons in regroupments
 
-
-
 -- user
   -- x portals
-  -- (x groups)
+  -- 1 staff
+  -- (x groups via staff)
