@@ -2,7 +2,7 @@
 require_once '../../pgproc/php/pgprocedures.php';
 require_once '../../config.inc.php';
 
-class careTest extends PHPUnit_Framework_TestCase {
+class serviceTest extends PHPUnit_Framework_TestCase {
   private static $base;
   private static $pgHost;
   private static $pgUser;
@@ -42,109 +42,109 @@ class careTest extends PHPUnit_Framework_TestCase {
     self::$base->rollback();
   }
 
-  public function testCareAdd() {
+  public function testServiceAdd() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
     $this->assertGreaterThan(0, $id);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
-    $this->assertGreaterThan(0, $carId);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
+    $this->assertGreaterThan(0, $serId);
   }  
 
-  public function testCareGet() {
+  public function testServiceGet() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
     $this->assertGreaterThan(0, $id);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
-    $this->assertGreaterThan(0, $carId);
-    $car = self::$base->organ->care_get($this->token, $carId);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
+    $this->assertGreaterThan(0, $serId);
+    $car = self::$base->organ->service_get($this->token, $serId);
     $this->assertEquals($id, $car['ins_id']);
-    $this->assertEquals($car_name, $car['car_name']);
-    $this->assertEquals(array(), $car['car_topics']);
+    $this->assertEquals($ser_name, $car['ser_name']);
+    $this->assertEquals(array(), $car['ser_topics']);
   }  
   
-  public function testCareAddSameNameDifferentInstitutions() {
+  public function testServiceAddSameNameDifferentInstitutions() {
     $name1 = 'institution 1';
     $insId1 = self::$base->organ->institution_add($this->token, $name1);
     $name2 = 'institution 2';
     $insId2 = self::$base->organ->institution_add($this->token, $name2);
 
-    $carName = 'a same care';
-    $carId1 = self::$base->organ->care_add($this->token, $insId1, $carName);
-    $carId2 = self::$base->organ->care_add($this->token, $insId2, $carName);
-    $this->assertGreaterThan(0, $carId1);
-    $this->assertGreaterThan(0, $carId2);
+    $carName = 'a same service';
+    $serId1 = self::$base->organ->service_add($this->token, $insId1, $carName);
+    $serId2 = self::$base->organ->service_add($this->token, $insId2, $carName);
+    $this->assertGreaterThan(0, $serId1);
+    $this->assertGreaterThan(0, $serId2);
   }  
 
   /**
    * Add two portals with same name
    * @expectedException PgProcException
    */  
-  public function testCareAddSameNameSameInstitution() {
+  public function testServiceAddSameNameSameInstitution() {
     $name = 'institution';
     $insId = self::$base->organ->institution_add($this->token, $name);
 
-    $carName = 'a same care';
-    $carId1 = self::$base->organ->care_add($this->token, $insId, $carName);
-    $carId2 = self::$base->organ->care_add($this->token, $insId, $carName);
-    $this->assertGreaterThan(0, $carId1);
-    $this->assertGreaterThan(0, $carId2);
+    $carName = 'a same service';
+    $serId1 = self::$base->organ->service_add($this->token, $insId, $carName);
+    $serId2 = self::$base->organ->service_add($this->token, $insId, $carName);
+    $this->assertGreaterThan(0, $serId1);
+    $this->assertGreaterThan(0, $serId2);
   }  
 
-  public function testCareList() {
+  public function testServiceList() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
-    $this->assertGreaterThan(0, $carId);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
+    $this->assertGreaterThan(0, $serId);
     
-    $cars = self::$base->organ->care_list($this->token, $id);
+    $cars = self::$base->organ->service_list($this->token, $id);
     $this->assertEquals(1, count($cars));
   }
   
-  public function testCareRename() {
+  public function testServiceRename() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
 
-    $car_name1 = 'a care';
-    $car_name2 = 'another care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name1);
-    self::$base->organ->care_rename($this->token, $carId, $car_name2);
-    $car = self::$base->organ->care_get($this->token, $carId);
-    $this->assertEquals($car_name2, $car['car_name']);
+    $ser_name1 = 'a service';
+    $ser_name2 = 'another service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name1);
+    self::$base->organ->service_rename($this->token, $serId, $ser_name2);
+    $car = self::$base->organ->service_get($this->token, $serId);
+    $this->assertEquals($ser_name2, $car['ser_name']);
   }
 
   /**
    * Trying to rename an inexistant portal raises an exception
    * @expectedException PgProcException
    */
-  public function testCareRenameUnknown() {
+  public function testServiceRenameUnknown() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
 
-    $car_name1 = 'a care';
-    $car_name2 = 'another care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name1);
-    self::$base->organ->care_rename($this->token, $carId+1, $car_name2);
+    $ser_name1 = 'a service';
+    $ser_name2 = 'another service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name1);
+    self::$base->organ->service_rename($this->token, $serId+1, $ser_name2);
   }
   
-  public function testCareDelete() {
+  public function testServiceDelete() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
 
-    $cars = self::$base->organ->care_list($this->token, $id);
+    $cars = self::$base->organ->service_list($this->token, $id);
     $nAfterAdd = count($cars);
     $this->assertGreaterThan(0, count($cars));
 
-    self::$base->organ->care_delete($this->token, $carId);
-    $cars = self::$base->organ->care_list($this->token, $id);
+    self::$base->organ->service_delete($this->token, $serId);
+    $cars = self::$base->organ->service_list($this->token, $id);
     $this->assertEquals($nAfterAdd-1, count($cars));
   }
   
@@ -152,35 +152,35 @@ class careTest extends PHPUnit_Framework_TestCase {
    * Trying to delete an inexistant portal raises an exception
    * @expectedException PgProcException
    */
-  public function testCareDeleteUnknown() {
+  public function testServiceDeleteUnknown() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
-    self::$base->organ->care_delete($this->token, $carId+1);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
+    self::$base->organ->service_delete($this->token, $serId+1);
   }
 
   /**
    * Trying to delete a portal with null value as por_id raises an exception
    * @expectedException PgProcException
    */
-  public function testCareDeleteNull() {
-    self::$base->organ->care_delete($this->token, null);
+  public function testServiceDeleteNull() {
+    self::$base->organ->service_delete($this->token, null);
   }
   
-  public function testCareSetTopics() {
+  public function testServiceSetTopics() {
     $name = 'an institution';
     $id = self::$base->organ->institution_add($this->token, $name);
     $this->assertGreaterThan(0, $id);
 
-    $car_name = 'a care';
-    $carId = self::$base->organ->care_add($this->token, $id, $car_name);
-    $this->assertGreaterThan(0, $carId);
+    $ser_name = 'a service';
+    $serId = self::$base->organ->service_add($this->token, $id, $ser_name);
+    $this->assertGreaterThan(0, $serId);
     
     $topics = array('social', 'education');
-    self::$base->organ->care_set_topics($this->token, $carId, $topics);
-    $car = self::$base->organ->care_get($this->token, $carId);
-    $this->assertEquals($topics, $car['car_topics']);
+    self::$base->organ->service_set_topics($this->token, $serId, $topics);
+    $car = self::$base->organ->service_get($this->token, $serId);
+    $this->assertEquals($topics, $car['ser_topics']);
   }
 }

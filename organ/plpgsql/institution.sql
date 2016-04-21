@@ -9,7 +9,7 @@ DECLARE
   ret integer;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  INSERT INTO organ.institution (ins_name, ins_topics) VALUES (prm_name, '{}')
+  INSERT INTO organ.institution (ins_name) VALUES (prm_name)
     RETURNING ins_id INTO ret;
   RETURN ret;
 END;
@@ -75,17 +75,3 @@ END;
 $$;
 COMMENT ON FUNCTION organ.institution_rename(prm_token integer, prm_id integer, prm_name text) IS 'Rename a particular institution';
 
-CREATE OR REPLACE FUNCTION organ.institution_set_topics(prm_token integer, prm_id integer, prm_topics portal.topics[])
-RETURNS VOID
-LANGUAGE plpgsql
-VOLATILE
-AS $$
-BEGIN
-  PERFORM login._token_assert(prm_token, '{organization}');
-  UPDATE organ.institution SET ins_topics = prm_topics WHERE ins_id = prm_id;
-  IF NOT FOUND THEN
-    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
-  END IF;
-END;
-$$;
-COMMENT ON FUNCTION organ.institution_set_topics(prm_token integer, prm_id integer, prm_topics portal.topics[]) IS 'Set the topics of interest for a particular institution';

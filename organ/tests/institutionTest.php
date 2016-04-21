@@ -54,7 +54,6 @@ class institutionTest extends PHPUnit_Framework_TestCase {
     $this->assertGreaterThan(0, $id);
     $ins = self::$base->organ->institution_get($this->token, $id);
     $this->assertEquals($name, $ins['ins_name']);
-    $this->assertEquals(array(), $ins['ins_topics']);
   }  
   
   /**
@@ -143,14 +142,4 @@ class institutionTest extends PHPUnit_Framework_TestCase {
     self::$base->organ->institution_delete($this->token, null);
   }
 
-  public function testInstitutionSetTopics() {
-    $name = 'an institution';
-    $id = self::$base->organ->institution_add($this->token, $name);
-    $this->assertGreaterThan(0, $id);
-
-    $topics = array('social', 'education');
-    self::$base->organ->institution_set_topics($this->token, $id, $topics);
-    $ins = self::$base->organ->institution_get($this->token, $id);
-    $this->assertEquals($topics, $ins['ins_topics']);
-  }
 }

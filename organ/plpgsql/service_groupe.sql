@@ -7,9 +7,9 @@ DECLARE
   ret integer;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  INSERT INTO organ.service_group (ser_id, cgr_name) 
+  INSERT INTO organ.service_group (ser_id, sgr_name) 
     VALUES (prm_ser_id, prm_name)
-    RETURNING cgr_id INTO ret;
+    RETURNING sgr_id INTO ret;
   RETURN ret;    
 END;
 $$;
@@ -24,7 +24,7 @@ DECLARE
   ret organ.service_group;
 BEGIN
   PERFORM login._token_assert(prm_token, NULL);
-  SELECT * INTO ret FROM organ.service_group WHERE cgr_id = prm_id;
+  SELECT * INTO ret FROM organ.service_group WHERE sgr_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
@@ -41,10 +41,10 @@ AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
   UPDATE organ.service_group SET 
-    cgr_start_date = COALESCE(prm_start_date, '-infinity'),
-    cgr_end_date = COALESCE(prm_end_date, 'infinity'),
-    cgr_notes = prm_notes
-    WHERE cgr_id = prm_id;
+    sgr_start_date = COALESCE(prm_start_date, '-infinity'),
+    sgr_end_date = COALESCE(prm_end_date, 'infinity'),
+    sgr_notes = prm_notes
+    WHERE sgr_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
@@ -66,8 +66,8 @@ BEGIN
   END IF;
   RETURN QUERY SELECT * FROM organ.service_group
     WHERE ser_id = prm_ser_id
-    AND (prm_active_at ISNULL OR prm_active_at BETWEEN cgr_start_date AND cgr_end_date)
-    ORDER BY cgr_name;
+    AND (prm_active_at ISNULL OR prm_active_at BETWEEN sgr_start_date AND sgr_end_date)
+    ORDER BY sgr_name;
 END;
 $$;
 COMMENT ON FUNCTION organ.service_group_list(prm_token integer, prm_ser_id integer, prm_active_at date) IS 'Return a list of groups of a particular service, optionally active at a certain date';
@@ -79,7 +79,7 @@ VOLATILE
 AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  DELETE FROM organ.service_group WHERE cgr_id = prm_id;
+  DELETE FROM organ.service_group WHERE sgr_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
@@ -95,7 +95,7 @@ VOLATILE
 AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  UPDATE organ.service_group SET cgr_name = prm_name WHERE cgr_id = prm_id;
+  UPDATE organ.service_group SET sgr_name = prm_name WHERE sgr_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;  
