@@ -3,12 +3,11 @@ import {Input, Component} from 'angular2/core';
 import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {PersonsectionAdd} from '../personsection-add/personsection-add';
 import {Personsection} from '../personsection/personsection';
 import {Personview} from '../personview/personview';
-
-import {PgService} from '../services/pg-service/pg-service';
 
 @Component({
   selector: 'portal-entity',

@@ -3,8 +3,8 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsService} from 'variation-toolkit/variation-toolkit';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
-import {PgService} from '../services/pg-service/pg-service';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 
 import {Groupby} from '../pipes/groupby/groupby';

@@ -5,12 +5,12 @@ import {
   ACCORDION_DIRECTIVES, TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {PortalEntity} from '../portal-entity/portal-entity';
 import {PortalMainwin} from '../portal-mainwin/portal-mainwin';
 import {PortalConfig} from '../portal-config/portal-config';
 
-import {PgService} from '../services/pg-service/pg-service';
 
 @Component({
   selector: 'portal-main',

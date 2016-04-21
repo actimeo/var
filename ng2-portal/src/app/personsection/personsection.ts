@@ -4,8 +4,8 @@ import {
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsService, FootertipDirective} from 'variation-toolkit/variation-toolkit';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
-import {PgService} from '../services/pg-service/pg-service';
 import {PersonmenuAdd} from '../personmenu-add/personmenu-add';
 import {Personmenu} from '../personmenu/personmenu';
 import {PseMovePipe} from '../pipes/pse-move/pse-move';

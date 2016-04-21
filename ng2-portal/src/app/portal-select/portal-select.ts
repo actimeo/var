@@ -5,8 +5,8 @@ import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsService} from 'variation-toolkit/variation-toolkit';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
-import {PgService} from '../services/pg-service/pg-service';
 @Component({
   selector: 'portal-select',
   styleUrls: ['app/portal-select/portal-select.css'],

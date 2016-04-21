@@ -3,12 +3,12 @@ import {Input, Component} from 'angular2/core';
 import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {Mainsection} from '../mainsection/mainsection';
 import {MainsectionAdd} from '../mainsection-add/mainsection-add';
 import {Mainview} from '../mainview/mainview';
 
-import {PgService} from '../services/pg-service/pg-service';
 
 @Component({
   selector: 'portal-mainwin',

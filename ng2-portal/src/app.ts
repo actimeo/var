@@ -8,8 +8,11 @@ import {I18nService} from 'ng2-i18next/ng2-i18next';
 import {AlertsService, FootertipService} from 'variation-toolkit/variation-toolkit';
 
 import {Ng2PortalApp} from './app/ng2-portal';
-import {PgService, PgServiceConfig} from './app/services/pg-service/pg-service';
+import {PgService, PgServiceConfig} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {SelectedMenus} from './app/services/selected-menus/selected-menus';
+
+//import {enableProdMode} from 'angular2/core';
+//enableProdMode();
 
 bootstrap(Ng2PortalApp, [
   provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),

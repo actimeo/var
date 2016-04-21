@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from 'angular2/core';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
-
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
   selector: 'portal-config-element',
