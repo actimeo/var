@@ -1,18 +1,37 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, Optional} from 'angular2/core';
 import {Http} from 'angular2/http';
 
 import {UserService} from 'variation-user/services';
 
+export class PgServiceConfig {
+  pgPath: string;
+  prmTokenName: string;
+}
+
+const DEFAULT_PATH = '/pgroot';
+const DEFAULT_TOKEN_NAME = null;
+
 @Injectable()
 export class PgService {
   token: string;
-  path = '/pg';
+  private path = DEFAULT_PATH;
+  private prmTokenName = DEFAULT_TOKEN_NAME;
   cached: any = {};
 
-  constructor(private http: Http, private user: UserService) { }
+  constructor(
+    @Optional() private pgConfig: PgServiceConfig,
+    private http: Http, private user: UserService) {
+
+    if (pgConfig) {
+      this.path = pgConfig.pgPath;
+      this.prmTokenName = pgConfig.prmTokenName;
+    }
+  }
 
   pgcall(schema: string, method: string, args: any = {}) {
-    args['prm_token'] = this.user.getToken();
+    if (this.prmTokenName) {
+      args[this.prmTokenName] = this.user.getToken();
+    }
     return new Promise((resolve, reject) => {
       var url = this.path + '/' + schema + '/' + method;
       this.http.post(url, JSON.stringify(args))
@@ -28,7 +47,9 @@ export class PgService {
       });
     } else {
       var args: any = {};
-      args['prm_token'] = this.user.getToken();
+      if (this.prmTokenName) {
+        args[this.prmTokenName] = this.user.getToken();
+      }
       return new Promise((resolve, reject) => {
         var url = this.path + '/' + schema + '/' + method;
         this.http.post(url, JSON.stringify(args))
