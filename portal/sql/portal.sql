@@ -69,8 +69,8 @@ CREATE TABLE mainsection (
   por_id integer NOT NULL REFERENCES portal.portal,
   mse_name text NOT NULL,
   mse_order integer NOT NULL CHECK (mse_order > 0) ,
-  CONSTRAINT mse_por_name_unique UNIQUE(por_id, mse_name),
-  CONSTRAINT mse_por_order_unique UNIQUE(por_id, mse_order)
+  UNIQUE(por_id, mse_name),
+  UNIQUE(por_id, mse_order)
 );
 COMMENT ON TABLE mainsection IS 'The main view of a portal consists of menus regrouped in sections. This table defines these sections.';
 COMMENT ON COLUMN mainsection.mse_id IS 'Unique identifier';
@@ -83,8 +83,8 @@ CREATE TABLE mainmenu (
   mse_id integer NOT NULL REFERENCES portal.mainsection,
   mme_name text NOT NULL,
   mme_order integer NOT NULL CHECK (mme_order > 0) ,
-  CONSTRAINT mme_mse_name_unique UNIQUE(mse_id, mme_name),
-  CONSTRAINT mme_mse_order_unique UNIQUE(mse_id, mme_order) 
+  UNIQUE(mse_id, mme_name),
+  UNIQUE(mse_id, mme_order) 
 );
 COMMENT ON TABLE mainmenu IS 'Menu entries of a main view';
 COMMENT ON COLUMN mainmenu.mme_id IS 'Unique identifier';
@@ -98,8 +98,8 @@ CREATE TABLE personsection (
   pse_entity portal.entity,
   pse_name text NOT NULL,
   pse_order integer NOT NULL CHECK (pse_order > 0) ,
-  CONSTRAINT pse_por_name_unique UNIQUE(por_id, pse_entity, pse_name),
-  CONSTRAINT pse_por_order_unique UNIQUE(por_id, pse_entity, pse_order)
+  UNIQUE(por_id, pse_entity, pse_name),
+  UNIQUE(por_id, pse_entity, pse_order)
 );
 COMMENT ON TABLE personsection IS 'A view of a portal for an entity type consists of menus regrouped in sections. This table defines these sections.';
 COMMENT ON COLUMN personsection.pse_id IS 'Unique identifier';
@@ -113,8 +113,8 @@ CREATE TABLE personmenu (
   pse_id integer NOT NULL REFERENCES portal.personsection,
   pme_name text NOT NULL,
   pme_order integer NOT NULL CHECK (pme_order > 0) ,
-  CONSTRAINT pme_pse_name_unique UNIQUE(pse_id, pme_name),
-  CONSTRAINT pme_pse_order_unique UNIQUE(pse_id, pme_order) 
+  UNIQUE(pse_id, pme_name),
+  UNIQUE(pse_id, pme_order) 
 );
 COMMENT ON TABLE personmenu IS 'Menu entries of a view for an entity type';
 COMMENT ON COLUMN personmenu.pme_id IS 'Unique identifier';
@@ -136,7 +136,7 @@ CREATE TABLE personview_element (
   pve_name text NOT NULL,
   pve_entities portal.entity[] NOT NULL 
     CHECK (pve_entities <> '{}'),
-  CONSTRAINT pve_type_name_unique UNIQUE(pve_type, pve_name)
+  UNIQUE(pve_type, pve_name)
 );
 COMMENT ON TABLE portal.personview_element IS 'Elements that can be attached to a person view';
 COMMENT ON COLUMN personview_element.pve_id IS 'Unique identifier';
@@ -167,7 +167,7 @@ CREATE TABLE mainview_element (
   mve_id serial PRIMARY KEY,
   mve_type portal.mainview_element_type NOT NULL,
   mve_name text NOT NULL,
-  CONSTRAINT mve_type_name_unique UNIQUE(mve_type, mve_name)
+  UNIQUE(mve_type, mve_name)
 );
 COMMENT ON TABLE portal.mainview_element IS 'Elements that can be attached to a main view';
 COMMENT ON COLUMN mainview_element.mve_id IS 'Unique identifier';

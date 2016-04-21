@@ -16,7 +16,7 @@ CREATE TABLE patient.patient (
   pat_firstname text NOT NULL,
   pat_lastname text NOT NULL,
   pat_birthdate date NOT NULL,
-  CONSTRAINT pat_name_birth_unique UNIQUE(pat_firstname, pat_lastname, pat_birthdate)
+  UNIQUE(pat_firstname, pat_lastname, pat_birthdate)
 );
 COMMENT ON TABLE patient.patient IS 'Base information about a patient. Uniqueness of patients is done in firstname/lastname/birthdate.';
 COMMENT ON COLUMN patient.patient.pat_id IS 'Unique identifier';
@@ -33,8 +33,8 @@ CREATE TABLE patient.patient_group_assignment (
   pga_end_date date,
   pga_request_date date,
   pga_renew_request_date date,
-  pga_notes text NOT NULL DEFAULT ''
-  -- todo (sgr_id, pat_id) unique
+  pga_notes text NOT NULL DEFAULT '',
+  UNIQUE(sgr_id, pat_id)
 );
 COMMENT ON TABLE patient.patient_group_assignment IS 'Information about the assignment of a patient to a service group';
 COMMENT ON COLUMN patient.patient_group_assignment.pga_id IS 'Unique identifier';
@@ -50,8 +50,8 @@ COMMENT ON COLUMN patient.patient_group_assignment.pga_notes IS 'Free notes abou
 CREATE TABLE patient.patient_group_referent (
   pgr_id serial PRIMARY KEY,
   pga_id integer NOT NULL REFERENCES patient.patient_group_assignment,
-  stf_id integer NOT NULL REFERENCES organ.staff    
-  -- TODO (pga_id, stf_id) unique
+  stf_id integer NOT NULL REFERENCES organ.staff,
+  UNIQUE(pga_id, stf_id)
 );
 COMMENT ON TABLE patient.patient_group_referent IS 'Patients have one or more referents when assigned to a service group';
 COMMENT ON COLUMN patient.patient_group_referent.pgr_id IS 'Unique identifier';
