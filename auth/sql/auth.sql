@@ -30,23 +30,31 @@ CREATE TYPE login.user_right AS ENUM (
   'users'         -- can manage users
 );
 
-CREATE TABLE "user" (
+CREATE TABLE login."user" (
   usr_login text PRIMARY KEY,
   usr_salt text,
   usr_pwd text,
   usr_digest text,
   usr_rights login.user_right[],
+  stf_id integer REFERENCES organ.staff,
   usr_token integer UNIQUE,
   usr_token_creation_date timestamp with time zone
 );
-COMMENT ON TABLE "user" IS 'Webservice users';
-COMMENT ON COLUMN "user".usr_login IS 'User login';
-COMMENT ON COLUMN "user".usr_salt IS 'Encrypted password';
-COMMENT ON COLUMN "user".usr_pwd IS 'Clear temporary password';
-COMMENT ON COLUMN "user".usr_digest IS 'Encrypted password for webdav';
-COMMENT ON COLUMN "user".usr_rights IS 'Array of special rights for this user';
-COMMENT ON COLUMN "user".usr_token IS 'Token id returned after authentication';
-COMMENT ON COLUMN "user".usr_token_creation_date IS 'Token creation date for validity';
+COMMENT ON TABLE login."user" IS 'Webservice users';
+COMMENT ON COLUMN login."user".usr_login IS 'User login';
+COMMENT ON COLUMN login."user".usr_salt IS 'Encrypted password';
+COMMENT ON COLUMN login."user".usr_pwd IS 'Clear temporary password';
+COMMENT ON COLUMN login."user".usr_digest IS 'Encrypted password for webdav';
+COMMENT ON COLUMN login."user".usr_rights IS 'Array of special rights for this user';
+COMMENT ON COLUMN login."user".usr_token IS 'Token id returned after authentication';
+COMMENT ON COLUMN login."user".usr_token_creation_date IS 'Token creation date for validity';
 
 INSERT INTO login.user(usr_login, usr_salt, usr_rights) values ('variation', pgcrypto.crypt('variation', pgcrypto.gen_salt('bf', 8)), '{users}');
 INSERT INTO login.user(usr_login, usr_salt, usr_rights) values ('portaluser', pgcrypto.crypt('portal/user', pgcrypto.gen_salt('bf', 8)), '{structure}');
+
+CREATE TABLE login.user_portal (
+  usp_id serial PRIMARY KEY,
+  usr_login text NOT NULL REFERENCES login."user",
+  por_id integer NOT NULL REFERENCES portal.portal,
+  UNIQUE (usr_login, por_id)
+);

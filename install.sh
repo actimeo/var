@@ -14,10 +14,10 @@ if [ "$DBUSER" = "" ]; then
 fi
 
 FILES="pgproc/sql/*.sql pgdoc/sql/*.sql pgproc/plpgsql/*.sql pgproc/tests/tests.sql"
-FILES="$FILES auth/sql/*.sql auth/plpgsql/*.sql"
 FILES="$FILES portal/sql/portal.sql portal/sql/mainview_*.sql portal/sql/personview_*.sql"
 FILES="$FILES organ/sql/organ.sql"
 FILES="$FILES patient/sql/patient.sql"
+FILES="$FILES auth/sql/*.sql auth/plpgsql/*.sql"
 
 echo 'Installing SQL from files:'
 for i in $FILES; do 
