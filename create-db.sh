@@ -4,6 +4,7 @@ function err {
   exit 1;
 }
 
+# you can use: sudo su postgres -c ./create-db.sh
 [ $(whoami) = 'postgres' ] || err 'must be postgres'
 
 . config.sh

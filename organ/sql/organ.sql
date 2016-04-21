@@ -5,44 +5,58 @@ SET search_path = organ;
 
 CREATE TABLE organ.institution (
   ins_id serial PRIMARY KEY,
-  ins_name text NOT NULL UNIQUE,
-  ins_topics portal.topics[] NOT NULL
+  ins_name text NOT NULL UNIQUE
 );
 
 COMMENT ON TABLE organ.institution IS 'An institution receiving patients.';
 COMMENT ON COLUMN organ.institution.ins_id IS 'Unique identifier';
 COMMENT ON COLUMN organ.institution.ins_name IS 'Institution name';
-COMMENT ON COLUMN organ.institution.ins_topics IS 'Topics of interest for the institution';
 
-CREATE TABLE organ.care (
-  car_id serial PRIMARY KEY,
+CREATE TABLE organ.service (
+  ser_id serial PRIMARY KEY,
   ins_id integer NOT NULL REFERENCES organ.institution,
-  car_name text NOT NULL,
-  car_topics portal.topics[] NOT NULL,
-  CONSTRAINT care_ins_name_unique UNIQUE(ins_id, car_name)
+  ser_name text NOT NULL,
+  ser_topics portal.topics[] NOT NULL,
+  CONSTRAINT ser_ins_name_unique UNIQUE(ins_id, ser_name)
 );
 
-COMMENT ON TABLE organ.care IS 'A way patients are cared';
-COMMENT ON COLUMN organ.care.car_id IS 'Unique identifier';
-COMMENT ON COLUMN organ.care.ins_id IS 'Institution to which the group is attached';
-COMMENT ON COLUMN organ.care.car_name IS 'Care name';
-COMMENT ON COLUMN organ.care.car_topics IS 'Topics covered by the care';
+COMMENT ON TABLE organ.service IS 'A service to patients';
+COMMENT ON COLUMN organ.service.ser_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.service.ins_id IS 'Institution providing the service';
+COMMENT ON COLUMN organ.service.ser_name IS 'Service name';
+COMMENT ON COLUMN organ.service.ser_topics IS 'Topics covered by the service';
 
-CREATE TABLE organ.care_group (
-  cgr_id serial PRIMARY KEY,
-  car_id integer NOT NULL REFERENCES organ.care,
-  cgr_name text NOT NULL,
-  cgr_start_date date NOT NULL DEFAULT '-infinity',
-  cgr_end_date date NOT NULL DEFAULT 'infinity',
-  cgr_notes text NOT NULL DEFAULT '',
-  CONSTRAINT care_group_car_name_unique UNIQUE(car_id, cgr_name)
+CREATE TABLE organ.service_group (
+  sgr_id serial PRIMARY KEY,
+  ser_id integer NOT NULL REFERENCES organ.service,
+  sgr_name text NOT NULL,
+  sgr_start_date date NOT NULL DEFAULT '-infinity',
+  sgr_end_date date NOT NULL DEFAULT 'infinity',
+  sgr_notes text NOT NULL DEFAULT '',
+  CONSTRAINT service_group_ser_name_unique UNIQUE(ser_id, sgr_name)
 );
 
-COMMENT ON TABLE organ.care_group IS 'Group of a certain care';
-COMMENT ON COLUMN organ.care_group.cgr_id IS 'Unique identifier';
-COMMENT ON COLUMN organ.care_group.car_id IS 'Care of the group';
-COMMENT ON COLUMN organ.care_group.cgr_name IS 'Name of the group';
-COMMENT ON COLUMN organ.care_group.cgr_start_date IS 'Date at which the group activity begins';
-COMMENT ON COLUMN organ.care_group.cgr_end_date IS 'Date at which the group activity ends';
-COMMENT ON COLUMN organ.care_group.cgr_notes IS 'Free notes about the group';
+COMMENT ON TABLE organ.service_group IS 'Group of a certain service';
+COMMENT ON COLUMN organ.service_group.sgr_id IS 'Unique identifier';
+COMMENT ON COLUMN organ.service_group.ser_id IS 'Service provided by the group';
+COMMENT ON COLUMN organ.service_group.sgr_name IS 'Name of the group';
+COMMENT ON COLUMN organ.service_group.sgr_start_date IS 'Date at which the group activity begins';
+COMMENT ON COLUMN organ.service_group.sgr_end_date IS 'Date at which the group activity ends';
+COMMENT ON COLUMN organ.service_group.sgr_notes IS 'Free notes about the group';
 
+-- list of thematics of institution: move to global config
+
+-- staff: 
+--   link to group for rights
+--   link to *institutions for affectation
+
+-- care_group_assignment: list of staff referents
+
+-- patient = entity with attribute person or regroupment
+--   regroup persons in regroupments
+
+
+
+-- user
+  -- x portals
+  -- (x groups)

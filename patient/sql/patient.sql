@@ -3,22 +3,13 @@ COMMENT ON SCHEMA patient IS 'This module collects all the information about the
 
 SET search_path = patient;
 
-CREATE TYPE patient.care_group_assignment_status AS ENUM (
+CREATE TYPE patient.service_group_assignment_status AS ENUM (
   'requested',
   'accepted',
   'finished',
   'refused'
 );
-COMMENT ON TYPE patient.care_group_assignment_status IS 'Status of the assignment request of a patient in a care group';
-
-CREATE TYPE patient.institution_status AS ENUM (
-  'preadmission',
-  'admission',
-  'present',
-  'left',
-  'unknown'
-);
-COMMENT ON TYPE patient.institution_status IS 'Presence status of a patient in an institution';
+COMMENT ON TYPE patient.service_group_assignment_status IS 'Status of the assignment request of a patient in a service group';
 
 CREATE TABLE patient.patient (
   pat_id serial PRIMARY KEY,
@@ -33,27 +24,36 @@ COMMENT ON COLUMN patient.patient.pat_firstname IS 'Patient first name(s)';
 COMMENT ON COLUMN patient.patient.pat_lastname IS 'Patient last name';
 COMMENT ON COLUMN patient.patient.pat_birthdate IS 'Patient birth date';
 
-CREATE TABLE patient.care_group_assignment (
-  cga_id serial PRIMARY KEY,
-  cgr_id integer NOT NULL REFERENCES organ.care_group,
+CREATE TABLE patient.service_group_assignment (
+  sga_id serial PRIMARY KEY,
+  sgr_id integer NOT NULL REFERENCES organ.service_group,
   pat_id integer NOT NULL REFERENCES patient.patient,
-  cga_status patient.care_group_assignment_status NOT NULL,
-  cga_start_date date,
-  cga_end_date date,
-  cga_request_date date,
-  cga_renew_request_date date,
-  cga_notes text NOT NULL DEFAULT ''
+  sga_status patient.service_group_assignment_status NOT NULL,
+  sga_start_date date,
+  sga_end_date date,
+  sga_request_date date,
+  sga_renew_request_date date,
+  sga_notes text NOT NULL DEFAULT ''
 );
-COMMENT ON TABLE patient.care_group_assignment IS 'Information about the assignment of a patient to a care group';
-COMMENT ON COLUMN patient.care_group_assignment.cga_id IS 'Unique identifier';
-COMMENT ON COLUMN patient.care_group_assignment.cgr_id IS 'The care group of assignment';
-COMMENT ON COLUMN patient.care_group_assignment.pat_id IS 'The assigned patient';
-COMMENT ON COLUMN patient.care_group_assignment.cga_status IS 'Status of the assignment';
-COMMENT ON COLUMN patient.care_group_assignment.cga_start_date IS 'Assignment start date';
-COMMENT ON COLUMN patient.care_group_assignment.cga_end_date IS 'Assignment end date';
-COMMENT ON COLUMN patient.care_group_assignment.cga_request_date IS 'Date of assignment request';
-COMMENT ON COLUMN patient.care_group_assignment.cga_renew_request_date IS 'Date of assignment renewal request';
-COMMENT ON COLUMN patient.care_group_assignment.cga_notes IS 'Free notes about the assignment';
+COMMENT ON TABLE patient.service_group_assignment IS 'Information about the assignment of a patient to a service group';
+COMMENT ON COLUMN patient.service_group_assignment.sga_id IS 'Unique identifier';
+COMMENT ON COLUMN patient.service_group_assignment.sgr_id IS 'The service group of assignment';
+COMMENT ON COLUMN patient.service_group_assignment.pat_id IS 'The assigned patient';
+COMMENT ON COLUMN patient.service_group_assignment.sga_status IS 'Status of the assignment';
+COMMENT ON COLUMN patient.service_group_assignment.sga_start_date IS 'Assignment start date';
+COMMENT ON COLUMN patient.service_group_assignment.sga_end_date IS 'Assignment end date';
+COMMENT ON COLUMN patient.service_group_assignment.sga_request_date IS 'Date of assignment request';
+COMMENT ON COLUMN patient.service_group_assignment.sga_renew_request_date IS 'Date of assignment renewal request';
+COMMENT ON COLUMN patient.service_group_assignment.sga_notes IS 'Free notes about the assignment';
+
+CREATE TYPE patient.institution_status AS ENUM (
+  'preadmission',
+  'admission',
+  'present',
+  'left',
+  'unknown'
+);
+COMMENT ON TYPE patient.institution_status IS 'Presence status of a patient in an institution';
 
 CREATE TABLE patient.status (
   sta_id serial PRIMARY KEY,
