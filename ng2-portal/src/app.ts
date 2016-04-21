@@ -8,10 +8,11 @@ import {I18nService} from 'ng2-i18next/ng2-i18next';
 import {AlertsService, FootertipService} from 'variation-toolkit/variation-toolkit';
 
 import {Ng2PortalApp} from './app/ng2-portal';
-import {PgService} from './app/services/pg-service/pg-service';
+import {PgService, PgServiceConfig} from './app/services/pg-service/pg-service';
 import {SelectedMenus} from './app/services/selected-menus/selected-menus';
 
 bootstrap(Ng2PortalApp, [
+  provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),
   ROUTER_PROVIDERS, HTTP_PROVIDERS,
   UserService, I18nService,
   PgService, FootertipService,
