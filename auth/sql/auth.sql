@@ -20,6 +20,12 @@ The token becomes invalid:
 - after a certain period of inactivity (ie no function was called with this token)
 - when user disconnects with function user_logout(token)
 
+** Staff member
+A user can be linked to a staff member. If so, the user will have access to patients assigned to groups at which the staff member is also assigned.
+If a user is not linked to a staff member, he will be considered an admin and hace access to all patients.
+
+** Portals
+A user can have access to patients data through one or several portals.
 ';
 
 SET search_path = login;
