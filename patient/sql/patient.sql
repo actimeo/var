@@ -1,5 +1,12 @@
 CREATE SCHEMA patient;
-COMMENT ON SCHEMA patient IS 'This module collects all the information about the patients.';
+COMMENT ON SCHEMA patient IS 'This module collects all the information about the patients.
+
+A patient is assigned to institution service groups.
+
+When a patient is assigned to a particular group, it is defined one or more referents from the staff members assigned to that group.
+
+A presence status is defined for each patient in each institution. This status is more important than the assignation of a patient in a group.
+';
 
 SET search_path = patient;
 
@@ -9,7 +16,11 @@ CREATE TYPE patient.patient_group_assignment_status AS ENUM (
   'finished',
   'refused'
 );
-COMMENT ON TYPE patient.patient_group_assignment_status IS 'Status of the assignment request of a patient in a service group';
+COMMENT ON TYPE patient.patient_group_assignment_status IS 'Status (for information) of the assignment request of a patient in a service group:
+- requested: the request to assign the patient to the group is done, waiting for a response
+- accepted: the request is accepted
+- refused: the request is refused
+- finished: *(really used?)*';
 
 CREATE TABLE patient.patient (
   pat_id serial PRIMARY KEY,
@@ -68,7 +79,13 @@ CREATE TYPE patient.institution_status AS ENUM (
   'left',
   'unknown'
 );
-COMMENT ON TYPE patient.institution_status IS 'Presence status of a patient in an institution';
+COMMENT ON TYPE patient.institution_status IS 'Presence status of a patient in an institution:
+- preadmission: Patient pre-admission is requested
+- admission: Patient admission is requested
+- present: Patient admission is accepted and patient is present
+- left: Patient is not present anymore
+- unknown: Unknown status
+';
 
 CREATE TABLE patient.status (
   sta_id serial PRIMARY KEY,

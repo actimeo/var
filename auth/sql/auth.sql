@@ -39,6 +39,10 @@ CREATE TYPE login.user_right AS ENUM (
   'organization', -- can edit organization
   'users'         -- can manage users
 );
+COMMENT ON TYPE login.user_right IS 'Specific rights for users:
+- structure: can edit portals structure,
+- organization: can edit organization,
+- users: can manage users.';
 
 CREATE TABLE login."user" (
   usr_login text PRIMARY KEY,
@@ -56,6 +60,7 @@ COMMENT ON COLUMN login."user".usr_salt IS 'Encrypted password';
 COMMENT ON COLUMN login."user".usr_pwd IS 'Clear temporary password';
 COMMENT ON COLUMN login."user".usr_digest IS 'Encrypted password for webdav';
 COMMENT ON COLUMN login."user".usr_rights IS 'Array of special rights for this user';
+COMMENT ON COLUMN login."user".stf_id IS 'Staff member attached to the user, or null for an admin user';
 COMMENT ON COLUMN login."user".usr_token IS 'Token id returned after authentication';
 COMMENT ON COLUMN login."user".usr_token_creation_date IS 'Token creation date for validity';
 
@@ -68,3 +73,8 @@ CREATE TABLE login.user_portal (
   por_id integer NOT NULL REFERENCES portal.portal,
   UNIQUE (usr_login, por_id)
 );
+COMMENT ON TABLE login.user_portal IS 'Permissions for users to use portals';
+COMMENT ON COLUMN login.user_portal.usp_id IS 'Unique identifier';
+COMMENT ON COLUMN login.user_portal.usr_login IS 'User login';
+COMMENT ON COLUMN login.user_portal.por_id IS 'A portal the user can use';
+

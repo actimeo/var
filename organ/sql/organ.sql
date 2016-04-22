@@ -1,5 +1,15 @@
 CREATE SCHEMA organ;
-COMMENT ON SCHEMA organ IS 'This module describes the structure of the organization receiving the patients.';
+COMMENT ON SCHEMA organ IS 'This module describes the structure of the organization receiving the patients.
+
+An organisation is composed of one or several institutions, and of staff members.
+
+Institutions
+------------
+An institution provides one or more services. Each service is composed of groups, to which patients will be attached.
+
+Staff members
+-------------
+Staff members are assigned to service groups (only ones from institutions to which members are assignable).';
 
 SET search_path = organ;
 
