@@ -23,7 +23,7 @@
     "ng2-material": "^0.3.4",
     "es6-promise": "^3.0.2",
 
-    "ng2-postgresql-procedures": "0.0.1"
+    "ng2-postgresql-procedures": "0.0.2"
   },
   "devDependencies": {
     "angular-cli": "0.0.25",
