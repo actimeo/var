@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {RouterLink} from 'angular2/router';
 import {TimerWrapper} from 'angular2/src/facade/async';
 
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {SidenavService} from 'ng2-material/all';
 
@@ -10,7 +10,6 @@ import {SidenavService} from 'ng2-material/all';
   selector: 'schema-details-cmp',
   styleUrls: ['app/schema_details/schema_details.css'],
   templateUrl: 'app/schema_details/schema_details.html',
-  providers: [PgService],
   directives: [RouterLink]
 })
 export class SchemaDetailsCmp {

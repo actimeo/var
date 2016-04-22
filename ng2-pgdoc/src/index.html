@@ -47,10 +47,15 @@
       'vendor/ng2-material': {
         format: 'cjs',
         defaultExtension: 'js'
+      },
+      'vendor/ng2-postgresql-procedures': {
+        format: 'cjs',
+        defaultExtension: 'js'
       }
      },
      paths: {
-       'ng2-material/all': 'vendor/ng2-material/all.js'
+       'ng2-material/all': 'vendor/ng2-material/all.js',
+       'ng2-postgresql-procedures/ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures/ng2-postgresql-procedures'
      }
     });
     System.import('app.js').then(null, console.error.bind(console));

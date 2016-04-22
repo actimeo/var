@@ -1,10 +1,9 @@
 import {Component, Output, EventEmitter} from 'angular2/core';
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
   selector: 'schemas-list-cmp',
-  templateUrl: 'app/schemas_list/schemas_list.html',
-  providers: [PgService]
+  templateUrl: 'app/schemas_list/schemas_list.html'
 })
 export class SchemasListCmp {
   schemas: any;

@@ -1,16 +1,13 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
 
 
 @Component({
   selector: 'enum-details',
   templateUrl: 'app///enum_details/enum_details.html',
-  styleUrls: ['app///enum_details/enum_details.css'],
-  providers: [PgService],
-  directives: [],
-  pipes: []
+  styleUrls: ['app///enum_details/enum_details.css']
 })
 export class EnumDetailsCmp {
 

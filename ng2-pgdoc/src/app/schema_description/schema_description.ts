@@ -1,13 +1,12 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
 
 @Component({
   selector: 'schema-description-cmp',
   styleUrls: ['app/schema_description/schema_description.css'],
-  templateUrl: 'app/schema_description/schema_description.html',
-  providers: [PgService]
+  templateUrl: 'app/schema_description/schema_description.html'
 })
 export class SchemaDescriptionCmp {
   schema: string;
@@ -22,7 +21,7 @@ export class SchemaDescriptionCmp {
   ngOnInit() { this.reloadData(); }
 
   reloadData() {
-    this.pgService.pgcall('pgdoc', 'schema_description', {prm_schema: this.schema}).then(data => {
+    this.pgService.pgcall('pgdoc', 'schema_description', { prm_schema: this.schema }).then(data => {
       this.description = data;
     });
   }

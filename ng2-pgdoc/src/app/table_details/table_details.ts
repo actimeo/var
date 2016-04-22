@@ -1,13 +1,12 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {PgService} from '../services/pg-service/pg-service';
+import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
 
 @Component({
   selector: 'table-details-cmp',
   styleUrls: ['app/table_details/table_details.css'],
-  templateUrl: 'app/table_details/table_details.html',
-  providers: [PgService]
+  templateUrl: 'app/table_details/table_details.html'
 })
 export class TableDetailsCmp {
   schema: string;
