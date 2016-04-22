@@ -2,11 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
+import {Markdown} from '../markdown/markdown';
 
 @Component({
   selector: 'type-details-cmp',
   styleUrls: ['app/type_details/type_details.css'],
-  templateUrl: 'app/type_details/type_details.html'
+  templateUrl: 'app/type_details/type_details.html',
+  directives: [Markdown]
 })
 export class TypeDetailsCmp {
   schema: string;
@@ -26,7 +28,7 @@ export class TypeDetailsCmp {
 
   reloadData() {
     this.pgService.pgcall('pgdoc', 'type_description', {prm_schema: this.schema, prm_type: this.id})
-        .then(data => { this.description = data; });
+        .then((data: string) => { this.description = data.length > 0 ? data : null; });
 
     this.pgService.pgcall('pgdoc', 'type_columns', {prm_schema: this.schema, prm_type: this.id})
         .then(data => { this.columns = data; });

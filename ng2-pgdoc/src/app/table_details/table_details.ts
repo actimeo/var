@@ -2,11 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
+import {Markdown} from '../markdown/markdown';
 
 @Component({
   selector: 'table-details-cmp',
   styleUrls: ['app/table_details/table_details.css'],
-  templateUrl: 'app/table_details/table_details.html'
+  templateUrl: 'app/table_details/table_details.html',
+  directives: [Markdown]
 })
 export class TableDetailsCmp {
   schema: string;
@@ -25,10 +27,10 @@ export class TableDetailsCmp {
 
   reloadData() {
     this.pgService
-        .pgcall('pgdoc', 'table_description', {prm_schema: this.schema, prm_table: this.id})
-        .then(data => { this.description = data; });
+      .pgcall('pgdoc', 'table_description', { prm_schema: this.schema, prm_table: this.id })
+      .then((data: string) => { this.description = data.length > 0 ? data : null; });
 
-    this.pgService.pgcall('pgdoc', 'table_columns', {prm_schema: this.schema, prm_table: this.id})
-        .then(data => { this.columns = data; });
+    this.pgService.pgcall('pgdoc', 'table_columns', { prm_schema: this.schema, prm_table: this.id })
+      .then(data => { this.columns = data; });
   }
 }

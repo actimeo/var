@@ -2,11 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
+import {Markdown} from '../markdown/markdown';
 
 @Component({
   selector: 'schema-description-cmp',
   styleUrls: ['app/schema_description/schema_description.css'],
-  templateUrl: 'app/schema_description/schema_description.html'
+  templateUrl: 'app/schema_description/schema_description.html',
+  directives: [Markdown]
 })
 export class SchemaDescriptionCmp {
   schema: string;

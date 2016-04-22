@@ -2,12 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
-
+import {Markdown} from '../markdown/markdown';
 
 @Component({
   selector: 'enum-details',
   templateUrl: 'app///enum_details/enum_details.html',
-  styleUrls: ['app///enum_details/enum_details.css']
+  styleUrls: ['app///enum_details/enum_details.css'],
+  directives: [Markdown]
 })
 export class EnumDetailsCmp {
 
@@ -27,7 +28,9 @@ export class EnumDetailsCmp {
 
   reloadData() {
     this.pgService.pgcall('pgdoc', 'enum_description', {prm_schema: this.schema, prm_enum: this.id})
-        .then(data => { this.description = data; });
+        .then((data: string) => {
+          this.description = data.length > 0 ? data : null;
+         });
 
     this.pgService.pgcall('pgdoc', 'enum_values', {prm_schema: this.schema, prm_enum: this.id})
         .then(data => { this.values = data; });

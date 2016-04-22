@@ -2,11 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
+import {Markdown} from '../markdown/markdown';
 
 @Component({
   selector: 'function-details-cmp',
   styleUrls: ['app/function_details/function_details.css'],
-  templateUrl: 'app/function_details/function_details.html'
+  templateUrl: 'app/function_details/function_details.html',
+  directives: [Markdown]
 })
 export class FunctionDetailsCmp {
   schema: string;

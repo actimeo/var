@@ -1,9 +1,7 @@
 <md-content layout-padding>
     <div *ngIf="description">
-        <h3>Description</h3>
-        <div class="description">{{description}}</div>
+        <markdown [content]="description"></markdown>
     </div>
-
     <h3>Columns</h3>
     <table>
         <tr>
