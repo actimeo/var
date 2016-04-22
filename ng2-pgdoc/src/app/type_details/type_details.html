@@ -5,20 +5,15 @@
     </div>
 
     <h3>Columns</h3>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Type</th>
-            <th>Name</th>
-            <th>description</th>
-        </tr>
-        <tr *ngFor="#column of columns">
-            <td>{{column.col}}</td>
-            <td>{{column.typname}}<span *ngIf="column.typlen > 0">({{column.typlen}})</span></td>
-            <td>{{column.colname}}</td>
-            <td>{{column.description}}</td>
-        </tr>
-    </table>
+    
+    <md-list>
+        <md-list-item class="md-2-line" *ngFor="#column of columns">
+            <div class="md-list-item-text" layout="column">
+                <h3><span class="argtype">{{column.typname}}<span *ngIf="column.typlen > 0">({{column.typlen}})</span></span> {{column.colname}}</h3>
+                <p>{{column.description}}</p>
+            </div>
+        </md-list-item>
+    </md-list>
     <div *ngIf="functionsReturningType">
         <h3>Functions returning this type</h3>
         <ul>
