@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router} from 'angular2/router';
 
-import {UserService} from 'variation-user/services';
+import {UserService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {LoginCmp} from './login/login';
 import {HomeCmp} from './home/home';

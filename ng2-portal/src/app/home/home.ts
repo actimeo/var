@@ -1,7 +1,7 @@
 import {Component, ViewChild} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {UserService} from 'variation-user/services';
+import {UserService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsComponent, Footertip} from 'variation-toolkit/variation-toolkit';
 
