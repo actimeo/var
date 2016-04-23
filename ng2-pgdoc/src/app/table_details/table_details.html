@@ -9,8 +9,10 @@
                 <h3><span class="argtype">{{column.typname}}<span *ngIf="column.typlen > 0">({{column.typlen}})</span></span> {{column.colname}}</h3>
                 <h4>
                     <span *ngIf="column.is_primary_key" class="chips">PK</span>
+                    <span *ngIf="column.is_unique" class="chips">unique</span>
                     <span *ngIf="!column.is_primary_key && column.isnotnull" class="chips">notnull</span>
-                    <span *ngIf="column.hasdefault" class="chips"> def {{column.deftext | serial}}</span>
+                    <span *ngIf="column.hasdefault" class="chips">def {{column.deftext | serial}}</span>
+                    <span *ngIf="column.foreign_key" class="chips">&rarr; {{column.foreign_key}}</span>
                     </h4>
                 <p>{{column.description}}</p>
             </div>

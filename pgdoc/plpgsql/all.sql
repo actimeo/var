@@ -185,17 +185,58 @@ AS $$
 DECLARE
   ret boolean;
 BEGIN
-  SELECT EXISTS INTO ret (SELECT 1 FROM pg_index 
-    INNER JOIN pg_class ON pg_index.indrelid = prm_class
-    INNER JOIN pg_namespace ON pg_namespace.oid = prm_namespace
-    WHERE indisprimary 
-    AND pg_class.relkind = 'r'
-    and prm_colnum = ANY(indkey)
+  RETURN EXISTS (SELECT 1 FROM pg_constraint
+    WHERE contype = 'p'
+    AND connamespace = prm_namespace
+    AND conrelid = prm_class
+    and prm_colnum = ALL(conkey)
     );
-  RETURN ret;
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION pgdoc.table_column_is_unique(
+  prm_namespace oid, 
+  prm_class oid, 
+  prm_colnum integer)
+RETURNS boolean
+LANGUAGE plpgsql
+STABLE 
+AS $$
+DECLARE
+  ret boolean;
+BEGIN
+  RETURN EXISTS (SELECT 1 FROM pg_constraint
+    WHERE contype = 'u'
+    AND connamespace = prm_namespace
+    AND conrelid = prm_class
+    and prm_colnum = ALL(conkey)
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION pgdoc.table_column_foreign_key(
+  prm_namespace oid, 
+  prm_class oid, 
+  prm_colnum integer)
+RETURNS text
+LANGUAGE plpgsql
+STABLE 
+AS $$
+DECLARE
+  ret text;
+BEGIN
+  SELECT pg_namespace.nspname || '.' || pg_class.relname || '.' || pg_attribute.attname
+    INTO ret
+    FROM pg_constraint 
+    INNER JOIN pg_class on pg_class.oid = confrelid
+    INNER JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+    INNER JOIN pg_attribute ON pg_attribute.attrelid = pg_class.oid AND attnum = ANY(confkey)
+    WHERE connamespace = prm_namespace
+    AND conrelid = prm_class
+    and prm_colnum = ALL(conkey) AND contype = 'f';
+  RETURN ret;
+END;
+$$;
 
 DROP FUNCTION IF EXISTS pgdoc.table_columns(prm_schema name, prm_table name);
 DROP TYPE IF EXISTS pgdoc.table_columns;
@@ -208,7 +249,9 @@ CREATE TYPE pgdoc.table_columns AS (
   description text,
   typname name,
   typlen integer,
-  is_primary_key boolean
+  is_primary_key boolean,
+  is_unique boolean,
+  foreign_key text
 );
 
 CREATE FUNCTION pgdoc.table_columns(prm_schema name, prm_table name)
@@ -228,7 +271,9 @@ BEGIN
     CASE WHEN pg_attribute.atttypmod > 4 
       THEN pg_attribute.atttypmod - 4 
       ELSE atttypmod END,
-    pgdoc.table_column_is_primary_key(pg_namespace.oid, pg_class.oid, attnum)
+    pgdoc.table_column_is_primary_key(pg_namespace.oid, pg_class.oid, attnum),
+    pgdoc.table_column_is_unique(pg_namespace.oid, pg_class.oid, attnum),
+    pgdoc.table_column_foreign_key(pg_namespace.oid, pg_class.oid, attnum)
   FROM pg_attribute  
     INNER JOIN pg_class ON pg_class.oid = pg_attribute.attrelid
     INNER JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
