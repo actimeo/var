@@ -1,3 +1,4 @@
 table { border-collapse: collapse; border: 1px solid black; }
 th, td { padding: 4px; border: 1px solid black; }
 .argtype { color: #009688; }
+.chips { background-color: #E0E0E0; color: #424242; border-radius: 12px; height: 24px; line-height: 24px; padding: 0 8px; display: inline-block; font-size: 13px; }

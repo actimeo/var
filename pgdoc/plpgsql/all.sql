@@ -174,6 +174,29 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION pgdoc.table_column_is_primary_key(
+  prm_namespace oid, 
+  prm_class oid, 
+  prm_colnum integer)
+RETURNS boolean
+LANGUAGE plpgsql
+STABLE 
+AS $$
+DECLARE
+  ret boolean;
+BEGIN
+  SELECT EXISTS INTO ret (SELECT 1 FROM pg_index 
+    INNER JOIN pg_class ON pg_index.indrelid = prm_class
+    INNER JOIN pg_namespace ON pg_namespace.oid = prm_namespace
+    WHERE indisprimary 
+    AND pg_class.relkind = 'r'
+    and prm_colnum = ANY(indkey)
+    );
+  RETURN ret;
+END;
+$$;
+
+
 DROP FUNCTION IF EXISTS pgdoc.table_columns(prm_schema name, prm_table name);
 DROP TYPE IF EXISTS pgdoc.table_columns;
 CREATE TYPE pgdoc.table_columns AS (
@@ -184,7 +207,8 @@ CREATE TYPE pgdoc.table_columns AS (
   deftext text,
   description text,
   typname name,
-  typlen integer
+  typlen integer,
+  is_primary_key boolean
 );
 
 CREATE FUNCTION pgdoc.table_columns(prm_schema name, prm_table name)
@@ -203,7 +227,8 @@ BEGIN
     pg_type.typname,
     CASE WHEN pg_attribute.atttypmod > 4 
       THEN pg_attribute.atttypmod - 4 
-      ELSE atttypmod END
+      ELSE atttypmod END,
+    pgdoc.table_column_is_primary_key(pg_namespace.oid, pg_class.oid, attnum)
   FROM pg_attribute  
     INNER JOIN pg_class ON pg_class.oid = pg_attribute.attrelid
     INNER JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace

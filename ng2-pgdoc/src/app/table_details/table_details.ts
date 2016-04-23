@@ -3,12 +3,14 @@ import {RouteParams} from 'angular2/router';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {NavigationService} from '../services/navigation/navigation';
 import {Markdown} from '../markdown/markdown';
+import {Serial} from '../pipes/serial/serial';
 
 @Component({
   selector: 'table-details-cmp',
   styleUrls: ['app/table_details/table_details.css'],
   templateUrl: 'app/table_details/table_details.html',
-  directives: [Markdown]
+  directives: [Markdown],
+  pipes: [Serial]
 })
 export class TableDetailsCmp {
   schema: string;

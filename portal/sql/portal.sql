@@ -212,3 +212,5 @@ CREATE TABLE portal.param_value (
   pva_value_topic portal.topics, 
   CONSTRAINT pva_pkey PRIMARY KEY(por_id, pva_param)
 );
+--  TODO comment, one value NOTNULL exactly
+
