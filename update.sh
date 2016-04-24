@@ -13,7 +13,7 @@ if [ "$DBUSER" = "" ]; then
     exit;
 fi
 
-FILES="./*/plpgsql/*.sql"
+FILES="./*/plpgsql/*.sql ./*/sql/comments.sql"
 FILES="$FILES pgproc/tests/tests.sql"
 echo 'Updating PL/PgSQL from files:'
 for i in $FILES; do 

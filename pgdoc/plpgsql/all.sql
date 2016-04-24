@@ -429,3 +429,68 @@ BEGIN
     WHERE proname = prm_function AND nspname = prm_schema;
 END;
 $$;
+
+DROP FUNCTION IF EXISTS pgdoc.comments_get_all(prm_ignore_schema text[]);
+DROP TYPE IF EXISTS pgdoc.comments_get_all;
+CREATE TYPE pgdoc.comments_get_all AS (
+  schema name,
+  typ pgdoc.typ,
+  name text,
+  subname text,
+  comment text,
+  num integer
+);
+
+CREATE FUNCTION pgdoc.comments_get_all(prm_ignore_schema text[])
+RETURNS SETOF pgdoc.comments_get_all
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  row pgdoc.comments_get_all;
+BEGIN
+  RETURN QUERY 
+    SELECT nspname as schema, 'schema'::pgdoc.typ as typ, nspname::text as nam, NULL, pg_description.description, 0 as num
+    FROM pg_namespace
+    LEFT JOIN pg_description ON pg_namespace.oid = pg_description.objoid AND pg_description.objsubid = 0
+    WHERE nspname NOT like all(prm_ignore_schema) 
+  UNION
+    SELECT nspname, 'table'::pgdoc.typ, relname::text, NULL, pg_description.description, 0
+    FROM pg_class
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+    LEFT JOIN pg_description ON pg_class.oid = pg_description.objoid AND pg_description.objsubid = 0
+    WHERE pg_class.relkind='r' AND nspname NOT like all(prm_ignore_schema) 
+
+  UNION
+    SELECT nspname, 'column'::pgdoc.typ, relname, attname, pg_description.description, attnum
+    FROM pg_attribute  
+    INNER JOIN pg_class ON pg_class.oid = pg_attribute.attrelid
+    INNER JOIN pg_namespace ON pg_namespace.oid = pg_class.relnamespace
+    LEFT JOIN pg_description
+      ON pg_description.objoid = pg_attribute.attrelid
+      AND pg_description.objsubid = pg_attribute.attnum
+    LEFT JOIN pg_attrdef 
+      ON pg_attrdef.adrelid = pg_class.oid
+      AND pg_attrdef.adnum = pg_attribute.attnum
+    INNER JOIN pg_type ON pg_type.oid = pg_attribute.atttypid
+    WHERE pg_class.relkind = 'r'
+    AND pg_namespace.nspname NOT like all(prm_ignore_schema) 
+    AND attnum > 0
+
+  UNION
+    SELECT nspname, 'enum'::pgdoc.typ, typname::text, NULL, pg_description.description, 0
+    FROM pg_type
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_type.typnamespace
+    LEFT JOIN pg_description ON pg_type.oid = pg_description.objoid AND pg_description.objsubid = 0
+    WHERE typtype = 'e' AND nspname NOT like all(prm_ignore_schema) 
+  UNION
+    SELECT nspname, 'type'::pgdoc.typ, pg_type.typname::text, NULL, pg_description.description, 0
+    FROM pg_type
+    INNER JOIN pg_class ON pg_type.typrelid = pg_class.oid
+    LEFT JOIN pg_namespace ON pg_namespace.oid = pg_type.typnamespace
+    LEFT JOIN pg_description ON pg_type.oid = pg_description.objoid AND pg_description.objsubid = 0
+    WHERE pg_class.relkind = 'c' AND nspname NOT like all(prm_ignore_schema) 
+  ORDER BY schema, typ, nam, num;
+END;
+$$;
+COMMENT ON FUNCTION pgdoc.comments_get_all(prm_ignore_schema text[]) IS 'Return comments for schemas, tables, types, enums';

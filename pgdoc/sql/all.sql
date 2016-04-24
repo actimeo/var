@@ -17,3 +17,11 @@
 --     along with pgprocedures.  If not, see <http://www.gnu.org/licenses/>.
 
 CREATE SCHEMA pgdoc;
+
+CREATE TYPE pgdoc.typ AS ENUM (
+  'schema',
+  'table', 
+  'column',
+  'enum',
+  'type'
+);

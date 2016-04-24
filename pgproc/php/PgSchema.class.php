@@ -310,6 +310,7 @@ class PgSchema {
     case 'mainview_element_type':
     case 'param':
     case 'param_type':
+    case 'typ':
       // user-defined enum types
       return $value;
       
