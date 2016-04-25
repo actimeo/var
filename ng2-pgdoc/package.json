@@ -13,18 +13,18 @@
   },
   "private": true,
   "dependencies": {
-    "angular2": "2.0.0-beta.14",
+    "angular2": "2.0.0-beta.15",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "filesaver.js": "^0.2.0",
     "jszip": "^3.0.0",
     "marked": "^0.3.5",
-    "ng2-material": "^0.3.4",
+    "ng2-material": "^0.3.7",
     "ng2-postgresql-procedures": "0.0.2",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "0.19.25",
-    "zone.js": "0.6.6"
+    "zone.js": "0.6.10"
   },
   "devDependencies": {
     "angular-cli": "0.0.25",

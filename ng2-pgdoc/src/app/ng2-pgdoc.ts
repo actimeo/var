@@ -41,7 +41,7 @@ export class PgdocApp {
   static SIDE_MENU_BREAKPOINT: string = 'gt-md';
 
   @Input()
-  fullPage: boolean = Media.hasMedia(PgdocApp.SIDE_MENU_BREAKPOINT);
+  fullPage: boolean = this.media.hasMedia(PgdocApp.SIDE_MENU_BREAKPOINT);
 
   private subscription = null;
 
@@ -56,7 +56,7 @@ export class PgdocApp {
     navigation.currentTitle = 'Variation database';
   }
 
-  hasMedia(breakSize: string): boolean { return Media.hasMedia(breakSize); }
+  hasMedia(breakSize: string): boolean { return this.media.hasMedia(breakSize); }
   /*
       open(name:string) {
           this.sidenav.show(name);
