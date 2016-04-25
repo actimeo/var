@@ -94,7 +94,8 @@ export class PgdocApp {
             return prev;
           } else if (next.typ == 'column') {
             if (next.comment) {
-              prev[next.schema] += 'COMMENT ON COLUMN ' + next.schema + '.' + next.name + '.' + next.subname + ' IS \''
+              prev[next.schema] +=
+                'COMMENT ON COLUMN ' + next.schema + '.' + next.name + '.' + next.subname + ' IS \''
                 + next.comment.replace(/'/g, "''") + '\';\n\n';
             }
             return prev;
