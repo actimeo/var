@@ -38,7 +38,7 @@ declare var JSZip;
 export class PgdocApp {
   @ViewChild('schemaDetails') schemaDetails;
 
-  static SIDE_MENU_BREAKPOINT: string = 'gt-md';
+  static SIDE_MENU_BREAKPOINT: string = 'gt-xs';
 
   @Input()
   fullPage: boolean = this.media.hasMedia(PgdocApp.SIDE_MENU_BREAKPOINT);
