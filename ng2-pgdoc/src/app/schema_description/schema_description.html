@@ -1,1 +1,20 @@
-<md-content layout-padding><markdown [content]="description"></markdown></md-content>
+<md-content layout-padding>
+  <div style="float: right" *ngIf="isModified() && !editing">
+    <md-switch [checked]="displayOriginal" (checkedChange)="onDisplayOriginalChange($event)">
+      Original
+    </md-switch>
+  </div>
+  <div style="clear: both">
+    <markdown [content]="description"></markdown>
+  </div>
+  <div *ngIf="!displayOriginal" class="buttonbar">
+    <button *ngIf="!editing && isModified()" md-raised-button class="md-raised" (click)="reset()">Reset</button>
+    <button *ngIf="!editing" md-raised-button class="md-raised md-primary" (click)="startEdit()">Edit</button>
+    <button *ngIf="editing" md-raised-button class="md-raised" (click)="cancel()">Cancel</button>
+    <button *ngIf="editing" md-raised-button class="md-raised md-primary" (click)="save()">Save</button>
+  </div>
+  <div *ngIf="editing">
+    <p><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">View Markdown syntax</a></p>
+    <textarea style="width: 100%;" rows="20" [(ngModel)]="description"></textarea>
+  </div>
+</md-content>

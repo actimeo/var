@@ -21,7 +21,6 @@ export class Markdown implements OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.content);
     if (this.content) {
       this.mdContent = this.marked.parse(this.content);
     }

@@ -6,6 +6,7 @@ import {MATERIAL_PROVIDERS, MATERIAL_DIRECTIVES, Media, SidenavService} from 'ng
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {NavigationService} from './services/navigation/navigation';
+import {LocalStorageService} from './services/local-storage/local-storage';
 
 import {SchemasListCmp} from './schemas_list/schemas_list';
 import {SchemaDetailsCmp} from './schema_details/schema_details';
@@ -33,7 +34,7 @@ declare var JSZip;
   styleUrls: ['app/ng2-pgdoc.css'],
   templateUrl: 'app/ng2-pgdoc.html',
   directives: [SchemasListCmp, SchemaDetailsCmp, ROUTER_DIRECTIVES, MATERIAL_DIRECTIVES],
-  providers: [MATERIAL_PROVIDERS]
+  providers: [MATERIAL_PROVIDERS, LocalStorageService]
 })
 export class PgdocApp {
   @ViewChild('schemaDetails') schemaDetails;
@@ -47,7 +48,8 @@ export class PgdocApp {
 
   constructor(
     public navigation: NavigationService, public media: Media, public appRef: ApplicationRef,
-    private sidenav: SidenavService, private pgService: PgService) {
+    private sidenav: SidenavService, private pgService: PgService,
+    private locStore: LocalStorageService) {
     let query = Media.getQuery(PgdocApp.SIDE_MENU_BREAKPOINT);
     this.subscription = media.listen(query).onMatched.subscribe((mql: MediaQueryList) => {
       this.fullPage = mql.matches;
@@ -76,6 +78,9 @@ export class PgdocApp {
       })
       .then((data: any[]) => {
         var arrs = data.reduce((prev: {}, next) => {
+          if (this.locStore.schemaDescriptionExists(next.name)) {
+            next.comment = this.locStore.getSchemaDescription(next.name);
+          }
           if (next.typ == 'schema') {
             prev[next.name] = 'COMMENT ON SCHEMA ' + next.name + ' IS \''
               + next.comment.replace(/'/g, "''") + '\';\n\n';
