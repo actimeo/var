@@ -61,5 +61,21 @@
   },
   "organ": {
     "organ_builder": "Organization builder"
+  },
+  "institution": {
+    "select_an_institution": "Select an institution",
+    "add_new_institution": "Add new institution",
+    "rename_current_institution": "Rename current institution",
+    "delete_current_institution": "Delete current institution",
+    "copy_current_institution": "Copy current institution",
+    "institution_name": "institution name",
+    "alerts": {
+      "institution_deleted": "Institution deleted",
+      "error_deleting_institution": "Error deleting institution",
+      "institution_added": "Institution added",
+      "error_adding_institution": "Error adding institution",
+      "institution_renamed": "Institution renamed",
+      "error_renaming_institution": "Error renaming institution"    
+    }
   }
 }

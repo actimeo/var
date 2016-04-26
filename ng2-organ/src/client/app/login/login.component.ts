@@ -32,7 +32,7 @@ export class LoginComponent {
     this.pgService
       .pgcall(
       'login', 'user_login',
-      { 'prm_login': username, 'prm_pwd': password, prm_rights: ['structure'] })
+      { 'prm_login': username, 'prm_pwd': password, prm_rights: ['organization'] })
       .then((data: any) => {
         this.userService.connect(data.usr_token, username);
         this.errormsg = null;
