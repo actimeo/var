@@ -91,7 +91,10 @@ BEGIN
   IF NOT FOUND THEN 
     RAISE EXCEPTION USING ERRCODE = 'invalid_authorization_specification';
   END IF;
-  SELECT * INTO tok FROM login._user_token_create (usr);
+  SELECT usr_token INTO tok FROM login."user" WHERE usr_token NOTNULL AND usr_login = usr;
+  IF NOT FOUND THEN
+    SELECT * INTO tok FROM login._user_token_create (usr);
+  END IF;
   SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights INTO row FROM login."user"
     WHERE usr_login = usr;
   RETURN row;
