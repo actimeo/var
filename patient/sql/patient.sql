@@ -52,5 +52,6 @@ CREATE TABLE patient.status (
   sta_id serial PRIMARY KEY,
   pat_id integer REFERENCES patient.patient NOT NULL,
   ins_id integer REFERENCES organ.institution NOT NULL,
-  sta_status patient.institution_status NOT NULL
+  sta_status patient.institution_status NOT NULL,
+  UNIQUE(pat_id, ins_id)
 );
