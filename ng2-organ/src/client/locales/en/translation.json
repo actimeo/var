@@ -1,0 +1,65 @@
+{
+  "common": {
+    "doubledot": ": ",
+    "required": "* ",
+    "btn": {
+      "add": "Add",
+      "cancel": "Cancel",
+      "save": "Save",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "auth": {
+    "connect_title": "Connection",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Connect",
+    "autherror": "Authentication error",
+    "logged_in_as": "Logged in as"
+  },
+  "entity": {
+    "patient": "Patient",
+    "staff": "Staff",
+    "contact": "Contact",
+    "family": "Family"
+  },
+  "topics": {
+    "social": "Social",
+    "education": "Education",
+    "health": "Health",
+    "pedagogy": "Pedagogy",
+    "justice": "Justice",
+    "employment": "Employment",
+    "lodging": "Lodging",
+    "sport": "Sport",
+    "culture": "Culture",
+    "transport": "Transport",
+    "decisionmaker": "Decision maker",
+    "financer": "Financer",
+    "support": "Support",
+    "entertainment": "Entertainment",
+    "juridic_protection": "Juridic protection",
+    "catering": "Catering",
+    "housekeeping": "Housekeeping",
+    "personal_assistance": "Personal assistance",
+    "financial_assistance": "Financial assistance",
+    "equipment": "Equipment",
+    "family": "Family",
+    "project": "Project",
+    "visit": "Visit",
+    "medical_care": "Medical care",
+    "dietetic": "Dietetic",
+    "occupational_therapy": "Occupational therapy",
+    "physiotherapy": "Physiotherapy",
+    "kinesitherapy": "Kinesitherapy",
+    "speech_therapy": "Speech therapy",
+    "psychomotor": "Psychomotor",
+    "psychology": "Psychology",
+    "residence_right": "Residence right",
+    "formalities_assistance": "Formalities assistance"
+  },
+  "organ": {
+    "organ_builder": "Organization builder"
+  }
+}

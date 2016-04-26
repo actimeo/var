@@ -1,0 +1,1 @@
+export {LoggedinRouterOutlet} from './loggedin-router-outlet.directive';
