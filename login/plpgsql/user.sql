@@ -213,3 +213,44 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION login.user_staff_set(prm_token integer, prm_login text, prm_stf_id integer) IS 'Link a staff member to a user';
+
+CREATE OR REPLACE FUNCTION login.user_portal_set(prm_token integer, prm_login text, prm_por_ids integer[])
+RETURNS void
+LANGUAGE plpgsql
+VOLATILE
+AS $$
+DECLARE
+  id integer;
+BEGIN
+  PERFORM login._token_assert (prm_token, '{users}');
+  DELETE FROM login.user_portal 
+    WHERE usr_login = prm_login
+    AND (prm_por_ids ISNULL OR por_id <> ALL(prm_por_ids));
+  IF prm_por_ids NOTNULL THEN
+    FOREACH id IN ARRAY prm_por_ids LOOP
+      INSERT INTO login.user_portal (usr_login, por_id) 
+        SELECT prm_login, id WHERE NOT EXISTS (SELECT 1 FROM login.user_portal WHERE usr_login = prm_login AND por_id = id);
+    END LOOP;
+  END IF;
+END;
+$$;
+COMMENT ON FUNCTION login.user_portal_set(prm_token integer, prm_login text, prm_por_ids integer[]) IS 'Set the list of portals authhorized for a user';
+
+CREATE OR REPLACE FUNCTION login.user_portal_list(prm_token integer, prm_login text)
+RETURNS SETOF integer
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  row integer;
+BEGIN
+  FOR row IN
+    SELECT por_id FROM login.user_portal 
+      WHERE usr_login = prm_login
+      ORDER BY por_id
+  LOOP
+    RETURN NEXT row;
+  END LOOP;
+END;
+$$;
+COMMENT ON FUNCTION login.user_portal_list(prm_token integer, prm_login text) IS 'Return the list of portals authorized for a user';

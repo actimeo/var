@@ -203,7 +203,7 @@ class coreTest extends PHPUnit_Framework_TestCase {
 
     $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users', 'organization'));
 
-    $loginUser = 'foo';
+    $loginUser = 'user';
     $stfFirstname = 'Paul';
     $stfLastname = 'Napoléon';
     self::$base->login->user_add($admin['usr_token'], $loginUser, null, null);
@@ -213,6 +213,42 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($user['stf_id'], $stfId);
   }
 
-}
+  public function testUserPortalSet() {
+    $loginAdmin = 'admin';
+    $pwdAdmin = 'ksfdjgsfdyubg';    
+    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), '{users, organization,structure}');");
 
+    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users', 'organization'));
+    $token = $admin['usr_token'];
+    $loginUser = 'user';
+    self::$base->login->user_add($token, $loginUser, null, null);
+    
+    $porId1 = self::$base->portal->portal_add($token, 'portal 1');
+    $porId2 = self::$base->portal->portal_add($token, 'portal 2');
+    $porId3 = self::$base->portal->portal_add($token, 'portal 3');
+    $this->assertGreaterThan($porId1, $porId2);
+    $this->assertGreaterThan($porId2, $porId3);
+
+    self::$base->login->user_portal_set($token, $loginUser, array($porId2, $porId1));
+    $porIds = self::$base->login->user_portal_list($token, $loginUser);
+    $this->assertEquals(array ($porId1, $porId2), $porIds);
+
+    self::$base->login->user_portal_set($token, $loginUser, array($porId3, $porId1, $porId2));
+    $porIds = self::$base->login->user_portal_list($token, $loginUser);
+    $this->assertEquals(array ($porId1, $porId2, $porId3), $porIds);
+
+    self::$base->login->user_portal_set($token, $loginUser, array($porId3, $porId1));
+    $porIds = self::$base->login->user_portal_list($token, $loginUser);
+    $this->assertEquals(array ($porId1, $porId3), $porIds);
+
+    self::$base->login->user_portal_set($token, $loginUser, array());
+    $porIds = self::$base->login->user_portal_list($token, $loginUser);
+    $this->assertEquals(null, $porIds);
+
+    self::$base->login->user_portal_set($token, $loginUser, null);
+    $porIds = self::$base->login->user_portal_list($token, $loginUser);
+    $this->assertEquals(null, $porIds);
+  }
+}
 ?>
