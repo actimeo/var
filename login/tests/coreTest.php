@@ -185,15 +185,34 @@ class coreTest extends PHPUnit_Framework_TestCase {
 
     $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users'));
 
-    $loginUser = 'foo';
+    $loginUser = 'a user';
     self::$base->login->user_add($admin['usr_token'], $loginUser, array('users'), null);
     $user = self::$base->login->user_info($admin['usr_token'], $loginUser);
-    $this->assertEquals($user['usr_login'], 'foo');
+    $this->assertEquals($user['usr_login'], $loginUser);
     $this->assertEquals($user['usr_rights'], array('users'));			      
 
     $res = self::$base->login->user_login($loginUser, $user['usr_temp_pwd'], array('users'));
     $this->assertGreaterThan(0, $res['usr_token']);
   }
+
+  public function testUserStaffSet() {
+    $loginAdmin = 'admin';
+    $pwdAdmin = 'ksfdjgsfdyubg';    
+    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), '{users, organization}');");
+
+    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users', 'organization'));
+
+    $loginUser = 'foo';
+    $stfFirstname = 'Paul';
+    $stfLastname = 'Napoléon';
+    self::$base->login->user_add($admin['usr_token'], $loginUser, null, null);
+    $stfId = self::$base->organ->staff_add($admin['usr_token'], $stfFirstname, $stfLastname);
+    self::$base->login->user_staff_set($admin['usr_token'], $loginUser, $stfId);
+    $user = self::$base->login->user_info($admin['usr_token'], $loginUser);
+    $this->assertEquals($user['stf_id'], $stfId);
+  }
+
 }
 
 ?>

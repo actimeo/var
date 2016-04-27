@@ -187,6 +187,7 @@ AS $$
 DECLARE
   ret login.user_info;
 BEGIN
+  PERFORM login._token_assert (prm_token, '{users}');
   SELECT usr_login, usr_pwd, usr_rights, stf_id INTO ret 
     FROM login."user" 
     WHERE usr_login = prm_login;
@@ -197,3 +198,18 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION login.user_info(prm_token integer, prm_login text) IS 'Return information about a user';
+
+CREATE OR REPLACE FUNCTION login.user_staff_set(prm_token integer, prm_login text, prm_stf_id integer)
+RETURNS void
+LANGUAGE plpgsql
+VOLATILE
+AS $$
+BEGIN
+  PERFORM login._token_assert (prm_token, '{users}');
+  UPDATE login.user SET stf_id = prm_stf_id WHERE usr_login = prm_login;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+END;
+$$;
+COMMENT ON FUNCTION login.user_staff_set(prm_token integer, prm_login text, prm_stf_id integer) IS 'Link a staff member to a user';
