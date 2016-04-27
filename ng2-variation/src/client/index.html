@@ -1,12 +1,13 @@
-<!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Ng2Variation</title>
-  <base href="/">
-  {{content-for 'head'}}
+  <base href="/"> {{content-for 'head'}}
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
   <!-- Service worker support is disabled by default.
        Install the worker script and uncomment to enable.
        Only enable service workers in production.
@@ -19,6 +20,7 @@
   </script>
   -->
 </head>
+
 <body>
   <ng2-variation-app>Loading...</ng2-variation-app>
 
@@ -32,16 +34,44 @@
   <script src="vendor/angular2/bundles/http.dev.js"></script>
   <script src="vendor/angular2/bundles/router.dev.js"></script>
 
+  <script src="vendor/i18next/i18next.min.js"></script>
+  <script src="vendor/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+  <script src="vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+
   <script>
     System.config({
       packages: {
         app: {
           format: 'register',
           defaultExtension: 'js'
-        }
+        },
+        'vendor/ng2-i18next': {
+          format: 'cjs',
+          defaultExtension: 'js'
+        },
+        'vendor/variation-toolkit': {
+          format: 'cjs',
+          defaultExtension: 'js'
+        },
+        'vendor/ng2-postgresql-procedures': {
+          format: 'cjs',
+          defaultExtension: 'js'
+        },
+        'vendor/ng2-bootstrap': {
+          format: 'cjs',
+          defaultExtension: 'js'
+         }
+      },
+      map: {
+        moment: 'vendor/moment/moment.js',
+        'ng2-i18next': 'vendor/ng2-i18next',
+        'variation-toolkit': 'vendor/variation-toolkit',
+        'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
+        'ng2-bootstrap': 'vendor/ng2-bootstrap'
       }
     });
     System.import('app.js').then(null, console.error.bind(console));
   </script>
 </body>
+
 </html>
