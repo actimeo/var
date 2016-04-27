@@ -237,15 +237,16 @@ $$;
 COMMENT ON FUNCTION login.user_portal_set(prm_token integer, prm_login text, prm_por_ids integer[]) IS 'Set the list of portals authhorized for a user';
 
 CREATE OR REPLACE FUNCTION login.user_portal_list(prm_token integer, prm_login text)
-RETURNS SETOF integer
+RETURNS SETOF portal.portal
 LANGUAGE plpgsql
 STABLE
 AS $$
 DECLARE
-  row integer;
+  row portal.portal;
 BEGIN
   FOR row IN
-    SELECT por_id FROM login.user_portal 
+    SELECT por_id, por_name FROM login.user_portal 
+      INNER JOIN portal.portal USING(por_id)
       WHERE usr_login = prm_login
       ORDER BY por_id
   LOOP

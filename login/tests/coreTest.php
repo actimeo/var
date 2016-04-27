@@ -223,24 +223,27 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $token = $admin['usr_token'];
     $loginUser = 'user';
     self::$base->login->user_add($token, $loginUser, null, null);
-    
-    $porId1 = self::$base->portal->portal_add($token, 'portal 1');
-    $porId2 = self::$base->portal->portal_add($token, 'portal 2');
-    $porId3 = self::$base->portal->portal_add($token, 'portal 3');
+
+    $porName1 = 'portal 1';
+    $porName2 = 'portal 2';
+    $porName3 = 'portal 3';
+    $porId1 = self::$base->portal->portal_add($token, $porName1);
+    $porId2 = self::$base->portal->portal_add($token, $porName2);
+    $porId3 = self::$base->portal->portal_add($token, $porName3);
     $this->assertGreaterThan($porId1, $porId2);
     $this->assertGreaterThan($porId2, $porId3);
 
     self::$base->login->user_portal_set($token, $loginUser, array($porId2, $porId1));
     $porIds = self::$base->login->user_portal_list($token, $loginUser);
-    $this->assertEquals(array ($porId1, $porId2), $porIds);
+    $this->assertEquals(array (array('por_id'=>$porId1, 'por_name'=>$porName1), array('por_id'=>$porId2, 'por_name'=>$porName2)), $porIds);
 
     self::$base->login->user_portal_set($token, $loginUser, array($porId3, $porId1, $porId2));
     $porIds = self::$base->login->user_portal_list($token, $loginUser);
-    $this->assertEquals(array ($porId1, $porId2, $porId3), $porIds);
+    $this->assertEquals(array (array('por_id'=>$porId1, 'por_name'=>$porName1), array('por_id'=>$porId2, 'por_name'=>$porName2), array('por_id'=>$porId3, 'por_name'=>$porName3)), $porIds);
 
     self::$base->login->user_portal_set($token, $loginUser, array($porId3, $porId1));
     $porIds = self::$base->login->user_portal_list($token, $loginUser);
-    $this->assertEquals(array ($porId1, $porId3), $porIds);
+    $this->assertEquals(array (array('por_id'=>$porId1, 'por_name'=>$porName1), array('por_id'=>$porId3, 'por_name'=>$porName3)), $porIds);
 
     self::$base->login->user_portal_set($token, $loginUser, array());
     $porIds = self::$base->login->user_portal_list($token, $loginUser);
