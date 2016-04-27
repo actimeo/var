@@ -177,6 +177,23 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $tmppwd = self::$base->login->user_regenerate_password($admin['usr_token'], $loginAdmin);    
   }
 
+  public function testUserAdd() {
+    $loginAdmin = 'admin';
+    $pwdAdmin = 'ksfdjgsfdyubg';    
+    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$loginAdmin."', pgcrypto.crypt('".$pwdAdmin."', pgcrypto.gen_salt('bf', 8)), '{users}');");
+
+    $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users'));
+
+    $loginUser = 'foo';
+    self::$base->login->user_add($admin['usr_token'], $loginUser, array('users'), null);
+    $user = self::$base->login->user_info($admin['usr_token'], $loginUser);
+    $this->assertEquals($user['usr_login'], 'foo');
+    $this->assertEquals($user['usr_rights'], array('users'));			      
+
+    $res = self::$base->login->user_login($loginUser, $user['usr_temp_pwd'], array('users'));
+    $this->assertGreaterThan(0, $res['usr_token']);
+  }
 }
 
 ?>

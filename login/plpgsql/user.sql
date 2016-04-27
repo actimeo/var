@@ -157,28 +157,43 @@ COMMENT ON FUNCTION user_regenerate_password(prm_token integer, prm_login varcha
 The user given in parameter cannot be the current user.
 ';
 
-/*
-CREATE OR REPLACE FUNCTION user_add(prm_token integer, prm_login character varying, prm_right_structure boolean, prm_right_config boolean) 
-RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	ret integer;
-	mdp varchar;
+CREATE OR REPLACE FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_stf_id integer) 
+RETURNS void
+LANGUAGE plpgsql
+AS $$
 BEGIN
-	PERFORM login._token_assert (prm_token, FALSE, TRUE);
-	mdp = LPAD((100000+random()*900000)::varchar, 6, '0');
-	INSERT INTO login.utilisateur (uti_login, per_id, uti_salt, uti_pwd, uti_config, uti_root) VALUES (prm_login, prm_per_id, crypt (mdp, gen_salt('des')), mdp, prm_uti_config, prm_uti_root) RETURNING uti_id INTO ret;
-	RETURN ret;
+  PERFORM login._token_assert (prm_token, '{users}');
+  INSERT INTO login."user" (usr_login, usr_rights, stf_id) VALUES (prm_login, prm_rights, prm_stf_id);  
+  PERFORM login.user_regenerate_password(prm_token, prm_login);
 END;
 $$;
-COMMENT ON FUNCTION user_add(prm_token integer, prm_login character varying, prm_right_structure boolean, prm_right_config boolean) IS
-'Create a new user.
+COMMENT ON FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_stf_id integer) IS
+'Create a new user aith the specified rights, and link him to a staff member. If prm_stf_id is null, this user will have access to all patients. A new temporary password is generated.';
 
- - prm_login : New user login
- - prm_right_structure : New user gets rights to edit structure
- - prm_right_config : New user gets rights to edit configuration
-Remarks :
-A new temporary password is generated.
-';
-*/
+DROP FUNCTION IF EXISTS login.user_info(prm_token integer, prm_login text);
+DROP TYPE IF EXISTS login.user_info;
+CREATE TYPE login.user_info AS (
+  usr_login text,
+  usr_temp_pwd text,
+  usr_rights login.user_right[],
+  stf_id integer
+);
+
+CREATE FUNCTION login.user_info(prm_token integer, prm_login text)
+RETURNS login.user_info
+LANGUAGE plpgsql
+STABLE
+AS $$
+DECLARE
+  ret login.user_info;
+BEGIN
+  SELECT usr_login, usr_pwd, usr_rights, stf_id INTO ret 
+    FROM login."user" 
+    WHERE usr_login = prm_login;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+  RETURN ret;
+END;
+$$;
+COMMENT ON FUNCTION login.user_info(prm_token integer, prm_login text) IS 'Return information about a user';
