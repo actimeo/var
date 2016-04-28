@@ -1,13 +1,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <span class="navbar-brand">Variation</span>
+            <span class="navbar-brand">Variation <span class="small glyphicon glyphicon-menu-right"></span> 
+            <user-portal-select (onselected)="onUserPortalSelected($event)"></user-portal-select> </span>
         </div>
         <div id="navbar">
             <ul class="nav navbar-nav">
-                <li>
-                    <user-portal-select ></user-portal-select>
-                </li>
+                <!--li>
+                    <user-portal-select (onselected)="onUserPortalSelected($event)"></user-portal-select>
+                </li-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a><span i18n="auth.logged_in_as"></span> {{getUser()}}</a></li>
@@ -18,7 +19,7 @@
 </nav>
 
 <main class="institution-main">
-
+    {{portal?.por_name}}
 </main>
 
 <div class="alerts">

@@ -1,0 +1,1 @@
+export {UserPortalSelectComponent} from './user-portal-select.component';

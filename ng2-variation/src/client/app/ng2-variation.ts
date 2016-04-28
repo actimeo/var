@@ -6,13 +6,13 @@ import {UserService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {LoggedinRouterOutlet}
 from './loggedin-router-outlet.directive';
 
-import {LoginComponent} from './login/login.component';
-import {HomeComponent} from './home/home.component';
+import {LoginComponent} from './login/index';
+import {HomeComponent} from './home/index';
 
 @Component({
   selector: 'ng2-variation-app',
   providers: [],
-  templateUrl: 'app/ng2-variation.html',
+  templateUrl: 'app///ng2-variation.html',
   directives: [ROUTER_DIRECTIVES, LoggedinRouterOutlet],
   pipes: []
 })

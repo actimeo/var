@@ -1,0 +1,13 @@
+<span *ngIf="userPortals?.length == 1">{{userPortals[0].por_name}}</span>
+<span *ngIf="userPortals?.length > 1">
+  <span class="btn-group" dropdown>
+    <button id="select-user-portal" type="button" class="btn btn-default" style="margin-top: -4px" dropdownToggle>
+      {{selectedPortal?.por_name}}  <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li *ngFor="#portal of userPortals" role="menuitem">
+        <a class="dropdown-item" (click)="onUserPortalSelected(portal)">{{portal.por_name}}</a>
+      </li>
+    </ul>
+  </span>
+</span>

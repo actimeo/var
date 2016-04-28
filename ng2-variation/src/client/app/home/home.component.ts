@@ -5,13 +5,17 @@ import {UserService, PgService} from 'ng2-postgresql-procedures/ng2-postgresql-p
 import {I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsComponent, Footertip} from 'variation-toolkit/variation-toolkit';
 
+import {UserPortalSelectComponent} from '../user-portal-select/index';
+
 @Component({
   selector: 'home',
-  templateUrl: '../app/home/home.component.html',
-  styleUrls: ['../app/home/home.component.css'],
-  directives: [I18nDirective, AlertsComponent, Footertip]
+  templateUrl: 'app///home/home.component.html',
+  styleUrls: ['app///home/home.component.css'],
+  directives: [I18nDirective, AlertsComponent, Footertip, UserPortalSelectComponent]
 })
 export class HomeComponent implements OnInit {
+
+  private portal: any;
 
   constructor(private router: Router, private userService: UserService,
     private pgService: PgService) {
@@ -32,4 +36,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  onUserPortalSelected(portal) {
+    this.portal = portal;
+  }
 }

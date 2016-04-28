@@ -20,7 +20,7 @@ $porId1 = $base->portal->portal_add($token, 'portal 1');
 $porId2 = $base->portal->portal_add($token, 'portal 2');
 $porId3 = $base->portal->portal_add($token, 'portal 3');
 
-$base->login->user_portal_set($token, $userLogin, array($porId3, $porId2));
+$base->login->user_portal_set($token, $userLogin, array($porId3/*, $porId1*/));
 
 $foo = $base->login->user_login($userLogin, $fooInfo['usr_temp_pwd'], null);
 $base->login->user_change_password($foo['usr_token'], 'bar');
