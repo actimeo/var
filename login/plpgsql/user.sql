@@ -69,12 +69,14 @@ DROP TYPE IF EXISTS user_login;
 CREATE TYPE user_login AS (
   usr_token integer,
   usr_temp_pwd boolean,
-  usr_rights login.user_right[]
+  usr_rights login.user_right[],
+  stf_id integer
 );
 COMMENT ON TYPE user_login IS 'Type returned by user_login function';
 COMMENT ON COLUMN user_login.usr_token IS 'Token to use for other functions';
 COMMENT ON COLUMN user_login.usr_temp_pwd IS 'True if the password is temporary';
 COMMENT ON COLUMN user_login.usr_rights IS 'List of rights owned by the user.';
+COMMENT ON COLUMN user_login.stf_id IS 'Staff member linkedwith this user.';
 
 CREATE OR REPLACE FUNCTION user_login(prm_login character varying, prm_pwd character varying, prm_rights login.user_right[]) RETURNS user_login
   LANGUAGE plpgsql
@@ -95,7 +97,7 @@ BEGIN
   IF NOT FOUND THEN
     SELECT * INTO tok FROM login._user_token_create (usr);
   END IF;
-  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights INTO row FROM login."user"
+  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights, stf_id INTO row FROM login."user"
     WHERE usr_login = usr;
   RETURN row;
 END;
