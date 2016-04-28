@@ -58,5 +58,8 @@
     "psychology": "Psychology",
     "residence_right": "Residence right",
     "formalities_assistance": "Formalities assistance"
+  },
+  "variation": {
+    "all_groups": "All groups"
   }
 }

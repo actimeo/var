@@ -1,0 +1,16 @@
+<span *ngIf="userGroups?.length == 1">{{userGroups[0].sgr_name}}</span>
+<span *ngIf="userGroups?.length > 1">
+  <span class="btn-group" dropdown>
+    <button id="select-user-group" type="button" class="btn btn-default" style="margin-top: -4px" dropdownToggle>
+      {{selectedGroup ? selectedGroup?.sgr_name : i18n.t('variation.all_groups')}}  <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li role="menuitem">
+        <a class="dropdown-item" (click)="onAllUserGroupSelected()" i18n="variation.all_groups"></a>
+      </li>
+      <li *ngFor="#group of userGroups" role="menuitem">
+        <a class="dropdown-item" (click)="onUserGroupSelected(group)">{{group.sgr_name}}</a>
+      </li>
+    </ul>
+  </span>
+</span>

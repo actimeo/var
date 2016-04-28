@@ -1,0 +1,1 @@
+export {UserGroupSelectComponent} from './user-group-select.component';

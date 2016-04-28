@@ -34,7 +34,8 @@ export class LoginComponent {
       'login', 'user_login',
       { 'prm_login': username, 'prm_pwd': password, prm_rights: null })
       .then((data: any) => {
-        this.userService.connect(data.usr_token, username);
+        console.log(data);
+        this.userService.connect(data.usr_token, username, data.stf_id);
         this.errormsg = null;
         this.router.parent.navigateByUrl('/home');
       })
