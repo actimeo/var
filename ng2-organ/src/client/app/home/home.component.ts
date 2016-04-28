@@ -10,8 +10,8 @@ import {InstitutionMainComponent} from '../institution-main/institution-main.com
 
 @Component({
   selector: 'home',
-  templateUrl: '../app/home/home.component.html',
-  styleUrls: ['../app/home/home.component.css'],
+  templateUrl: 'app///home/home.component.html',
+  styleUrls: ['app///home/home.component.css'],
   directives: [
     I18nDirective, InstitutionSelectComponent, InstitutionMainComponent,
     AlertsComponent, Footertip],

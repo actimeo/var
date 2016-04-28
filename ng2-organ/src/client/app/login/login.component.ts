@@ -7,8 +7,8 @@ import {UserService, PgService} from 'ng2-postgresql-procedures/ng2-postgresql-p
 
 @Component({
   selector: 'login-cmp',
-  styleUrls: ['../app/login/login.component.css'],
-  templateUrl: '../app/login/login.component.html',
+  styleUrls: ['app///login/login.component.css'],
+  templateUrl: 'app///login/login.component.html',
   providers: [],
   directives: [I18nDirective, FootertipDirective]
 })

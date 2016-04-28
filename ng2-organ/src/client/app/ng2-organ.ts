@@ -12,7 +12,7 @@ import {HomeComponent} from './home/home.component';
 @Component({
   selector: 'ng2-organ-app',
   providers: [],
-  templateUrl: 'app/ng2-organ.html',
+  templateUrl: 'app///ng2-organ.html',
   directives: [ROUTER_DIRECTIVES, LoggedinRouterOutlet],
   pipes: []
 })

@@ -9,8 +9,8 @@ import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
   selector: 'institution-select',
-  templateUrl: '../app/institution-select/institution-select.component.html',
-  styleUrls: ['../app/institution-select/institution-select.component.css'],
+  templateUrl: 'app///institution-select/institution-select.component.html',
+  styleUrls: ['app///institution-select/institution-select.component.css'],
   directives: [DROPDOWN_DIRECTIVES, I18nDirective]
 })
 export class InstitutionSelectComponent implements OnInit {
