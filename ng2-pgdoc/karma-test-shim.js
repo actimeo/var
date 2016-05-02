@@ -20,10 +20,15 @@ System.config({
       'base/dist/vendor/ng2-material': {
           format: 'cjs',
           defaultExtension: 'js'
-      }      
+      },
+      'base/dist/vendor/ng2-postgresql-procedures': {
+          format: 'cjs',
+          defaultExtension: 'js'
+      }
   },
     paths: {
 	'ng2-material/all': 'base/dist/vendor/ng2-material/all.js',
+	'ng2-postgresql-procedures/ng2-postgresql-procedures': 'base/dist/vendor/ng2-postgresql-procedures/ng2-postgresql-procedures.js'
     }
 
     
