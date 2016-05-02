@@ -18,7 +18,30 @@ System.config({
           pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath];
           return pathsMapping;
         }, {})
+    },
+    'base/dist/vendor/ng2-bootstrap': {
+      format: 'cjs',
+      defaultExtension: 'js'
+    },
+    'base/dist/vendor/ng2-i18next': {
+      format: 'cjs',
+      defaultExtension: 'js'
+    },
+    'base/dist/vendor/variation-toolkit': {
+      format: 'cjs',
+      defaultExtension: 'js'
+    },
+    'base/dist/vendor/ng2-postgresql-procedures': {
+      format: 'cjs',
+      defaultExtension: 'js'
     }
+  },
+  paths: {
+    'ng2-bootstrap/ng2-bootstrap': 'base/dist/vendor/ng2-bootstrap/ng2-bootstrap.js',
+    'moment': 'base/dist/vendor/moment/moment.js',
+    'ng2-i18next/ng2-i18next': 'base/dist/vendor/ng2-i18next/ng2-i18next.js',
+    'variation-toolkit/variation-toolkit': 'base/dist/vendor/variation-toolkit/variation-toolkit.js',
+    'ng2-postgresql-procedures/ng2-postgresql-procedures': 'base/dist/vendor/ng2-postgresql-procedures/ng2-postgresql-procedures.js'
   }
 });
 
