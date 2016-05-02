@@ -1,1 +1,2 @@
-- Move npm:variation-user into ng2-postgresql-pgprocedures
+- change i18next:backend:locaPath to 'locales/...' (without initial / ) so base path is used
+- [ng2-*] use app/// to access html/css components resources
