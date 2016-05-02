@@ -24,6 +24,10 @@ module.exports = function (config) {
       { pattern: 'node_modules/angular2/bundles/router.dev.js', included: true, watched: true },
       { pattern: 'node_modules/angular2/bundles/testing.dev.js', included: true, watched: true },
 
+      { pattern: 'node_modules/i18next/i18next.min.js', included: true, watched: true },
+      { pattern: 'node_modules/i18next-xhr-backend/i18nextXHRBackend.min.js', included: true, watched: true },
+      { pattern: 'node_modules/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js', included: true, watched: true },
+
 
       { pattern: 'karma-test-shim.js', included: true, watched: true },
 
