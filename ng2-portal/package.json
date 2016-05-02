@@ -28,7 +28,7 @@
 
     "ng2-i18next": "0.0.4",
     "variation-toolkit": "0.0.3",
-    "ng2-postgresql-procedures": "0.0.2"
+    "ng2-postgresql-procedures": "0.0.4"
   },
   "devDependencies": {
     "angular-cli": "0.0.25",
