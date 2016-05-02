@@ -1,4 +1,4 @@
-import {Directive, ElementRef, DynamicComponentLoader} from 'angular2/core';
+import {Directive, ViewContainerRef, DynamicComponentLoader} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
 
 import {UserService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -10,9 +10,9 @@ export class LoggedinRouterOutlet extends RouterOutlet {
 
   // We call the parent constructor
   constructor(
-      elementRef: ElementRef, loader: DynamicComponentLoader, parentRouter: Router,
+      viewContainerRef: ViewContainerRef, loader: DynamicComponentLoader, parentRouter: Router,
       nameAttr: string, private userService: UserService) {
-    super(elementRef, loader, parentRouter, nameAttr);
+    super(viewContainerRef, loader, parentRouter, nameAttr);
     this.parentRouter = parentRouter;
     this.publicRoutes = {'/login': true, '/signup': true};
   }
