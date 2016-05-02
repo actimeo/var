@@ -74,7 +74,7 @@ export class Mainview implements OnInit, OnDestroy {
   }
 
   loadAssociatedPersonview() {
-    if (this.mainview.pme_id_associated != 0) {
+    if (this.mainview && this.mainview.pme_id_associated != 0) {
       this.pgService
         .pgcall(
         'portal', 'personview_get',

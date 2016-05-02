@@ -1,6 +1,6 @@
 import {Input, Component} from 'angular2/core';
 
-import {Collapse, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {CollapseDirective, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -15,7 +15,7 @@ import {Personview} from '../personview/personview';
   templateUrl: 'app/portal-entity/portal-entity.html',
   providers: [],
   directives: [
-    Collapse, ACCORDION_DIRECTIVES,
+    CollapseDirective, ACCORDION_DIRECTIVES,
     PersonsectionAdd, Personsection, Personview,
     I18nDirective],
 })

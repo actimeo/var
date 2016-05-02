@@ -51,7 +51,7 @@
         {{i18n.t('portal.mainview.main_view_element')}}{{i18n.t('common.doubledot')}} {{mainview?.mve_name}} ({{i18n.t('portal.mainview_types.'+mainview?.mve_type)}})
 
         <p *ngIf="mainview?.pme_id_associated">{{i18n.t('portal.mainview.associated_patient_view')}}{{i18n.t('common.doubledot')}}{{personviewAssociated?.pvi_title}}</p>
-        <p *ngIf="!mainview?.pme_id_associated" i18n="portal.mainview.no_associated_patient_view"></p>
+        <p *ngIf="!mainview" i18n="portal.mainview.no_associated_patient_view"></p>
 
       </section>
       <nav>

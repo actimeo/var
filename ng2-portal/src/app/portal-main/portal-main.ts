@@ -1,7 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 
 import {
-  DROPDOWN_DIRECTIVES, Collapse,
+  DROPDOWN_DIRECTIVES, CollapseDirective,
   ACCORDION_DIRECTIVES, TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
@@ -19,7 +19,7 @@ import {PortalConfig} from '../portal-config/portal-config';
   providers: [],
   directives: [
     PortalEntity, PortalMainwin, PortalConfig, I18nDirective,
-    DROPDOWN_DIRECTIVES, TAB_DIRECTIVES, Collapse, ACCORDION_DIRECTIVES
+    DROPDOWN_DIRECTIVES, TAB_DIRECTIVES, CollapseDirective, ACCORDION_DIRECTIVES
   ]
 })
 export class PortalMain implements OnInit {

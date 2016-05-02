@@ -9,11 +9,10 @@ import {I18nService} from 'ng2-i18next/ng2-i18next';
 export class PmeMovePipe implements PipeTransform {
   constructor(private i18n: I18nService) {}
 
-  transform(value, arg) {
+  transform(value, section) {
     if (value == null) {
       return null;
     }
-    let section = arg.pop();
     let addEnd = (value[value.length - 1].pme_id !== section.pme_id);
     let endPos = value.length + 1;
     let ret =
