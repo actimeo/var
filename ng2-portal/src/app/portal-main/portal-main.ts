@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, Input} from 'angular2/core';
 
 import {
   DROPDOWN_DIRECTIVES, CollapseDirective,
@@ -23,9 +23,14 @@ import {PortalConfig} from '../portal-config/portal-config';
   ]
 })
 export class PortalMain implements OnInit {
+  private intPorId: number;
+  @Input()
+  set porId(id: number) {
+    this.intPorId = id;
+  }
+
   private entities: any;
 
-  private porId: number;
   private ones = [1];
 
   constructor(private pgService: PgService, private i18n: I18nService) { this.porId = null; }
@@ -35,6 +40,4 @@ export class PortalMain implements OnInit {
       .then(data => { this.entities = data; })
       .catch(err => { });
   }
-
-  setPortalId(porId) { this.porId = porId; }
 }

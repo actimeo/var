@@ -1,4 +1,4 @@
-import {Component, ViewChild} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 
 import {UserService, PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -17,7 +17,8 @@ import {PortalMain} from '../portal-main/portal-main';
   directives: [PortalSelect, PortalMain, AlertsComponent, Footertip, I18nDirective]
 })
 export class HomeCmp {
-  @ViewChild('portalmain') portalmain;
+
+  private porId;
 
   // Here we define this component's instance variables
   // They're accessible from the template
@@ -37,5 +38,5 @@ export class HomeCmp {
         this.router.parent.navigateByUrl('/login');
       });
   }
-  onPortalSelected(porId) { this.portalmain.setPortalId(porId); }
+  onPortalSelected(porId) { this.porId = porId; }
 }
