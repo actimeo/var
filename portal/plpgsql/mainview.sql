@@ -79,7 +79,7 @@ AS $$
 DECLARE
   ret portal.mainview_get_details;
 BEGIN
-  PERFORM login._token_assert(prm_token, '{structure}');
+  PERFORM login._token_assert(prm_token, NULL);
   SELECT mme_id, mvi_title, mvi_icon, mve_id, pme_id_associated, mve_type, mve_name INTO ret 
     FROM portal.mainview 
     INNER JOIN portal.mainview_element USING(mve_id)
