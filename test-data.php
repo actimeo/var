@@ -45,10 +45,14 @@ $instI = $base->organ->institution_add($token, "Institution I");
 $instII = $base->organ->institution_add($token, "Institution II");
 
 $servIA = $base->organ->service_add($token, $instI, 'Service A institution I');
+$base->organ->service_set_topics($token, $servIA, array('social', 'justice'));
 $servIB = $base->organ->service_add($token, $instI, 'Service B institution I');
+$base->organ->service_set_topics($token, $servIB, array('social', 'sport', 'culture'));
 
 $servIIA = $base->organ->service_add($token, $instII, 'Service A institution II');
+$base->organ->service_set_topics($token, $servIIA, array('sport'));
 $servIIB = $base->organ->service_add($token, $instII, 'Service B institution II');
+$base->organ->service_set_topics($token, $servIIB, array('financer', 'support'));
 
 $grpIA1 = $base->organ->service_group_add($token, $servIA, 'Group 1, service A institution I');
 $grpIA2 = $base->organ->service_group_add($token, $servIA, 'Group 2, service A institution I');
