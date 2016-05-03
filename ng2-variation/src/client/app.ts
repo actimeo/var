@@ -12,8 +12,10 @@ import {
 
 import {Ng2VariationApp} from './app/ng2-variation';
 
+import {SelectedMenusService} from './app/selected-menus.service';
+
 bootstrap(Ng2VariationApp, [
   HTTP_PROVIDERS,
   provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),
-  UserService, PgService, FootertipService, AlertsService, I18nService,
+  UserService, PgService, FootertipService, AlertsService, I18nService, SelectedMenusService,
   ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);

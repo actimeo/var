@@ -1,0 +1,1 @@
+export {MainSectionComponent} from './main-section.component';

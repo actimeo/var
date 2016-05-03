@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, ViewChild} from 'angular2/core';
 import {Router} from 'angular2/router';
 
 import {UserService, PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -7,15 +7,19 @@ import {AlertsComponent, Footertip} from 'variation-toolkit/variation-toolkit';
 
 import {UserPortalSelectComponent} from '../user-portal-select/index';
 import {UserGroupSelectComponent} from '../user-group-select/index';
+import {PortalMainComponent} from '../portal-main/index';
 
 @Component({
   selector: 'home',
   templateUrl: 'app///home/home.component.html',
   styleUrls: ['app///home/home.component.css'],
   directives: [I18nDirective, AlertsComponent, Footertip,
+    PortalMainComponent,
     UserPortalSelectComponent, UserGroupSelectComponent]
 })
 export class HomeComponent implements OnInit {
+
+  private porId: number;
 
   private portal: any;
   private group: any;
@@ -41,9 +45,12 @@ export class HomeComponent implements OnInit {
 
   onUserPortalSelected(portal) {
     this.portal = portal;
+    this.porId = this.portal.por_id;
   }
 
   onUserGroupSelected(group) {
     this.group = group;
   }
+
+
 }

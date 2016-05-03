@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <nav id="leftbar">
+    <accordion [closeOthers]="true">
+      <accordion-group *ngFor="#section of mainsections" heading="{{section.mse_name}}">
+        <main-section [section]="section"></main-section>
+      </accordion-group>
+    </accordion>
+  </nav>
+  <main>
+    <main-view></main-view>
+  </main>
+</div>

@@ -1,0 +1,3 @@
+.menuentry { cursor: pointer; color: #777; }
+.menuentry:hover { color: #333; }
+.menuentry.selected { font-weight: bold; }

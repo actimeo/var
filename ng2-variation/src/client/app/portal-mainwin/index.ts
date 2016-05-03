@@ -1,0 +1,1 @@
+export {PortalMainwinComponent} from './portal-mainwin.component';

@@ -1,0 +1,5 @@
+<tabset *ngIf="intPorId != null">
+  <tab heading="{{i18n.t('portal.main_window')}}">
+    <portal-mainwin [porId]="intPorId"></portal-mainwin>
+  </tab>
+</tabset>

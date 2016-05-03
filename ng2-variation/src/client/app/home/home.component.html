@@ -3,9 +3,9 @@
         <div class="navbar-header">
             <span class="navbar-brand">Variation 
                 <span class="small glyphicon glyphicon-menu-right"></span>
-                <user-portal-select (onselected)="onUserPortalSelected($event)"></user-portal-select>
-                <span class="small glyphicon glyphicon-menu-right"></span>
-                <user-group-select (onselected)="onUserGroupSelected($event)"></user-group-select>
+            <user-portal-select (onselected)="onUserPortalSelected($event)"></user-portal-select>
+            <span class="small glyphicon glyphicon-menu-right"></span>
+            <user-group-select (onselected)="onUserGroupSelected($event)"></user-group-select>
             </span>
         </div>
         <div id="navbar">
@@ -23,6 +23,7 @@
 </nav>
 
 <main class="institution-main">
+    <portal-main [porId]="porId"></portal-main>
     {{portal?.por_name}} / {{group ? group?.sgr_name : i18n.t('variation.all_groups')}}
 </main>
 

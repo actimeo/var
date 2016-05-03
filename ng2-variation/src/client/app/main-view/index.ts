@@ -1,0 +1,1 @@
+export {MainViewComponent} from './main-view.component';
