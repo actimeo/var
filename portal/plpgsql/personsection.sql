@@ -30,7 +30,7 @@ LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
-  PERFORM login._token_assert(prm_token, '{structure}');
+  PERFORM login._token_assert(prm_token, NULL);
   RETURN QUERY SELECT * FROM portal.personsection 
     WHERE por_id = prm_por_id AND pse_entity = prm_entity
     ORDER BY pse_order;

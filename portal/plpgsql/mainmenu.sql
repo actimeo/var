@@ -29,7 +29,7 @@ LANGUAGE plpgsql
 STABLE
 AS $$
 BEGIN
-  PERFORM login._token_assert(prm_token, '{structure}');
+  PERFORM login._token_assert(prm_token, NULL);
   RETURN QUERY SELECT * FROM portal.mainmenu
     WHERE mse_id = prm_mse_id ORDER BY mme_order;
 END;
