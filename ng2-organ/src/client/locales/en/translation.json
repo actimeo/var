@@ -8,7 +8,8 @@
       "save": "Save",
       "edit": "Edit",
       "delete": "Delete"
-    }
+    },
+    "add_a_topic": "Add a topic"
   },
   "auth": {
     "connect_title": "Connection",
@@ -69,6 +70,10 @@
     "delete_current_institution": "Delete current institution",
     "copy_current_institution": "Copy current institution",
     "institution_name": "institution name",
+    "tabs": {
+      "services": "Services",
+      "staff_members": "Staff members"
+    },
     "alerts": {
       "institution_deleted": "Institution deleted",
       "error_deleting_institution": "Error deleting institution",

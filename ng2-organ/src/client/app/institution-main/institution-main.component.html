@@ -1,1 +1,8 @@
-{{insId}}
+<tabset *ngIf="insId">
+  <tab [heading]="i18next.t('institution.tabs.services')">
+    <services-list [insId]="insId"></services-list>
+  </tab>
+  <tab [heading]="i18next.t('institution.tabs.staff_members')">
+    
+  </tab>
+</tabset>

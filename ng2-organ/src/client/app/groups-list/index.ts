@@ -1,0 +1,1 @@
+export {GroupsListComponent} from './groups-list.component';

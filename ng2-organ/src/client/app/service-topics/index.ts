@@ -1,0 +1,1 @@
+export {ServiceTopicsComponent} from './service-topics.component';

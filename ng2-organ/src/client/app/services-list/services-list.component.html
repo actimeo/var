@@ -1,0 +1,6 @@
+<accordion [closeOthers]="false">
+  <accordion-group *ngFor="#service of services" [heading]="service.ser_name">
+    <service-topics [serId]="service.ser_id" [topics]="service.ser_topics"></service-topics>
+    <groups-list [serId]="service.ser_id"></groups-list>
+  </accordion-group>
+</accordion>
