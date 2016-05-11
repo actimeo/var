@@ -26,8 +26,8 @@
 
     "ng2-bootstrap": "1.0.15",
 
-    "ng2-i18next": "0.0.4",
-    "variation-toolkit": "0.0.3",
+    "ng2-i18next": "0.0.10",
+    "variation-toolkit": "0.0.4",
     "ng2-postgresql-procedures": "0.0.4"
   },
   "devDependencies": {
