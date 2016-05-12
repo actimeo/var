@@ -42,7 +42,7 @@ export class MainsectionAdd {
   doAddSection() {
     this.pgService
       .pgcall('portal', 'mainsection_add', { prm_por_id: this.porId, prm_name: this.sectionname })
-      .then(newMseId => {
+      .then((newMseId: number) => {
         this.onadded.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainsection_added'));
       })

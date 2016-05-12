@@ -17,7 +17,7 @@ export class PortalConfigElement implements OnInit {
   private topicValue: string;
 
   private myPorId: number;
-  private topics: any;
+  private topics: string[];
 
   @Input() param: any;
   @Input('porId')
@@ -31,7 +31,7 @@ export class PortalConfigElement implements OnInit {
   ngOnInit() {
     if (this.param.prm_type == 'topic') {
       this.pgService.pgcache('portal', 'topics_list')
-        .then(data => this.topics = data)
+        .then((data: string[]) => this.topics = data)
         .catch(err => { });
     }
   }
@@ -62,7 +62,7 @@ export class PortalConfigElement implements OnInit {
       prm_param: this.param.prm_val,
       prm_value: this.boolValue
     })
-      .then(data => { })
+      .then(() => { })
       .catch(err => { console.log('err'); });
   }
 
@@ -83,7 +83,7 @@ export class PortalConfigElement implements OnInit {
       prm_param: this.param.prm_val,
       prm_value: this.topicValue != '' ? this.topicValue : null
     })
-      .then(data => { })
+      .then(() => { })
       .catch(err => { console.log('err'); });
   }
 }

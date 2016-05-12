@@ -9,6 +9,7 @@ import {Mainsection} from '../mainsection/mainsection';
 import {MainsectionAdd} from '../mainsection-add/mainsection-add';
 import {Mainview} from '../mainview/mainview';
 
+import { DbMainsection } from '../db.models/portal';
 
 @Component({
   selector: 'portal-mainwin',
@@ -21,7 +22,7 @@ import {Mainview} from '../mainview/mainview';
 })
 export class PortalMainwin {
   private myPorId: number;
-  private mainsections: any;
+  private mainsections: DbMainsection[];
 
   constructor(private pgService: PgService, private i18n: I18nService) { this.myPorId = null; }
 
@@ -35,7 +36,7 @@ export class PortalMainwin {
 
   reloadSections() {
     this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.myPorId })
-      .then(data => { this.mainsections = data; })
+      .then((data: DbMainsection[]) => { this.mainsections = data; })
       .catch(err => { });
   }
 

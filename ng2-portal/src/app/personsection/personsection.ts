@@ -10,6 +10,10 @@ import {PersonmenuAdd} from '../personmenu-add/personmenu-add';
 import {Personmenu} from '../personmenu/personmenu';
 import {PseMovePipe} from '../pipes/pse-move/pse-move';
 
+import {
+  DbPersonmenu,
+  DbPersonsection } from '../db.models/portal';
+
 @Component({
   selector: 'personsection',
   styleUrls: ['app/personsection/personsection.css'],
@@ -26,15 +30,15 @@ export class Personsection implements OnInit {
   @ViewChild('inputname') inputname: ElementRef;
   @ViewChild('selectsection') selectsection: ElementRef;
 
-  private personmenus: any;
-  private new_name: string;
+  private personmenus: DbPersonmenu[];
+  private newName: string;
   private viewedit: boolean;
   private viewmove: boolean;
-  private movechoices: any;
-  private before_pos: string;
+  private movechoices: DbPersonsection[];
+  private beforePos: string;
 
   constructor(
-    private _pgService: PgService, private i18n: I18nService, private alerts: AlertsService,
+    private pgService: PgService, private i18n: I18nService, private alerts: AlertsService,
     private renderer: Renderer) {
     this.viewedit = false;
     this.viewmove = false;
@@ -43,8 +47,8 @@ export class Personsection implements OnInit {
   ngOnInit() { this.reloadMenus(); }
 
   reloadMenus() {
-    this._pgService.pgcall('portal', 'personmenu_list', { prm_pse_id: this.section.pse_id })
-      .then(data => { this.personmenus = data; })
+    this.pgService.pgcall('portal', 'personmenu_list', { prm_pse_id: this.section.pse_id })
+      .then((data: DbPersonmenu[]) => { this.personmenus = data; })
       .catch(err => { });
   }
 
@@ -54,8 +58,8 @@ export class Personsection implements OnInit {
 
   // Delete
   onDeleteSection() {
-    this._pgService.pgcall('portal', 'personsection_delete', { prm_id: this.section.pse_id })
-      .then(data => {
+    this.pgService.pgcall('portal', 'personsection_delete', { prm_id: this.section.pse_id })
+      .then(() => {
         this.ondelete.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personsection_deleted'));
       })
@@ -66,17 +70,17 @@ export class Personsection implements OnInit {
 
   // Rename
   onRenameSection() {
-    this.new_name = this.section.pse_name;
+    this.newName = this.section.pse_name;
     this.viewedit = true;
     setTimeout(() => this.setFocus(this.inputname));
   }
 
   doRename() {
-    this._pgService
+    this.pgService
       .pgcall(
       'portal', 'personsection_rename',
-      { prm_id: this.section.pse_id, prm_name: this.new_name })
-      .then(data => {
+      { prm_id: this.section.pse_id, prm_name: this.newName })
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personsection_renamed'));
       })
@@ -91,11 +95,11 @@ export class Personsection implements OnInit {
   onMoveSection() {
     this.viewmove = true;
 
-    this._pgService
+    this.pgService
       .pgcall(
       'portal', 'personsection_list',
       { prm_por_id: this.section.por_id, prm_entity: this.section.pse_entity })
-      .then(data => {
+      .then((data: DbPersonsection[]) => {
         this.movechoices = data;
         if (this.movechoices.length == 1) {
           this.alerts.info(this.i18n.t('portal.alerts.no_moving_personsection'));
@@ -107,11 +111,11 @@ export class Personsection implements OnInit {
   }
 
   doMove() {
-    this._pgService
+    this.pgService
       .pgcall(
       'portal', 'personsection_move_before_position',
-      { prm_id: this.section.pse_id, prm_position: this.before_pos })
-      .then(data => {
+      { prm_id: this.section.pse_id, prm_position: this.beforePos })
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personsection_moved'));
       })

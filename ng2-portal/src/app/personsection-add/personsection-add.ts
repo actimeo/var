@@ -45,7 +45,7 @@ export class PersonsectionAdd {
       .pgcall(
       'portal', 'personsection_add',
       { prm_por_id: this.porId, prm_entity: this.entity, prm_name: this.sectionname })
-      .then(newPseId => {
+      .then((newPseId: number) => {
         this.onadded.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personsection_added'));
       })

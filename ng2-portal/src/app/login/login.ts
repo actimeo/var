@@ -5,6 +5,8 @@ import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {FootertipDirective} from 'variation-toolkit/variation-toolkit';
 import {UserService, PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
+import { DbUserLogin } from '../db.models/login';
+
 @Component({
   selector: 'login-cmp',
   styleUrls: ['app/login/login.css'],
@@ -33,7 +35,7 @@ export class LoginCmp {
       .pgcall(
       'login', 'user_login',
       { 'prm_login': username, 'prm_pwd': password, prm_rights: ['structure'] })
-      .then((data: any) => {
+      .then((data: DbUserLogin) => {
         this.userService.connect(data.usr_token, username, null);
         this.errormsg = null;
         this.router.parent.navigateByUrl('/home');

@@ -29,7 +29,7 @@ export class PortalMain implements OnInit {
     this.intPorId = id;
   }
 
-  private entities: any;
+  private entities: string[];
 
   private ones = [1];
 
@@ -37,7 +37,7 @@ export class PortalMain implements OnInit {
 
   ngOnInit() {
     this.pgService.pgcache('portal', 'entity_list')
-      .then(data => { this.entities = data; })
+      .then((data: string[]) => { this.entities = data; })
       .catch(err => { });
   }
 }

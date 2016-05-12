@@ -13,6 +13,8 @@ import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 import {MmeMovePipe} from '../pipes/mme-move/mme-move';
 
+import { DbMainmenu } from '../db.models/portal';
+
 @Component({
   selector: 'mainmenu',
   styleUrls: ['app/mainmenu/mainmenu.css'],
@@ -26,7 +28,7 @@ export class Mainmenu implements OnInit, OnDestroy {
   viewtools: boolean;
   viewedit: boolean;
   private viewmove: boolean;
-  private movechoices: any;
+  private movechoices: DbMainmenu[];
   private beforePos: string;
   private selected: boolean;
   private subscription: Subscription;
@@ -84,7 +86,7 @@ export class Mainmenu implements OnInit, OnDestroy {
     this.pgService
       .pgcall(
       'portal', 'mainmenu_rename', { prm_id: this.menu.mme_id, prm_name: this.menu.mme_name })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainmenu_renamed'));
       })
@@ -95,7 +97,7 @@ export class Mainmenu implements OnInit, OnDestroy {
   // Delete
   onDelete() {
     this.pgService.pgcall('portal', 'mainmenu_delete', { prm_id: this.menu.mme_id })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainmenu_deleted'));
         if (this.selectedMenus.getMainmenu() == this.menu.mme_id) {
@@ -112,7 +114,7 @@ export class Mainmenu implements OnInit, OnDestroy {
     this.viewtools = false;
 
     this.pgService.pgcall('portal', 'mainmenu_list', { prm_mse_id: this.menu.mse_id })
-      .then(data => {
+      .then((data: DbMainmenu[]) => {
         this.movechoices = data;
         if (this.movechoices.length == 1) {
           this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainmenu'));
@@ -128,7 +130,7 @@ export class Mainmenu implements OnInit, OnDestroy {
       .pgcall(
       'portal', 'mainmenu_move_before_position',
       { prm_id: this.menu.mme_id, prm_position: this.beforePos })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainmenu_moved'));
       })

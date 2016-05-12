@@ -12,6 +12,8 @@ import {MainmenuAdd} from '../mainmenu-add/mainmenu-add';
 import {Mainmenu} from '../mainmenu/mainmenu';
 import {MseMovePipe} from '../pipes/mse-move/mse-move';
 
+import { DbMainmenu, DbMainsection } from '../db.models/portal';
+
 @Component({
   selector: 'mainsection',
   styleUrls: ['app/mainsection/mainsection.css'],
@@ -27,11 +29,11 @@ export class Mainsection implements OnInit {
   @ViewChild('inputname') inputname: ElementRef;
   @ViewChild('selectsection') selectsection: ElementRef;
 
-  private mainmenus: any;
+  private mainmenus: DbMainmenu[];
   private newName: string;
   private viewedit: boolean;
   private viewmove: boolean;
-  private movechoices: any;
+  private movechoices: DbMainsection[];
   private beforePos: string;
 
   constructor(
@@ -45,7 +47,7 @@ export class Mainsection implements OnInit {
 
   reloadMenus() {
     this.pgService.pgcall('portal', 'mainmenu_list', { prm_mse_id: this.section.mse_id })
-      .then(data => { this.mainmenus = data; })
+      .then((data: DbMainmenu[]) => { this.mainmenus = data; })
       .catch(err => { });
   }
 
@@ -56,7 +58,7 @@ export class Mainsection implements OnInit {
   // Delete
   onDeleteSection() {
     this.pgService.pgcall('portal', 'mainsection_delete', { prm_id: this.section.mse_id })
-      .then(data => {
+      .then(() => {
         this.ondelete.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainsection_deleted'));
       })
@@ -76,7 +78,7 @@ export class Mainsection implements OnInit {
     this.pgService
       .pgcall(
       'portal', 'mainsection_rename', { prm_id: this.section.mse_id, prm_name: this.newName })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainsection_renamed'));
       })
@@ -92,7 +94,7 @@ export class Mainsection implements OnInit {
     this.viewmove = true;
 
     this.pgService.pgcall('portal', 'mainsection_list', { prm_por_id: this.section.por_id })
-      .then(data => {
+      .then((data: DbMainsection[]) => {
         this.movechoices = data;
         if (this.movechoices.length == 1) {
           this.alerts.info(this.i18n.t('portal.alerts.no_moving_mainsection'));
@@ -108,7 +110,7 @@ export class Mainsection implements OnInit {
       .pgcall(
       'portal', 'mainsection_move_before_position',
       { prm_id: this.section.mse_id, prm_position: this.beforePos })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.mainsection_moved'));
       })

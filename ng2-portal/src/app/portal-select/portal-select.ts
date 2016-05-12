@@ -7,6 +7,8 @@ import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
 import {AlertsService} from 'variation-toolkit/variation-toolkit';
 import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
+import { DbPortal } from '../db.models/portal';
+
 @Component({
   selector: 'portal-select',
   styleUrls: ['app/portal-select/portal-select.css'],
@@ -22,7 +24,7 @@ export class PortalSelect implements OnInit {
   @ViewChild('inputname') inputname: ElementRef;
   @Output() onselected: EventEmitter<string> = new EventEmitter();
 
-  portals: any;
+  portals: DbPortal[];
   selectedPortal: any;
   selectedPortalName: string;
   portalName: any;
@@ -48,7 +50,7 @@ export class PortalSelect implements OnInit {
   // Reload portals and select the specified one (or none if null)
   reloadPortals(selectedPorId) {
     this.pgService.pgcall('portal', 'portal_list')
-      .then(data => {
+      .then((data: DbPortal[]) => {
         this.portals = data;
         if (selectedPorId !== null) {
           var p = this.portals.filter(d => d.por_id == selectedPorId);
@@ -87,7 +89,7 @@ export class PortalSelect implements OnInit {
   // The "Delete portal" entry is selected in the list
   onDeletePortal() {
     this.pgService.pgcall('portal', 'portal_delete', { prm_id: this.selectedPortal.por_id })
-      .then(data => {
+      .then(() => {
         this.unselectPortal();
         this.reloadPortals(null);
         this.alerts.success(this.i18n.t('portal.alerts.portal_deleted'));
@@ -116,7 +118,7 @@ export class PortalSelect implements OnInit {
   // The Add portal form is submitted. Let save the portal
   doAddPortal() {
     this.pgService.pgcall('portal', 'portal_add', { prm_name: this.portalName })
-      .then(newPorId => {
+      .then((newPorId: number) => {
         this.reloadPortals(newPorId);
         this.alerts.success(this.i18n.t('portal.alerts.portal_added'));
       })
@@ -129,7 +131,7 @@ export class PortalSelect implements OnInit {
       .pgcall(
       'portal', 'portal_rename',
       { prm_id: this.selectedPortal.por_id, prm_name: this.portalName })
-      .then(data => {
+      .then(() => {
         this.reloadPortals(this.selectedPortal.por_id);
         this.alerts.success(this.i18n.t('portal.alerts.portal_renamed'));
       })

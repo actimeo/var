@@ -16,7 +16,7 @@ import {PortalConfigElement} from '../portal-config-element/portal-config-elemen
 })
 export class PortalConfig implements OnInit {
 
-  private params: any;
+  private params: string[];
 
   @Input() porId: number;
 
@@ -24,7 +24,7 @@ export class PortalConfig implements OnInit {
 
   ngOnInit() {
     this.pgService.pgcall('portal', 'param_list', {})
-      .then(data => this.params = data)
+      .then((data: string[]) => this.params = data)
       .catch(err => { });
   }
 }

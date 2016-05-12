@@ -9,6 +9,12 @@ import {SelectedMenus} from '../services/selected-menus/selected-menus';
 
 import {Groupby} from '../pipes/groupby/groupby';
 
+import {
+  DbMainviewGetDetails,
+  DbPersonview,
+  DbPersonviewDetailsList,
+  DbMainviewElement } from '../db.models/portal';
+
 @Component({
   selector: 'mainview',
   templateUrl: 'app///mainview/mainview.html',
@@ -19,16 +25,16 @@ import {Groupby} from '../pipes/groupby/groupby';
 })
 export class Mainview implements OnInit, OnDestroy {
   private myMme: number;
-  private mainview: any;
-  private personviewAssociated: any;
+  private mainview: DbMainviewGetDetails;
+  private personviewAssociated: DbPersonview;
   private editing: boolean;
   private title: string;
-  private patientViews: any;
+  private patientViews: DbPersonviewDetailsList[];
   private pmeAssociated: number;
   private mveType: string; // selected type
   private mveId: any; // selected view 
-  private mainviewTypes: any; // list of types
-  private mainviewsInType: any; // list of views in the selected type
+  private mainviewTypes: string[]; // list of types
+  private mainviewsInType: DbMainviewElement[]; // list of views in the selected type
   private subscription: Subscription;
 
   @Input('entity') entity: string;
@@ -51,7 +57,7 @@ export class Mainview implements OnInit, OnDestroy {
       }
     });
     this.pgService.pgcache('portal', 'mainview_element_type_list')
-      .then(data => { this.mainviewTypes = data; })
+      .then((data: string[]) => { this.mainviewTypes = data; })
       .catch(err => { });
   }
 
@@ -62,7 +68,7 @@ export class Mainview implements OnInit, OnDestroy {
   reloadMainview() {
     this.pgService
       .pgcall('portal', 'mainview_get_details', { prm_entity: this.entity, prm_mme_id: this.myMme })
-      .then(data => {
+      .then((data: DbMainviewGetDetails) => {
         this.mainview = data;
         this.loadAssociatedPersonview();
         this.editing = false;
@@ -79,7 +85,7 @@ export class Mainview implements OnInit, OnDestroy {
         .pgcall(
         'portal', 'personview_get',
         { prm_entity: 'patient', prm_pme_id: this.mainview.pme_id_associated })
-        .then(data => { this.personviewAssociated = data; })
+        .then((data: DbPersonview) => { this.personviewAssociated = data; })
         .catch(err => { this.personviewAssociated = null; });
     }
   }
@@ -100,7 +106,7 @@ export class Mainview implements OnInit, OnDestroy {
         prm_mve_id: this.mveId,
         prm_pme_id_associated: this.pmeAssociated != 0 ? this.pmeAssociated : null
       })
-      .then(data => {
+      .then(() => {
         this.alerts.success(this.i18n.t('portal.alerts.mainview_saved'));
         this.editing = false;
         this.reloadMainview();
@@ -110,7 +116,7 @@ export class Mainview implements OnInit, OnDestroy {
 
   delete() {
     this.pgService.pgcall('portal', 'mainview_delete', { prm_mme_id: this.myMme })
-      .then(data => {
+      .then(() => {
         this.alerts.success(this.i18n.t('portal.alerts.mainview_deleted'));
         this.mainview = null;
         this.prepareEdition();
@@ -134,7 +140,7 @@ export class Mainview implements OnInit, OnDestroy {
     this.pgService.pgcall('portal', 'personview_details_list', {
       prm_entity: 'patient', prm_por_id: this.porId
     })
-      .then((data: any) => {
+      .then((data: DbPersonviewDetailsList[]) => {
         this.patientViews = (new Groupby).transform(data, 'pse_name');
       })
       .catch(err => { this.alerts.danger(this.i18n.t('portal.alerts.error_loading_mainview')); });
@@ -151,7 +157,7 @@ export class Mainview implements OnInit, OnDestroy {
       this.pgService.pgcall('portal', 'mainview_element_list', {
         prm_type: this.mveType
       })
-        .then((data: any) => {
+        .then((data: DbMainviewElement[]) => {
           console.log(data);
           this.mainviewsInType = data;
           this.mveId = newMveId;

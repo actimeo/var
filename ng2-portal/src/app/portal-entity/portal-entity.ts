@@ -9,6 +9,8 @@ import {PersonsectionAdd} from '../personsection-add/personsection-add';
 import {Personsection} from '../personsection/personsection';
 import {Personview} from '../personview/personview';
 
+import { DbPersonsection } from '../db.models/portal';
+
 @Component({
   selector: 'portal-entity',
   styleUrls: ['app/portal-entity/portal-entity.css'],
@@ -21,7 +23,7 @@ import {Personview} from '../personview/personview';
 })
 export class PortalEntity {
   private myPorId: number;
-  private personsections: any;
+  private personsections: DbPersonsection[];
 
   constructor(private pgService: PgService, private i18n: I18nService) { this.myPorId = null; }
 
@@ -37,7 +39,7 @@ export class PortalEntity {
   reloadSections() {
     this.pgService
       .pgcall('portal', 'personsection_list', { prm_por_id: this.myPorId, prm_entity: this.entity })
-      .then(data => { this.personsections = data; })
+      .then((data: DbPersonsection[]) => { this.personsections = data; })
       .catch(err => { });
   }
 

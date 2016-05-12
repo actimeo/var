@@ -33,7 +33,7 @@ export class HomeCmp {
     this.pgService
       .pgcall(
       'login', 'user_logout', {})
-      .then((data: any) => {
+      .then(() => {
         this.userService.disconnect();
         this.router.parent.navigateByUrl('/login');
       });

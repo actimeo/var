@@ -13,6 +13,8 @@ import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 import {PmeMovePipe} from '../pipes/pme-move/pme-move';
 
+import { DbPersonmenu } from '../db.models/portal';
+
 @Component({
   selector: 'personmenu',
   styleUrls: ['app/personmenu/personmenu.css'],
@@ -26,7 +28,7 @@ export class Personmenu implements OnInit, OnDestroy {
   viewtools: boolean;
   viewedit: boolean;
   private viewmove: boolean;
-  private movechoices: any;
+  private movechoices: DbPersonmenu[];
   private beforePos: string;
   private selected: boolean;
   private subscription: Subscription;
@@ -86,7 +88,7 @@ export class Personmenu implements OnInit, OnDestroy {
     this.pgService
       .pgcall(
       'portal', 'personmenu_rename', { prm_id: this.menu.pme_id, prm_name: this.menu.pme_name })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personmenu_renamed'));
       })
@@ -97,7 +99,7 @@ export class Personmenu implements OnInit, OnDestroy {
   // Delete
   onDelete() {
     this.pgService.pgcall('portal', 'personmenu_delete', { prm_id: this.menu.pme_id })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personmenu_deleted'));
         if (this.selectedMenus.getPersonmenu(this.entity) == this.menu.pme_id) {
@@ -114,7 +116,7 @@ export class Personmenu implements OnInit, OnDestroy {
     this.viewtools = false;
 
     this.pgService.pgcall('portal', 'personmenu_list', { prm_pse_id: this.menu.pse_id })
-      .then(data => {
+      .then((data: DbPersonmenu[]) => {
         this.movechoices = data;
         if (this.movechoices.length == 1) {
           this.alerts.info(this.i18n.t('portal.alerts.no_moving_personmenu'));
@@ -130,7 +132,7 @@ export class Personmenu implements OnInit, OnDestroy {
       .pgcall(
       'portal', 'personmenu_move_before_position',
       { prm_id: this.menu.pme_id, prm_position: this.beforePos })
-      .then(data => {
+      .then(() => {
         this.onchange.emit(null);
         this.alerts.success(this.i18n.t('portal.alerts.personmenu_moved'));
       })

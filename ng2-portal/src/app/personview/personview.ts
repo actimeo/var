@@ -7,6 +7,10 @@ import {PgService} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import {SelectedMenus} from '../services/selected-menus/selected-menus';
 
+import {
+  DbPersonviewGetDetails,
+  DbPersonviewElement } from '../db.models/portal';
+
 @Component({
   selector: 'personview',
   templateUrl: 'app///personview/personview.html',
@@ -16,13 +20,13 @@ import {SelectedMenus} from '../services/selected-menus/selected-menus';
 })
 export class Personview implements OnInit, OnDestroy {
   private myPme: number;
-  private personview: any;
+  private personview: DbPersonviewGetDetails;
   private editing: boolean;
   private title: string;
   private pveType: string; // selected type
   private pveId: any; // selected view 
   private personviewTypes: any; // list of types
-  private personviewsInType: any; // list of views in the selected type
+  private personviewsInType: DbPersonviewElement[]; // list of views in the selected type
   private subscription: Subscription;
 
   @Input('entity') entity: string;
@@ -57,7 +61,7 @@ export class Personview implements OnInit, OnDestroy {
       .pgcall('portal', 'personview_get_details', {
         prm_entity: this.entity, prm_pme_id: this.myPme
       })
-      .then(data => {
+      .then((data: DbPersonviewGetDetails) => {
         this.personview = data;
         this.editing = false;
       })
@@ -82,7 +86,7 @@ export class Personview implements OnInit, OnDestroy {
         prm_icon: 'todo',
         prm_pve_id: this.pveId
       })
-      .then(data => {
+      .then(() => {
         this.alerts.success(this.i18n.t('portal.alerts.personview_saved'));
         this.editing = false;
         this.reloadPersonview();
@@ -92,7 +96,7 @@ export class Personview implements OnInit, OnDestroy {
 
   delete() {
     this.pgService.pgcall('portal', 'personview_delete', { prm_pme_id: this.myPme })
-      .then(data => {
+      .then(() => {
         this.alerts.success(this.i18n.t('portal.alerts.personview_deleted'));
         this.personview = null;
         this.prepareEdition();
@@ -102,9 +106,9 @@ export class Personview implements OnInit, OnDestroy {
   }
 
   prepareEdition() {
-    this.title = this.personview ? this.personview.mvi_title : '';
-    this.pveType = this.personview ? this.personview.mve_type : '';
-    this.pveId = this.personview ? this.personview.mve_id : '';
+    this.title = this.personview ? this.personview.pvi_title : '';
+    this.pveType = this.personview ? this.personview.pve_type : '';
+    this.pveId = this.personview ? this.personview.pve_id : '';
     this.editing = true;
     this.loadElements(this.pveId);
   }
@@ -120,8 +124,7 @@ export class Personview implements OnInit, OnDestroy {
         prm_type: this.pveType,
         prm_entity: this.entity
       })
-        .then((data: any) => {
-          console.log(data);
+        .then((data: DbPersonviewElement[]) => {
           this.personviewsInType = data;
           this.pveId = newPveId;
         })
