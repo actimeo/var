@@ -4,7 +4,7 @@ import {ROUTER_PROVIDERS} from 'angular2/router';
 import {LocationStrategy, HashLocationStrategy} from 'angular2/platform/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
-import {I18nService} from 'ng2-i18next/ng2-i18next';
+import {I18nServiceConfig, I18nService} from 'ng2-i18next/ng2-i18next';
 import {AlertsService, FootertipService} from 'variation-toolkit/variation-toolkit';
 import {
   UserService,
@@ -14,8 +14,27 @@ import {Ng2VariationApp} from './app/ng2-variation';
 
 import {SelectedMenusService} from './app/selected-menus.service';
 
+declare var i18nextBrowserLanguageDetector: any;
+declare var i18nextXHRBackend: any;
+
+//import {enableProdMode} from 'angular2/core';
+//enableProdMode();
+
+const I18N_PROVIDERS = [
+    provide(I18nServiceConfig, {
+        useValue: {
+            use: [i18nextBrowserLanguageDetector, i18nextXHRBackend],
+            config: {
+                detection: {order: ['navigator']},
+                fallbackLng: 'en'
+            }
+        }
+    }),
+    I18nService
+];
+
 bootstrap(Ng2VariationApp, [
-  HTTP_PROVIDERS,
+  HTTP_PROVIDERS, I18N_PROVIDERS,
   provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),
   UserService, PgService, FootertipService, AlertsService, I18nService, SelectedMenusService,
   ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);
