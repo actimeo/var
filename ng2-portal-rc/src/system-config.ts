@@ -3,10 +3,26 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'moment': 'vendor/moment/moment.js',
+  'ng2-i18next': 'vendor/ng2-i18next',
+  'variation-toolkit': 'vendor/variation-toolkit',
+  'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'vendor/ng2-i18next': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  },
+  'vendor/variation-toolkit': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  },
+  'vendor/ng2-postgresql-procedures': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +45,8 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/+home',
+  'app/+login',
   /** @cli-barrel */
 ];
 

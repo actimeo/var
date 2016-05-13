@@ -1,12 +1,13 @@
-<!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Ng2PortalRc</title>
-  <base href="/">
-  {{content-for 'head'}}
+  <base href="/"> {{content-for 'head'}}
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   <!-- Service worker support is disabled by default.
        Install the worker script and uncomment to enable.
@@ -20,13 +21,18 @@
   </script>
   -->
 </head>
+
 <body>
-  <ng2-portal-rc-app>Loading...</ng2-portal-rc-app>
+  <app>Loading...</app>
 
   <script src="vendor/es6-shim/es6-shim.js"></script>
   <script src="vendor/reflect-metadata/Reflect.js"></script>
   <script src="vendor/systemjs/dist/system.src.js"></script>
   <script src="vendor/zone.js/dist/zone.js"></script>
+
+  <script src="vendor/i18next/i18next.min.js"></script>
+  <script src="vendor/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+  <script src="vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
 
   <script>
     System.import('system-config.js').then(function () {
@@ -34,4 +40,5 @@
     }).catch(console.error.bind(console));
   </script>
 </body>
+
 </html>
