@@ -1,2 +1,3 @@
 - change i18next:backend:locaPath to 'locales/...' (without initial / ) so base path is used
-- [ng2-*] use app/// to access html/css components resources
+- [ng2-*] use module.id to access html/css components resources
+- create pg exec with nodejs with all cli commands (create, install, update, etc)
