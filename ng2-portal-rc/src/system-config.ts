@@ -6,7 +6,8 @@ const map: any = {
   'moment': 'vendor/moment/moment.js',
   'ng2-i18next': 'vendor/ng2-i18next',
   'variation-toolkit': 'vendor/variation-toolkit',
-  'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures'
+  'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
+  'ng2-bootstrap': 'vendor/ng2-bootstrap'
 };
 
 /** User packages configuration. */
@@ -22,6 +23,14 @@ const packages: any = {
   'vendor/ng2-postgresql-procedures': {
     format: 'cjs',
     defaultExtension: 'js'
+  },
+  /*'vendor/ng2-bootstrap': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  }*/
+  'vendor/ng2-bootstrap': {
+    format: 'register',
+    defaultExtension: 'js',
   }
 };
 

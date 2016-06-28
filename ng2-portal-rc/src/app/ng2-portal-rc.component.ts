@@ -8,6 +8,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { UserService, PgService, PgServiceConfig }
 from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import {I18nServiceConfig, I18nService} from 'ng2-i18next/ng2-i18next';
+import {AlertsService, FootertipService} from 'variation-toolkit/variation-toolkit';
 
 declare var i18nextBrowserLanguageDetector: any;
 declare var i18nextXHRBackend: any;
@@ -36,6 +37,7 @@ const I18N_PROVIDERS = [
     PgService,
     ROUTER_PROVIDERS, HTTP_PROVIDERS,
     UserService, I18N_PROVIDERS,
+    AlertsService, FootertipService,
     provide(LocationStrategy, { useClass: HashLocationStrategy })]
 })
 @Routes([

@@ -13,14 +13,14 @@ module.exports = function (defaults) {
       'rxjs/**/*.js',
       '@angular/**/*.js',
 
-      'ng2-bootstrap/**',
-      'i18next/**',
-      'i18next-xhr-backend/**',
-      'i18next-browser-languagedetector/**',
-      'moment/**',
+      'ng2-bootstrap/**/*.js',
+      'i18next/**/*.js',
+      'i18next-xhr-backend/**/*.js',
+      'i18next-browser-languagedetector/**/*.js',
+      'moment/**/*.js',
       'ng2-i18next/**',
-      'variation-toolkit/**',
-      'ng2-postgresql-procedures/**'
+      'variation-toolkit/**/*.js',
+      'ng2-postgresql-procedures/**/*.js'
     ]
   });
 };
