@@ -57,12 +57,11 @@ $grpII2 = $base->organ->group_add($token, $orgII, 'Group 2 institution II');
 $base->organ->group_set_topics($token, $grpII2, array('financer', 'support'));
 
 // Assign user1 to 1 group
-//$base->organ->staff_group_assignment_add($token, $grpIA1, $stfId1);
+$base->organ->participant_assignment_add($token, $grpI1, $stfId1);
 
 // Assign user2 to 3 groups
-/*
-$base->organ->staff_group_assignment_add($token, $grpIA1, $stfId2);
-$base->organ->staff_group_assignment_add($token, $grpIB2, $stfId2);
-$base->organ->staff_group_assignment_add($token, $grpIIA2, $stfId2);
-*/
+$base->organ->participant_assignment_add($token, $grpI1, $stfId2);
+$base->organ->participant_assignment_add($token, $grpI2, $stfId2);
+$base->organ->participant_assignment_add($token, $grpII2, $stfId2);
+
 $base->commit ();
