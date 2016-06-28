@@ -33,7 +33,7 @@ const I18N_PROVIDERS = [
 ];
 
 bootstrap(Ng2PortalApp, [
-  provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),
+  provide(PgServiceConfig, { useValue: { pgPath: 'http://v2.variation.fr/pg', prmTokenName: 'prm_token' } }),
   ROUTER_PROVIDERS, HTTP_PROVIDERS,
   UserService, I18N_PROVIDERS,
   PgService, FootertipService,

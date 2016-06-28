@@ -30,6 +30,6 @@ const I18N_PROVIDERS = [
 
 bootstrap(Ng2OrganApp, [
   HTTP_PROVIDERS, I18N_PROVIDERS,
-  provide(PgServiceConfig, { useValue: { pgPath: '/pg', prmTokenName: 'prm_token' } }),
+  provide(PgServiceConfig, { useValue: { pgPath: 'http://v2.variation.fr/pg', prmTokenName: 'prm_token' } }),
   UserService, PgService, FootertipService, AlertsService, I18nService,
   ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);
