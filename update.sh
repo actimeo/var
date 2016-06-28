@@ -13,8 +13,31 @@ if [ "$DBUSER" = "" ]; then
     exit;
 fi
 
-FILES="./*/plpgsql/*.sql ./*/sql/comments.sql"
-FILES="$FILES pgproc/tests/tests.sql"
+FILES=
+FILES="$FILES ./login/plpgsql/user.sql"
+FILES="$FILES ./organ/plpgsql/organization.sql"
+FILES="$FILES ./organ/plpgsql/group.sql"
+FILES="$FILES ./organ/plpgsql/participant_assignment.sql"
+FILES="$FILES ./organ/plpgsql/participant.sql"
+FILES="$FILES ./organ/sql/comments.sql"
+FILES="$FILES ./pgdoc/plpgsql/all.sql"
+FILES="$FILES ./pgproc/plpgsql/all.sql"
+FILES="$FILES ./portal/plpgsql/entity.sql"
+FILES="$FILES ./portal/plpgsql/mainmenu.sql"
+FILES="$FILES ./portal/plpgsql/mainsection.sql"
+FILES="$FILES ./portal/plpgsql/mainview_element.sql"
+FILES="$FILES ./portal/plpgsql/mainview.sql"
+FILES="$FILES ./portal/plpgsql/param.sql"
+FILES="$FILES ./portal/plpgsql/personmenu.sql"
+FILES="$FILES ./portal/plpgsql/personsection.sql"
+FILES="$FILES ./portal/plpgsql/personview_element.sql"
+FILES="$FILES ./portal/plpgsql/personview.sql"
+FILES="$FILES ./portal/plpgsql/portal.sql"
+FILES="$FILES ./portal/plpgsql/topics.sql"
+FILES="$FILES ./login/sql/comments.sql"
+FILES="$FILES ./portal/sql/comments.sql"
+FILES="$FILES ./pgproc/tests/tests.sql"
+
 echo 'Updating PL/PgSQL from files:'
 for i in $FILES; do 
     echo " - $i";

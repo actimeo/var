@@ -195,7 +195,7 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $this->assertGreaterThan(0, $res['usr_token']);
   }
 
-  public function testUserStaffSet() {
+  public function testUserSParticipantSet() {
     $loginAdmin = 'admin';
     $pwdAdmin = 'ksfdjgsfdyubg';    
     
@@ -204,13 +204,13 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $admin = self::$base->login->user_login($loginAdmin, $pwdAdmin, array('users', 'organization'));
 
     $loginUser = 'user';
-    $stfFirstname = 'Paul';
-    $stfLastname = 'Napoléon';
+    $parFirstname = 'Paul';
+    $parLastname = 'Napoléon';
     self::$base->login->user_add($admin['usr_token'], $loginUser, null, null);
-    $stfId = self::$base->organ->staff_add($admin['usr_token'], $stfFirstname, $stfLastname);
-    self::$base->login->user_staff_set($admin['usr_token'], $loginUser, $stfId);
+    $parId = self::$base->organ->participant_add($admin['usr_token'], $parFirstname, $parLastname);
+    self::$base->login->user_participant_set($admin['usr_token'], $loginUser, $parId);
     $user = self::$base->login->user_info($admin['usr_token'], $loginUser);
-    $this->assertEquals($user['stf_id'], $stfId);
+    $this->assertEquals($user['par_id'], $parId);
   }
 
   public function testUserPortalSet() {

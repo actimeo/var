@@ -13,7 +13,7 @@ CREATE TABLE login."user" (
   usr_pwd text,
   usr_digest text,
   usr_rights login.user_right[],
-  stf_id integer REFERENCES organ.staff,
+  par_id integer REFERENCES organ.participant,
   usr_token integer UNIQUE,
   usr_token_creation_date timestamp with time zone
 );

@@ -2,7 +2,7 @@
 require_once '../../pgproc/php/pgprocedures.php';
 require_once '../../config.inc.php';
 
-class staffTest extends PHPUnit_Framework_TestCase {
+class participantTest extends PHPUnit_Framework_TestCase {
   private static $base;
   private static $pgHost;
   private static $pgUser;
@@ -42,10 +42,10 @@ class staffTest extends PHPUnit_Framework_TestCase {
     self::$base->rollback();
   }
 
-  public function testStaffAdd() {
+  public function testParticipantAdd() {
     $firstname = 'Pierre';
     $lastname = 'Dupont';
-    $id = self::$base->organ->staff_add($this->token, $firstname, $lastname);
+    $id = self::$base->organ->participant_add($this->token, $firstname, $lastname);
     $this->assertGreaterThan(0, $id);
   }  
 }

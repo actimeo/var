@@ -45,7 +45,7 @@ COMMENT ON COLUMN login.user.usr_digest IS 'Encrypted password for webdav';
 
 COMMENT ON COLUMN login.user.usr_rights IS 'Array of special rights for this user';
 
-COMMENT ON COLUMN login.user.stf_id IS 'Staff member attached to the user, or null for an admin user';
+COMMENT ON COLUMN login.user.par_id IS 'Participant attached to the user, or null for an admin user';
 
 COMMENT ON COLUMN login.user.usr_token IS 'Token id returned after authentication';
 

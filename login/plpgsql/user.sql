@@ -70,13 +70,13 @@ CREATE TYPE user_login AS (
   usr_token integer,
   usr_temp_pwd boolean,
   usr_rights login.user_right[],
-  stf_id integer
+  par_id integer
 );
 COMMENT ON TYPE user_login IS 'Type returned by user_login function';
 COMMENT ON COLUMN user_login.usr_token IS 'Token to use for other functions';
 COMMENT ON COLUMN user_login.usr_temp_pwd IS 'True if the password is temporary';
 COMMENT ON COLUMN user_login.usr_rights IS 'List of rights owned by the user.';
-COMMENT ON COLUMN user_login.stf_id IS 'Staff member linkedwith this user.';
+COMMENT ON COLUMN user_login.par_id IS 'Participant linked with this user.';
 
 CREATE OR REPLACE FUNCTION user_login(prm_login character varying, prm_pwd character varying, prm_rights login.user_right[]) RETURNS user_login
   LANGUAGE plpgsql
@@ -97,7 +97,7 @@ BEGIN
   IF NOT FOUND THEN
     SELECT * INTO tok FROM login._user_token_create (usr);
   END IF;
-  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights, stf_id INTO row FROM login."user"
+  SELECT DISTINCT tok, (usr_pwd NOTNULL), usr_rights, par_id INTO row FROM login."user"
     WHERE usr_login = usr;
   RETURN row;
 END;
@@ -159,18 +159,18 @@ COMMENT ON FUNCTION user_regenerate_password(prm_token integer, prm_login varcha
 The user given in parameter cannot be the current user.
 ';
 
-CREATE OR REPLACE FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_stf_id integer) 
+CREATE OR REPLACE FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_par_id integer) 
 RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN
   PERFORM login._token_assert (prm_token, '{users}');
-  INSERT INTO login."user" (usr_login, usr_rights, stf_id) VALUES (prm_login, prm_rights, prm_stf_id);  
+  INSERT INTO login."user" (usr_login, usr_rights, par_id) VALUES (prm_login, prm_rights, prm_par_id);  
   PERFORM login.user_regenerate_password(prm_token, prm_login);
 END;
 $$;
-COMMENT ON FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_stf_id integer) IS
-'Create a new user aith the specified rights, and link him to a staff member. If prm_stf_id is null, this user will have access to all patients. A new temporary password is generated.';
+COMMENT ON FUNCTION user_add(prm_token integer, prm_login text, prm_rights login.user_right[], prm_par_id integer) IS
+'Create a new user aith the specified rights, and link him to a participant. If prm_par_id is null, this user will have access to all patients. A new temporary password is generated.';
 
 DROP FUNCTION IF EXISTS login.user_info(prm_token integer, prm_login text);
 DROP TYPE IF EXISTS login.user_info;
@@ -178,7 +178,7 @@ CREATE TYPE login.user_info AS (
   usr_login text,
   usr_temp_pwd text,
   usr_rights login.user_right[],
-  stf_id integer
+  par_id integer
 );
 
 CREATE FUNCTION login.user_info(prm_token integer, prm_login text)
@@ -190,7 +190,7 @@ DECLARE
   ret login.user_info;
 BEGIN
   PERFORM login._token_assert (prm_token, '{users}');
-  SELECT usr_login, usr_pwd, usr_rights, stf_id INTO ret 
+  SELECT usr_login, usr_pwd, usr_rights, par_id INTO ret 
     FROM login."user" 
     WHERE usr_login = prm_login;
   IF NOT FOUND THEN
@@ -201,20 +201,20 @@ END;
 $$;
 COMMENT ON FUNCTION login.user_info(prm_token integer, prm_login text) IS 'Return information about a user';
 
-CREATE OR REPLACE FUNCTION login.user_staff_set(prm_token integer, prm_login text, prm_stf_id integer)
+CREATE OR REPLACE FUNCTION login.user_participant_set(prm_token integer, prm_login text, prm_par_id integer)
 RETURNS void
 LANGUAGE plpgsql
 VOLATILE
 AS $$
 BEGIN
   PERFORM login._token_assert (prm_token, '{users}');
-  UPDATE login.user SET stf_id = prm_stf_id WHERE usr_login = prm_login;
+  UPDATE login.user SET par_id = prm_par_id WHERE usr_login = prm_login;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
 END;
 $$;
-COMMENT ON FUNCTION login.user_staff_set(prm_token integer, prm_login text, prm_stf_id integer) IS 'Link a staff member to a user';
+COMMENT ON FUNCTION login.user_participant_set(prm_token integer, prm_login text, prm_par_id integer) IS 'Link a participant to a user';
 
 CREATE OR REPLACE FUNCTION login.user_portal_set(prm_token integer, prm_login text, prm_por_ids integer[])
 RETURNS void
