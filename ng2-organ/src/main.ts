@@ -1,5 +1,6 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { provide, enableProdMode } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
 
 import 'i18next';
 import 'i18nextBrowserLanguageDetector';
@@ -7,7 +8,7 @@ import 'i18nextXHRBackend';
 
 import { AppComponent, environment } from './app/';
 
-import {I18nServiceConfig, I18nService} from 'ng2-i18next/ng2-i18next';
+import { I18nServiceConfig, I18nService } from 'ng2-i18next/ng2-i18next';
 import {
   UserService,
   PgService, PgServiceConfig} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -42,4 +43,4 @@ const PG_PROVIDERS = [
   }),
   UserService, PgService];
 
-bootstrap(AppComponent, [I18N_PROVIDERS, PG_PROVIDERS]);
+bootstrap(AppComponent, [HTTP_PROVIDERS, I18N_PROVIDERS, PG_PROVIDERS]);
