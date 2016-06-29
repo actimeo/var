@@ -13,6 +13,8 @@ import {
   UserService,
   PgService, PgServiceConfig} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
+import { APP_ROUTER_PROVIDERS } from './app/app.routes';
+import { AuthGuard } from './app/shared/auth.guard';
 
 declare var i18nextBrowserLanguageDetector: any;
 declare var i18nextXHRBackend: any;
@@ -43,4 +45,4 @@ const PG_PROVIDERS = [
   }),
   UserService, PgService];
 
-bootstrap(AppComponent, [HTTP_PROVIDERS, I18N_PROVIDERS, PG_PROVIDERS]);
+bootstrap(AppComponent, [HTTP_PROVIDERS, I18N_PROVIDERS, PG_PROVIDERS, APP_ROUTER_PROVIDERS, AuthGuard]);
