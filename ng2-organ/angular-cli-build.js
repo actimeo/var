@@ -15,7 +15,11 @@ module.exports = function(defaults) {
       'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
-      '@angular/**/*.+(js|js.map)'
+      '@angular/**/*.+(js|js.map)',
+      'ng2-i18next/**/*.+(js|js.map)',
+      'i18next/**/*.+(js|js.map)',
+      'i18next-xhr-backend/**/*.+(js|js.map)',
+      'i18next-browser-languagedetector/**/*.+(js|js.map)'
     ]
   });
 };
