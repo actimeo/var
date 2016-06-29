@@ -1,6 +1,7 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { provide, enableProdMode } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import 'i18next';
 import 'i18nextBrowserLanguageDetector';
@@ -45,4 +46,7 @@ const PG_PROVIDERS = [
   }),
   UserService, PgService];
 
-bootstrap(AppComponent, [HTTP_PROVIDERS, I18N_PROVIDERS, PG_PROVIDERS, APP_ROUTER_PROVIDERS, AuthGuard]);
+bootstrap(AppComponent, [
+  disableDeprecatedForms(), provideForms(),
+  HTTP_PROVIDERS, I18N_PROVIDERS, PG_PROVIDERS, APP_ROUTER_PROVIDERS, AuthGuard
+]);
