@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { GroupTopicsComponent } from './group-topics.component';
+import { TopicSelectComponent } from './topic-select.component';
 
-describe('Component: GroupTopics', () => {
+describe('Component: TopicSelect', () => {
   it('should create an instance', () => {
-//    let component = new GroupTopicsComponent();
+//    let component = new TopicSelectComponent();
 //    expect(component).toBeTruthy();
   });
 });

@@ -3,11 +3,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { I18nService } from 'ng2-i18next/ng2-i18next';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
+import { TopicSelectComponent } from '../topic-select';
+
 @Component({
   moduleId: module.id,
   selector: 'app-group-topics',
   templateUrl: 'group-topics.component.html',
-  styleUrls: ['group-topics.component.css']
+  styleUrls: ['group-topics.component.css'],
+  directives: [TopicSelectComponent]
 })
 export class GroupTopicsComponent implements OnInit {
 

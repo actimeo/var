@@ -1,0 +1,9 @@
+<p-dialog width="416" header="Select a topic" [(visible)]="display">
+  <ul>
+    <li *ngFor="let topic of topics"><img src="assets/icons/topics/{{topic}}48.png">
+      <div>{{i18next.t('topics.' + topic)}}</div>
+    </li>
+  </ul>
+</p-dialog>
+
+<button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Add"></button>
