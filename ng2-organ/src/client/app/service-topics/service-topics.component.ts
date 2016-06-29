@@ -13,7 +13,7 @@ import {TopicSelectComponent} from '../topic-select/index';
 })
 export class ServiceTopicsComponent implements OnInit {
 
-  @Input() serId: number;
+  @Input() grpId: number;
   @Input() topics: string[];
 
   constructor(private pgService: PgService, private i18next: I18nService) { }
@@ -28,8 +28,8 @@ export class ServiceTopicsComponent implements OnInit {
   }
 
   saveTopics() {
-    this.pgService.pgcall('organ', 'service_set_topics', {
-      prm_id: this.serId,
+    this.pgService.pgcall('organ', 'group_set_topics', {
+      prm_id: this.grpId,
       prm_topics: this.topics
     });
   }

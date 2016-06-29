@@ -3,13 +3,13 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {I18nService} from 'ng2-i18next/ng2-i18next';
 
-import {ServicesListComponent} from '../services-list/index';
+import {GroupsListComponent} from '../groups-list/index';
 
 @Component({
   selector: 'institution-main',
   templateUrl: 'app///institution-main/institution-main.component.html',
   styleUrls: ['app///institution-main/institution-main.component.css'],
-  directives: [TAB_DIRECTIVES, ServicesListComponent]
+  directives: [TAB_DIRECTIVES, GroupsListComponent]
 })
 export class InstitutionMainComponent implements OnInit {
   private insId: number;
@@ -19,6 +19,8 @@ export class InstitutionMainComponent implements OnInit {
   ngOnInit() {
   }
 
-  setInstitutionId(insId) { this.insId = insId; }
+  setInstitutionId(insId) {
+    this.insId = insId;
+  }
 
 }

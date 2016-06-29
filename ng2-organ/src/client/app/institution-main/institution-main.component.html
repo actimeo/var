@@ -1,8 +1,7 @@
 <tabset *ngIf="insId">
   <tab [heading]="i18next.t('institution.tabs.services')">
-    <services-list [insId]="insId"></services-list>
+    <groups-list [insId]="insId"></groups-list>
   </tab>
   <tab [heading]="i18next.t('institution.tabs.staff_members')">
-    
   </tab>
 </tabset>

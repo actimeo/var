@@ -1,3 +1,5 @@
-<ul>
-  <li *ngFor="#group of groups">{{group.sgr_name}}</li>
-</ul>
+<accordion [closeOthers]="false">
+  <accordion-group *ngFor="#group of groups" [heading]="group.grp_name">
+    <service-topics [grpId]="group.grp_id" [topics]="group.grp_topics"></service-topics>
+  </accordion-group>
+</accordion>
