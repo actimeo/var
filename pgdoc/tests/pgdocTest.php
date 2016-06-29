@@ -67,15 +67,15 @@ class pgdocTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testReturnsEnumDescription() {
-    $schema = 'patient';
-    $type = 'institution_status';
+    $schema = 'login';
+    $type = 'user_right';
     $res = self::$base->pgdoc->enum_description($schema, $type);
     $this->assertGreaterThan(0, strlen($res));
   }
 
   public function testReturnsEnumValues() {
-    $schema = 'patient';
-    $type = 'institution_status';
+    $schema = 'login';
+    $type = 'user_right';
     $res = self::$base->pgdoc->enum_values($schema, $type);
     $this->assertGreaterThan(0, count($res));
   }
