@@ -5,7 +5,7 @@
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="select-institution">
       <li *ngFor="#institution of institutions" role="menuitem">
-	<a class="dropdown-item" (click)="onInstitutionSelected(institution)">{{institution.ins_name}}</a>
+	<a class="dropdown-item" (click)="onInstitutionSelected(institution)">{{institution.org_name}}</a>
       </li>
       <li class="divider"></li>
       <li role="menuitem">

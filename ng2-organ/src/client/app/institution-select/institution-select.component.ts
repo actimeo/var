@@ -46,11 +46,11 @@ export class InstitutionSelectComponent implements OnInit {
 
   // Reload institutions and select the specified one (or none if null)
   reloadInstitutions(selectedInsId) {
-    this.pgService.pgcall('organ', 'institution_list')
+    this.pgService.pgcall('organ', 'organization_list')
       .then(data => {
         this.institutions = data;
         if (selectedInsId !== null) {
-          var p = this.institutions.filter(d => d.ins_id == selectedInsId);
+          var p = this.institutions.filter(d => d.org_id == selectedInsId);
           if (p.length == 1) {
             this.onInstitutionSelected(p[0]);
           }
@@ -62,8 +62,8 @@ export class InstitutionSelectComponent implements OnInit {
   // An institution is selected in the list
   onInstitutionSelected(p) {
     this.selectedInstitution = p;
-    this.selectedInstitutionName = p.ins_name;
-    this.onselected.emit(p.ins_id);
+    this.selectedInstitutionName = p.org_name;
+    this.onselected.emit(p.org_id);
   }
 
   // "Add institution" entry is selected in the list
@@ -77,7 +77,7 @@ export class InstitutionSelectComponent implements OnInit {
   // The "Rename institution" entry is selected in the list
   onRenameInstitution() {
     this.gettingName = true;
-    this.institutionName = this.selectedInstitution.ins_name;
+    this.institutionName = this.selectedInstitution.org_name;
     // Need a cycle to refresh the DOM and make inputname visible
     setTimeout(() => this.setFocusToInputName(), 0);
     this.currentOperation = InstitutionSelectComponent.OP_RENAME;
@@ -85,8 +85,8 @@ export class InstitutionSelectComponent implements OnInit {
 
   // The "Delete institution" entry is selected in the list
   onDeleteInstitution() {
-    this.pgService.pgcall('organ', 'institution_delete',
-      { prm_id: this.selectedInstitution.ins_id })
+    this.pgService.pgcall('organ', 'organiztion_delete',
+      { prm_id: this.selectedInstitution.org_id })
       .then(data => {
         this.unselectInstitution();
         this.reloadInstitutions(null);
@@ -117,7 +117,7 @@ export class InstitutionSelectComponent implements OnInit {
 
   // The Add Institution form is submitted. Let save the Institution
   doAddInstitution() {
-    this.pgService.pgcall('organ', 'institution_add', { prm_name: this.institutionName })
+    this.pgService.pgcall('organ', 'organization_add', { prm_name: this.institutionName })
       .then(newInsId => {
         this.reloadInstitutions(newInsId);
         this.alerts.success(this.i18n.t('institution.alerts.institution_added'));
@@ -130,10 +130,10 @@ export class InstitutionSelectComponent implements OnInit {
 
   doRenameInstitution() {
     this.pgService
-      .pgcall('organ', 'institution_rename',
-      { prm_id: this.selectedInstitution.ins_id, prm_name: this.institutionName })
+      .pgcall('organ', 'organization_rename',
+      { prm_id: this.selectedInstitution.org_id, prm_name: this.institutionName })
       .then(data => {
-        this.reloadInstitutions(this.selectedInstitution.ins_id);
+        this.reloadInstitutions(this.selectedInstitution.org_id);
         this.alerts.success(this.i18n.t('institution.alerts.institution_renamed'));
       })
       .catch(err => {
