@@ -1,3 +1,32 @@
-<p>
-  home works!
-</p>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <span class="navbar-brand">Variation <span class="small glyphicon glyphicon-menu-right"></span> <span i18n="organ.organ_builder"></span></span>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav">
+        <li>
+          <app-organization-select (onselected)="onOrganizationSelected($event)"></app-organization-select>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a><span i18n="auth.logged_in_as"></span> {{getUser()}}</a></li>
+        <li><a href="javascript:void(0)" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="organization-main">
+  <app-organization-main #organizationmain></app-organization-main>
+</main>
+
+<div class="alerts">
+  <alerts #alerts></alerts>
+</div>
+
+<footer class="footer">
+  <p class="tiptext">
+    <footertip></footertip>
+  </p>
+</footer>

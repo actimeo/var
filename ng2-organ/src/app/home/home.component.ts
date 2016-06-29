@@ -1,16 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+
+import { OrganizationSelectComponent } from '../organization-select';
+import { OrganizationMainComponent } from '../organization-main';
 
 @Component({
   moduleId: module.id,
   selector: 'app-home',
   templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css']
+  styleUrls: ['home.component.css'],
+  directives: [OrganizationSelectComponent, OrganizationMainComponent]
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {}
+  @ViewChild('organizationmain') organizationmain;
+
+  constructor(private router: Router, private userService: UserService,
+    private pgService: PgService) {
+  }
 
   ngOnInit() {
   }
 
+  getUser() { return this.userService.getLogin(); }
+
+  logout() {
+
+    this.pgService
+      .pgcall(
+      'login', 'user_logout', {})
+      .then((data: any) => {
+        this.userService.disconnect();
+        this.router.navigate(['/login']);
+      });
+  }
+
+  onOrganizationSelected(insId) {
+    this.organizationmain.setOrganizationId(insId);
+  }
 }
