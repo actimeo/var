@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+import { I18nDirective } from 'ng2-i18next/ng2-i18next';
 
 import { OrganizationSelectComponent } from '../organization-select';
 import { OrganizationMainComponent } from '../organization-main';
@@ -10,7 +11,7 @@ import { OrganizationMainComponent } from '../organization-main';
   selector: 'app-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
-  directives: [OrganizationSelectComponent, OrganizationMainComponent]
+  directives: [OrganizationSelectComponent, OrganizationMainComponent, I18nDirective]
 })
 export class HomeComponent implements OnInit {
 

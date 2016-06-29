@@ -20,7 +20,9 @@ module.exports = function(defaults) {
       'i18next/**/*.+(js|js.map)',
       'i18next-xhr-backend/**/*.+(js|js.map)',
       'i18next-browser-languagedetector/**/*.+(js|js.map)',
-      'ng2-postgresql-procedures/**/*.+(js|js.map)'
+      'ng2-postgresql-procedures/**/*.+(js|js.map)',
+      'primeng/**/*.+(js|js.map)',
+      'primeui/**/*.css'      
     ]
   });
 };

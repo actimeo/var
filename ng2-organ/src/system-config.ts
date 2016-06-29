@@ -12,6 +12,7 @@ const map: any = {
   'i18nextXHRBackend': 'vendor/i18next-xhr-backend/i18nextXHRBackend.min.js',
   'i18nextBrowserLanguageDetector': 'vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js',
   'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
+  'primeng': 'vendor/primeng'
 };
 
 /** User packages configuration. */
@@ -27,6 +28,9 @@ const packages: any = {
     format: 'cjs',
     defaultExtension: 'js'
   },
+  'primeng': {
+    defaultExtension: 'js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
