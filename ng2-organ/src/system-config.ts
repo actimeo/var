@@ -10,7 +10,8 @@ const map: any = {
   'ng2-i18next': 'vendor/ng2-i18next',
   'i18next': 'vendor/i18next/i18next.min.js',
   'i18nextXHRBackend': 'vendor/i18next-xhr-backend/i18nextXHRBackend.min.js',
-  'i18nextBrowserLanguageDetector': 'vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js'
+  'i18nextBrowserLanguageDetector': 'vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js',
+  'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
 };
 
 /** User packages configuration. */
@@ -21,7 +22,11 @@ const packages: any = {
   },
   'i18next': { format: 'global' },
   'i18nextXHRBackend': { format: 'global' },
-  'i18nextBrowserLanguageDetector': { format: 'global' }
+  'i18nextBrowserLanguageDetector': { format: 'global' },
+  'vendor/ng2-postgresql-procedures': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  },
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

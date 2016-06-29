@@ -8,6 +8,9 @@ import 'i18nextXHRBackend';
 import { AppComponent, environment } from './app/';
 
 import {I18nServiceConfig, I18nService} from 'ng2-i18next/ng2-i18next';
+import {
+  UserService,
+  PgService, PgServiceConfig} from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 
 declare var i18nextBrowserLanguageDetector: any;
@@ -18,16 +21,25 @@ if (environment.production) {
 }
 
 const I18N_PROVIDERS = [
-    provide(I18nServiceConfig, {
-        useValue: {
-            use: [i18nextBrowserLanguageDetector, i18nextXHRBackend],
-            config: {
-                detection: {order: ['navigator']},
-                fallbackLng: 'en'
-            }
-        }
-    }),
-    I18nService
+  provide(I18nServiceConfig, {
+    useValue: {
+      use: [i18nextBrowserLanguageDetector, i18nextXHRBackend],
+      config: {
+        detection: { order: ['navigator'] },
+        fallbackLng: 'en'
+      }
+    }
+  }),
+  I18nService
 ];
 
-bootstrap(AppComponent, [I18N_PROVIDERS]);
+const PG_PROVIDERS = [
+  provide(PgServiceConfig, {
+    useValue: {
+      pgPath: 'http://organ.variation.v2/pg',
+      prmTokenName: 'prm_token'
+    }
+  }),
+  UserService, PgService];
+
+bootstrap(AppComponent, [I18N_PROVIDERS, PG_PROVIDERS]);
