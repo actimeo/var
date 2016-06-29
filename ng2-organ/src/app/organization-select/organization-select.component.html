@@ -1,5 +1,5 @@
 <span *ngIf="!gettingName">
-  <p-dropdown [options]="organizationsDdList" [(ngModel)]="selectedOrg" [style]="{'margin-top': '16px', 'width':'150px'}"></p-dropdown>
+  <p-dropdown (onChange)="onOrganizationSelected($event.value)" [options]="organizationsDdList" [(ngModel)]="selectedOrg" [style]="{'margin-top': '16px', 'width':'150px'}"></p-dropdown>
 
 <!--    <button id="select-institution" type="button" class="btn btn-default" dropdownToggle>
       {{selectedInstitutionName}}  <span class="caret"></span>

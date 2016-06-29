@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   onOrganizationSelected(insId) {
+    console.log('selected 1: ' + insId);
     this.organizationmain.setOrganizationId(insId);
   }
 }

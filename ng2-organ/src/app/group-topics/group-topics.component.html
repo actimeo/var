@@ -1,0 +1,7 @@
+<ul class="topics">
+  <li *ngFor="let topic of topics" class="topic">
+    <span class="fa fa-remove" aria-hidden="true" (click)="deleteTopic(topic)"></span>
+    <span class="chip">{{i18next.t('topics.' + topic)}}</span>
+  </li>
+  <li><app-topic-select (selected)="topicSelected($event)" [ignoreTopics]="topics"></app-topic-select></li>
+</ul>

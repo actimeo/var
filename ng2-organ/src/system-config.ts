@@ -58,6 +58,8 @@ const barrels: string[] = [
   'app/organization',
   'app/organization-select',
   'app/organization-main',
+  'app/groups-list',
+  'app/group-topics',
   /** @cli-barrel */
 ];
 

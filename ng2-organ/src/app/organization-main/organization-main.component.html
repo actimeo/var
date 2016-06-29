@@ -1,3 +1,7 @@
-<p>
-  organization-main works!
-</p>
+<p-tabView *ngIf="orgId">
+  <p-tabPanel [header]="i18next.t('institution.tabs.services')">
+    <app-groups-list [orgId]="orgId"></app-groups-list>
+  </p-tabPanel>
+  <p-tabPanel [header]="i18next.t('institution.tabs.staff_members')">
+  </p-tabPanel>
+</p-tabView>

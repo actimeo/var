@@ -1,0 +1,6 @@
+<p-accordion>
+  <p-accordionTab *ngFor="let group of groups" [header]="group.grp_name">
+    <app-group-topics [grpId]="group.grp_id" [topics]="group.grp_topics"></app-group-topics>
+  </p-accordionTab>
+</p-accordion>
+
