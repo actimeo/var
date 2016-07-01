@@ -51,8 +51,8 @@ export class GroupEditComponent implements OnInit {
   protected cancel() {
     this.populateForm();
   }
-
+/*
   protected topicsChange(topics) {
     this.topics = topics;
-  }
+  }*/
 }

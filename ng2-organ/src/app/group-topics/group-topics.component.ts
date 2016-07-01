@@ -13,10 +13,14 @@ import { TopicSelectComponent } from '../topic-select';
 })
 export class GroupTopicsComponent implements OnInit {
 
-  @Input() grpId: number;
-  @Input() topics: string[];
-
-  @Output() change: EventEmitter<string[]> = new EventEmitter<string[]>();
+  private intTopics: string[];
+  @Input() get topics(): string[]{
+    return this.intTopics;
+  }
+  set topics(val: string[]) {
+    this.intTopics = val;
+  }
+  @Output() topicsChange: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   constructor(private i18next: I18nService) { }
 
@@ -24,23 +28,23 @@ export class GroupTopicsComponent implements OnInit {
   }
 
   deleteTopic(topic) {
-    this.topics = this.topics.filter(val => val !== topic);
+    this.intTopics = this.intTopics.filter(val => val !== topic);
     this.saveTopics();
     this.forceTopicsChange();
   }
 
   saveTopics() {
-    this.change.emit(this.topics);
+    this.topicsChange.emit(this.intTopics);
   }
 
   topicSelected(topic) {
-    this.topics.push(topic);
+    this.intTopics.push(topic);
     this.saveTopics();
     this.forceTopicsChange();
   }
 
   forceTopicsChange() {
-    let newtopics = this.topics.slice(0);
-    this.topics = newtopics;
+    let newtopics = this.intTopics.slice(0);
+    this.intTopics = newtopics;
   }
 }
