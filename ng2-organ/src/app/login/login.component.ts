@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { InputText, Panel, Button } from 'primeng/primeng';
 
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
-import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+import  { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
   moduleId: module.id,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // set focus to username
-    this.renderer.invokeElementMethod(this.username.nativeElement, 'focus', null);
+    setTimeout(() => { this.renderer.invokeElementMethod(this.username.nativeElement, 'focus', null); }, 0);
   }
 
   login(event, username, password) {
