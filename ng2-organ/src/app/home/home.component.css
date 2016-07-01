@@ -24,6 +24,8 @@
   /* teal 700 */
 }
 
+#logo span { color: #ffffff; line-height: 64px; }
+
 #topmenu {
   margin: 0;
   padding: 0;
@@ -31,6 +33,9 @@
   display: flex;
   flex-grow: 0;
 }
+
+#topmenu > li { line-height: 64px; }
+#topmenu > li > a { color: #ffffff; text-decoration: none; }
 
 #topmenu > li .fa {
   width: 48px;
