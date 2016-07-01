@@ -13,7 +13,6 @@ import { Dialog, Button } from 'primeng/primeng';
 export class TopicSelectComponent implements OnInit {
 
   @Input() set ignoreTopics(val: string[]) {
-    console.log('ignore: ' + val);
     this.intIgnoreTopics = val;
     this.filterTopics();
   }

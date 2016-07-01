@@ -1,6 +1,11 @@
-<div class="title">Topics</div> 
-<app-group-topics [grpId]="group.grp_id" [topics]="group.grp_topics"></app-group-topics>
+<div class="title">Topics</div>
+<app-group-topics [grpId]="group.grp_id" [topics]="topics" (change)="topicsChange($event)"></app-group-topics>
 
-<div class="title">Details</div> 
-Start date: <input type="text">
-End date: <input type="text">
+<div class="title">Details</div>
+Start date:
+<p-calendar [(ngModel)]="startDate"></p-calendar>
+End date:
+<p-calendar [(ngModel)]="endDate"></p-calendar>
+
+<button (click)="save()">Save</button>
+<button (click)="cancel()">Cancel</button>

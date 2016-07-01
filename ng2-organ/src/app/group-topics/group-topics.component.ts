@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { I18nService } from 'ng2-i18next/ng2-i18next';
-import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import { TopicSelectComponent } from '../topic-select';
 
@@ -17,7 +16,9 @@ export class GroupTopicsComponent implements OnInit {
   @Input() grpId: number;
   @Input() topics: string[];
 
-  constructor(private pgService: PgService, private i18next: I18nService) {}
+  @Output() change: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  constructor(private i18next: I18nService) { }
 
   ngOnInit() {
   }
@@ -29,10 +30,7 @@ export class GroupTopicsComponent implements OnInit {
   }
 
   saveTopics() {
-    this.pgService.pgcall('organ', 'group_set_topics', {
-      prm_id: this.grpId,
-      prm_topics: this.topics
-    });
+    this.change.emit(this.topics);
   }
 
   topicSelected(topic) {

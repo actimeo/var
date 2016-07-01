@@ -45,6 +45,7 @@ $orgI = $base->organ->organization_add($token, "Organization I");
 $orgII = $base->organ->organization_add($token, "Organization II");
 
 $grpI1 = $base->organ->group_add($token, $orgI, 'Group 1 institution I');
+$base->organ->group_set($token, $grpI1, '01/07/2016', '30/06/2017', 'a note');
 $base->organ->group_set_topics($token, $grpI1, array('social', 'justice'));
 
 $grpI2 = $base->organ->group_add($token, $orgI, 'Group 2 institution I');

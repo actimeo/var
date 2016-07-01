@@ -12,7 +12,8 @@ const map: any = {
   'i18nextXHRBackend': 'vendor/i18next-xhr-backend/i18nextXHRBackend.min.js',
   'i18nextBrowserLanguageDetector': 'vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js',
   'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
-  'primeng': 'vendor/primeng'
+  'primeng': 'vendor/primeng',
+  'primeuiNgAll': 'vendor/primeui/primeui-ng-all.min.js'
 };
 
 /** User packages configuration. */
@@ -30,7 +31,8 @@ const packages: any = {
   },
   'primeng': {
     defaultExtension: 'js'
-  }
+  },
+  'primeuiNgAll': { format: 'global' },
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
