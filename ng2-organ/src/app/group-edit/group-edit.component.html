@@ -1,11 +1,13 @@
+<div class="buttons">
+  <button pButton (click)="cancel()" label="Cancel" [disabled]="!cancelVisible"></button>
+  <button pButton (click)="save()" label="Save" [disabled]="!saveVisible"></button>
+</div>
+
 <div class="title">Topics</div>
-<app-group-topics [(topics)]="topics"></app-group-topics>
+<app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>
 
 <div class="title">Details</div>
 Start date:
-<p-calendar [(ngModel)]="startDate"></p-calendar>
+<p-calendar [ngModel]="startDate" (ngModelChange)="startDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>
 End date:
-<p-calendar [(ngModel)]="endDate"></p-calendar>
-
-<button (click)="save()">Save</button>
-<button (click)="cancel()">Cancel</button>
+<p-calendar [ngModel]="endDate" (ngModelChange)="endDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>

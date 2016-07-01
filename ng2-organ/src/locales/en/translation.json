@@ -1,5 +1,6 @@
 {
   "common": {
+    "date_format": "dd/mm/yy",
     "doubledot": ": ",
     "required": "* ",
     "btn": {

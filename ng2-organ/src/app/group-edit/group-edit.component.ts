@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Calendar } from 'primeng/primeng';
+import { Button, Calendar } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+import { I18nService } from 'ng2-i18next/ng2-i18next';
 
 import { GroupTopicsComponent } from '../group-topics';
 
@@ -9,7 +10,7 @@ import { GroupTopicsComponent } from '../group-topics';
   selector: 'app-group-edit',
   templateUrl: 'group-edit.component.html',
   styleUrls: ['group-edit.component.css'],
-  directives: [Calendar, GroupTopicsComponent]
+  directives: [Button, Calendar, GroupTopicsComponent]
 })
 export class GroupEditComponent implements OnInit {
 
@@ -19,7 +20,10 @@ export class GroupEditComponent implements OnInit {
   private endDate: string;
   private topics: string[];
 
-  constructor(private pgService: PgService) { }
+  private cancelVisible: boolean = false;
+  private saveVisible: boolean = false;
+
+  constructor(private pgService: PgService, private i18next: I18nService) { }
 
   ngOnInit() {
     this.populateForm();
@@ -46,13 +50,31 @@ export class GroupEditComponent implements OnInit {
       prm_end_date: this.group.grp_end_date,
       prm_notes: this.group.grp_notes
     });
+    this.cancelVisible = false;
+    this.saveVisible = false;
   }
 
   protected cancel() {
     this.populateForm();
+    this.cancelVisible = false;
+    this.saveVisible = false;
   }
-/*
-  protected topicsChange(topics) {
-    this.topics = topics;
-  }*/
+
+  protected topicsChange(val: string[]) {
+    this.topics = val;
+    this.cancelVisible = true;
+    this.saveVisible = true;
+  }
+
+  protected startDateChange(val: string) {
+    this.startDate = val;
+    this.cancelVisible = true;
+    this.saveVisible = true;
+  }
+
+  protected endDateChange(val: string) {
+    this.endDate = val;
+    this.cancelVisible = true;
+    this.saveVisible = true;
+  }
 }
