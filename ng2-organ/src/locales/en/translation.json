@@ -80,7 +80,12 @@
       "institution_added": "Institution added",
       "error_adding_institution": "Error adding institution",
       "institution_renamed": "Institution renamed",
-      "error_renaming_institution": "Error renaming institution"    
+      "error_renaming_institution": "Error renaming institution"
+    }
+  },
+  "dialog": {
+    "select_topics": {
+      "title": "Select topics"
     }
   }
 }

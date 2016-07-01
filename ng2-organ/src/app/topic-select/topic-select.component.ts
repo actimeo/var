@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
 import { I18nDirective, I18nService } from 'ng2-i18next/ng2-i18next';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { Dialog, Button } from 'primeng/primeng';
@@ -45,7 +44,7 @@ export class TopicSelectComponent implements OnInit {
 
   private filterTopics() {
     if (this.topics) {
-      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val) == -1);
+      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val) === -1);
     }
   }
 
@@ -53,4 +52,7 @@ export class TopicSelectComponent implements OnInit {
     this.display = true;
   }
 
+  protected topicSelected(topic: string) {
+    this.selected.emit(topic);
+  }
 }
