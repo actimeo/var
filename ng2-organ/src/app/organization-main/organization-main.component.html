@@ -1,7 +1,7 @@
 <p-tabView *ngIf="orgId">
-  <p-tabPanel [header]="i18next.t('institution.tabs.services')">
+  <p-tabPanel [header]="i18next.t('institution.tabs.groups')">
     <app-groups-list [orgId]="orgId"></app-groups-list>
   </p-tabPanel>
-  <p-tabPanel [header]="i18next.t('institution.tabs.staff_members')">
+  <p-tabPanel [header]="i18next.t('institution.tabs.participants')">
   </p-tabPanel>
 </p-tabView>

@@ -72,8 +72,8 @@
     "copy_current_institution": "Copy current institution",
     "institution_name": "institution name",
     "tabs": {
-      "services": "Services",
-      "staff_members": "Staff members"
+      "groups": "Groups",
+      "participants": "Participants"
     },
     "alerts": {
       "institution_deleted": "Institution deleted",
