@@ -62,6 +62,7 @@ const barrels: string[] = [
   'app/groups-list',
   'app/group-topics',
   'app/topic-select',
+  'app/group-edit',
   /** @cli-barrel */
 ];
 

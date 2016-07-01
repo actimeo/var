@@ -2,14 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Accordion, AccordionTab } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
-import { GroupTopicsComponent } from '../group-topics';
+import { GroupEditComponent } from '../group-edit';
 
 @Component({
   moduleId: module.id,
   selector: 'app-groups-list',
   templateUrl: 'groups-list.component.html',
   styleUrls: ['groups-list.component.css'],
-  directives: [Accordion, AccordionTab, GroupTopicsComponent]
+  directives: [Accordion, AccordionTab, GroupEditComponent]
 })
 export class GroupsListComponent implements OnInit {
 
