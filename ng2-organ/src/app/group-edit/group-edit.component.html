@@ -3,11 +3,17 @@
   <button pButton (click)="save()" label="Save" [disabled]="!saveVisible"></button>
 </div>
 
-<div class="title">Topics</div>
-<app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>
+Name:
+<input type="text" pInputText [ngModel]="name" (ngModelChange)="nameChange($event)"  />
 
-<div class="title">Details</div>
 Start date:
 <p-calendar [ngModel]="startDate" (ngModelChange)="startDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>
 End date:
 <p-calendar [ngModel]="endDate" (ngModelChange)="endDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>
+
+<h2>Topics</h2>
+<app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>
+
+
+<h2>Notes</h2>
+<textarea  [ngModel]="notes" (ngModelChange)="notesChange($event)" rows="5" cols="80" pInputTextarea autoResize="autoResize"></textarea>
