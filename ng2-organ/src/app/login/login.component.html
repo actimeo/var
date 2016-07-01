@@ -1,24 +1,23 @@
-<div class="body">
-  <div class="panel panel-default loginform">
-    <div class="panel-heading">
-      <h3 class="panel-title" i18n="auth.connect_title"></h3></div>
-    <div class="panel-body">
-      <img src="/assets/logoVariation.png">
-      <p class="subtitle" i18n="organ.organ_builder"></p>
-      <form (submit)="login($event, username.value, password.value)">
-        <div class="form-group">
-          <label for="username" i18n="auth.username"></label>
-          <input type="text" #username class="form-control" id="username" i18n-placeholder="auth.username">
-        </div>
-        <div class="form-group">
-          <label for="password" i18n="auth.password"></label>
-          <input type="password" #password class="form-control" id="password" i18n-placeholder="auth.password">
-        </div>
-        <button type="submit" class="btn btn-primary" i18n="auth.submit" footertip="test.key"></button>
-      </form>
-      <div *ngIf="errormsg">
-        <p class="text-danger">{{errormsg}}</p>
+<div class="loginform">
+  <p-panel>
+    <header i18n="auth.connect_title"></header>
+    <img src="/assets/logoVariation.png">
+    <p class="subtitle" i18n="organ.organ_builder"></p>
+    <form (submit)="login($event, username.value, password.value)">
+      <div class="form-group">
+        <label for="username" i18n="auth.username"></label>
+        <input pInputText type="text" #username class="form-control" id="username" i18n-placeholder="auth.username">
       </div>
+      <div class="form-group">
+        <label for="password" i18n="auth.password"></label>
+        <input pInputText type="password" #password class="form-control" id="password" i18n-placeholder="auth.password">
+      </div>
+      <div class="buttons">
+        <button pButton type="submit" label="{{i18n.t('auth.submit')}}"></button>
+      </div>
+    </form>
+    <div *ngIf="errormsg">
+      <p class="text-danger">{{errormsg}}</p>
     </div>
-  </div>
+  </p-panel>
 </div>

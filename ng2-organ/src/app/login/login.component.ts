@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
+import { InputText, Panel, Button } from 'primeng/primeng';
 
-import {I18nService, I18nDirective} from 'ng2-i18next/ng2-i18next';
+import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
 import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
@@ -9,8 +10,7 @@ import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresq
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
-  directives: [I18nDirective]
-
+  directives: [I18nDirective, InputText, Panel, Button]
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 

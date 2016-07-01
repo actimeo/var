@@ -1,3 +1,5 @@
-.body { padding-top: 50px; height: 100%; background-color: #009688; }
-.loginform { margin: 0 auto; width: 300px; box-shadow: 0 0 15px #627d92; border-radius: 4px; }
+.loginform { margin: 50px auto 0 auto; width: 300px; box-shadow: 0 0 15px #627d92; border-radius: 4px; }
 .subtitle { text-align: center; margin-bottom: 24px; }
+input { width: 256px; }
+.form-group { margin-bottom: 15px; }
+.buttons { text-align: right; }
