@@ -64,6 +64,13 @@
   "organ": {
     "organ_builder": "Organization builder"
   },
+  "group-edit": {
+    "name": "Name:",
+    "start_date": "Start date:",
+    "end_date": "End date:",
+    "topics": "Topics",
+    "notes": "Notes"
+  },
   "institution": {
     "select_an_institution": "Select an institution",
     "add_new_institution": "Add new institution",

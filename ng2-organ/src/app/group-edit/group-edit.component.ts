@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Button, Calendar, InputTextarea } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
-import { I18nService } from 'ng2-i18next/ng2-i18next';
+import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
 
 import { GroupTopicsComponent } from '../group-topics';
 
@@ -10,7 +10,7 @@ import { GroupTopicsComponent } from '../group-topics';
   selector: 'app-group-edit',
   templateUrl: 'group-edit.component.html',
   styleUrls: ['group-edit.component.css'],
-  directives: [Button, Calendar, GroupTopicsComponent, InputTextarea]
+  directives: [I18nDirective, Button, Calendar, GroupTopicsComponent, InputTextarea]
 })
 export class GroupEditComponent implements OnInit {
 

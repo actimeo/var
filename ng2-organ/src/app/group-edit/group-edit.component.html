@@ -1,19 +1,19 @@
 <div class="buttons">
-  <button pButton (click)="cancel()" label="Cancel" [disabled]="!cancelVisible"></button>
-  <button pButton (click)="save()" label="Save" [disabled]="!saveVisible"></button>
+  <button pButton (click)="cancel()" [label]="i18next.t('common.btn.cancel')" [disabled]="!cancelVisible"></button>
+  <button pButton (click)="save()" [label]="i18next.t('common.btn.save')" [disabled]="!saveVisible"></button>
 </div>
 
-Name:
+<span i18n="group-edit.name"></span>
 <input type="text" pInputText [ngModel]="name" (ngModelChange)="nameChange($event)"  />
 
-Start date:
-<p-calendar [ngModel]="startDate" (ngModelChange)="startDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>
-End date:
-<p-calendar [ngModel]="endDate" (ngModelChange)="endDateChange($event)" dateFormat="{{i18next.t('common.date_format')}}"></p-calendar>
+<span i18n="group-edit.start_date"></span>
+<p-calendar [ngModel]="startDate" (ngModelChange)="startDateChange($event)" [dateFormat]="i18next.t('common.date_format')"></p-calendar>
+<span i18n="group-edit.end_date"></span>
+<p-calendar [ngModel]="endDate" (ngModelChange)="endDateChange($event)" [dateFormat]="i18next.t('common.date_format')"></p-calendar>
 
-<h2>Topics</h2>
+<h2 i18n="group-edit.topics"></h2>
 <app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>
 
 
-<h2>Notes</h2>
+<h2 i18n="group-edit.notes"></h2>
 <textarea  [ngModel]="notes" (ngModelChange)="notesChange($event)" rows="5" cols="80" pInputTextarea autoResize="autoResize"></textarea>
