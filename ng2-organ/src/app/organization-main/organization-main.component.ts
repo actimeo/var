@@ -20,7 +20,6 @@ export class OrganizationMainComponent implements OnInit {
   }
 
   setOrganizationId(orgId) {
-    console.log('set orgId: ' + orgId);
     this.orgId = orgId;
   }
 

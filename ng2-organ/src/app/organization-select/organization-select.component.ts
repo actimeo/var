@@ -57,8 +57,7 @@ export class OrganizationSelectComponent implements OnInit {
   onOrganizationSelected(org) {
     this.selectedInstitution = org.value;
     this.selectedInstitutionName = org.label;
-    console.log('select 1b');
-    this.onselected.emit(org.value);
+    this.onselected.emit(org);
   }
 
 }

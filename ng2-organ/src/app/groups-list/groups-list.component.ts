@@ -33,7 +33,6 @@ export class GroupsListComponent implements OnInit {
     })
       .then(data => {
         this.groups = data;
-        console.log(this.groups);
       })
       .catch(err => {
         console.log(err);

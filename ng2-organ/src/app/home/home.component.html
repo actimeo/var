@@ -3,7 +3,6 @@
   <div id="logo"><img src="assets/V.png"> <span i18n="organ.organ_builder"></span></div>
   <div class="flexgrow"></div>
   <ul id="topmenu">
-    <li><a><span i18n="auth.logged_in_as"></span> {{getUser()}}</a></li>
     <li><a href="javascript:void(0)" (click)="logout()"><span class="fa fa-sign-out"></span></a></li>
   </ul>
 </div>
@@ -12,27 +11,10 @@
 <md-sidenav-layout id="wrapper" class="demo-sidenav-layout">
   <md-sidenav id="nav-drawer" #start mode="over" opened="true">
     <div class="nav-drawer-header">
-      <div class="title">John Foobar</div>
-      <div class="subtitle">Portal 1</div>
-      <div class="subtitle">All groups</div>
+      <div class="title">{{getUser()}}</div>
+      <div class="subtitle">{{selectedOrg?.label}}</div>
     </div>
-  <app-organization-select (onselected)="onOrganizationSelected($event); start.close();"></app-organization-select>
-    <!--p-accordion [multiple]="false">
-      <p-accordionTab *ngFor="let menu of menus">
-        <header>{{menu.title}}</header>
-        <ul class="submenu">
-          <li *ngFor="let submenu of menu.sub">
-            <a routerLink="{{submenu.link}}" (click)="start.close()">
-              <i class="fa" [ngClass]="submenu.icon" aria-hidden="true"></i>
-              <div>
-                <span class="title">{{submenu.title}}</span>
-                <span class="type">{{submenu.type}}</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </p-accordionTab>
-    </p-accordion-->
+    <app-organization-select (onselected)="onOrganizationSelected($event); start.close();"></app-organization-select>
   </md-sidenav>
 
   <main class="organization-main">

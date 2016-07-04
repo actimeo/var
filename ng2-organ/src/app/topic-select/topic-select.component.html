@@ -1,4 +1,4 @@
-<p-dialog width="608" header="{{i18next.t('dialog.select_topics.title')}}" [(visible)]="display" modal="true">
+<p-dialog width="608" header="{{i18next.t('dialog.select_topics.title')}}" [(visible)]="display">
   <ul>
     <li *ngFor="let topic of topics" (click)="topicSelected(topic)"><img src="assets/icons/topics/{{topic}}48.png">
       <div>{{i18next.t('topics.' + topic)}}</div>

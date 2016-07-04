@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('organizationmain') organizationmain;
 
+  private selectedOrg: any;
+
   constructor(private router: Router, private userService: UserService,
     private pgService: PgService) {
   }
@@ -38,8 +40,8 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onOrganizationSelected(insId) {
-    console.log('selected 1: ' + insId);
-    this.organizationmain.setOrganizationId(insId);
+  onOrganizationSelected(org) {
+    this.selectedOrg = org;
+    this.organizationmain.setOrganizationId(org.value);
   }
 }
