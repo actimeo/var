@@ -13,7 +13,8 @@ const map: any = {
   'i18nextBrowserLanguageDetector': 'vendor/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js',
   'ng2-postgresql-procedures': 'vendor/ng2-postgresql-procedures',
   'primeng': 'vendor/primeng',
-  'primeuiNgAll': 'vendor/primeui/primeui-ng-all.min.js'
+  'primeuiNgAll': 'vendor/primeui/primeui-ng-all.min.js',
+  '@angular2-material': 'vendor/@angular2-material'
 };
 
 /** User packages configuration. */
@@ -34,6 +35,16 @@ const packages: any = {
   },
   'primeuiNgAll': { format: 'global' },
 };
+
+// put the names of any of your Material components here
+const materialPkgs:string[] = [
+  'core',
+  'sidenav'
+];
+
+materialPkgs.forEach((pkg) => {
+  packages[`@angular2-material/${pkg}`] = {main: `${pkg}.js`};
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************

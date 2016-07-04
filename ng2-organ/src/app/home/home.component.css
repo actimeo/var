@@ -26,6 +26,22 @@
 
 #logo span { color: #ffffff; line-height: 64px; }
 
+#menubutton {
+  width: 48px;
+  height: 48px;
+  margin: 8px 0 8px 8px;
+  line-height: 48px;
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+}
+#menubutton:hover {
+  border: 1px solid transparent;
+  opacity: .54;
+}
+
 #topmenu {
   margin: 0;
   padding: 0;
@@ -59,9 +75,10 @@
   flex-grow: 1;
 }
 
-
 .organization-main { margin-top: 70px; }
+
 .alerts { position: fixed; top: 60px; right: 16px; }
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -72,3 +89,119 @@
 }
 .footer .tiptext { height: 32px; margin-top: 6px; margin-right: 16px; text-align: right; color: #444; }
 
+md-sidenav-layout {
+  position: fixed;
+
+}
+#nav-drawer {
+  display: block;
+  width: 240px;
+  height: 100%;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: scroll;
+  z-index: 999;
+}
+
+.nav-drawer-header {
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px;
+  margin-top: 64px;
+  background-color: #004d40;
+}
+
+.nav-drawer-header > .title {
+  font-weight: 500;
+  font-size: 14px;
+  height: 24px;
+  line-height: 24px;
+        white-space: nowrap;
+        overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+  opacity: 1.0;
+}
+
+.nav-drawer-header > .subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  height: 16px;
+  line-height: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+  opacity: 0.70;
+}
+
+#nav-drawer ul.submenu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#nav-drawer ul.submenu > li > a {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  padding: 4px 4px 4px 8px;
+  display: flex;
+  align-items: center;
+}
+
+#nav-drawer ul.submenu > li > a.router-link-active {
+  background-color: #ededf0;
+  color: #F57C00;
+  opacity: 1.0;
+}
+
+#nav-drawer ul.submenu > li > a:hover {
+  background-color: #ededf0;
+}
+
+#nav-drawer ul.submenu > li .fa {
+  display: block;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.54;
+}
+
+#nav-drawer ul.submenu > li a.router-link-active .fa {
+  opacity: 0.87;
+}
+
+#nav-drawer ul.submenu > li span.title {
+  display: block;
+  margin-left: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  opacity: 0.87;
+}
+
+#nav-drawer ul.submenu > li a.router-link-active span.title {
+  opacity: 1.0;
+}
+
+#nav-drawer ul.submenu > li a.router-link-active span.type {
+  opacity: 0.87;
+}
+
+#nav-drawer ul.submenu > li span.type {
+  display: block;
+  margin-left: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0.54;
+}
+
+#mainwindow {
+  display: block;
+  margin-left: 0px;
+  padding: 72px 8px 32px 8px;
+}

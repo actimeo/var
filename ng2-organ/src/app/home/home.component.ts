@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav';
 import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nDirective } from 'ng2-i18next/ng2-i18next';
 
@@ -11,7 +12,7 @@ import { OrganizationMainComponent } from '../organization-main';
   selector: 'app-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
-  directives: [OrganizationSelectComponent, OrganizationMainComponent, I18nDirective]
+  directives: [MD_SIDENAV_DIRECTIVES, OrganizationSelectComponent, OrganizationMainComponent, I18nDirective]
 })
 export class HomeComponent implements OnInit {
 

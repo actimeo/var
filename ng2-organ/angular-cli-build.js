@@ -22,7 +22,8 @@ module.exports = function(defaults) {
       'i18next-browser-languagedetector/**/*.+(js|js.map)',
       'ng2-postgresql-procedures/**/*.+(js|js.map)',
       'primeng/**/*.+(js|js.map)',
-      'primeui/**/*'
+      'primeui/**/*',
+      '@angular2-material/**/*'
     ]
   });
 };

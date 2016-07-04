@@ -74,9 +74,9 @@
   "institution": {
     "select_an_institution": "Select an institution",
     "add_new_institution": "Add new institution",
-    "rename_current_institution": "Rename current institution",
-    "delete_current_institution": "Delete current institution",
-    "copy_current_institution": "Copy current institution",
+    "rename_current_institution": "Rename current",
+    "delete_current_institution": "Delete current",
+    "copy_current_institution": "Copy current",
     "institution_name": "institution name",
     "tabs": {
       "groups": "Groups",

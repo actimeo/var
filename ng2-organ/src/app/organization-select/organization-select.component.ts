@@ -2,14 +2,14 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Dropdown } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
-import { I18nService } from 'ng2-i18next/ng2-i18next';
+import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
 
 @Component({
   moduleId: module.id,
   selector: 'app-organization-select',
   templateUrl: 'organization-select.component.html',
   styleUrls: ['organization-select.component.css'],
-  directives: [Dropdown]
+  directives: [I18nDirective, Dropdown]
 })
 export class OrganizationSelectComponent implements OnInit {
 
@@ -18,6 +18,9 @@ export class OrganizationSelectComponent implements OnInit {
   private organizations: any;
   organizationsDdList: SelectItem[];
   selectedOrg: SelectItem;
+
+  private selectedInstitution: any;
+  private selectedInstitutionName: string;
 
   constructor(private pgService: PgService, private i18n: I18nService) { }
 
@@ -51,12 +54,11 @@ export class OrganizationSelectComponent implements OnInit {
     });
   }
 
-  onOrganizationSelected(id) {
-    //    this.selectedInstitution = p;
-    //    this.selectedInstitutionName = p.org_name;
+  onOrganizationSelected(org) {
+    this.selectedInstitution = org.value;
+    this.selectedInstitutionName = org.label;
     console.log('select 1b');
-    this.onselected.emit(id);
+    this.onselected.emit(org.value);
   }
-
 
 }

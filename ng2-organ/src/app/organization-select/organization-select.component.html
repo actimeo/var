@@ -1,36 +1,30 @@
 <span *ngIf="!gettingName">
-  <p-dropdown (onChange)="onOrganizationSelected($event.value)" [options]="organizationsDdList" [(ngModel)]="selectedOrg" [style]="{'margin-top': '16px', 'width':'150px'}"></p-dropdown>
-
-<!--    <button id="select-institution" type="button" class="btn btn-default" dropdownToggle>
-      {{selectedInstitutionName}}  <span class="caret"></span>
-</button>
-<ul class="dropdown-menu" role="menu" aria-labelledby="select-institution">
-  <li *ngFor="let institution of institutions" role="menuitem">
-    <a class="dropdown-item" (click)="onInstitutionSelected(institution)">{{institution.org_name}}</a>
-  </li>
-  <li class="divider"></li>
-  <li role="menuitem">
-    <a class="dropdown-item" (click)="onAddInstitution()" class="institutionadd">
-      <span class="glyphicon glyphicon-plus"></span>&nbsp;<span i18n="institution.add_new_institution"></span>
-    </a>
-  </li>
-  <li *ngIf="selectedInstitution!=null" role="menuitem">
-    <a class="dropdown-item" (click)="onRenameInstitution()" class="institutionrename">
-      <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span i18n="institution.rename_current_institution"></span>
-    </a>
-  </li>
-  <li *ngIf="selectedInstitution!=null" role="menuitem">
-    <a class="dropdown-item" (click)="onDeleteInstitution()" class="institutiondelete">
-      <span class="glyphicon glyphicon-minus"></span>&nbsp;<span i18n="institution.delete_current_institution"></span>
-    </a>
-  </li>
-  <li *ngIf="selectedInstitution!=null" role="menuitem">
-    <a class="dropdown-item" (click)="onCopyInstitution()">
-      <span class="glyphicon glyphicon-copy"></span>&nbsp;<span i18n="institution.copy_current_institution"></span>
-    </a>
-  </li>
+  <ul>
+    <li *ngFor="let org of organizationsDdList" (click)="onOrganizationSelected(org)">{{org.label}}</li>
+  </ul>
+  <ul>
+    <li role="menuitem">
+      <a class="dropdown-item" (click)="onAddInstitution()" class="institutionadd">
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;<span i18n="institution.add_new_institution"></span>
+</a>
+</li>
+<li *ngIf="selectedInstitution!=null" role="menuitem">
+  <a class="dropdown-item" (click)="onRenameInstitution()" class="institutionrename">
+    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span i18n="institution.rename_current_institution"></span>
+  </a>
+</li>
+<li *ngIf="selectedInstitution!=null" role="menuitem">
+  <a class="dropdown-item" (click)="onDeleteInstitution()" class="institutiondelete">
+    <span class="glyphicon glyphicon-minus"></span>&nbsp;<span i18n="institution.delete_current_institution"></span>
+  </a>
+</li>
+<li *ngIf="selectedInstitution!=null" role="menuitem">
+  <a class="dropdown-item" (click)="onCopyInstitution()">
+    <span class="glyphicon glyphicon-copy"></span>&nbsp;<span i18n="institution.copy_current_institution"></span>
+  </a>
+</li>
 </ul>
--->
+
 </span>
 <span *ngIf="gettingName">
   <div class="btn-group" style="padding-top: 8px;">
