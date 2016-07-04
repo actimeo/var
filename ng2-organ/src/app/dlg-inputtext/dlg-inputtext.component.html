@@ -1,0 +1,12 @@
+<p-dialog width="300" modal="true" [header]="i18n.t(title)" [visible]="visible" (visibleChange)="onVisibleChange($event)">
+  <div class="content">
+    <label [i18n]="label"></label>
+    <input pInputText [(ngModel)]="text">
+  </div>
+  <footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button type="button" pButton icon="fa-check" (click)="onOk()" label="{{i18n.t('common.btn.ok')}}"></button>
+      <button type="button" pButton icon="fa-close" (click)="onCancel()" label="{{i18n.t('common.btn.cancel')}}"></button>
+    </div>
+  </footer>
+</p-dialog>

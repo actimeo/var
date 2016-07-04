@@ -5,6 +5,7 @@
     "required": "* ",
     "btn": {
       "add": "Add",
+      "ok": "OK",
       "cancel": "Cancel",
       "save": "Save",
       "edit": "Edit",
@@ -94,6 +95,10 @@
   "dialog": {
     "select_topics": {
       "title": "Select topics"
+    },
+    "add_organization": {
+      "title": "Add organization",
+      "label": "Organization name:"
     }
   }
 }

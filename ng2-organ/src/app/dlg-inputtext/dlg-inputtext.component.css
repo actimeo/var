@@ -1,0 +1,3 @@
+.content { padding: 0 16px; }
+.content > label { display: block; margin-bottom: 16px; }
+.content > input { width: 225px; }

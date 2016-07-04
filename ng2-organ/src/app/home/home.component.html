@@ -14,16 +14,13 @@
       <div class="title">{{getUser()}}</div>
       <div class="subtitle"><span i18n="organ.organ_builder"></span></div>
     </div>
-    <app-organization-select (onselected)="onOrganizationSelected($event); start.close();"></app-organization-select>
+    <app-organization-select (onselected)="onOrganizationSelected($event); start.close();" (onadd)="onOrganizationAdd(); start.close();"></app-organization-select>
   </md-sidenav>
 
   <main class="organization-main">
     <app-organization-main #organizationmain></app-organization-main>
   </main>
 </md-sidenav-layout>
-
-
-
 
 <div class="alerts">
   <alerts #alerts></alerts>
@@ -34,3 +31,5 @@
     <footertip></footertip>
   </p>
 </footer>
+
+<app-dlg-inputtext #dlginputtext (ok)="onDlgInputOk($event)" (cancel)="onDlgInputCancel()"></app-dlg-inputtext>

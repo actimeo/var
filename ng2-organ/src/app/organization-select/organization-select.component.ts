@@ -14,6 +14,7 @@ import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
 export class OrganizationSelectComponent implements OnInit {
 
   @Output() onselected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onadd: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private organizations: any;
   organizationsDdList: SelectItem[];
@@ -60,4 +61,7 @@ export class OrganizationSelectComponent implements OnInit {
     this.onselected.emit(org);
   }
 
+  protected onAddInstitution() {
+    this.onadd.emit(true);
+  }
 }
