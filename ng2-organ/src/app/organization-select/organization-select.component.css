@@ -1,0 +1,100 @@
+ul.orgsmenu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.orgsmenu > li > a {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  padding: 4px 4px 4px 16px;
+  display: flex;
+  align-items: center;
+  line-height: 32px;
+  cursor: pointer;
+}
+
+ul.orgsmenu > li > a.router-link-active {
+  background-color: #ededf0;
+  color: #F57C00;
+  opacity: 1.0;
+}
+
+ul.orgsmenu > li > a:hover {
+  background-color: #ededf0;
+}
+
+ul.orgsmenu > li span.title {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  opacity: 0.87;
+}
+/**/
+
+ul.operationsmenu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.operationsmenu > li > a {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  padding: 4px 4px 4px 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+ul.operationsmenu > li > a.router-link-active {
+  background-color: #ededf0;
+  color: #F57C00;
+  opacity: 1.0;
+}
+
+ul.operationsmenu > li > a:hover {
+  background-color: #ededf0;
+}
+
+ul.operationsmenu > li .fa {
+  display: block;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.54;
+}
+
+ul.operationsmenu > li a.router-link-active .fa {
+  opacity: 0.87;
+}
+ul.operationsmenu > li span.title {
+  display: block;
+  margin-left: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  opacity: 0.87;
+}
+
+ul.operationsmenu > li a.router-link-active span.title {
+  opacity: 1.0;
+}
+
+ul.operationsmenu > li a.router-link-active span.type {
+  opacity: 0.87;
+}
+
+ul.operationsmenu > li span.type {
+  display: block;
+  margin-left: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0.54;
+}

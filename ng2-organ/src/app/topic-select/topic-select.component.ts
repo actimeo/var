@@ -37,10 +37,6 @@ export class TopicSelectComponent implements OnInit {
       .catch(err => console.log(err));
   }
 
-  onTopicSelected(topic) {
-    this.selected.emit(topic);
-  }
-
   private filterTopics() {
     if (this.topics) {
       this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val) === -1);
@@ -53,5 +49,6 @@ export class TopicSelectComponent implements OnInit {
 
   protected topicSelected(topic: string) {
     this.selected.emit(topic);
+    this.filterTopics();
   }
 }
