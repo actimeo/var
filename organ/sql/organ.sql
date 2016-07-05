@@ -9,7 +9,8 @@ CREATE TABLE organ.topic (
 
 CREATE TABLE organ.organization (
   org_id serial PRIMARY KEY,
-  org_name text NOT NULL UNIQUE
+  org_name text NOT NULL UNIQUE,
+  org_internal boolean NOT NULL
 );
 
 CREATE TABLE organ.dossier (

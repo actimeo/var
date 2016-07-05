@@ -44,7 +44,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
   public function testGroupAdd() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
     $this->assertGreaterThan(0, $orgId);
 
     $grp_name = 'a group';
@@ -54,7 +54,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
   public function testGroupGet() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
     $this->assertGreaterThan(0, $orgId);
 
     $grp_name = 'a group';
@@ -68,9 +68,9 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
   public function testGroupAddSameNameDifferentOrganization() {
     $name1 = 'organization 1';
-    $orgId1 = self::$base->organ->organization_add($this->token, $name1);
+    $orgId1 = self::$base->organ->organization_add($this->token, $name1, true);
     $name2 = 'organization 2';
-    $orgId2 = self::$base->organ->organization_add($this->token, $name2);
+    $orgId2 = self::$base->organ->organization_add($this->token, $name2, true);
 
     $this->assertGreaterThan(0, $orgId1);
     $this->assertGreaterThan(0, $orgId2);
@@ -86,7 +86,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
    */  
   public function testGroupAddSameNameSameOrganization() {
     $name = 'organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
 
     $grpName = 'a same group';
     $grpId1 = self::$base->organ->group_add($this->token, $orgId, $grpName);
@@ -95,7 +95,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
   public function testGroupSet() {
     $name = 'organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
     
     $grpName = 'a group';
     $grpId = self::$base->organ->group_add($this->token, $orgId, $grpName);
@@ -109,7 +109,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
   
   public function testGroupList() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
 
     $grp_name1 = 'group 1';
     $grpId1 = self::$base->organ->group_add($this->token, $orgId, $grp_name1);
@@ -125,7 +125,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
   
   public function testGroupDelete() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
 
     $grp_name = 'a group';
     $grpId = self::$base->organ->group_add($this->token, $orgId, $grp_name);
@@ -140,7 +140,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
   public function testGroupRename() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
 
     $grp_name1 = 'a group';
     $grp_name2 = 'another group';
@@ -156,7 +156,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
    */
   public function testGroupRenameUnknown() {
     $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
+    $orgId = self::$base->organ->organization_add($this->token, $name, true);
 
     $grp_name1 = 'a group';
     $grp_name2 = 'another group';
@@ -170,7 +170,7 @@ class groupTest extends PHPUnit_Framework_TestCase {
    */
   public function testGroupDeleteUnknown() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name);
+    $id = self::$base->organ->organization_add($this->token, $name, true);
 
     $grp_name = 'a service group';
     $grpId = self::$base->organ->group_add($this->token, $id, $grp_name);

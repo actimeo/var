@@ -1,6 +1,6 @@
 SET search_path = organ;
 
-CREATE OR REPLACE FUNCTION organ.organization_add(prm_token integer, prm_name text)
+CREATE OR REPLACE FUNCTION organ.organization_add(prm_token integer, prm_name text, prm_internal boolean)
 RETURNS integer
 LANGUAGE plpgsql
 VOLATILE
@@ -9,12 +9,12 @@ DECLARE
   ret integer;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  INSERT INTO organ.organization (org_name) VALUES (prm_name)
+  INSERT INTO organ.organization (org_name, org_internal) VALUES (prm_name, prm_internal)
     RETURNING org_id INTO ret;
   RETURN ret;
 END;
 $$;
-COMMENT ON FUNCTION organ.organization_add(prm_token integer, prm_name text) IS 'Add a new organization';
+COMMENT ON FUNCTION organ.organization_add(prm_token integer, prm_name text, prm_internal boolean) IS 'Add a new organization';
 
 CREATE OR REPLACE FUNCTION organ.organization_get(prm_token integer, prm_id integer)
 RETURNS organ.organization
@@ -74,4 +74,3 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION organ.organization_rename(prm_token integer, prm_id integer, prm_name text) IS 'Rename a particular organization';
-
