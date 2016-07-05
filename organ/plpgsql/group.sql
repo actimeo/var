@@ -50,19 +50,29 @@ END;
 $$;
 COMMENT ON FUNCTION organ.group_set(prm_token integer, prm_id integer, prm_notes text) IS 'Set basic information about a service group';
 
-CREATE OR REPLACE FUNCTION organ.group_list(prm_token integer, prm_org_id integer)
-RETURNS SETOF organ.group
+DROP FUNCTION IF EXISTS organ.group_list(prm_token integer, prm_org_id integer);
+DROP TYPE IF EXISTS organ.group_list;
+CREATE TYPE organ.group_list AS (
+  grp_id integer,
+  grp_name text,
+  grp_notes text,
+  grp_topics integer[]
+);
+
+CREATE FUNCTION organ.group_list(prm_token integer, prm_org_id integer)
+RETURNS SETOF organ.group_list
 LANGUAGE plpgsql
 STABLE
 AS $$
 DECLARE
-  row organ.group;
+  row organ.group_list;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
   IF prm_org_id ISNULL THEN
     RAISE EXCEPTION USING ERRCODE = 'null_value_not_allowed';
   END IF;
-  RETURN QUERY SELECT * FROM organ.group
+  RETURN QUERY SELECT grp_id, grp_name, grp_notes, 
+    ARRAY(SELECT top_id FROM organ.group_topic INNER JOIN organ.topic USING(top_id) WHERE grp_id = grp.grp_id ORDER BY top_name) FROM organ.group grp
     WHERE org_id = prm_org_id
     ORDER BY grp_name;
 END;
