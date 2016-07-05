@@ -3,12 +3,14 @@ import { I18nDirective, I18nService } from 'ng2-i18next/ng2-i18next';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { Dialog, Button } from 'primeng/primeng';
 
+import { DlgSelecttopicComponent } from '../dlg-selecttopic';
+
 @Component({
   moduleId: module.id,
   selector: 'app-topic-select',
   templateUrl: 'topic-select.component.html',
   styleUrls: ['topic-select.component.css'],
-  directives: [I18nDirective, Dialog, Button]
+  directives: [DlgSelecttopicComponent, I18nDirective, Dialog, Button]
 })
 export class TopicSelectComponent implements OnInit {
 

@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { DlgInputtextComponent } from './dlg-inputtext.component';
+import { DlgSelecttopicComponent } from './dlg-selecttopic.component';
 
-describe('Component: DlgInputtext', () => {
+describe('Component: DlgSelecttopic', () => {
   it('should create an instance', () => {
-//    let component = new DlgInputtextComponent();
+//    let component = new DlgSelecttopicComponent();
 //    expect(component).toBeTruthy();
   });
 });
