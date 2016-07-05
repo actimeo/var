@@ -11,6 +11,15 @@ $variationUser = $base->login->user_login('variation', 'variation', '{users,orga
 
 $token = $variationUser['usr_token'];
 
+// Create topics
+$tSocial = $base->organ->topic_add($token, 'Social');
+$tJustice = $base->organ->topic_add($token, 'Justice');
+$tSport = $base->organ->topic_add($token, 'Sport');
+$tCulture = $base->organ->topic_add($token, 'Culture');
+$tFinancer = $base->organ->topic_add($token, 'Financer');
+$tSupport = $base->organ->topic_add($token, 'Support');
+
+
 // Create user foo1
 $userLogin1 = 'foo1';
 $base->login->user_add($token, $userLogin1, null, null);
@@ -45,17 +54,17 @@ $orgI = $base->organ->organization_add($token, "Organization I");
 $orgII = $base->organ->organization_add($token, "Organization II");
 
 $grpI1 = $base->organ->group_add($token, $orgI, 'Group 1 institution I');
-$base->organ->group_set($token, $grpI1, '01/07/2016', '30/06/2017', 'a note');
-$base->organ->group_set_topics($token, $grpI1, array('social', 'justice'));
+$base->organ->group_set($token, $grpI1, 'a note');
+$base->organ->group_set_topics($token, $grpI1, array($tSocial, $tJustice));
 
 $grpI2 = $base->organ->group_add($token, $orgI, 'Group 2 institution I');
-$base->organ->group_set_topics($token, $grpI2, array('social', 'sport', 'culture'));
+$base->organ->group_set_topics($token, $grpI2, array($tSocial, $tSport, $tCulture));
 
 $grpII1 = $base->organ->group_add($token, $orgII, 'Group 1 institution II');
-$base->organ->group_set_topics($token, $grpII1, array('sport'));
+$base->organ->group_set_topics($token, $grpII1, array($tSport));
 
 $grpII2 = $base->organ->group_add($token, $orgII, 'Group 2 institution II');
-$base->organ->group_set_topics($token, $grpII2, array('financer', 'support'));
+$base->organ->group_set_topics($token, $grpII2, array($tFinancer, $tSupport));
 
 // Assign user1 to 1 group
 $base->organ->participant_assignment_add($token, $grpI1, $stfId1);

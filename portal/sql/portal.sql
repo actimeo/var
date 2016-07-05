@@ -8,7 +8,7 @@ CREATE TYPE portal.entity AS ENUM (
   'contact',
   'family'
 );
-
+/*
 CREATE TYPE portal.topics AS ENUM (
   'social',
   'education',
@@ -44,7 +44,7 @@ CREATE TYPE portal.topics AS ENUM (
   'residence_right',
   'formalities_assistance'
 );
-
+*/
 CREATE TABLE portal (
   por_id serial PRIMARY KEY,
   por_name text NOT NULL UNIQUE
@@ -151,7 +151,7 @@ CREATE TABLE portal.param_value (
   por_id integer NOT NULL REFERENCES portal.portal,
   pva_param portal.param NOT NULL,
   pva_value_bool boolean,
-  pva_value_topic portal.topics, 
+/*  pva_value_topic portal.topics, */
   CONSTRAINT pva_pkey PRIMARY KEY(por_id, pva_param)
 );
 --  TODO comment, one value NOTNULL exactly

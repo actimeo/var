@@ -62,7 +62,7 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION portal.param_value_set_bool(prm_token integer, prm_por_id integer, prm_param portal.param, prm_value boolean) IS 'Set the value of a boolean portal parameter';
-
+/*
 CREATE OR REPLACE FUNCTION portal.param_value_get_topic(prm_token integer, prm_por_id integer, prm_param portal.param)
 RETURNS portal.topics
 LANGUAGE plpgsql
@@ -97,7 +97,7 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION portal.param_value_set_topic(prm_token integer, prm_por_id integer, prm_param portal.param, prm_value portal.topics) IS 'Set the value of a topic portal parameter';
-
+*/
 CREATE OR REPLACE FUNCTION portal.param_value_delete_all(prm_token integer, prm_por_id integer)
 RETURNS VOID
 LANGUAGE plpgsql

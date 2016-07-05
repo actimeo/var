@@ -40,8 +40,6 @@ COMMENT ON COLUMN organ.group.org_id IS 'Organization to which is attached the g
 
 COMMENT ON COLUMN organ.group.grp_name IS 'Name of the group';
 
-COMMENT ON COLUMN organ.group.grp_topics IS 'Topics of the group';
-
 COMMENT ON COLUMN organ.participant.par_id IS 'Unique identifier';
 
 COMMENT ON COLUMN organ.participant.par_firstname IS 'Participant first name(s)';

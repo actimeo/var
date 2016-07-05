@@ -2,7 +2,7 @@
 require_once '../../pgproc/php/pgprocedures.php';
 require_once '../../config.inc.php';
 
-class topicsTest extends PHPUnit_Framework_TestCase {
+class topicTest extends PHPUnit_Framework_TestCase {
   private static $base;
   private static $pgHost;
   private static $pgUser;
@@ -30,6 +30,11 @@ class topicsTest extends PHPUnit_Framework_TestCase {
   protected function assertPreConditions()
   {
     self::$base->startTransaction();
+    $login = 'testdejfhcqcsdfkhn';
+    $pwd = 'ksfdjgsfdyubg';    
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), '{organization}');");
+    $res = self::$base->login->user_login($login, $pwd, null);
+    $this->token = $res['usr_token'];
   }
 
   protected function assertPostConditions()
@@ -37,8 +42,21 @@ class topicsTest extends PHPUnit_Framework_TestCase {
     self::$base->rollback();
   }
 
-  public function testTopicsList() {
-    $topics = self::$base->portal->topics_list();
-    self::assertEquals('social', $topics[0]);
+  public function testTopicAdd() {
+    $name = 'topic 1';
+    $id = self::$base->organ->topic_add($this->token, $name);
+    $this->assertGreaterThan(0, $id);
   }  
+
+  /**
+   * Add two portals with same name
+   * @expectedException PgProcException
+   */  
+  public function testTopicAddSameName() {
+    $name = 'topic 1';
+    $id = self::$base->organ->topic_add($this->token, $name);
+    $this->assertGreaterThan(0, $id);
+    self::$base->organ->topic_add($this->token, $name);
+  }  
+
 }

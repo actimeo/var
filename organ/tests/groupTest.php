@@ -63,8 +63,6 @@ class groupTest extends PHPUnit_Framework_TestCase {
 
     $grp = self::$base->organ->group_get($this->token, $grpId);
     $this->assertEquals($grp_name, $grp['grp_name']);
-    $this->assertNull($grp['grp_start_date']);
-    $this->assertNull($grp['grp_end_date']);
     $this->assertEquals('', $grp['grp_notes']);
   }  
 
@@ -103,31 +101,9 @@ class groupTest extends PHPUnit_Framework_TestCase {
     $grpId = self::$base->organ->group_add($this->token, $orgId, $grpName);
     $this->assertGreaterThan(0, $grpId);
     
-    $grpStartDate = '01/01/2015';
-    $grpEndDate = '01/01/2017';
     $grpNotes = 'a note';
-    self::$base->organ->group_set($this->token, $grpId, $grpStartDate, $grpEndDate, $grpNotes);
+    self::$base->organ->group_set($this->token, $grpId, $grpNotes);
     $grp = self::$base->organ->group_get($this->token, $grpId);
-    $this->assertEquals($grpStartDate, $grp['grp_start_date']);
-    $this->assertEquals($grpEndDate, $grp['grp_end_date']);
-    $this->assertEquals($grpNotes, $grp['grp_notes']);
-  }
-
-  public function testGroupSetInfinityDates() {
-    $name = 'organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
-    
-    $grpName = 'a group';
-    $grpId = self::$base->organ->group_add($this->token, $orgId, $grpName);
-    $this->assertGreaterThan(0, $grpId);
-    
-    $grpStartDate = NULL;
-    $grpEndDate = NULL;
-    $grpNotes = 'a note';
-    self::$base->organ->group_set($this->token, $grpId, $grpStartDate, $grpEndDate, $grpNotes);
-    $grp = self::$base->organ->group_get($this->token, $grpId);
-    $this->assertEquals($grpStartDate, $grp['grp_start_date']);
-    $this->assertEquals($grpEndDate, $grp['grp_end_date']);
     $this->assertEquals($grpNotes, $grp['grp_notes']);
   }
   
@@ -143,67 +119,8 @@ class groupTest extends PHPUnit_Framework_TestCase {
     $grpId2 = self::$base->organ->group_add($this->token, $orgId, $grp_name2);
     $this->assertGreaterThan(0, $grpId2);
     
-    $grps = self::$base->organ->group_list($this->token, $orgId, '2015-01-01');
+    $grps = self::$base->organ->group_list($this->token, $orgId);
     $this->assertEquals(2, count($grps));
-
-    $grps = self::$base->organ->group_list($this->token, $orgId, NULL);
-    $this->assertEquals(2, count($grps));
-  }
-
-  public function testGroupListWithDate() {
-    $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
-
-    $grp_name1 = 'group 1';
-    $grpId1 = self::$base->organ->group_add($this->token, $orgId, $grp_name1);
-    $this->assertGreaterThan(0, $grpId1);
-    self::$base->organ->group_set($this->token, $grpId1, NULL, '31/12/2014', 'end 2014');
-    
-    $grp_name2 = 'group 2';
-    $grpId2 = self::$base->organ->group_add($this->token, $orgId, $grp_name2);
-    $this->assertGreaterThan(0, $grpId2);
-    self::$base->organ->group_set($this->token, $grpId2, '01/01/2015', NULL, 'start 2015');
-    
-    $grps = self::$base->organ->group_list($this->token, $orgId, '01/01/2015');
-    $this->assertEquals(1, count($grps));
-    $grp = $grps[0];
-    $this->assertEquals($grp_name2, $grp['grp_name']);
-
-    $grps = self::$base->organ->group_list($this->token, $orgId, '31/12/2014');
-    $this->assertEquals(1, count($grps));
-    $grp = $grps[0];
-    $this->assertEquals($grp_name1, $grp['grp_name']);
-  }
-  
-  public function testGroupListWithDates() {
-    $name = 'an organization';
-    $orgId = self::$base->organ->organization_add($this->token, $name);
-
-    $grp_name1 = 'group 1';
-    $grpId1 = self::$base->organ->group_add($this->token, $orgId, $grp_name1);
-    $this->assertGreaterThan(0, $grpId1);
-    self::$base->organ->group_set($this->token, $grpId1, '01/01/2014', '31/12/2014', 'all 2014');
-    
-    $grp_name2 = 'group 2';
-    $grpId2 = self::$base->organ->group_add($this->token, $orgId, $grp_name2);
-    $this->assertGreaterThan(0, $grpId2);
-    self::$base->organ->group_set($this->token, $grpId2, '01/01/2015', '31/12/2015', 'all 2015');
-    
-    $grps = self::$base->organ->group_list($this->token, $orgId, '01/01/2015');
-    $this->assertEquals(1, count($grps));
-    $grp = $grps[0];
-    $this->assertEquals($grp_name2, $grp['grp_name']);
-
-    $grps = self::$base->organ->group_list($this->token, $orgId, '31/12/2015');
-    $this->assertEquals(1, count($grps));
-    $grp = $grps[0];
-    $this->assertEquals($grp_name2, $grp['grp_name']);
-
-    $grps = self::$base->organ->group_list($this->token, $orgId, '01/01/2016');
-    $this->assertEquals(0, count($grps));
-    
-    $grps = self::$base->organ->group_list($this->token, $orgId, '31/12/2013');
-    $this->assertEquals(0, count($grps));
   }
   
   public function testGroupDelete() {
@@ -213,11 +130,11 @@ class groupTest extends PHPUnit_Framework_TestCase {
     $grp_name = 'a group';
     $grpId = self::$base->organ->group_add($this->token, $orgId, $grp_name);
 
-    $grps = self::$base->organ->group_list($this->token, $orgId, NULL);
+    $grps = self::$base->organ->group_list($this->token, $orgId);
     $this->assertEquals(1, count($grps));
     
     self::$base->organ->group_delete($this->token, $grpId);
-    $grpsAfter = self::$base->organ->group_list($this->token, $orgId, NULL);
+    $grpsAfter = self::$base->organ->group_list($this->token, $orgId);
     $this->assertEquals(0, count($grpsAfter));
   }
 
