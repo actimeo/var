@@ -1,9 +1,17 @@
 <span *ngIf="!gettingName">
+  <div class="subheader" i18n="institution.internal"></div>
   <ul class="orgsmenu">
-    <li *ngFor="let org of organizationsDdList">
+    <li *ngFor="let org of organizationsDdListInternal">
       <a (click)="onOrganizationSelected(org)">{{org.label}}</a>
       </li>
   </ul>
+  <div class="subheader" i18n="institution.external"></div>
+  <ul class="orgsmenu">
+    <li *ngFor="let org of organizationsDdListExternal">
+      <a (click)="onOrganizationSelected(org)">{{org.label}}</a>
+      </li>
+  </ul>
+  <div class="subheader" i18n="institution.operations"></div>
   <ul class="operationsmenu">
     <li role="menuitem">
       <a class="dropdown-item" (click)="onAddInstitution()" class="institutionadd">

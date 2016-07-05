@@ -6,10 +6,6 @@
 <span i18n="group-edit.name"></span>
 <input type="text" pInputText [ngModel]="name" (ngModelChange)="nameChange($event)"  />
 
-<span i18n="group-edit.start_date"></span>
-<p-calendar [ngModel]="startDate" (ngModelChange)="startDateChange($event)" [dateFormat]="i18next.t('common.date_format')"></p-calendar>
-<span i18n="group-edit.end_date"></span>
-<p-calendar [ngModel]="endDate" (ngModelChange)="endDateChange($event)" [dateFormat]="i18next.t('common.date_format')"></p-calendar>
 
 <h2 i18n="group-edit.topics"></h2>
 <app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>

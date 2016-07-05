@@ -1,3 +1,11 @@
+.subheader {
+  line-height: 48px; 
+  color: #000000;
+  opacity: 0.54;
+  font-size: 14sp;
+  padding-left: 16px;  
+}
+
 ul.orgsmenu {
   margin: 0;
   padding: 0;

@@ -17,9 +17,7 @@ export class GroupEditComponent implements OnInit {
   @Input() group: any;
 
   private name: string;
-  private startDate: string;
-  private endDate: string;
-  private topics: string[];
+  private topics: number[];
   private notes: string;
 
   private cancelVisible: boolean = false;
@@ -33,8 +31,6 @@ export class GroupEditComponent implements OnInit {
 
   private populateForm() {
     this.name = this.group.grp_name;
-    this.startDate = this.group.grp_start_date;
-    this.endDate = this.group.grp_end_date;
     this.topics = this.group.grp_topics.slice(0);
     this.notes = this.group.grp_notes;
   }
@@ -51,13 +47,9 @@ export class GroupEditComponent implements OnInit {
       });
     }
 
-    this.group.grp_start_date = this.startDate;
-    this.group.grp_end_date = this.endDate;
     this.group.grp_notes = this.notes;
     this.pgService.pgcall('organ', 'group_set', {
       prm_id: this.group.grp_id,
-      prm_start_date: this.group.grp_start_date,
-      prm_end_date: this.group.grp_end_date,
       prm_notes: this.group.grp_notes
     });
 
@@ -80,25 +72,13 @@ export class GroupEditComponent implements OnInit {
     this.saveVisible = true;
   }
 
-  protected startDateChange(val: string) {
-    this.startDate = val;
-    this.cancelVisible = true;
-    this.saveVisible = true;
-  }
-
-  protected endDateChange(val: string) {
-    this.endDate = val;
-    this.cancelVisible = true;
-    this.saveVisible = true;
-  }
-
   protected notesChange(val: string) {
     this.notes = val;
     this.cancelVisible = true;
     this.saveVisible = true;
   }
 
-  protected topicsChange(val: string[]) {
+  protected topicsChange(val: number[]) {
     this.topics = val;
     this.cancelVisible = true;
     this.saveVisible = true;

@@ -73,6 +73,9 @@
     "notes": "Notes"
   },
   "institution": {
+    "internal": "Internal",
+    "external": "External",
+    "operations": "Operations",
     "select_an_institution": "Select an institution",
     "add_new_institution": "Add new institution",
     "rename_current_institution": "Rename current",

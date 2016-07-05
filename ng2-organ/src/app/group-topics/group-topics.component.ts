@@ -13,14 +13,14 @@ import { TopicSelectComponent } from '../topic-select';
 })
 export class GroupTopicsComponent implements OnInit {
 
-  private intTopics: string[];
-  @Input() get topics(): string[]{
+  private intTopics: number[];
+  @Input() get topics(): number[]{
     return this.intTopics;
   }
-  set topics(val: string[]) {
+  set topics(val: number[]) {
     this.intTopics = val;
   }
-  @Output() topicsChange: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() topicsChange: EventEmitter<number[]> = new EventEmitter<number[]>();
 
   constructor(private i18next: I18nService) { }
 

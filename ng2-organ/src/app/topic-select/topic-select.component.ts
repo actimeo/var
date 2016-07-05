@@ -30,7 +30,7 @@ export class TopicSelectComponent implements OnInit {
   constructor(private i18next: I18nService, private pgService: PgService) { }
 
   ngOnInit() {
-    this.pgService.pgcall('portal', 'topics_list', {})
+    this.pgService.pgcall('organ', 'topics_list', {})
       .then(data => {
         this.topics = data;
         this.originalTopics = data;

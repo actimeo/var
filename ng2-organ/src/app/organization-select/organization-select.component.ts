@@ -17,7 +17,8 @@ export class OrganizationSelectComponent implements OnInit {
   @Output() onadd: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private organizations: any;
-  organizationsDdList: SelectItem[];
+  organizationsDdListInternal: SelectItem[];
+  organizationsDdListExternal: SelectItem[];
   selectedOrg: SelectItem;
 
   private selectedInstitution: any;
@@ -46,13 +47,24 @@ export class OrganizationSelectComponent implements OnInit {
   }
 
   private rebuildDdList() {
-    this.organizationsDdList = [];
-    this.organizations.map(o => {
-      this.organizationsDdList.push({
-        label: o.org_name,
-        value: o.org_id
+    this.organizationsDdListInternal = [];
+    this.organizations
+      .filter(o => o.org_internal === true)
+      .map(o => {
+        this.organizationsDdListInternal.push({
+          label: o.org_name,
+          value: o.org_id
+        });
       });
-    });
+    this.organizationsDdListExternal = [];
+    this.organizations
+      .filter(o => o.org_internal === false)
+      .map(o => {
+        this.organizationsDdListExternal.push({
+          label: o.org_name,
+          value: o.org_id
+        });
+      });
   }
 
   onOrganizationSelected(org) {
