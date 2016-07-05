@@ -1,0 +1,13 @@
+<md-sidenav-layout id="wrapper" class="demo-sidenav-layout">
+  <md-sidenav id="nav-drawer" #start mode="over" opened="true">
+    <div class="nav-drawer-header">
+      <div class="title">{{getUser()}}</div>
+      <div class="subtitle"><span i18n="organ.organ_builder"></span></div>
+    </div>
+    <app-organization-select (onselected)="onOrganizationSelected($event); start.close();" (onadd)="onOrganizationAdd(); start.close();"></app-organization-select>
+  </md-sidenav>
+
+  <main class="organization-main">
+    <app-organization-main #organizationmain></app-organization-main>
+  </main>
+</md-sidenav-layout>

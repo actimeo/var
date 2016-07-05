@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav';
 
@@ -8,7 +8,7 @@ import { I18nDirective } from 'ng2-i18next/ng2-i18next';
 import { OrganizationSelectComponent } from '../organization-select';
 import { OrganizationMainComponent } from '../organization-main';
 import { DlgInputtextComponent } from '../dlg-inputtext';
-import { DataProviderService } from '../data-provider.service';
+import { TopbarService } from '../topbar.service';
 
 @Component({
   moduleId: module.id,
@@ -16,25 +16,22 @@ import { DataProviderService } from '../data-provider.service';
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
   directives: [ROUTER_DIRECTIVES, DlgInputtextComponent, MD_SIDENAV_DIRECTIVES,
-    OrganizationSelectComponent, OrganizationMainComponent, I18nDirective]
+    OrganizationSelectComponent, OrganizationMainComponent, I18nDirective],
+  providers: [TopbarService]
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('organizationmain') organizationmain;
-  @ViewChild('dlginputtext') dlginputtext;
-
-  private selectedOrg: any;
   private title: string;
+  private subtitle: string;
 
   constructor(private router: Router, private userService: UserService,
-    private pgService: PgService, private dataProvider: DataProviderService) {
+    private pgService: PgService, private topbar: TopbarService) {
+    this.topbar.title$.subscribe(t => this.title = t);
+    this.topbar.subtitle$.subscribe(s => this.subtitle = s);
   }
 
   ngOnInit() {
-    this.dataProvider.loadData();
   }
-
-  getUser() { return this.userService.getLogin(); }
 
   logout() {
 
@@ -47,21 +44,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onOrganizationSelected(org) {
-    this.selectedOrg = org;
-    this.organizationmain.setOrganizationId(org.value);
-    this.title = org.label;
-  }
-
-  onOrganizationAdd() {
-    this.dlginputtext.show('dialog.add_organization.title', 'dialog.add_organization.label');
-  }
-
-  protected onDlgInputOk(text: string) {
-    console.log('dlg inputtext ok with val: ' + text);
-  }
-
-  protected onDlgInputCancel() {
-    console.log('dlg inputtext cancel');
+  menuToggle() {
+    this.topbar.setMenuOpen(true);
   }
 }

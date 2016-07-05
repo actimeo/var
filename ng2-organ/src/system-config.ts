@@ -78,6 +78,9 @@ const barrels: string[] = [
   'app/group-edit',
   'app/dlg-inputtext',
   'app/dlg-selecttopic',
+  'app/home-system',
+  'app/home-organizations',
+  'app/home-portals',
   /** @cli-barrel */
 ];
 
