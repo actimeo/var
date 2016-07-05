@@ -60,6 +60,14 @@
 }
 
 #topmenu > li { line-height: 64px; }
+
+#topmenu > li .title { font-weight: bold; margin-left: 16px; }
+
+#topmenu > li .title:hover {
+  border: 1px solid transparent;
+  opacity: .54;
+}
+
 #topmenu > li > a { color: #ffffff; text-decoration: none; }
 
 #topmenu > li .fa {
