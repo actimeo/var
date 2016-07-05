@@ -8,6 +8,7 @@ import { I18nDirective } from 'ng2-i18next/ng2-i18next';
 import { OrganizationSelectComponent } from '../organization-select';
 import { OrganizationMainComponent } from '../organization-main';
 import { DlgInputtextComponent } from '../dlg-inputtext';
+import { DataProviderService } from '../data-provider.service';
 
 @Component({
   moduleId: module.id,
@@ -22,12 +23,14 @@ export class HomeComponent implements OnInit {
   @ViewChild('dlginputtext') dlginputtext;
 
   private selectedOrg: any;
+  private title: string;
 
   constructor(private router: Router, private userService: UserService,
-    private pgService: PgService) {
+    private pgService: PgService, private dataProvider: DataProviderService) {
   }
 
   ngOnInit() {
+    this.dataProvider.loadData();
   }
 
   getUser() { return this.userService.getLogin(); }
@@ -46,6 +49,7 @@ export class HomeComponent implements OnInit {
   onOrganizationSelected(org) {
     this.selectedOrg = org;
     this.organizationmain.setOrganizationId(org.value);
+    this.title = org.label;
   }
 
   onOrganizationAdd() {

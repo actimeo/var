@@ -14,7 +14,7 @@ $token = $variationUser['usr_token'];
 // Create topics
 $tHygiene = $base->organ->topic_add($token, 'Hygiène corporelle');
 $tBudget = $base->organ->topic_add($token, 'Argent de poche et gestion du budget');
-$tPlacement = $base->organ->topic_add($token, 'Mesures lacement (ASE, PJJ, TE)');
+$tPlacement = $base->organ->topic_add($token, 'Mesures placement (ASE, PJJ, TE)');
 $tEtatCivil = $base->organ->topic_add($token, 'État civil et droits de séjour');
 $tEducation = $base->organ->topic_add($token, 'Accompagnement éducatif');
 $tStage = $base->organ->topic_add($token, 'Stages et apprentissage');
@@ -96,17 +96,34 @@ foreach (array($gCp, $gCe1, $gCe2, $gCm1, $gCm2) as $group) {
   $base->organ->group_set_topics($token, $group, $topicsEcole);
 }
 
+$oTribunalBordeaux = $base->organ->organization_add($token, "Tribunal pour enfants de Bordeaux", false);
+$gTribunalBordeaux = $base->organ->group_add($token, $oTribunalBordeaux, "Assistance éducative");
+$base->organ->group_set_topics($token, $gTribunalBordeaux, array($tPlacement));
+
+$oTribunalLangon = $base->organ->organization_add($token, "Tribunal pour enfants de Langon", false);
+$gTribunalLangon = $base->organ->group_add($token, $oTribunalLangon, "Assistance éducative");
+$base->organ->group_set_topics($token, $gTribunalLangon, array($tPlacement));
+
+$oAse = $base->organ->organization_add($token, "ASE 33", false);
+$gAse1 = $base->organ->group_add($token, $oAse, "Accueil provisoire");
+$base->organ->group_set_topics($token, $gAse1, array($tPlacement));
+$gAse2 = $base->organ->group_add($token, $oAse, "Accueil d'urgence");
+$base->organ->group_set_topics($token, $gAse2, array($tPlacement));
 
 
-/*
-// Assign user1 to 1 group
-$base->organ->participant_assignment_add($token, $grpI1, $stfId1);
+// Assign users to groups
+$assigns = array ($uMarie => array($gAdmin),
+		  $uJeanne => array($gPsy),
+		  $uPaul => array($gPavillon1),
+		  $uPierre => array($gPavillon1),
+		  $uJean => array($gPavillon2),
+		  $uSophie => array($gPavillon2));
+foreach ($assigns as $user => $groups) {
+  foreach ($groups as $group) {
+    $base->organ->participant_assignment_add($token, $group, $user);
+  }
+}
 
-// Assign user2 to 3 groups
-$base->organ->participant_assignment_add($token, $grpI1, $stfId2);
-$base->organ->participant_assignment_add($token, $grpI2, $stfId2);
-$base->organ->participant_assignment_add($token, $grpII2, $stfId2);
-*/
 $base->commit ();
 
 function create_user($base, $token, $login, $pwd, $firstname, $lastname) {

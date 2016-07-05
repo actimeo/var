@@ -24,7 +24,7 @@
 }
 
 #logo {
-  width: 240px;
+  width: 64px;
   height: 64px;
   flex-grow: 0;
 /*  background-color: #00796b;*/
@@ -32,6 +32,8 @@
 }
 
 #logo span { color: #ffffff; line-height: 64px; }
+
+#layout-topbar > .title { font-size: 24px; color: #ffffff; margin-left: 16px; line-height: 64px;}
 
 #menubutton {
   width: 48px;

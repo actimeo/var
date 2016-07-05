@@ -16,10 +16,10 @@ ul.orgsmenu > li > a {
   display: block;
   text-decoration: none;
   color: #000000;
-  padding: 4px 4px 4px 16px;
+  padding: 8px 4px 8px 16px;
   display: flex;
   align-items: center;
-  line-height: 32px;
+  line-height: 24px;
   cursor: pointer;
 }
 

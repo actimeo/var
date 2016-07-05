@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { I18nService } from 'ng2-i18next/ng2-i18next';
 
 import { TopicSelectComponent } from '../topic-select';
+import { DataProviderService } from '../data-provider.service';
 
 @Component({
   moduleId: module.id,
@@ -22,7 +23,7 @@ export class GroupTopicsComponent implements OnInit {
   }
   @Output() topicsChange: EventEmitter<number[]> = new EventEmitter<number[]>();
 
-  constructor(private i18next: I18nService) { }
+  constructor(private i18next: I18nService, private dataProvider: DataProviderService) { }
 
   ngOnInit() {
   }

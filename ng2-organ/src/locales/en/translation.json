@@ -76,23 +76,23 @@
     "internal": "Internal",
     "external": "External",
     "operations": "Operations",
-    "select_an_institution": "Select an institution",
-    "add_new_institution": "Add new institution",
+    "select_an_institution": "Select an organization",
+    "add_new_institution": "Add new organization",
     "rename_current_institution": "Rename current",
     "delete_current_institution": "Delete current",
     "copy_current_institution": "Copy current",
-    "institution_name": "institution name",
+    "institution_name": "organization name",
     "tabs": {
       "groups": "Groups",
       "participants": "Participants"
     },
     "alerts": {
-      "institution_deleted": "Institution deleted",
-      "error_deleting_institution": "Error deleting institution",
-      "institution_added": "Institution added",
-      "error_adding_institution": "Error adding institution",
-      "institution_renamed": "Institution renamed",
-      "error_renaming_institution": "Error renaming institution"
+      "institution_deleted": "Organization deleted",
+      "error_deleting_institution": "Error deleting organization",
+      "institution_added": "Organization added",
+      "error_adding_institution": "Error adding organization",
+      "institution_renamed": "Organization renamed",
+      "error_renaming_institution": "Error renaming organization"
     }
   },
   "dialog": {
