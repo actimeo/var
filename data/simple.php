@@ -1,7 +1,7 @@
 #! /usr/bin/php
 <?php
-require_once 'pgproc/php/pgprocedures.php';
-require_once 'config.inc.php';
+require_once '../pgproc/php/pgprocedures.php';
+require_once '../config.inc.php';
 
 $base = new PgProcedures2 ($pg_host, $pg_user, $pg_pass, $pg_database);
 
@@ -50,8 +50,8 @@ $base->login->user_portal_set($token, $userLogin1, array($porId3));
 $base->login->user_portal_set($token, $userLogin2, array($porId3, $porId1));
 
 // Create organizations with groups
-$orgI = $base->organ->organization_add($token, "Organization I");
-$orgII = $base->organ->organization_add($token, "Organization II");
+$orgI = $base->organ->organization_add($token, "Organization I", true);
+$orgII = $base->organ->organization_add($token, "Organization II", true);
 
 $grpI1 = $base->organ->group_add($token, $orgI, 'Group 1 institution I');
 $base->organ->group_set($token, $grpI1, 'a note');
