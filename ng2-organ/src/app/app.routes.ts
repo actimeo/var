@@ -3,7 +3,6 @@ import { provideRouter, RouterConfig } from '@angular/router';
 import { LoginComponent } from './login';
 import { HomeComponent } from './home';
 import { AuthGuard } from './shared/auth.guard';
-
 import { HomeRoutes } from './home/home.routes';
 
 export const routes: RouterConfig = [
