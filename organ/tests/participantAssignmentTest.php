@@ -43,8 +43,8 @@ class participantAssignmentTest extends PHPUnit_Framework_TestCase {
     self::$base->login->user_participant_set($this->token, $this->userLogin, $this->parId);
 
     // Create an organization, service and group
-    $org = self::$base->organ->organization_add($this->token, "An organization", true);
-    $this->grpId = self::$base->organ->group_add($this->token, $org, 'A group');
+    $org = self::$base->organ->organization_add($this->token, "An organization", "a desc", true);
+    $this->grpId = self::$base->organ->group_add($this->token, $org, 'A group', 'a desc');
   }
 
   protected function assertPostConditions()

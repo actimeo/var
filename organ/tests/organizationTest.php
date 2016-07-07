@@ -44,16 +44,19 @@ class organizationTest extends PHPUnit_Framework_TestCase {
 
   public function testOrganizationAdd() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     $this->assertGreaterThan(0, $id);
   }  
 
   public function testOrganizationGet() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     $this->assertGreaterThan(0, $id);
     $org = self::$base->organ->organization_get($this->token, $id);
     $this->assertEquals($name, $org['org_name']);
+    $this->assertEquals($desc, $org['org_description']);
   }  
   
   /**
@@ -62,14 +65,17 @@ class organizationTest extends PHPUnit_Framework_TestCase {
    */  
   public function testOrganizationAddSameName() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc1 = 'an organization desc';
+    $desc2 = 'another organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc1, true);
     $this->assertGreaterThan(0, $id);
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $id = self::$base->organ->organization_add($this->token, $name, $desc2, true);
   }  
 
   public function testOrganizationList() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     $orgs = self::$base->organ->organization_list($this->token);
     $this->assertGreaterThan(0, count($orgs));
     $found = false;
@@ -85,7 +91,8 @@ class organizationTest extends PHPUnit_Framework_TestCase {
   public function testOrganizationRename() {
     $name1 = 'an organization';
     $name2 = 'another organization';
-    $id = self::$base->organ->organization_add($this->token, $name1, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name1, $desc, true);
     self::$base->organ->organization_rename($this->token, $id, $name2);
     $orgs = self::$base->organ->organization_list($this->token);
     $this->assertGreaterThan(0, count($orgs));
@@ -106,14 +113,16 @@ class organizationTest extends PHPUnit_Framework_TestCase {
    */
   public function testOrganizationRenameUnknown() {
     $name1 = 'a portal';
+    $desc = 'an organization desc';
     $name2 = 'another portal';
-    $id = self::$base->organ->organization_add($this->token, $name1, true);
+    $id = self::$base->organ->organization_add($this->token, $name1, $desc, true);
     self::$base->organ->organization_rename($this->token, $id+1, $name2);
   }
 
   public function testOrganizationDelete() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     $orgs = self::$base->organ->organization_list($this->token);
     $nAfterAdd = count($orgs);
     $this->assertGreaterThan(0, count($orgs));
@@ -128,7 +137,8 @@ class organizationTest extends PHPUnit_Framework_TestCase {
    */
   public function testOrganizationDeleteUnknown() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     self::$base->organ->organization_delete($this->token, $id+1);
   }
 
@@ -138,7 +148,8 @@ class organizationTest extends PHPUnit_Framework_TestCase {
    */
   public function testOrganizationDeleteNull() {
     $name = 'an organization';
-    $id = self::$base->organ->organization_add($this->token, $name, true);
+    $desc = 'an organization desc';
+    $id = self::$base->organ->organization_add($this->token, $name, $desc, true);
     self::$base->organ->organization_delete($this->token, null);
   }
 

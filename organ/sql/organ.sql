@@ -4,12 +4,14 @@ SET search_path = organ;
 
 CREATE TABLE organ.topic (
   top_id serial PRIMARY KEY,
-  top_name text NOT NULL UNIQUE
+  top_name text NOT NULL UNIQUE,
+  top_description text NOT NULL DEFAULT ''
 );
 
 CREATE TABLE organ.organization (
   org_id serial PRIMARY KEY,
   org_name text NOT NULL UNIQUE,
+  org_description text NOT NULL DEFAULT '',
   org_internal boolean NOT NULL
 );
 
@@ -25,7 +27,7 @@ CREATE TABLE organ.group (
   grp_id serial PRIMARY KEY,
   org_id integer NOT NULL REFERENCES organ.organization,
   grp_name text NOT NULL,
-  grp_notes text NOT NULL DEFAULT '',
+  grp_description text NOT NULL DEFAULT '',
   UNIQUE(org_id, grp_name)
 );
 
@@ -48,7 +50,8 @@ CREATE TABLE organ.participant (
 CREATE TABLE organ.dossier_assignment (
   doa_id serial PRIMARY KEY,
   dos_id integer NOT NULL REFERENCES organ.dossier,
-  grp_id integer NOT NULL REFERENCES organ.group
+  grp_id integer NOT NULL REFERENCES organ.group,
+  doa_visible boolean NOT NULL
 );
 
 CREATE TABLE organ.participant_assignment (

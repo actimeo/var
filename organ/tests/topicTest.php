@@ -44,7 +44,8 @@ class topicTest extends PHPUnit_Framework_TestCase {
 
   public function testTopicAdd() {
     $name = 'topic 1';
-    $id = self::$base->organ->topic_add($this->token, $name);
+    $desc = 'topic 1 description';
+    $id = self::$base->organ->topic_add($this->token, $name, $desc);
     $this->assertGreaterThan(0, $id);
   }  
 
@@ -54,9 +55,31 @@ class topicTest extends PHPUnit_Framework_TestCase {
    */  
   public function testTopicAddSameName() {
     $name = 'topic 1';
-    $id = self::$base->organ->topic_add($this->token, $name);
+    $desc1 = 'topic 1 desc';
+    $desc2 = 'topic 2 desc';
+    $id = self::$base->organ->topic_add($this->token, $name, $desc1);
     $this->assertGreaterThan(0, $id);
-    self::$base->organ->topic_add($this->token, $name);
+    self::$base->organ->topic_add($this->token, $name, $desc2);
+  }  
+
+  public function testTopicList() {
+    $name1 = 'topic 1';
+    $desc1 = 'topic 1 description';
+    $id1 = self::$base->organ->topic_add($this->token, $name1, $desc1);
+    $this->assertGreaterThan(0, $id1);
+
+    $name2 = 'topic 2';
+    $desc2 = 'topic 2 description';
+    $id2 = self::$base->organ->topic_add($this->token, $name2, $desc2);
+    $this->assertGreaterThan($id1, $id2);
+
+    $topics = self::$base->organ->topics_list($this->token);
+    foreach ($topics as $topic) {
+      if ($topic['top_id'] == $id1) {
+	$this->assertEquals($name1, $topic['top_name']);
+	$this->assertEquals($desc1, $topic['top_description']);
+      }
+    }
   }  
 
 }

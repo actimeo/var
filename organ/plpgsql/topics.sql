@@ -1,6 +1,6 @@
 SET search_path = organ;
 
-CREATE OR REPLACE FUNCTION organ.topic_add(prm_token integer, prm_name text)
+CREATE OR REPLACE FUNCTION organ.topic_add(prm_token integer, prm_name text, prm_description text)
 RETURNS integer
 LANGUAGE plpgsql
 VOLATILE
@@ -9,12 +9,12 @@ DECLARE
   ret integer;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  INSERT INTO organ.topic (top_name) VALUES (prm_name)
+  INSERT INTO organ.topic (top_name, top_description) VALUES (prm_name, prm_description)
     RETURNING top_id INTO ret;
   RETURN ret;
 END;
 $$;
-COMMENT ON FUNCTION organ.topic_add(prm_token integer, prm_name text) IS 'Add a new topic';
+COMMENT ON FUNCTION organ.topic_add(prm_token integer, prm_name text, prm_description text) IS 'Add a new topic';
 
 CREATE OR REPLACE FUNCTION organ.topics_list(prm_token integer)
 RETURNS setof organ.topic

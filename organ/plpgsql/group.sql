@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION organ.group_add(prm_token integer, prm_org_id integer, prm_name text)
+CREATE OR REPLACE FUNCTION organ.group_add(prm_token integer, prm_org_id integer, prm_name text, prm_description text)
 RETURNS integer
 LANGUAGE plpgsql
 VOLATILE
@@ -7,13 +7,13 @@ DECLARE
   ret integer;
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
-  INSERT INTO organ.group (org_id, grp_name) 
-    VALUES (prm_org_id, prm_name)
+  INSERT INTO organ.group (org_id, grp_name, grp_description) 
+    VALUES (prm_org_id, prm_name, prm_description)
     RETURNING grp_id INTO ret;
   RETURN ret;    
 END;
 $$;
-COMMENT ON FUNCTION organ.group_add(prm_token integer, prm_org_id integer, prm_name text) IS 'Add a new group providing a particular service to an institution';
+COMMENT ON FUNCTION organ.group_add(prm_token integer, prm_org_id integer, prm_name text, prm_description text) IS 'Add a new group providing a particular service to an institution';
 
 CREATE OR REPLACE FUNCTION organ.group_get(prm_token integer, prm_id integer)
 RETURNS organ.group
@@ -33,7 +33,7 @@ END;
 $$;
 COMMENT ON FUNCTION organ.group_get(prm_token integer, prm_id integer) IS 'Get basic information about a service group';
 
-CREATE OR REPLACE FUNCTION organ.group_set(prm_token integer, prm_id integer, prm_notes text)
+CREATE OR REPLACE FUNCTION organ.group_set(prm_token integer, prm_id integer, prm_description text)
 RETURNS VOID
 LANGUAGE plpgsql
 VOLATILE
@@ -41,21 +41,21 @@ AS $$
 BEGIN
   PERFORM login._token_assert(prm_token, '{organization}');
   UPDATE organ.group SET 
-    grp_notes = prm_notes
+    grp_description = prm_description
     WHERE grp_id = prm_id;
   IF NOT FOUND THEN
     RAISE EXCEPTION USING ERRCODE = 'no_data_found';
   END IF;
 END;
 $$;
-COMMENT ON FUNCTION organ.group_set(prm_token integer, prm_id integer, prm_notes text) IS 'Set basic information about a service group';
+COMMENT ON FUNCTION organ.group_set(prm_token integer, prm_id integer, prm_description text) IS 'Set basic information about a service group';
 
 DROP FUNCTION IF EXISTS organ.group_list(prm_token integer, prm_org_id integer);
 DROP TYPE IF EXISTS organ.group_list;
 CREATE TYPE organ.group_list AS (
   grp_id integer,
   grp_name text,
-  grp_notes text,
+  grp_description text,
   grp_topics integer[]
 );
 
@@ -71,7 +71,7 @@ BEGIN
   IF prm_org_id ISNULL THEN
     RAISE EXCEPTION USING ERRCODE = 'null_value_not_allowed';
   END IF;
-  RETURN QUERY SELECT grp_id, grp_name, grp_notes, 
+  RETURN QUERY SELECT grp_id, grp_name, grp_description, 
     ARRAY(SELECT top_id FROM organ.group_topic INNER JOIN organ.topic USING(top_id) WHERE grp_id = grp.grp_id ORDER BY top_name) FROM organ.group grp
     WHERE org_id = prm_org_id
     ORDER BY grp_name;
