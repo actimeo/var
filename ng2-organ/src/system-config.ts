@@ -81,6 +81,7 @@ const barrels: string[] = [
   'app/home-system',
   'app/home-organizations',
   'app/home-portals',
+  'app/organization-details',
   /** @cli-barrel */
 ];
 

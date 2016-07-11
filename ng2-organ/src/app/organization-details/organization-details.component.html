@@ -1,0 +1,12 @@
+<div class="buttons">
+  <button pButton (click)="cancel()" [label]="i18next.t('common.btn.cancel')" [disabled]="!cancelVisible"></button>
+  <button pButton (click)="save()" [label]="i18next.t('common.btn.save')" [disabled]="!saveVisible"></button>
+</div>
+
+<label for="organization-details-name">Name</label>
+<input id="organization-details-name" pInputText type="text" [ngModel]="name" (ngModelChange)="nameChange($event)">
+
+<p-toggleButton onLabel="Internal" offLabel="External" [ngModel]="isInternal" (ngModelChange)="internalChange($event)"></p-toggleButton>
+
+<label for="organization-details-description">Description</label>
+<textarea id="organization-details-description" [ngModel]="description" (ngModelChange)="descriptionChange($event)" rows="5" cols="80" pInputTextarea autoResize="autoResize"></textarea>

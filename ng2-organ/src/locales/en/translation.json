@@ -84,7 +84,8 @@
     "institution_name": "organization name",
     "tabs": {
       "groups": "Groups",
-      "participants": "Participants"
+      "participants": "Participants",
+      "details": "Details"
     },
     "alerts": {
       "institution_deleted": "Organization deleted",
