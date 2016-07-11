@@ -1,3 +1,11 @@
-<p>
-  home-system works!
-</p>
+<md-sidenav-layout id="wrapper" class="demo-sidenav-layout">
+  <md-sidenav id="nav-drawer" #start mode="over" opened="true">
+    <div class="nav-drawer-header">
+      <div class="title">{{getUser()}}</div>
+      <div class="subtitle"><span i18n="organ.system_config"></span></div>
+    </div>
+  </md-sidenav>
+
+  <main class="organization-main">
+  </main>
+</md-sidenav-layout>

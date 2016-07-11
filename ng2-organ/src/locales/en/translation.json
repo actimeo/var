@@ -63,7 +63,8 @@
     "formalities_assistance": "Formalities assistance"
   },
   "organ": {
-    "organ_builder": "Organization builder"
+    "organ_builder": "Organization builder",
+    "system_config": "System configuration"
   },
   "group-edit": {
     "name": "Name:",
