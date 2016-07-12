@@ -71,7 +71,8 @@
     "start_date": "Start date:",
     "end_date": "End date:",
     "topics": "Topics",
-    "notes": "Description"
+    "notes": "Description",
+    "participants": "Participants"
   },
   "institution": {
     "internal": "Internal",

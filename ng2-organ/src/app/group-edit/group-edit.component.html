@@ -4,12 +4,15 @@
 </div>
 
 <span i18n="group-edit.name"></span>
-<input type="text" pInputText [ngModel]="name" (ngModelChange)="nameChange($event)"  />
-
+<input type="text" pInputText [ngModel]="name" (ngModelChange)="nameChange($event)" />
 
 <h2 i18n="group-edit.topics"></h2>
 <app-group-topics [topics]="topics" (topicsChange)="topicsChange($event)"></app-group-topics>
 
-
 <h2 i18n="group-edit.notes"></h2>
-<textarea  [ngModel]="notes" (ngModelChange)="notesChange($event)" rows="5" cols="80" pInputTextarea autoResize="autoResize"></textarea>
+<textarea [ngModel]="notes" (ngModelChange)="notesChange($event)" rows="5" cols="80" pInputTextarea autoResize="autoResize"></textarea>
+
+<h2 i18n="group-edit.participants"></h2>
+<ul>
+  <li *ngFor="let participant of participants">{{participant.par_firstname}} {{participant.par_lastname}}</li>
+</ul>
