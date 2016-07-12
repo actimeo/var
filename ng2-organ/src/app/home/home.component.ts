@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.pgService
       .pgcall(
       'login', 'user_logout', {})
-      .then((data: any) => {
+      .then(() => {
         this.userService.disconnect();
         this.router.navigate(['/login']);
       });

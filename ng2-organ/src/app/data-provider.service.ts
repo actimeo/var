@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+import { DbTopic } from './db.models/organ';
 
 @Injectable()
 export class DataProviderService {
@@ -10,13 +11,13 @@ export class DataProviderService {
 
   loadData() {
     this.pgService.pgcall('organ', 'topics_list', {})
-      .then((topics: any[]) => {
+      .then((topics: DbTopic[]) => {
         this.topics = topics;
         console.log(topics);
       });
   }
 
-  getTopicName(id: number) {
-    return this.topics.filter(t => t.top_id === id).map(t => t.top_name);
+  getTopicName(id: number): string {
+    return this.topics.filter(t => t.top_id === id).map(t => t.top_name)[0];
   }
 }

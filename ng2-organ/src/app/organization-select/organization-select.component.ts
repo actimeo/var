@@ -3,6 +3,7 @@ import { Dropdown } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
+import { DbOrganization } from '../db.models/organ';
 
 @Component({
   moduleId: module.id,
@@ -16,32 +17,25 @@ export class OrganizationSelectComponent implements OnInit {
   @Output() onselected: EventEmitter<string> = new EventEmitter<string>();
   @Output() onadd: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  private organizations: any;
+  private organizations: DbOrganization[];
   organizationsDdListInternal: SelectItem[];
   organizationsDdListExternal: SelectItem[];
-  selectedOrg: SelectItem;
 
-  private selectedInstitution: any;
+  private selectedInstitution: DbOrganization;
   private selectedInstitutionName: string;
 
   constructor(private pgService: PgService, private i18n: I18nService) { }
 
   ngOnInit() {
-    this.reloadOrganizations(null);
+    this.reloadOrganizations();
   }
 
   // Reload organizations and select the specified one (or none if null)
-  private reloadOrganizations(selectedOrgId) {
+  private reloadOrganizations() {
     this.pgService.pgcall('organ', 'organization_list')
-      .then(data => {
+      .then((data: DbOrganization[]) => {
         this.organizations = data;
         this.rebuildDdList();
-        if (selectedOrgId !== null) {
-          let p = this.organizations.filter(d => d.org_id === selectedOrgId);
-          if (p.length === 1) {
-            this.onOrganizationSelected(p.org_id);
-          }
-        }
       })
       .catch(err => { });
   }

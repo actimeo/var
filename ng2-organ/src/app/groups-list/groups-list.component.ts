@@ -3,6 +3,7 @@ import { Accordion, AccordionTab } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 import { GroupEditComponent } from '../group-edit';
+import { DbGroup } from '../db.models/organ';
 
 @Component({
   moduleId: module.id,
@@ -20,7 +21,7 @@ export class GroupsListComponent implements OnInit {
 
   private intOrgId: number;
 
-  private groups: any;
+  private groups: DbGroup[];
 
   constructor(private pgService: PgService) { }
 
@@ -31,7 +32,7 @@ export class GroupsListComponent implements OnInit {
     this.pgService.pgcall('organ', 'group_list', {
       prm_org_id: this.intOrgId, prm_active_at: null
     })
-      .then(data => {
+      .then((data: DbGroup[]) => {
         this.groups = data;
       })
       .catch(err => {

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Button, InputText, ToggleButton } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
+import { DbOrganization } from '../db.models/organ';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   private intOrgId: number;
-  private organization: any;
+  private organization: DbOrganization;
   isInternal: boolean = false;
   name: string = '';
   description: string = '';
@@ -35,7 +36,7 @@ export class OrganizationDetailsComponent implements OnInit {
     this.pgService.pgcall('organ', 'organization_get', {
       prm_id: this.intOrgId
     })
-      .then(data => {
+      .then((data: DbOrganization) => {
         this.organization = data;
         this.populateForm();
       })

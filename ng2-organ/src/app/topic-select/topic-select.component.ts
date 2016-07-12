@@ -4,6 +4,7 @@ import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { Dialog, Button } from 'primeng/primeng';
 
 import { DlgSelecttopicComponent } from '../dlg-selecttopic';
+import { DbTopic } from '../db.models/organ';
 
 @Component({
   moduleId: module.id,
@@ -14,16 +15,16 @@ import { DlgSelecttopicComponent } from '../dlg-selecttopic';
 })
 export class TopicSelectComponent implements OnInit {
 
-  @Input() set ignoreTopics(val: string[]) {
+  @Input() set ignoreTopics(val: number[]) {
     this.intIgnoreTopics = val;
     this.filterTopics();
   }
 
   @Output() selected = new EventEmitter<string>();
 
-  private intIgnoreTopics: string[];
-  private topics: any;
-  private originalTopics = null;
+  private intIgnoreTopics: number[];
+  private topics: DbTopic[];
+  private originalTopics: DbTopic[] = null;
 
   display: boolean = false;
 
@@ -31,7 +32,7 @@ export class TopicSelectComponent implements OnInit {
 
   ngOnInit() {
     this.pgService.pgcall('organ', 'topics_list', {})
-      .then(data => {
+      .then((data: DbTopic[]) => {
         this.topics = data;
         this.originalTopics = data;
         this.filterTopics();
@@ -41,7 +42,7 @@ export class TopicSelectComponent implements OnInit {
 
   private filterTopics() {
     if (this.topics) {
-      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val) === -1);
+      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val.top_id) === -1);
     }
   }
 

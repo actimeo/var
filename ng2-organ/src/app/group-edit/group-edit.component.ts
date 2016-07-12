@@ -4,6 +4,7 @@ import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
 
 import { GroupTopicsComponent } from '../group-topics';
+import { DbGroupList } from '../db.models/organ';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +15,7 @@ import { GroupTopicsComponent } from '../group-topics';
 })
 export class GroupEditComponent implements OnInit {
 
-  @Input() group: any;
+  @Input() group: DbGroupList;
 
   private name: string;
   private topics: number[];
