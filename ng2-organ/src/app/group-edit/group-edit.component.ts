@@ -32,7 +32,7 @@ export class GroupEditComponent implements OnInit {
   private populateForm() {
     this.name = this.group.grp_name;
     this.topics = this.group.grp_topics.slice(0);
-    this.notes = this.group.grp_notes;
+    this.notes = this.group.grp_description;
   }
 
   protected save() {
@@ -47,10 +47,10 @@ export class GroupEditComponent implements OnInit {
       });
     }
 
-    this.group.grp_notes = this.notes;
+    this.group.grp_description = this.notes;
     this.pgService.pgcall('organ', 'group_set', {
       prm_id: this.group.grp_id,
-      prm_notes: this.group.grp_notes
+      prm_description: this.group.grp_description
     });
 
     this.group.grp_topics = this.topics;

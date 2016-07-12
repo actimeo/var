@@ -1,27 +1,33 @@
-export interface DbInstitution {
-  ins_id: number;
-  ins_name: string;
+export interface DbGroup {
+  grp_id: number;
+  org_id: number;
+  grp_name: string;
+  grp_description: string;
 }
 
-export interface DbService {
-  ser_id: number;
-  ins_id: number;
-  ser_name: string;
-  ser_topics: string[];
+export interface DbGroupList {
+  grp_id: number;
+  grp_name: string;
+  grp_description: string;
+  grp_topics: number[];
 }
 
-export interface DbServiceGroup {
-  sgr_id: number;
-  ser_id: number;
-  sgr_name: string;
-  sgr_start_date: string;
-  sgr_end_date: string;
-  sgr_notes: string;
+export interface DbOrganization {
+  org_id: number;
+  org_name: string;
+  org_description: string;
+  org_internal: boolean;
 }
 
-export interface DbStaff {
-  stf_id: number;
-  stf_firstname: string;
-  stf_lastname: string;
+export interface DbParticipant {
+  par_id: number;
+  par_firstname: string;
+  par_lastname: string;
+}
+
+export interface DbTopic {
+  top_id: number;
+  top_name: string;
+  top_description: string;
 }
 

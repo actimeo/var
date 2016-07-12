@@ -67,7 +67,7 @@ function write_files($res) {
   $outputs = array('ng2-portal/src/app/db.models', 
 		   'ng2-portal-rc/src/app/db.models', 
 		   'ng2-variation/src/client/app/db.models', 
-		   'ng2-organ/src/client/app/db.models');
+		   'ng2-organ/src/app/db.models');
   foreach ($res as $schema => $interfaces) {
     foreach ($outputs as $output) {
       $path = $output.'/'.$schema.'.ts';
