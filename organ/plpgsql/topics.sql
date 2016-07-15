@@ -27,3 +27,20 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION organ.topics_list(prm_token integer) IS 'Returns the list of topics';
+
+CREATE OR REPLACE FUNCTION organ.topic_delete(prm_token integer, prm_id integer)
+RETURNS VOID
+LANGUAGE plpgsql
+VOLATILE
+AS $$
+DECLARE
+
+BEGIN
+  PERFORM login._token_assert(prm_token, '{organization}');
+  DELETE FROM organ.topic WHERE top_id = prm_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+END;
+$$;
+COMMENT ON FUNCTION organ.topic_delete(prm_token integer, prm_id integer) IS 'Delete a topic';

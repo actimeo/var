@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
+import { LoginComponent } from './login';
 import { HomeComponent } from './home';
 import { HomeSystemComponent } from './home-system';
 import { HomeOrganizationsComponent } from './home-organizations';
@@ -16,9 +17,6 @@ import 'primeuiNgAll';
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [DataProviderService],
-  precompile: [HomeComponent, HomePortalsComponent, HomeOrganizationsComponent, HomeSystemComponent]
+  precompile: [LoginComponent, HomeComponent, HomePortalsComponent, HomeOrganizationsComponent, HomeSystemComponent]
 })
-export class AppComponent {
-  title = 'app works!';
-
-}
+export class AppComponent { }

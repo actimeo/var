@@ -5,19 +5,31 @@ import { DbTopic } from './db.models/organ';
 @Injectable()
 export class DataProviderService {
 
-  private topics: any[];
+  private topics: DbTopic[] = [];
 
-  constructor(private pgService: PgService) { }
+  constructor(private pgService: PgService) {
+    this.loadData();
+  }
 
-  loadData() {
+  private loadData() {
     this.pgService.pgcall('organ', 'topics_list', {})
       .then((topics: DbTopic[]) => {
         this.topics = topics;
-        console.log(topics);
+        console.log('topics: ' + topics);
       });
   }
 
-  getTopicName(id: number): string {
+  /**
+    * Returns the list of topics defined
+    */
+  public getTopics(): DbTopic[] {
+    return this.topics;
+  }
+
+  /**
+   * Returns the name of a specific topic
+   */
+  public getTopicName(id: number): string {
     return this.topics.filter(t => t.top_id === id).map(t => t.top_name)[0];
   }
 }

@@ -4,6 +4,7 @@ import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { Dialog, Button } from 'primeng/primeng';
 
 import { DlgSelecttopicComponent } from '../dlg-selecttopic';
+import { DataProviderService } from '../data-provider.service';
 import { DbTopic } from '../db.models/organ';
 
 @Component({
@@ -28,16 +29,10 @@ export class TopicSelectComponent implements OnInit {
 
   display: boolean = false;
 
-  constructor(private i18next: I18nService, private pgService: PgService) { }
+  constructor(private i18next: I18nService, private dataProvider: DataProviderService) { }
 
   ngOnInit() {
-    this.pgService.pgcall('organ', 'topics_list', {})
-      .then((data: DbTopic[]) => {
-        this.topics = data;
-        this.originalTopics = data;
-        this.filterTopics();
-      })
-      .catch(err => console.log(err));
+    this.topics = this.dataProvider.getTopics();
   }
 
   private filterTopics() {

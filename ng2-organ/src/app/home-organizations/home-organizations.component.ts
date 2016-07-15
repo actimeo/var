@@ -34,7 +34,7 @@ export class HomeOrganizationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataProvider.loadData();
+//    this.dataProvider.loadData();
   }
 
   getUser() { return this.userService.getLogin(); }
