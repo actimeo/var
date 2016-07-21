@@ -213,7 +213,7 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($user['par_id'], $parId);
   }
 
-  public function testUserPortalSet() {
+  /*  public function testUserPortalSet() {
     $loginAdmin = 'admin';
     $pwdAdmin = 'ksfdjgsfdyubg';    
     
@@ -252,6 +252,6 @@ class coreTest extends PHPUnit_Framework_TestCase {
     self::$base->login->user_portal_set($token, $loginUser, null);
     $porIds = self::$base->login->user_portal_list($token, $loginUser);
     $this->assertEquals(null, $porIds);
-  }
+    }*/
 }
 ?>

@@ -33,7 +33,7 @@ A user can have access to patients data through one or several portals.
 
 COMMENT ON TABLE login.user IS 'Webservice users';
 
-COMMENT ON TABLE login.user_portal IS 'Permissions for users to use portals';
+COMMENT ON TABLE login.usergroup_portal IS 'Permissions for users from group to use portals';
 
 COMMENT ON COLUMN login.user.usr_login IS 'User login';
 
@@ -51,11 +51,11 @@ COMMENT ON COLUMN login.user.usr_token IS 'Token id returned after authenticatio
 
 COMMENT ON COLUMN login.user.usr_token_creation_date IS 'Token creation date for validity';
 
-COMMENT ON COLUMN login.user_portal.usp_id IS 'Unique identifier';
+COMMENT ON COLUMN login.usergroup_portal.ugp_id IS 'Unique identifier';
 
-COMMENT ON COLUMN login.user_portal.usr_login IS 'User login';
+COMMENT ON COLUMN login.usergroup_portal.ugr_id IS 'User group identifier';
 
-COMMENT ON COLUMN login.user_portal.por_id IS 'A portal the user can use';
+COMMENT ON COLUMN login.usergroup_portal.por_id IS 'A portal the user can use';
 
 COMMENT ON TYPE login.user_right IS 'Specific rights for users:
 -- structure: can edit portals structure,
