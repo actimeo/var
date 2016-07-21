@@ -8,3 +8,9 @@ before_script:
   - PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER;"
   - psql $DBNAME -c "CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U postgres
   - bash ./install.sh
+  - bash ./update.sh
+language: php
+php:
+  - '5.5'
+script:
+  - bash ./run-tests.sh
