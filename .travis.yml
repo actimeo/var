@@ -1,3 +1,8 @@
+env:
+  - DBNAME='travis_ci_test'
+  - DBUSER='postgres'
+  - DBPASS=''
+
 services:
   - postgresql
 before_script:
