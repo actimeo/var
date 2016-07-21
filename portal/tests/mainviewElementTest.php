@@ -9,8 +9,6 @@ class mainviewElementTest extends PHPUnit_Framework_TestCase {
   private static $pgPass;
   private static $pgDatabase;
 
-  private static $pmeId;
-
   public static function setUpBeforeClass() {
     
     // Get connection params
