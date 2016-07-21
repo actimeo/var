@@ -1,0 +1,8 @@
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE DATABASE travis_ci_test WITH ENCODING='UTF8'" -U postgres
+  - bash ./install.sh
+language: php
+php:
+  - '5.5'

@@ -54,9 +54,13 @@ $uSophie = create_user($base, $token, $loginSophie, 'sophie', 'Sophie', 'ÉDUC')
 $pEncadrement = $base->portal->portal_add($token, 'Encadrement');
 $pEducateur = $base->portal->portal_add($token, 'Éducateur');
 
-// Give marie and jeanne access to portal Encadrement
+// Create user groups
+$ugEncadrement = $base->login->usergroup_add('Encadrement');
+$ugEducateur = $base->login->usergroup_add('Éducateur');
+
+// Place marie and jeanne in the Encadrement user group
 foreach (array($loginMarie, $loginJeanne) as $login) {
-  $base->login->user_portal_set($token, $login, array($pEncadrement));
+  $base->login->usergroup_portal_set($token, $login, array($pEncadrement));
 }
 
 // Give paul, jean, pierre and sophie access to portal Éducateur
