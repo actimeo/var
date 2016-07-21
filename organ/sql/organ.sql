@@ -38,20 +38,19 @@ CREATE TABLE organ.group_topic (
   UNIQUE(grp_id, top_id)
 );
 
-
-CREATE TABLE organ.participant (
-  par_id serial PRIMARY KEY,
-  par_firstname text NOT NULL,
-  par_lastname text NOT NULL,
-  UNIQUE(par_firstname, par_lastname)
-);
-
--- RELATIONS
 CREATE TABLE organ.dossier_assignment (
   doa_id serial PRIMARY KEY,
   dos_id integer NOT NULL REFERENCES organ.dossier,
   grp_id integer NOT NULL REFERENCES organ.group,
   doa_visible boolean NOT NULL
+);
+
+-- PARTICIPANTS
+CREATE TABLE organ.participant (
+  par_id serial PRIMARY KEY,
+  par_firstname text NOT NULL,
+  par_lastname text NOT NULL,
+  UNIQUE(par_firstname, par_lastname)
 );
 
 CREATE TABLE organ.participant_assignment (

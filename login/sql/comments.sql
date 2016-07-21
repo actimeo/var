@@ -58,7 +58,6 @@ COMMENT ON COLUMN login.user_portal.usr_login IS 'User login';
 COMMENT ON COLUMN login.user_portal.por_id IS 'A portal the user can use';
 
 COMMENT ON TYPE login.user_right IS 'Specific rights for users:
-- structure: can edit portals structure,
-- organization: can edit organization,
-- users: can manage users.';
-
+-- structure: can edit portals structure,
+-- organization: can edit organization,
+-- users: can manage users.';

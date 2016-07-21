@@ -1,12 +1,29 @@
-COMMENT ON SCHEMA organ IS 'This module describes the structure of the organization receiving the patients.
+COMMENT ON SCHEMA organ IS 'This module describes the structure of the organizations receiving the patients.
 
-Institutions
-------------
-An institution is composed of one or more groups, to which patients will be attached.
+Topics
+------
+
+
+Organizations
+-------------
+An organization can be internal or external. It is composed of one or several groups.
 
 Participants
 ------------
-Participants are assigned to groups.';
+Participants are working for organizations. They are attached to groups.
+
+Dossier
+-------
+A dossier contains information about patients or family members. They are attached to different groups, depending the topics.
+
+Group
+-----
+A group belongs to an organization. One or several participants are attached to this group, and have access to one or several dossiers.
+
+Referee
+-------
+When a dossier is attached to a group, a referee is chosen from the participants attached to this same group.
+';
 
 COMMENT ON TABLE organ.organization IS 'An organization receiving patients.';
 
@@ -20,7 +37,7 @@ COMMENT ON TABLE organ.dossier_assignment IS 'Assignation of a patient to a grou
 
 COMMENT ON TABLE organ.participant_assignment IS 'Assignation of a participant to a group';
 
-COMMENT ON TABLE organ.referee IS 'Participant is a referee for a patient';
+COMMENT ON TABLE organ.referee IS 'Participant is a referee for a patient in a give group';
 
 COMMENT ON COLUMN organ.organization.org_id IS 'Unique identifier';
 
@@ -45,4 +62,3 @@ COMMENT ON COLUMN organ.participant.par_id IS 'Unique identifier';
 COMMENT ON COLUMN organ.participant.par_firstname IS 'Participant first name(s)';
 
 COMMENT ON COLUMN organ.participant.par_lastname IS 'Participant last name';
-
