@@ -8,7 +8,6 @@ import { I18nDirective } from 'ng2-i18next/ng2-i18next';
 import { OrganizationSelectComponent } from '../organization-select';
 import { OrganizationMainComponent } from '../organization-main';
 import { DlgInputtextComponent } from '../dlg-inputtext';
-import { DataProviderService } from '../data-provider.service';
 import { TopbarService } from '../topbar.service';
 
 @Component({
@@ -28,7 +27,7 @@ export class HomeOrganizationsComponent implements OnInit {
   private selectedOrg: any;
 
   constructor(private router: Router, private userService: UserService,
-    private pgService: PgService, private dataProvider: DataProviderService,
+    private pgService: PgService,
     private topbar: TopbarService) {
     this.topbar.menuOpen$.subscribe(m => this.start.toggle());
   }

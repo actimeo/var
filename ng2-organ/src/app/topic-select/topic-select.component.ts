@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { I18nDirective, I18nService } from 'ng2-i18next/ng2-i18next';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { Dialog, Button } from 'primeng/primeng';
 
 import { DlgSelecttopicComponent } from '../dlg-selecttopic';
-import { DataProviderService } from '../data-provider.service';
 import { DbTopic } from '../db.models/organ';
 
 @Component({
@@ -24,20 +24,24 @@ export class TopicSelectComponent implements OnInit {
   @Output() selected = new EventEmitter<string>();
 
   private intIgnoreTopics: number[];
-  private topics: DbTopic[];
-  private originalTopics: DbTopic[] = null;
+  private topics: Observable<DbTopic[]>;
+  private originalTopics: Observable<DbTopic[]> = null;
 
   display: boolean = false;
 
-  constructor(private i18next: I18nService, private dataProvider: DataProviderService) { }
+  constructor(private i18next: I18nService, private pgService: PgService) { }
 
   ngOnInit() {
-    this.topics = this.dataProvider.getTopics();
+    this.topics = this.getTopics();
+  }
+
+  private getTopics(): Observable<DbTopic[]> {
+    return this.pgService.pgcall('organ', 'topics_list', {});
   }
 
   private filterTopics() {
     if (this.topics) {
-      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val.top_id) === -1);
+//      this.topics = this.originalTopics.filter(val => this.intIgnoreTopics.indexOf(val.top_id) === -1);
     }
   }
 

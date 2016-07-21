@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Accordion, AccordionTab } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
@@ -16,28 +17,22 @@ export class GroupsListComponent implements OnInit {
 
   @Input() set orgId(val: number) {
     this.intOrgId = val;
-    this.reloadData();
+    this.groups = this.getGroups();
   }
 
   private intOrgId: number;
 
-  private groups: DbGroup[];
+  private groups: Observable<DbGroup[]>;
 
   constructor(private pgService: PgService) { }
 
   ngOnInit() {
   }
 
-  private reloadData() {
-    this.pgService.pgcall('organ', 'group_list', {
+  private getGroups(): Observable<DbGroup[]> {
+    return this.pgService.pgcall('organ', 'group_list', {
       prm_org_id: this.intOrgId, prm_active_at: null
-    })
-      .then((data: DbGroup[]) => {
-        this.groups = data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    });
   }
 
 }

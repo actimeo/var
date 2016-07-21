@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
 import { Dropdown } from 'primeng/primeng';
 import { SelectItem } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
@@ -17,7 +19,7 @@ export class OrganizationSelectComponent implements OnInit {
   @Output() onselected: EventEmitter<string> = new EventEmitter<string>();
   @Output() onadd: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  private organizations: DbOrganization[];
+  private organizations: Observable<DbOrganization[]>;
   organizationsDdListInternal: SelectItem[];
   organizationsDdListExternal: SelectItem[];
 
@@ -27,19 +29,14 @@ export class OrganizationSelectComponent implements OnInit {
   constructor(private pgService: PgService, private i18n: I18nService) { }
 
   ngOnInit() {
-    this.reloadOrganizations();
+    this.organizations = this.getOrganizations();
   }
 
   // Reload organizations and select the specified one (or none if null)
-  private reloadOrganizations() {
-    this.pgService.pgcall('organ', 'organization_list')
-      .then((data: DbOrganization[]) => {
-        this.organizations = data;
-        this.rebuildDdList();
-      })
-      .catch(err => { });
+  private getOrganizations() {
+    return this.pgService.pgcall('organ', 'organization_list');
   }
-
+/*
   private rebuildDdList() {
     this.organizationsDdListInternal = [];
     this.organizations
@@ -60,7 +57,7 @@ export class OrganizationSelectComponent implements OnInit {
         });
       });
   }
-
+*/
   onOrganizationSelected(org) {
     this.selectedInstitution = org.value;
     this.selectedInstitutionName = org.label;

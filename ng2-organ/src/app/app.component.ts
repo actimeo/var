@@ -6,7 +6,6 @@ import { HomeComponent } from './home';
 import { HomeSystemComponent } from './home-system';
 import { HomeOrganizationsComponent } from './home-organizations';
 import { HomePortalsComponent } from './home-portals';
-import { DataProviderService } from './data-provider.service';
 
 import 'primeuiNgAll';
 
@@ -16,7 +15,7 @@ import 'primeuiNgAll';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES],
-  providers: [DataProviderService],
+  providers: [],
   precompile: [LoginComponent, HomeComponent, HomePortalsComponent, HomeOrganizationsComponent, HomeSystemComponent]
 })
 export class AppComponent { }

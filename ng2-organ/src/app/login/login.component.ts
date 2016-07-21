@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { InputText, Panel, Button } from 'primeng/primeng';
 
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
-import  { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
+import { PgService, UserService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 
 @Component({
   moduleId: module.id,
@@ -33,12 +33,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .pgcall(
       'login', 'user_login',
       { 'prm_login': username, 'prm_pwd': password, prm_rights: ['organization'] })
-      .then((data: any) => {
+      .subscribe((data: any) => {
         this.userService.connect(data.usr_token, username, null);
         this.errormsg = null;
         this.router.navigate(['/home']);
-      })
-      .catch(error => { this.errormsg = this.i18n.t('auth.autherror'); });
+      },
+      (error) => { this.errormsg = this.i18n.t('auth.autherror'); }
+      );
 
     // We call our API to log the user in. The username and password are entered
     // by the user

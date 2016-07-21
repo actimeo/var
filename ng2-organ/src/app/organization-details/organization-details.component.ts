@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Button, InputText, ToggleButton } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
@@ -15,11 +16,11 @@ export class OrganizationDetailsComponent implements OnInit {
 
   @Input() set orgId(val: number) {
     this.intOrgId = val;
-    this.reloadData();
+    this.organization = this.getOrganization();
   }
 
   private intOrgId: number;
-  private organization: DbOrganization;
+  private organization: Observable<DbOrganization>;
   isInternal: boolean = false;
   name: string = '';
   description: string = '';
@@ -32,26 +33,19 @@ export class OrganizationDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  private reloadData() {
-    this.pgService.pgcall('organ', 'organization_get', {
+  private getOrganization(): Observable<DbOrganization> {
+    return this.pgService.pgcall('organ', 'organization_get', {
       prm_id: this.intOrgId
-    })
-      .then((data: DbOrganization) => {
-        this.organization = data;
-        this.populateForm();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    });
   }
 
-
+/*
   private populateForm() {
     this.isInternal = this.organization.org_internal;
     this.name = this.organization.org_name;
     this.description = this.organization.org_description;
   }
-
+*/
   protected internalChange(val: boolean) {
     this.isInternal = val;
     this.cancelVisible = true;
@@ -69,7 +63,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   protected cancel() {
-    this.populateForm();
+//    this.populateForm();
     this.cancelVisible = false;
     this.saveVisible = false;
   }

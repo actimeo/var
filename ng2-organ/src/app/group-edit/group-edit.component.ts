@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Button, Calendar, InputTextarea } from 'primeng/primeng';
 import { PgService } from 'ng2-postgresql-procedures/ng2-postgresql-procedures';
 import { I18nService, I18nDirective } from 'ng2-i18next/ng2-i18next';
@@ -20,7 +21,7 @@ export class GroupEditComponent implements OnInit {
   private name: string;
   private topics: number[];
   private notes: string;
-  private participants: DbParticipant[];
+  private participants: Observable<DbParticipant[]>;
 
   private cancelVisible: boolean = false;
   private saveVisible: boolean = false;
@@ -29,14 +30,12 @@ export class GroupEditComponent implements OnInit {
 
   ngOnInit() {
     this.populateForm();
-    this.loadParticipants();
+    this.participants = this.loadParticipants();
   }
 
   private loadParticipants() {
-    this.pgService.pgcall('organ', 'participant_assignment_list_participants', {
+    return this.pgService.pgcall('organ', 'participant_assignment_list_participants', {
       prm_grp_id: this.group.grp_id
-    }).then((data: DbParticipant[]) => {
-      this.participants = data;
     });
   }
 
