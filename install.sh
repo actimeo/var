@@ -1,5 +1,5 @@
 #! /bin/bash
-. config.sh
+[ -e config.sh ] && . config.sh
 if [ "$DBNAME" = "" ]; then
     echo "ERR: DBNAME non défini dans inc/config.sh";
     exit;
