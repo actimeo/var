@@ -33,7 +33,7 @@ class usergroupTest extends PHPUnit_Framework_TestCase {
     self::$base->startTransaction();
     $login = 'testdejfhcqcsdfkhn';
     $pwd = 'ksfdjgsfdyubg';    
-    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), '{structure,users}');");
+    self::$base->execute_sql("insert into login.user (usr_login, usr_salt, usr_rights) values ('".$login."', pgcrypto.crypt('".$pwd."', pgcrypto.gen_salt('bf', 8)), '{organization,structure,users}');");
     $res = self::$base->login->user_login($login, $pwd, null);
     $this->token = $res['usr_token'];
   }
@@ -89,5 +89,53 @@ class usergroupTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(null, $porIds);
 
   }
+
+  public function testUsergroupGroupSet() {
+    $orgNameA = 'Organization A';
+    $orgNameB = 'Organization B';
+    $orgIdA = self::$base->organ->organization_add($this->token, $orgNameA, 'desc A', true);
+    $orgIdB = self::$base->organ->organization_add($this->token, $orgNameB, 'desc B', false);
+    $grpNameA1 = 'Group A1';
+    $grpNameA2 = 'Group A2';
+    $grpNameB1 = 'Group B1';
+    $grpDescA1 = 'desc A1';
+    $grpDescA2 = 'desc A2';
+    $grpDescB1 = 'desc B1';
+    $grpIdA1 = self::$base->organ->group_add($this->token, $orgIdA, $grpNameA1, $grpDescA1);
+    $grpIdA2 = self::$base->organ->group_add($this->token, $orgIdA, $grpNameA2, $grpDescA2);
+    $grpIdB1 = self::$base->organ->group_add($this->token, $orgIdB, $grpNameB1, $grpDescB1);
+    $this->assertGreaterThan($grpIdA1, $grpIdA2);
+    $this->assertGreaterThan($grpIdA2, $grpIdB1);
+    
+    $usergroupName = 'A user group';
+    $ugr = self::$base->login->usergroup_add($this->token, $usergroupName);
+    
+    self::$base->login->usergroup_set_groups($this->token, $ugr, array($grpIdA2, $grpIdA1));
+    $grpIds = self::$base->login->usergroup_group_list($this->token, $ugr);
+    $this->assertEquals(array (array('grp_id'=>$grpIdA1, 'org_id' => $orgIdA, 'grp_name'=>$grpNameA1, 'grp_description' => $grpDescA1), 
+			       array('grp_id'=>$grpIdA2, 'org_id' => $orgIdA, 'grp_name'=>$grpNameA2, 'grp_description' => $grpDescA2)), 
+			$grpIds);
+    
+    self::$base->login->usergroup_set_groups($this->token, $ugr, array($grpIdB1, $grpIdA1, $grpIdA2));
+    $grpIds = self::$base->login->usergroup_group_list($this->token, $ugr);
+    $this->assertEquals(array (array('grp_id'=>$grpIdA1, 'org_id' => $orgIdA, 'grp_name'=>$grpNameA1, 'grp_description' => $grpDescA1), 
+			       array('grp_id'=>$grpIdA2, 'org_id' => $orgIdA, 'grp_name'=>$grpNameA2, 'grp_description' => $grpDescA2),
+			       array('grp_id'=>$grpIdB1, 'org_id' => $orgIdB, 'grp_name'=>$grpNameB1, 'grp_description' => $grpDescB1)),
+			$grpIds);
+    
+    self::$base->login->usergroup_set_groups($this->token, $ugr, array($grpIdA1));
+    $grpIds = self::$base->login->usergroup_group_list($this->token, $ugr);
+    $this->assertEquals(array (array('grp_id'=>$grpIdA1, 'org_id' => $orgIdA, 'grp_name'=>$grpNameA1, 'grp_description' => $grpDescA1)),
+			$grpIds);
+    
+    self::$base->login->usergroup_set_groups($this->token, $ugr, array());
+    $grpIds = self::$base->login->usergroup_group_list($this->token, $ugr);
+    $this->assertEquals(null, $grpIds);
+
+    self::$base->login->usergroup_set_groups($this->token, $ugr, null);
+    $porIds = self::$base->login->usergroup_group_list($this->token, $ugr);
+    $this->assertEquals(null, $grpIds);
+  }
+
 }
 ?>

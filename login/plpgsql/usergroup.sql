@@ -104,3 +104,18 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION login.usergroup_portal_list(prm_token integer, prm_ugr_id integer) IS 'Returns the portals authorized for a user group';
+
+CREATE OR REPLACE FUNCTION login.usergroup_group_list(prm_token integer, prm_ugr_id integer)
+RETURNS SETOF organ.group
+LANGUAGE plpgsql
+STABLE
+AS $$
+BEGIN
+  PERFORM login._token_assert(prm_token, NULL);
+  RETURN QUERY SELECT "group".* FROM organ.group
+    INNER JOIN login.usergroup_group USING(grp_id)
+    WHERE ugr_id = prm_ugr_id
+    ORDER BY grp_name;
+END;
+$$;
+COMMENT ON FUNCTION login.usergroup_group_list(prm_token integer, prm_ugr_id integer) IS 'Returns the groups authorized for a user group';
