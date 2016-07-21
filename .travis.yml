@@ -1,7 +1,5 @@
 env:
-  - DBNAME='travis_ci_test'
-  - DBUSER='postgres'
-  - DBPASS=''
+  - DBNAME='travis_ci_test' DBUSER='postgres' DBPASS=''
 
 services:
   - postgresql
