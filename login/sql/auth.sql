@@ -3,7 +3,7 @@ SET search_path = login;
 
 -- User groups
 CREATE TABLE login.usergroup (
-  ugr_id serial PRIMARY KEY,
+  ugr_id serial PRIMARY KEY
   ugr_name text NOT NULL UNIQUE
 );
 
