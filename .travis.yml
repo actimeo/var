@@ -5,7 +5,6 @@ services:
 before_script:
   - psql -c "create user tester password 'tester'" -U postgres
   - psql -c "CREATE DATABASE travis_ci_test WITH ENCODING='UTF8' owner=tester" -U postgres
-  - PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER; CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U $DBUSER;
+  - PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER;"
+  - psql -c "CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U postgres
   - bash ./install.sh
-  - pwd
-  - ls -a
