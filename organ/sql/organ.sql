@@ -50,6 +50,7 @@ CREATE TABLE organ.participant (
   par_id serial PRIMARY KEY,
   par_firstname text NOT NULL,
   par_lastname text NOT NULL,
+  par_email text,
   UNIQUE(par_firstname, par_lastname)
 );
 
