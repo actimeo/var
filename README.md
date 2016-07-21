@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/actimeo/var.svg?branch=master)](https://travis-ci.org/actimeo/var)
+
 Variation v2
 ============
 
