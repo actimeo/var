@@ -15,6 +15,7 @@ fi
 
 FILES=
 FILES="$FILES ./login/plpgsql/user.sql"
+FILES="$FILES ./login/plpgsql/usergroup.sql"
 FILES="$FILES ./organ/plpgsql/organization.sql"
 FILES="$FILES ./organ/plpgsql/group.sql"
 FILES="$FILES ./organ/plpgsql/participant_assignment.sql"
