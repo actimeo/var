@@ -215,3 +215,18 @@ BEGIN
 END;
 $$;
 COMMENT ON FUNCTION login.user_participant_set(prm_token integer, prm_login text, prm_par_id integer) IS 'Link a participant to a user';
+
+CREATE OR REPLACE FUNCTION login.user_usergroup_set(prm_token integer, prm_login text, prm_ugr_id integer)
+RETURNS void
+LANGUAGE plpgsql
+VOLATILE
+AS $$
+BEGIN
+  PERFORM login._token_assert (prm_token, '{users}');
+  UPDATE login.user SET ugr_id = prm_ugr_id WHERE usr_login = prm_login;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'no_data_found';
+  END IF;
+END;
+$$;
+COMMENT ON FUNCTION login.user_usergroup_set(prm_token integer, prm_login text, prm_ugr_id integer) IS 'Place a user in a user group';

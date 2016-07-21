@@ -55,17 +55,20 @@ $pEncadrement = $base->portal->portal_add($token, 'Encadrement');
 $pEducateur = $base->portal->portal_add($token, 'Éducateur');
 
 // Create user groups
-$ugEncadrement = $base->login->usergroup_add('Encadrement');
-$ugEducateur = $base->login->usergroup_add('Éducateur');
+$ugEncadrement = $base->login->usergroup_add($token, 'Encadrement');
+$ugEducateur = $base->login->usergroup_add($token, 'Éducateur');
+
+$base->login->usergroup_set_portals($token, $ugEncadrement, array($pEncadrement));
+$base->login->usergroup_set_portals($token, $ugEducateur, array($pEducateur));
 
 // Place marie and jeanne in the Encadrement user group
 foreach (array($loginMarie, $loginJeanne) as $login) {
-  $base->login->usergroup_portal_set($token, $login, array($pEncadrement));
+  $base->login->user_usergroup_set($token, $login, $ugEncadrement);
 }
 
-// Give paul, jean, pierre and sophie access to portal Éducateur
+// Place paul, jean, pierre and sophie in the Éducateur user group
 foreach (array($loginPaul, $loginJean, $loginPierre, $loginSophie) as $login) {
-  $base->login->user_portal_set($token, $login, array($pEducateur));
+  $base->login->user_usergroup_set($token, $login, $ugEducateur);
 }
 
 // Create MECS Sauvegarde organization with groups
