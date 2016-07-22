@@ -178,7 +178,8 @@ CREATE TYPE login.user_info AS (
   usr_login text,
   usr_temp_pwd text,
   usr_rights login.user_right[],
-  par_id integer
+  par_id integer,
+  ugr_id integer
 );
 
 CREATE FUNCTION login.user_info(prm_token integer, prm_login text)
@@ -190,7 +191,7 @@ DECLARE
   ret login.user_info;
 BEGIN
   PERFORM login._token_assert (prm_token, '{users}');
-  SELECT usr_login, usr_pwd, usr_rights, par_id INTO ret 
+  SELECT usr_login, usr_pwd, usr_rights, par_id, ugr_id INTO ret 
     FROM login."user" 
     WHERE usr_login = prm_login;
   IF NOT FOUND THEN

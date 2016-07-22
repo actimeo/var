@@ -54,6 +54,42 @@ class usergroupTest extends PHPUnit_Framework_TestCase {
     $this->assertGreaterThan($ugr1, $ugr2);    
   }
 
+  public function testUsergroupList() {
+    $name1 = 'Usergroup 1';
+    $name2 = 'Usergroup 2';
+    $ugr1 = self::$base->login->usergroup_add($this->token, $name1);
+    $ugr2 = self::$base->login->usergroup_add($this->token, $name2);
+    $ugrs = self::$base->login->usergroup_list($this->token);
+    $found = 0;
+    foreach ($ugrs as $ugr) {
+      if ($ugr['ugr_id'] == $ugr1) {
+	$this->assertEquals($name1, $ugr['ugr_name']);
+	$found++;
+      } else if ($ugr['ugr_id'] == $ugr2) {
+	$this->assertEquals($name2, $ugr['ugr_name']);
+	$found++;
+      }
+    }
+    $this->assertEquals(2, $found);
+  }
+  
+  public function testUserUsergroupSet() {
+    $ugrName = 'Usergroup name';
+    $ugr = self::$base->login->usergroup_add($this->token, $ugrName);
+
+    $loginUser = 'user';
+    $parFirstname = 'Paul';
+    $parLastname = 'Napoléon';
+    self::$base->login->user_add($this->token, $loginUser, null, null);
+    $parId = self::$base->organ->participant_add($this->token, $parFirstname, $parLastname);
+    self::$base->login->user_participant_set($this->token, $loginUser, $parId);
+
+    self::$base->login->user_usergroup_set($this->token, $loginUser, $ugr);
+    
+    $user = self::$base->login->user_info($this->token, $loginUser);
+    $this->assertEquals($ugr, $user['ugr_id']);
+  }
+  
   public function testUsergroupPortalSet() {
 
     $porName1 = 'portal 1';

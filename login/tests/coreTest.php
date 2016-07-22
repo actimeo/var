@@ -195,7 +195,7 @@ class coreTest extends PHPUnit_Framework_TestCase {
     $this->assertGreaterThan(0, $res['usr_token']);
   }
 
-  public function testUserSParticipantSet() {
+  public function testUserParticipantSet() {
     $loginAdmin = 'admin';
     $pwdAdmin = 'ksfdjgsfdyubg';    
     
