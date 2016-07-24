@@ -23,7 +23,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: scp dump.db.gz "deploy@maya.elol.fr:" ;
+  script: scp --quiet dump.db.gz "deploy@maya.elol.fr:" ;
   on:
     branch: master
 before_install:
