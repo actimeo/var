@@ -5,3 +5,4 @@ node_modules/
 built/
 doc/*.dia
 doc/*.pdf
+dump.db
