@@ -18,7 +18,7 @@ script:
   - bash ./run-tests.sh
 
 before_deploy:
-  - (cd data && php mecs.php) && pg_dump -U postgres -w $DBNAME > dump.db && cat dump.db
+  - (cd data && php mecs.php) && pg_dump -U postgres -w $DBNAME | gzip > dump.db.gz && ls -l dump.db.gz
 
 deploy:
   provider: script
