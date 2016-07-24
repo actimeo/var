@@ -23,9 +23,11 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: scp --quiet dump.db.gz "deploy@maya.elol.fr:" ;
+  script: scp dump.db.gz "deploy@maya.elol.fr:" ;
   on:
     branch: master
+addons:
+  ssh_known_hosts: maya.elol.fr
 before_install:
 - openssl aes-256-cbc -K $encrypted_ba31cb1a56b5_key -iv $encrypted_ba31cb1a56b5_iv
   -in deploy_rsa.enc -out deploy_rsa -d
