@@ -1,10 +1,10 @@
 env:
-  - DBNAME='travis_ci_test' DBUSER='tester' DBPASS='tester'
+  - DBNAME='variation' DBUSER='variation' DBPASS='variation'
 services:
   - postgresql
 before_script:
-  - psql -c "create user tester password 'tester'" -U postgres
-  - psql -c "CREATE DATABASE travis_ci_test WITH ENCODING='UTF8' owner=tester" -U postgres
+  - psql -c "create user $DBUSER password '$DBPASS'" -U postgres
+  - psql -c "CREATE DATABASE $DBNAME WITH ENCODING='UTF8' owner=$DBUSER" -U postgres
   - PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER;"
   - psql $DBNAME -c "CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U postgres
   - bash ./install.sh
@@ -18,7 +18,7 @@ script:
   - bash ./run-tests.sh
 
 before_deploy:
-  - (cd data && php mecs.php) && pg_dump -U postgres -w $DBNAME > dump.db && ls -l dump.db
+  - (cd data && php mecs.php) && pg_dump -U postgres -w $DBNAME > dump.db && cat dump.db
 
 deploy:
   provider: script
