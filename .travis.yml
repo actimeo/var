@@ -16,3 +16,6 @@ php:
   - '5.5'
 script:
   - bash ./run-tests.sh
+
+before_deploy:
+  - pg_dump -U postgres -w $DBNAME > dump.db && ls -l dump.db
