@@ -19,3 +19,9 @@ script:
 
 before_deploy:
   - pg_dump -U postgres -w $DBNAME > dump.db && ls -l dump.db
+
+deploy:
+  provider: script
+  script: ls
+  on:
+    branch: master
