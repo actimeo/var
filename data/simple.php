@@ -12,12 +12,12 @@ $variationUser = $base->login->user_login('variation', 'variation', '{users,orga
 $token = $variationUser['usr_token'];
 
 // Create topics
-$tSocial = $base->organ->topic_add($token, 'Social');
-$tJustice = $base->organ->topic_add($token, 'Justice');
-$tSport = $base->organ->topic_add($token, 'Sport');
-$tCulture = $base->organ->topic_add($token, 'Culture');
-$tFinancer = $base->organ->topic_add($token, 'Financer');
-$tSupport = $base->organ->topic_add($token, 'Support');
+$tSocial = $base->organ->topic_add($token, 'Social', 'Social');
+$tJustice = $base->organ->topic_add($token, 'Justice', 'Justice');
+$tSport = $base->organ->topic_add($token, 'Sport', 'Sport');
+$tCulture = $base->organ->topic_add($token, 'Culture', 'Culture');
+$tFinancer = $base->organ->topic_add($token, 'Financer', 'Financer');
+$tSupport = $base->organ->topic_add($token, 'Support', 'Support');
 
 
 // Create user foo1
@@ -43,27 +43,31 @@ $porId1 = $base->portal->portal_add($token, 'portal 1');
 $porId2 = $base->portal->portal_add($token, 'portal 2');
 $porId3 = $base->portal->portal_add($token, 'portal 3');
 
+$ug1 = $base->login->usergroup_add($token, 'Usergroup 1');
+$ug2 = $base->login->usergroup_add($token, 'Usergroup 2');
+
 // Give user1 access to 1 portal
-$base->login->user_portal_set($token, $userLogin1, array($porId3));
+$base->login->usergroup_set_portals($token, $ug1, array($porId3));
+$base->login->user_usergroup_set($token, $userLogin1, $ug1);
 
 // Give user2 access to 2 portals
-$base->login->user_portal_set($token, $userLogin2, array($porId3, $porId1));
+$base->login->usergroup_set_portals($token, $ug2, array($porId3, $porId1));
+$base->login->user_usergroup_set($token, $userLogin2, $ug2);
 
 // Create organizations with groups
-$orgI = $base->organ->organization_add($token, "Organization I", true);
-$orgII = $base->organ->organization_add($token, "Organization II", true);
+$orgI = $base->organ->organization_add($token, "Organization I", "First organization", true);
+$orgII = $base->organ->organization_add($token, "Organization II", "Second organization", true);
 
-$grpI1 = $base->organ->group_add($token, $orgI, 'Group 1 institution I');
-$base->organ->group_set($token, $grpI1, 'a note');
+$grpI1 = $base->organ->group_add($token, $orgI, 'Group 1 institution I', 'Group I 1');
 $base->organ->group_set_topics($token, $grpI1, array($tSocial, $tJustice));
 
-$grpI2 = $base->organ->group_add($token, $orgI, 'Group 2 institution I');
+$grpI2 = $base->organ->group_add($token, $orgI, 'Group 2 institution I', 'Group I 2');
 $base->organ->group_set_topics($token, $grpI2, array($tSocial, $tSport, $tCulture));
 
-$grpII1 = $base->organ->group_add($token, $orgII, 'Group 1 institution II');
+$grpII1 = $base->organ->group_add($token, $orgII, 'Group 1 institution II', 'Group II 1');
 $base->organ->group_set_topics($token, $grpII1, array($tSport));
 
-$grpII2 = $base->organ->group_add($token, $orgII, 'Group 2 institution II');
+$grpII2 = $base->organ->group_add($token, $orgII, 'Group 2 institution II', 'Group II 2');
 $base->organ->group_set_topics($token, $grpII2, array($tFinancer, $tSupport));
 
 // Assign user1 to 1 group
