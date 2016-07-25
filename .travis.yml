@@ -1,33 +1,39 @@
 env:
-- DBNAME='variation' DBUSER='variation' DBPASS='variation'
+  global:
+    - DBNAME='variation' 
+    - DBUSER='variation' 
+    - DBPASS='variation'
+  matrix:
+    - SAMPLE=mecs
+    - SAMPLE=simple
 services:
-- postgresql
+  - postgresql
 before_script:
-- psql -c "create user $DBUSER password '$DBPASS'" -U postgres
-- psql -c "CREATE DATABASE $DBNAME WITH ENCODING='UTF8' owner=$DBUSER" -U postgres
-- PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER;"
-- psql $DBNAME -c "CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U postgres
-- bash ./install.sh
-- bash ./update.sh
-- echo "<?php \$pg_host = 'localhost'; \$pg_user = '$DBUSER'; \$pg_pass = '$DBPASS'; \$pg_database = '$DBNAME';" > config.inc.php
+  - psql -c "create user $DBUSER password '$DBPASS'" -U postgres
+  - psql -c "CREATE DATABASE $DBNAME WITH ENCODING='UTF8' owner=$DBUSER" -U postgres
+  - PGPASSWORD=$DBPASS psql $DBNAME -c "CREATE SCHEMA pgcrypto AUTHORIZATION $DBUSER;"
+  - psql $DBNAME -c "CREATE EXTENSION pgcrypto WITH SCHEMA pgcrypto;" -U postgres
+  - bash ./install.sh
+  - bash ./update.sh
+  - echo "<?php \$pg_host = 'localhost'; \$pg_user = '$DBUSER'; \$pg_pass = '$DBPASS'; \$pg_database = '$DBNAME';" > config.inc.php
 language: php
 php:
-- '5.5'
+  - '5.5'
 script:
-- bash ./run-tests.sh
+  - bash ./run-tests.sh
 before_deploy:
-- (cd data && php mecs.php) && pg_dump -U postgres -w $DBNAME | gzip > dump.db.gz && ls -l dump.db.gz
-- eval "$(ssh-agent -s)"
-- chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
-- ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
+  - (cd data && php $SAMPLE.php) && pg_dump -U postgres -w $DBNAME | gzip > $SAMPLE.sql.gz && ls -l $SAMPLE.sql.gz
+  - eval "$(ssh-agent -s)"
+  - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
+  - ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
 deploy:
   provider: script
   skip_cleanup: true
-  script: scp dump.db.gz "deploy@maya.elol.fr:" && ssh deploy@maya.elol.fr ./deploy-db.sh
+  script: scp $SAMPLE.sql.gz "deploy@maya.elol.fr:" && ssh deploy@maya.elol.fr ./deploy-db.sh
   on:
     branch: master
 addons:
   ssh_known_hosts: maya.elol.fr
 before_install:
-- openssl aes-256-cbc -K $encrypted_ba31cb1a56b5_key -iv $encrypted_ba31cb1a56b5_iv
-  -in deploy_rsa.enc -out deploy_rsa -d
+  - openssl aes-256-cbc -K $encrypted_ba31cb1a56b5_key -iv $encrypted_ba31cb1a56b5_iv
+    -in deploy_rsa.enc -out deploy_rsa -d
