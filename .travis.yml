@@ -4,7 +4,7 @@ php:
 env:
   global:
     - DBNAME='variation' 
-    - DBUSER='variation' 
+    - DBUSER='deploy' 
     - DBPASS='variation'
   matrix:
     - SAMPLE=mecs
