@@ -11,7 +11,6 @@ env:
     - SAMPLE=simple
 services:
   - postgresql
-
 addons:
   ssh_known_hosts: maya.elol.fr
   postgresql: "9.1"
